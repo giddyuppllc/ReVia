@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  products    Product[]
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  name        String
+  slug        String           @unique
+  description String?
+  categoryId  String
+  category    Category         @relation(fields: [categoryId], references: [id])
+  variants    ProductVariant[]
+  image       String?
+  featured    Boolean          @default(false)
+  tags        String           @default("[]")
+
+  @@index([categoryId])
+}
+
+model ProductVariant {
+  id             String  @id @default(cuid())
+  productId      String
+  product        Product @relation(fields: [productId], references: [id])
+  label          String
+  price          Float
+  compareAtPrice Float?
+  sku            String  @unique
+  inStock        Boolean @default(true)
+
+  @@index([productId])
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  sessionId String
+  variantId String
+  quantity  Int    @default(1)
+
+  @@index([sessionId])
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  email     String
+  name      String
+  address   String
+  city      String
+  state     String
+  zip       String
+  country   String      @default("US")
+  status    String      @default("pending")
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+}
+
+model OrderItem {
+  id           String @id @default(cuid())
+  orderId      String
+  order        Order  @relation(fields: [orderId], references: [id])
+  productName  String
+  variantLabel String
+  price        Float
+  quantity     Int
+
+  @@index([orderId])
+}
