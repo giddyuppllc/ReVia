@@ -2,140 +2,123 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FlaskConical, Truck, Package, MapPin } from "lucide-react";
+import { FlaskConical, Truck, Package, MapPin, ArrowRight } from "lucide-react";
 
 export default function HeroBanner() {
   return (
-    <section className="relative overflow-hidden bg-[#0a0a0a]">
-      {/* Warm animated gradient orbs */}
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Full background image with overlay */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&h=1080&fit=crop&q=80"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-[#0a0a0a]/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
+      </div>
+
+      {/* Animated accent glows */}
       <motion.div
-        className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-emerald-600/10 blur-[120px]"
-        animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
+        className="absolute left-0 top-1/4 h-[400px] w-[400px] rounded-full bg-emerald-500/15 blur-[120px]"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute -bottom-40 -right-40 h-[400px] w-[400px] rounded-full bg-amber-500/8 blur-[100px]"
-        animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-rose-500/5 blur-[80px]"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+        className="absolute right-1/4 bottom-1/4 h-[300px] w-[300px] rounded-full bg-teal-400/10 blur-[100px]"
+        animate={{ scale: [1, 1.2, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="absolute right-1/4 top-1/4 h-[250px] w-[250px] rounded-full bg-teal-400/6 blur-[90px]"
-        animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8 lg:py-40">
-        {/* Floating stock images */}
-        <motion.div
-          className="absolute left-4 top-16 hidden lg:block"
-          animate={{ y: [0, -12, 0], rotate: [-3, -1, -3] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <div className="overflow-hidden rounded-2xl shadow-2xl shadow-emerald-900/30 border border-white/10" style={{ transform: "rotate(-6deg)" }}>
-            <img
-              src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=300&fit=crop"
-              alt="Laboratory research"
-              className="h-36 w-48 object-cover"
-            />
-          </div>
-        </motion.div>
-        <motion.div
-          className="absolute right-4 bottom-24 hidden lg:block"
-          animate={{ y: [0, 10, 0], rotate: [3, 5, 3] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <div className="overflow-hidden rounded-2xl shadow-2xl shadow-cyan-900/30 border border-white/10" style={{ transform: "rotate(4deg)" }}>
-            <img
-              src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=300&fit=crop"
-              alt="Microscope research"
-              className="h-36 w-48 object-cover"
-            />
-          </div>
-        </motion.div>
-
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-block rounded-full border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-amber-500/10 px-4 py-1.5 text-xs font-medium tracking-wider text-emerald-400 uppercase">
-            Trusted by Researchers Worldwide
-          </span>
-        </motion.div>
-
-        {/* Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-8 max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-        >
-          Fuel Your Research.{" "}
-          <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-amber-400 bg-clip-text text-transparent">
-            Unlock Potential.
-          </span>
-        </motion.h1>
-
-        {/* Subheading */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-6 max-w-2xl text-lg text-gray-300 leading-relaxed"
-        >
-          Trusted by researchers worldwide. Premium peptides, fast shipping, and
-          a community that believes in the science of tomorrow.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
-        >
-          <Link
-            href="/shop"
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all hover:from-emerald-500 hover:to-teal-500 hover:shadow-emerald-500/30"
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12">
+        <div className="max-w-2xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            Shop Now
-          </Link>
-          <Link
-            href="/shop?category=stacks"
-            className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-gray-300 transition-all hover:bg-white/10 hover:text-white"
-          >
-            View Stacks
-          </Link>
-        </motion.div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold tracking-widest text-emerald-300 uppercase backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Now Serving 74+ Compounds
+            </span>
+          </motion.div>
 
-        {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
-        >
-          {[
-            { icon: FlaskConical, label: "Lab Tested" },
-            { icon: Truck, label: "Fast Shipping" },
-            { icon: Package, label: "74+ Products" },
-            { icon: MapPin, label: "US-Based" },
-          ].map((badge) => (
-            <div
-              key={badge.label}
-              className="flex items-center gap-2 text-sm text-gray-400"
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-8 text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl leading-[1.1]"
+          >
+            Peptides that power{" "}
+            <span className="relative">
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+                discovery
+              </span>
+              <motion.span
+                className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              />
+            </span>
+          </motion.h1>
+
+          {/* Subheading */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-6 text-lg text-gray-300/90 leading-relaxed sm:text-xl"
+          >
+            Research-grade compounds trusted by labs worldwide.
+            98%+ purity, same-day shipping, and a catalog built for
+            the science of tomorrow.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-10 flex flex-col gap-4 sm:flex-row"
+          >
+            <Link
+              href="/shop"
+              className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-8 py-4 text-base font-bold text-white shadow-xl shadow-emerald-500/25 transition-all hover:bg-emerald-400 hover:shadow-emerald-400/30 hover:-translate-y-0.5"
             >
-              <badge.icon className="h-4 w-4 text-emerald-400/70" />
-              <span>{badge.label}</span>
-            </div>
-          ))}
-        </motion.div>
+              Explore the Catalog
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href="/shop?category=stacks"
+              className="inline-flex items-center justify-center rounded-2xl border-2 border-white/15 bg-white/5 px-8 py-4 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/25"
+            >
+              View Stacks
+            </Link>
+          </motion.div>
+
+          {/* Trust badges */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-14 flex flex-wrap gap-x-8 gap-y-3"
+          >
+            {[
+              { icon: FlaskConical, text: "98%+ Purity" },
+              { icon: Truck, text: "Same-Day Shipping" },
+              { icon: Package, text: "74+ Compounds" },
+              { icon: MapPin, text: "US-Based" },
+            ].map((b) => (
+              <div key={b.text} className="flex items-center gap-2.5 text-sm text-gray-400">
+                <b.icon className="h-4 w-4 text-emerald-400/80" />
+                {b.text}
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

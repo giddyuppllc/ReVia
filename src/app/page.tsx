@@ -2,40 +2,9 @@ import { prisma } from "@/lib/prisma";
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
-import Link from "next/link";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import Link from "next/link";
 import { FlaskConical, Truck, HeadphonesIcon, Atom } from "lucide-react";
-
-const whyRevia = [
-  {
-    icon: FlaskConical,
-    title: "Lab-Verified Purity",
-    description:
-      "Every batch is independently tested with HPLC and mass spectrometry. We publish full certificates of analysis so you never have to guess.",
-    image: "https://images.unsplash.com/photo-1582719471384-894fbb16f461?w=400&h=250&fit=crop",
-  },
-  {
-    icon: Truck,
-    title: "Lightning-Fast Shipping",
-    description:
-      "Orders placed before 2 PM ship same day. Track your package in real time and get it at your bench when you need it.",
-    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=250&fit=crop",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Expert Research Support",
-    description:
-      "Our team of scientists and peptide specialists is here to help with technical questions, dosing guidance, and protocol support.",
-    image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=250&fit=crop",
-  },
-  {
-    icon: Atom,
-    title: "74+ Premium Compounds",
-    description:
-      "From classic peptides to cutting-edge research compounds, our ever-growing catalog has what your lab needs to push boundaries.",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=250&fit=crop",
-  },
-];
 
 export default async function HomePage() {
   const featuredProducts = await prisma.product.findMany({
@@ -53,44 +22,22 @@ export default async function HomePage() {
     <>
       <HeroBanner />
 
-      {/* Why ReVia */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white">
-            Why Researchers Choose{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-              ReVia
-            </span>
-          </h2>
-          <p className="mt-3 text-gray-400 max-w-xl mx-auto">
-            We are not just another supplier. We are your research partner,
-            obsessed with quality, speed, and your success.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {whyRevia.map((item) => (
-            <div
-              key={item.title}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all hover:border-emerald-500/30 hover:bg-white/[0.06]"
-            >
-              <div className="h-36 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70"
-                />
-                <div className="absolute inset-0 h-36 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
+      {/* Stats bar */}
+      <section className="border-y border-white/5 bg-white/[0.02]">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
+          {[
+            { icon: FlaskConical, label: "Lab-Verified", sub: "98%+ Purity" },
+            { icon: Truck, label: "Fast Shipping", sub: "Same-Day Processing" },
+            { icon: HeadphonesIcon, label: "Expert Support", sub: "24hr Response" },
+            { icon: Atom, label: "74+ Compounds", sub: "Growing Catalog" },
+          ].map((s) => (
+            <div key={s.label} className="flex items-center gap-4 px-6 py-6 sm:py-8">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <s.icon className="h-5 w-5 text-emerald-400" />
               </div>
-              <div className="relative p-5 pt-2">
-                <div className="mb-3 inline-flex rounded-xl bg-emerald-500/10 p-2.5 border border-emerald-500/20">
-                  <item.icon className="h-5 w-5 text-emerald-400" />
-                </div>
-                <h3 className="text-base font-semibold text-white mb-1.5">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  {item.description}
-                </p>
+              <div>
+                <p className="text-sm font-semibold text-white">{s.label}</p>
+                <p className="text-xs text-gray-500">{s.sub}</p>
               </div>
             </div>
           ))}
@@ -98,17 +45,20 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-white">Featured Products</h2>
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-2">Curated Selection</p>
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">Featured Products</h2>
+          </div>
           <Link
             href="/shop"
-            className="text-emerald-400 hover:text-emerald-300 font-medium"
+            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
           >
-            View All →
+            View All
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -127,14 +77,18 @@ export default async function HomePage() {
             />
           ))}
         </div>
+        <div className="mt-8 text-center sm:hidden">
+          <Link href="/shop" className="text-emerald-400 font-medium text-sm">
+            View All Products →
+          </Link>
+        </div>
       </section>
 
       {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-white mb-8">
-          Shop by Category
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-2">Browse</p>
+        <h2 className="text-3xl font-bold text-white mb-8 sm:text-4xl">Shop by Category</h2>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories.map((cat) => (
             <CategoryCard
               key={cat.id}
@@ -146,29 +100,31 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-emerald-900/10 backdrop-blur p-8 md:p-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            Stay Updated
-          </h2>
-          <p className="text-gray-400 mb-6 max-w-xl mx-auto">
-            Get the latest research peptide news, new product alerts, and
-            exclusive offers.
-          </p>
-          <div className="max-w-md mx-auto">
-            <NewsletterSignup />
+      {/* Newsletter */}
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-emerald-900/30 via-[#111] to-teal-900/20 p-10 md:p-16">
+          <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-emerald-500/10 blur-[80px]" />
+          <div className="relative text-center">
+            <h2 className="text-2xl font-bold text-white md:text-3xl">
+              Stay in the Loop
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-gray-400">
+              New compounds, research news, and exclusive offers — straight to your inbox.
+            </p>
+            <div className="mx-auto mt-8 max-w-md">
+              <NewsletterSignup />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* RUO Banner */}
-      <section className="bg-emerald-900/20 border-y border-emerald-900/30 py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold text-emerald-400 mb-3">
-            For Research Use Only
-          </h3>
-          <p className="text-zinc-400 leading-relaxed">
+      {/* RUO */}
+      <section className="border-t border-white/5 bg-white/[0.015] py-10">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500/70 mb-2">
+            Important Notice
+          </p>
+          <p className="text-sm text-gray-500 leading-relaxed">
             All products sold by ReVia are intended for laboratory research use
             only. They are not intended for human or animal consumption, or for
             use in the diagnosis, treatment, cure, or prevention of any disease.
