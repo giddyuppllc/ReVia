@@ -15,6 +15,7 @@ interface AuthUser {
 const navLinks = [
   { href: "/shop", label: "Shop" },
   { href: "/shop?category=stacks", label: "Stacks" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

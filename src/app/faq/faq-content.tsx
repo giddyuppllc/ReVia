@@ -1,192 +1,147 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Search, HelpCircle, Package, CreditCard, Truck, RotateCcw, FlaskConical, Layers } from "lucide-react";
 
-interface FAQItem {
-  question: string;
-  answer: React.ReactNode;
-}
+interface FAQ { q: string; a: string }
+interface Section { title: string; icon: React.ReactNode; items: FAQ[] }
 
-const faqs: FAQItem[] = [
+const sections: Section[] = [
   {
-    question: "What are research peptides?",
-    answer:
-      "Research peptides are short chains of amino acids synthesized for laboratory and scientific research purposes. All of our products are designated as Research Use Only (RUO) compounds and are not intended for human or animal consumption.",
+    title: "Getting Started",
+    icon: <HelpCircle className="h-5 w-5" />,
+    items: [
+      { q: "What are research peptides?", a: "Research peptides are synthetic amino acid chains used in laboratory research to study biological processes. All ReVia products are labeled 'For Research Use Only' (RUO) and are not intended for human or animal consumption, diagnosis, treatment, or prevention of any disease." },
+      { q: "Who can purchase from ReVia?", a: "ReVia sells to qualified researchers, academic institutions, independent labs, and individuals aged 18+ who agree to use products solely for legitimate research purposes." },
+      { q: "How do I create an account?", a: "Click 'Register' in the top navigation, enter your name, email, and a secure password (8+ characters). Your account gives you access to order tracking, wishlists, reviews, and faster checkout." },
+      { q: "How do I place my first order?", a: "Browse our shop by category or search for specific peptides. Add items to your cart, proceed to checkout, enter shipping info, apply any discount codes, and submit. You'll receive an email confirmation." },
+    ],
   },
   {
-    question: "How do I place an order?",
-    answer:
-      "Simply browse our catalog, select the products and variants you need, add them to your cart, and proceed to checkout. You can review your order before submitting payment.",
+    title: "Products & Quality",
+    icon: <FlaskConical className="h-5 w-5" />,
+    items: [
+      { q: "Are your peptides third-party tested?", a: "Yes. Every batch undergoes independent HPLC purity analysis and mass spectrometry identity confirmation. This dual-testing ensures both purity and correct composition." },
+      { q: "What purity level are your peptides?", a: "We maintain a 98%+ purity standard across our catalog, verified by HPLC. Many products exceed 99%. This quality level is essential for reproducible research." },
+      { q: "How should I store my peptides?", a: "Store lyophilized peptides at 2-8°C, protected from light and moisture. Once reconstituted, use within 30 days and keep refrigerated. For long-term storage, -20°C is recommended." },
+      { q: "What is the shelf life?", a: "Lyophilized peptides remain stable 18-24 months when stored properly. Reconstituted peptides should be used within 30 days." },
+      { q: "Do you offer Certificates of Analysis?", a: "Yes. Batch-specific COAs are available for every product. Email support@revia.bio with your order number and we'll provide documentation within 24 hours." },
+      { q: "What's the difference between lyophilized and reconstituted?", a: "Lyophilized = freeze-dried powder (stable, ship and store this way). Reconstituted = dissolved in solvent like BAC water (use within 30 days). Reconstitute only when ready to begin research." },
+    ],
   },
   {
-    question: "What payment methods do you accept?",
-    answer: (
-      <>
-        We accept several payment methods. For full details, please see our{" "}
-        <Link href="/policies/payments" className="text-emerald-400 hover:underline">
-          payment policy
-        </Link>
-        .
-      </>
-    ),
+    title: "Stacks & Bundles",
+    icon: <Layers className="h-5 w-5" />,
+    items: [
+      { q: "What are peptide stacks?", a: "Stacks are curated 2-3 peptide combinations bundled at a discount. Each stack — like Phoenix, Titan, or Metamorphosis — is designed around published synergy data for specific research goals." },
+      { q: "Can I build my own stack?", a: "Yes! Add any 3+ products to your cart for an automatic 10% discount. Tailor combinations to your specific research needs." },
+      { q: "What's the most popular stack?", a: "Phoenix (BPC-157 + TB500 + KPV) and Metamorphosis (Retatrutide + NAD+ + GHK-Cu) are our top sellers. Titan (CJC-1295 + Ipamorelin + NAD+) is also very popular." },
+      { q: "Are stacks discounted?", a: "Yes — approximately 10% below combined individual pricing." },
+    ],
   },
   {
-    question: "What is your shipping policy?",
-    answer: (
-      <>
-        We offer fast domestic shipping on all orders. For complete shipping information
-        including timelines and handling, please visit our{" "}
-        <Link href="/policies/shipping" className="text-emerald-400 hover:underline">
-          shipping policy
-        </Link>
-        .
-      </>
-    ),
+    title: "Orders & Payment",
+    icon: <CreditCard className="h-5 w-5" />,
+    items: [
+      { q: "What payment methods do you accept?", a: "Visa, Mastercard, Amex, Discover, and potentially cryptocurrency. All transactions are PCI-DSS compliant." },
+      { q: "Do you offer wholesale pricing?", a: "Yes. Contact support@revia.bio for B2B and wholesale inquiries with your organization details and anticipated volume." },
+      { q: "Is there a minimum order?", a: "No minimum — purchase as little as a single product." },
+      { q: "Can I use a discount code?", a: "Yes! Enter your code in the coupon field at checkout. The discount will appear in your order summary before payment." },
+      { q: "How do I track my order?", a: "You'll receive a tracking email when your order ships. You can also check status in your account dashboard." },
+    ],
   },
   {
-    question: "Do you offer refunds?",
-    answer: (
-      <>
-        All sales are final. Due to the nature of our products, we cannot accept returns or
-        issue refunds. For more details, please review our{" "}
-        <Link href="/policies/refunds" className="text-emerald-400 hover:underline">
-          refund policy
-        </Link>
-        .
-      </>
-    ),
+    title: "Shipping",
+    icon: <Truck className="h-5 w-5" />,
+    items: [
+      { q: "How long does shipping take?", a: "Processing: 1-3 business days. Standard: 5-7 days. Priority: 2-3 days. Overnight available for urgent needs. All orders include tracking." },
+      { q: "Do you ship internationally?", a: "US domestic only currently. Subscribe to our newsletter for updates on international shipping availability." },
+      { q: "Do you offer cold chain shipping?", a: "Yes. Temperature-sensitive compounds ship with insulated packaging and cold packs at no extra charge." },
+      { q: "What if my package arrives damaged?", a: "Contact us within 48 hours at support@revia.bio with photos and your order number. We'll ship a free replacement." },
+    ],
   },
   {
-    question: "Are your products FDA approved?",
-    answer:
-      "No. Our products are not FDA approved and are sold exclusively for research use only (RUO). They are not intended for human or animal consumption, diagnosis, treatment, cure, or prevention of any disease.",
+    title: "Returns & Policies",
+    icon: <RotateCcw className="h-5 w-5" />,
+    items: [
+      { q: "Do you offer refunds?", a: "All sales are final. Exceptions only for: shipping damage (48hr window), wrong items shipped, or quality issues (7-day window). Replacements only, no cash refunds." },
+      { q: "Where can I read your full policies?", a: "Visit our policy pages: Terms of Service, Privacy Policy, Shipping Policy, Refund Policy, Acceptable Use Policy, CCPA Notice, Cookie Policy, and Payment Policy — all linked in the footer." },
+    ],
   },
   {
-    question: "Do you ship internationally?",
-    answer:
-      "We currently only ship within the United States. We do not offer international shipping at this time.",
-  },
-  {
-    question: "How should peptides be stored?",
-    answer:
-      "Peptides should be stored refrigerated (2\u20138\u00b0C) and away from direct light. Once reconstituted, peptides should be used within 30 days for optimal stability. Lyophilized (powder) peptides can be stored for longer periods when kept sealed and refrigerated.",
-  },
-  {
-    question: "What is a peptide stack?",
-    answer:
-      "A peptide stack is a curated bundle of complementary peptides that are commonly used together in research protocols. Stacks offer convenience and often come at a better value than purchasing each peptide individually.",
-  },
-  {
-    question: "How do I contact support?",
-    answer: (
-      <>
-        You can reach our support team at{" "}
-        <a href="mailto:support@revia.bio" className="text-emerald-400 hover:underline">
-          support@revia.bio
-        </a>{" "}
-        or visit our{" "}
-        <Link href="/contact" className="text-emerald-400 hover:underline">
-          contact page
-        </Link>
-        .
-      </>
-    ),
-  },
-  {
-    question: "Do you offer wholesale pricing?",
-    answer: (
-      <>
-        Yes, we offer wholesale pricing for qualifying orders. Please{" "}
-        <Link href="/contact" className="text-emerald-400 hover:underline">
-          contact us
-        </Link>{" "}
-        for wholesale inquiries and volume discounts.
-      </>
-    ),
-  },
-  {
-    question: "Can I use a discount code?",
-    answer:
-      "Yes! If you have a discount code, you can enter it at checkout to apply the discount to your order.",
+    title: "Research & Safety",
+    icon: <Package className="h-5 w-5" />,
+    items: [
+      { q: "Are your products FDA approved?", a: "No. Our products are research chemicals for laboratory use only. Not FDA approved, not for human/animal consumption, not for diagnosis or treatment of any disease." },
+      { q: "Can I get research guidance?", a: "We can answer questions about product composition, storage, and handling. Contact support@revia.bio. We cannot provide research protocols or dosing guidance." },
+      { q: "What reconstitution supplies do you carry?", a: "BAC water (3ml & 10ml), sterile water (3ml & 10ml), and acetic acid (3ml & 10ml) — the most common solvents for peptide reconstitution." },
+    ],
   },
 ];
 
-function FAQAccordionItem({
-  item,
-  isOpen,
-  onToggle,
-}: {
-  item: FAQItem;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur overflow-hidden">
-      <button
-        onClick={onToggle}
-        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-white/5"
-      >
-        <span className="text-sm font-medium text-gray-200 pr-4">{item.question}</span>
-        <motion.span
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="shrink-0"
-        >
-          <ChevronDown className="h-5 w-5 text-gray-500" />
-        </motion.span>
-      </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 pb-5 text-sm text-gray-400 leading-relaxed">
-              {item.answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export default function FAQContent() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+
+  const filtered = sections
+    .map((s) => ({ ...s, items: s.items.filter((i) => !search || i.q.toLowerCase().includes(search.toLowerCase()) || i.a.toLowerCase().includes(search.toLowerCase())) }))
+    .filter((s) => s.items.length > 0);
 
   return (
-    <section className="max-w-3xl mx-auto px-4 py-20">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h1>
-        <p className="text-gray-400">
-          Find answers to common questions about our products, ordering, and policies.
-        </p>
+    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          Frequently Asked{" "}
+          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Questions</span>
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">Everything you need to know about ReVia, our products, and how we support your research.</p>
       </div>
 
-      <div className="space-y-3">
-        {faqs.map((faq, i) => (
-          <FAQAccordionItem
-            key={i}
-            item={faq}
-            isOpen={openIndex === i}
-            onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-          />
+      <div className="relative mx-auto mt-10 max-w-xl">
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+        <input type="text" placeholder="Search questions..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-12 pr-4 text-white placeholder-gray-500 outline-none transition focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30" />
+      </div>
+
+      <div className="mt-12 space-y-10">
+        {filtered.map((section) => (
+          <div key={section.title}>
+            <div className="mb-4 flex items-center gap-3 text-emerald-400">
+              {section.icon}
+              <h2 className="text-xl font-semibold">{section.title}</h2>
+            </div>
+            <div className="space-y-2">
+              {section.items.map((item) => {
+                const key = `${section.title}-${item.q}`;
+                const isOpen = openIndex === key;
+                return (
+                  <div key={key} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                    <button onClick={() => setOpenIndex(isOpen ? null : key)} className="flex w-full items-center justify-between px-5 py-4 text-left text-white transition hover:bg-white/[0.03]">
+                      <span className="pr-4 font-medium">{item.q}</span>
+                      <ChevronDown className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
+                          <p className="border-t border-white/5 px-5 py-4 text-gray-400 leading-relaxed">{item.a}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-gray-500 text-sm">
-          Still have questions?{" "}
-          <Link href="/contact" className="text-emerald-400 hover:underline">
-            Contact our support team
-          </Link>
-        </p>
+      {filtered.length === 0 && <p className="mt-12 text-center text-gray-500">No questions match your search.</p>}
+
+      <div className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
+        <h3 className="text-xl font-semibold text-white">Still have questions?</h3>
+        <p className="mt-2 text-gray-400">Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.</p>
+        <Link href="/contact" className="mt-6 inline-flex items-center justify-center rounded-xl bg-emerald-600 px-8 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500">Contact Support</Link>
       </div>
     </section>
   );

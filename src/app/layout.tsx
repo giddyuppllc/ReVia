@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,6 +55,28 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "https://revia.bio",
+  },
+};
+
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ReVia Research Supply",
+  url: "https://revia.bio",
+  logo: "https://revia.bio/logo.png",
+  description: "Premium research-grade peptides and compounds for scientific research.",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "support@revia.bio",
+    contactType: "customer service",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "FL",
+    addressCountry: "US",
+  },
 };
 
 export default function RootLayout({
@@ -67,6 +90,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white">
+        <JsonLd data={organizationLd} />
         <Navbar />
         <CartDrawer />
         <Toast />

@@ -144,3 +144,17 @@ model Newsletter {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  author      String   @default("ReVia Research Team")
+  category    String   @default("Industry News")
+  image       String?
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+}

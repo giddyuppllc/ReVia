@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import AddToCart from "@/components/AddToCart";
 import WishlistButton from "@/components/WishlistButton";
 import ReviewSection from "@/components/ReviewSection";
+import JsonLd from "@/components/JsonLd";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -46,6 +47,25 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   if (!product) return notFound();
 
+  const minPrice = Math.min(...product.variants.map((v) => v.price));
+  const maxPrice = Math.max(...product.variants.map((v) => v.price));
+  const productLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description ?? `${product.name} research peptide from ReVia`,
+    brand: { "@type": "Brand", name: "ReVia" },
+    category: product.category.name,
+    offers: {
+      "@type": "AggregateOffer",
+      lowPrice: minPrice.toFixed(2),
+      highPrice: maxPrice.toFixed(2),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      offerCount: product.variants.length,
+    },
+  };
+
   /* ── Related products (same category, exclude current) ── */
   const related = await prisma.product.findMany({
     where: {
@@ -57,6 +77,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
   });
 
   return (
+    <>
+    <JsonLd data={productLd} />
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* ── Breadcrumb ── */}
       <nav className="mb-8 flex items-center gap-1 text-sm text-gray-500">
@@ -165,5 +187,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       )}
     </section>
+    </>
   );
 }
