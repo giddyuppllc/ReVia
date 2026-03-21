@@ -8,28 +8,32 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    title: "Quality",
+    title: "Quality Without Compromise",
     icon: "shield",
     description:
-      "Every batch undergoes rigorous HPLC and mass spectrometry testing. We publish certificates of analysis for full transparency on purity and identity.",
+      "Every single batch goes through rigorous HPLC and mass spectrometry testing. We publish full certificates of analysis because we believe transparency builds trust.",
+    image: "https://images.unsplash.com/photo-1582719471384-894fbb16f461?w=400&h=250&fit=crop",
   },
   {
-    title: "Integrity",
+    title: "Radical Integrity",
     icon: "check-circle",
     description:
-      "We maintain transparent sourcing and manufacturing processes. Our supply chain is fully documented and auditable from synthesis to shipment.",
+      "We maintain transparent sourcing and manufacturing processes. Our supply chain is fully documented and auditable, because your research deserves nothing less.",
+    image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=250&fit=crop",
   },
   {
-    title: "Innovation",
+    title: "Relentless Innovation",
     icon: "lightbulb",
     description:
-      "We continually expand our catalog with cutting-edge compounds, staying at the forefront of peptide science to support your research.",
+      "Science never stands still, and neither do we. We are continually expanding our catalog with cutting-edge compounds to keep your research on the frontier.",
+    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=250&fit=crop",
   },
   {
-    title: "Service",
+    title: "Service That Cares",
     icon: "truck",
     description:
-      "Fast, discreet shipping with real-time tracking. Our expert support team is available to answer technical and order-related questions.",
+      "Fast, discreet shipping with real-time tracking. Our team of scientists and support specialists is here to answer your questions, not just your tickets.",
+    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=250&fit=crop",
   },
 ];
 
@@ -99,54 +103,127 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative py-24 bg-gradient-to-b from-emerald-900/20 to-transparent">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">About ReVia</h1>
-          <p className="text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            We are dedicated to providing researchers with the highest quality
-            peptides and research compounds, backed by rigorous analytical
-            testing and exceptional service.
+      {/* Hero with background image */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1600&h=600&fit=crop"
+            alt="Laboratory environment"
+            className="h-full w-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/60 via-emerald-950/30 to-[#0a0a0a]" />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            The People Behind{" "}
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-amber-400 bg-clip-text text-transparent">
+              ReVia
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            We started ReVia because we believe every researcher deserves access
+            to compounds they can trust completely. No shortcuts, no compromise
+            -- just pure science, delivered with care.
           </p>
         </div>
       </section>
 
       {/* Mission */}
       <section className="max-w-4xl mx-auto px-4 py-16">
-        <div className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 md:p-12">
-          <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
-          <p className="text-zinc-400 leading-relaxed text-lg">
-            At ReVia, our mission is to accelerate scientific discovery by
-            supplying researchers with premium-grade peptides and compounds.
-            Every product in our catalog is synthesized under strict quality
-            controls and verified through independent analytical testing. We
-            believe that reliable reagents are the foundation of reproducible
-            research, and we are committed to being the supplier scientists
-            trust.
-          </p>
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-2/5 relative">
+              <img
+                src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=500&h=400&fit=crop"
+                alt="Microscope research"
+                className="h-full w-full object-cover opacity-80 min-h-[250px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0a]/80 hidden md:block" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]/80 md:hidden" />
+            </div>
+            <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+              <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
+              <p className="text-gray-300 leading-relaxed text-lg">
+                We are here to accelerate scientific discovery by putting
+                premium-grade peptides and compounds into the hands of
+                researchers who are changing the world. Every product in our
+                catalog is synthesized under strict quality controls and verified
+                through independent testing. Because when your reagents are
+                reliable, your breakthroughs become repeatable.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Values */}
       <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-white mb-10 text-center">
-          Our Values
+        <h2 className="text-3xl font-bold text-white mb-4 text-center">
+          What We Stand For
         </h2>
+        <p className="text-gray-400 text-center mb-10 max-w-xl mx-auto">
+          These are not just words on a page. They are the principles we build
+          every decision on.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((value) => (
             <div
               key={value.title}
-              className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 hover:border-emerald-900/50 transition-colors"
+              className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all hover:border-emerald-500/30 hover:bg-white/[0.06]"
             >
-              <div className="mb-4">{iconMap[value.icon]}</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {value.title}
-              </h3>
-              <p className="text-zinc-400 text-sm leading-relaxed">
-                {value.description}
-              </p>
+              <div className="h-32 overflow-hidden">
+                <img
+                  src={value.image}
+                  alt={value.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60"
+                />
+                <div className="absolute inset-0 h-32 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
+              </div>
+              <div className="relative p-6 pt-2">
+                <div className="mb-4">{iconMap[value.icon]}</div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {value.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Team / Community feel section */}
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-emerald-900/10 to-amber-900/5 backdrop-blur-sm p-8 md:p-12">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/3 flex-shrink-0">
+              <div className="overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src="https://images.unsplash.com/photo-1582719471384-894fbb16f461?w=400&h=400&fit=crop"
+                  alt="Lab team at work"
+                  className="w-full h-auto object-cover opacity-80"
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">
+                Built by Scientists, for Scientists
+              </h2>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Our founding team spent years on the bench before building ReVia.
+                We know what it is like to wait weeks for a shipment, only to
+                find the purity is not what was promised. We built ReVia to be
+                the supplier we always wished we had.
+              </p>
+              <p className="text-gray-400 leading-relaxed">
+                Today, we serve hundreds of labs and independent researchers
+                across the country. Whether you are running your first assay or
+                your thousandth, we are here to make sure your compounds are the
+                last thing you have to worry about.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

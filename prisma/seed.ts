@@ -659,137 +659,137 @@ const stacks: CategoryInput = {
     "Pre-made peptide research stacks combining synergistic compounds for targeted research applications. Each stack is designed for specific research goals at a bundled price.",
   products: [
     {
-      name: "Gut Health Stack",
+      name: "Second Sunrise",
       description:
-        "Combines BPC-157 and KPV for comprehensive gut health research. BPC-157 promotes gastrointestinal healing while KPV provides potent anti-inflammatory action targeting intestinal inflammation. Ideal for researchers studying IBD, leaky gut, and GI repair mechanisms.",
+        "A fresh start for your gut. This dual-peptide stack pairs BPC-157's gastrointestinal healing power with KPV's potent anti-inflammatory action to target intestinal renewal at its source. For researchers exploring IBD, leaky gut, and the science of GI repair — because every system deserves a second dawn.",
       variants: [{ label: "Stack", price: 150 }],
       featured: true,
       tags: ["stack", "gut-health"],
     },
     {
-      name: "Bloat Buster Stack",
+      name: "Clean Slate",
       description:
-        "Pairs BPC-157 with Retatrutide 10mg for research into body composition and GI health. Retatrutide's triple-agonist weight loss properties combine with BPC-157's gut healing effects. Designed for researchers studying metabolic and digestive health synergies.",
+        "Wipe the slate clean and rebuild from the inside out. This stack pairs Retatrutide's triple-agonist metabolic reset with BPC-157's gut-healing restoration, creating a powerful synergy between body composition and digestive renewal. For researchers studying the intersection of metabolic recalibration and GI repair.",
       variants: [{ label: "Stack", price: 305 }],
       featured: true,
       tags: ["stack", "weight-loss"],
     },
     {
-      name: "Belly Buster Stack",
+      name: "The Sculptor",
       description:
-        "A comprehensive metabolic research stack combining Retatrutide 10mg, Tesamorelin, and BPC-157. Targets weight loss through triple-agonist activity, visceral fat reduction via GH stimulation, and gut repair. For advanced body composition and metabolic research.",
+        "Carve the form you were meant to have. This triple-compound stack combines Retatrutide's triple-agonist activity, Tesamorelin's targeted visceral fat reduction via GH stimulation, and BPC-157's restorative gut repair. For researchers studying advanced body recomposition and the art of metabolic precision.",
       variants: [{ label: "Stack", price: 455 }],
       featured: true,
       tags: ["stack", "weight-loss", "metabolic"],
     },
     {
-      name: "Weight Loss Stack",
+      name: "Metamorphosis",
       description:
-        "Combines Retatrutide, NAD+, and GHK-Cu for multi-pathway weight management research. Retatrutide drives appetite reduction, NAD+ supports cellular energy metabolism, and GHK-Cu promotes tissue remodeling. A holistic approach to body composition research.",
+        "Transform completely. This multi-pathway stack unites Retatrutide's appetite-reducing power, NAD+'s cellular energy metabolism support, and GHK-Cu's tissue remodeling capabilities for total body transformation research. For researchers studying the science of holistic reinvention — because real change happens at every level.",
       variants: [{ label: "Stack", price: 345 }],
       featured: true,
       tags: ["stack", "weight-loss"],
     },
     {
-      name: "Baywatch Stack",
+      name: "Golden Hour",
       description:
-        "Combines Retatrutide, Melanotan-1, and BPC-157 for research on body composition and skin health. Addresses weight loss, melanogenesis, and tissue repair simultaneously. Designed for researchers studying the intersection of metabolic and dermatological pathways.",
+        "That perfect light — from the inside out. This radiant trio combines Retatrutide for body composition, Melanotan-1 for melanogenesis, and BPC-157 for tissue repair, addressing metabolism, skin tone, and renewal in one luminous stack. For researchers studying the beautiful intersection of metabolic and dermatological pathways.",
       variants: [{ label: "Stack", price: 400 }],
       featured: true,
       tags: ["stack", "weight-loss", "tanning"],
     },
     {
-      name: "Healing Stack",
+      name: "Phoenix",
       description:
-        "A triple-peptide recovery stack combining BPC-157, TB500, and KPV for comprehensive tissue repair research. Covers local healing, systemic repair, and inflammation modulation. Ideal for injury recovery and wound healing studies.",
+        "Rise renewed. This triple-peptide stack combines BPC-157, TB500, and KPV for comprehensive tissue repair research — covering local healing, systemic recovery, and inflammation modulation. For researchers studying the body's remarkable capacity to rebuild.",
       variants: [{ label: "Stack", price: 240 }],
       featured: true,
       tags: ["stack", "recovery", "healing"],
     },
     {
-      name: "Recovery Stack",
+      name: "Ironclad",
       description:
-        "Combines BPC-157, TB500, and GHK-Cu for advanced regenerative research. BPC-157 and TB500 provide synergistic tissue repair while GHK-Cu adds collagen-boosting and remodeling support. For researchers studying accelerated healing and tissue regeneration.",
+        "Armor your recovery. This advanced regenerative stack pairs the synergistic tissue repair of BPC-157 and TB500 with GHK-Cu's collagen-boosting and remodeling power. For researchers studying accelerated healing — because the strongest rebuilds leave you more resilient than before.",
       variants: [{ label: "Stack", price: 270 }],
       featured: true,
       tags: ["stack", "recovery"],
     },
     {
-      name: "Anti-Aging Stack",
+      name: "Timeless",
       description:
-        "Combines Epithalon, NAD+, and GHK-Cu for multi-target anti-aging research. Epithalon activates telomerase, NAD+ fuels cellular repair enzymes, and GHK-Cu promotes tissue remodeling. A comprehensive approach to longevity and aging research.",
+        "Turn back the clock. This multi-target stack combines Epithalon's telomerase activation, NAD+'s cellular repair fuel, and GHK-Cu's tissue remodeling to address aging from three powerful angles. For researchers studying the science of staying ageless — because time is just a number.",
       variants: [{ label: "Stack", price: 285 }],
       featured: true,
       tags: ["stack", "anti-aging", "longevity"],
     },
     {
-      name: "Longevity Research Stack",
+      name: "Evergreen",
       description:
-        "Pairs Epithalon, NAD+, and SS-31 for cutting-edge longevity research. Targets telomere maintenance, cellular energy metabolism, and mitochondrial function. Designed for researchers studying the fundamental mechanisms of aging.",
+        "Perpetual vitality, enduring youth. This cutting-edge trio pairs Epithalon's telomere maintenance with NAD+'s cellular energy metabolism and SS-31's mitochondrial optimization. For researchers studying the fundamental mechanisms of aging — and the science of staying forever vital.",
       variants: [{ label: "Stack", price: 250 }],
       featured: true,
       tags: ["stack", "longevity"],
     },
     {
-      name: "Growth Stack",
+      name: "Titan",
       description:
-        "Combines CJC-1295, Ipamorelin, and NAD+ for growth hormone and metabolic research. The CJC/Ipamorelin combination provides clean GH stimulation while NAD+ supports cellular energy. For researchers studying GH secretion and metabolic optimization.",
+        "Unlock massive growth potential. This powerhouse stack combines CJC-1295 and Ipamorelin for clean, synergistic GH stimulation alongside NAD+'s cellular energy support. For researchers studying growth hormone secretion and metabolic optimization — built for those who think big.",
       variants: [{ label: "Stack", price: 300 }],
       featured: true,
       tags: ["stack", "growth-hormone"],
     },
     {
-      name: "Cognitive Stack",
+      name: "Clarity",
       description:
-        "A nootropic trio of Semax, Selank, and Pinealon for comprehensive cognitive research. Semax enhances BDNF, Selank modulates GABA for anxiolysis, and Pinealon provides neuroprotection. Designed for researchers studying cognitive enhancement and brain health.",
+        "Crystal clear thinking, unlocked. This nootropic trio pairs Semax's BDNF enhancement with Selank's GABA-modulating anxiolysis and Pinealon's neuroprotective power. For researchers studying cognitive enhancement and brain health — because the sharpest minds deserve the sharpest tools.",
       variants: [{ label: "Stack", price: 200 }],
       featured: true,
       tags: ["stack", "nootropic", "cognitive"],
     },
     {
-      name: "Mental Wellness Stack",
+      name: "Equilibrium",
       description:
-        "Combines Semax, Selank, and DSIP for research into cognitive function and sleep quality. Addresses both daytime cognitive performance and nighttime recovery through complementary mechanisms. For researchers studying the connection between sleep, stress, and mental performance.",
+        "Find your balance. This harmonizing stack combines Semax and Selank for daytime cognitive performance with DSIP's nighttime recovery support, bridging the gap between waking clarity and restorative rest. For researchers studying the profound connection between sleep, stress, and mental performance.",
       variants: [{ label: "Stack", price: 250 }],
       featured: true,
       tags: ["stack", "nootropic", "sleep"],
     },
     {
-      name: "Sleep Stack",
+      name: "Dreamweaver",
       description:
-        "Pairs DSIP 15mg, Pinealon 10mg, and Epithalon 10mg for advanced sleep and circadian rhythm research. DSIP promotes delta wave sleep, Pinealon supports pineal gland function, and Epithalon regulates melatonin production. A comprehensive approach to sleep quality research.",
+        "Weave deeper, more restorative sleep. This circadian trio pairs DSIP's delta wave promotion with Pinealon's pineal gland support and Epithalon's melatonin regulation for a comprehensive approach to sleep architecture research. For researchers exploring the science of truly regenerative rest.",
       variants: [{ label: "Stack", price: 160 }],
       featured: true,
       tags: ["stack", "sleep"],
     },
     {
-      name: "Skin + Hair Radiance Stack",
+      name: "Lumina",
       description:
-        "Combines GHK-Cu, SNAP-8 Serum, and KPV for dermatological research. GHK-Cu promotes collagen and hair follicle health, SNAP-8 targets expression lines, and KPV reduces skin inflammation. For comprehensive skin rejuvenation and hair growth studies.",
+        "Radiance from within. This dermatological trio combines GHK-Cu's collagen and hair follicle support, SNAP-8's expression line targeting, and KPV's anti-inflammatory action for total skin and hair renewal research. For researchers studying the science of luminous, visible transformation.",
       variants: [{ label: "Stack", price: 205 }],
       featured: true,
       tags: ["stack", "cosmetic", "skin"],
     },
     {
-      name: "Glow Stack",
+      name: "Renaissance",
       description:
-        "A regenerative skin research stack combining GHK-Cu, TB500, and BPC-157. GHK-Cu boosts collagen synthesis, TB500 promotes angiogenesis and cell migration, and BPC-157 accelerates tissue repair. Designed for advanced wound healing and skin renewal research.",
+        "Skin reborn. This regenerative stack combines GHK-Cu's collagen synthesis, TB500's angiogenesis and cell migration promotion, and BPC-157's accelerated tissue repair for a complete skin renewal experience. For researchers studying advanced wound healing and the art of dermal rebirth.",
       variants: [{ label: "Stack", price: 300 }],
       featured: true,
       tags: ["stack", "cosmetic", "recovery"],
     },
     {
-      name: "Immune Support Stack",
+      name: "Sentinel",
       description:
-        "Combines Thymosin Alpha-1, Thymalin, and KPV for comprehensive immunology research. Thymosin Alpha-1 enhances T-cell function, Thymalin regulates immune balance, and KPV provides anti-inflammatory support. For researchers studying immune modulation and defense mechanisms.",
+        "Your guardian of health. This comprehensive immunology stack combines Thymosin Alpha-1's T-cell enhancement, Thymalin's immune balance regulation, and KPV's anti-inflammatory support to fortify the body's natural defense systems. For researchers studying immune modulation — because the best defense is an intelligent one.",
       variants: [{ label: "Stack", price: 360 }],
       featured: true,
       tags: ["stack", "immune"],
     },
     {
-      name: "Energy Stack",
+      name: "Supernova",
       description:
-        "Pairs MOTS-c, SS-31, and NAD+ for mitochondrial and cellular energy research. MOTS-c activates AMPK, SS-31 optimizes electron transport, and NAD+ fuels sirtuins and PARPs. A cutting-edge stack for researchers studying bioenergetics and metabolic performance.",
+        "Explosive cellular energy, ignited. This cutting-edge trio pairs MOTS-c's AMPK activation with SS-31's electron transport optimization and NAD+'s sirtuin and PARP fuel for a complete bioenergetics revolution. For researchers studying metabolic performance — because real energy starts at the mitochondrial level.",
       variants: [{ label: "Stack", price: 275 }],
       featured: true,
       tags: ["stack", "energy", "mitochondrial"],
