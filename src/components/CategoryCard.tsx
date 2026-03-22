@@ -40,7 +40,7 @@ export default function CategoryCard({ name, slug, productCount }: CategoryCardP
       href={`/shop?category=${slug}`}
       className="group relative overflow-hidden rounded-2xl bg-white/50 backdrop-blur-sm border border-emerald-200/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/5 hover:bg-white/70"
     >
-      <div className={`flex flex-col items-start justify-end bg-gradient-to-br ${meta.gradient} p-5 h-32 sm:h-36`}>
+      <div className={`flex flex-col items-start justify-end bg-linear-to-br ${meta.gradient} p-5 h-32 sm:h-36`}>
         <span className="text-2xl mb-2">{meta.emoji}</span>
         <h3 className="text-base font-bold text-emerald-900 leading-tight">{name}</h3>
         <p className="text-xs text-emerald-800/50 mt-0.5">

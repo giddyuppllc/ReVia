@@ -115,7 +115,7 @@ export default function AboutPage() {
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-neutral-900 mb-6">
             The People Behind{" "}
-            <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent">
               ReVia
             </span>
           </h1>

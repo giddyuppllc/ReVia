@@ -118,7 +118,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100">
+            <div className="flex aspect-square w-full items-center justify-center bg-linear-to-br from-emerald-50 to-emerald-100">
               <span className="text-7xl font-bold text-emerald-600/40">
                 {product.name.charAt(0)}
               </span>

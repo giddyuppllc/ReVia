@@ -24,7 +24,7 @@ export default function HeroBanner() {
               className="mt-8 text-5xl font-extrabold tracking-tight text-emerald-950 sm:text-6xl lg:text-7xl leading-[1.1]"
             >
               Premium Peptides for{" "}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
                 Modern Research
               </span>
             </motion.h1>

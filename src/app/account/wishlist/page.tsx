@@ -84,7 +84,7 @@ export default async function WishlistPage() {
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-900/40 to-emerald-700/20">
+                      <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-emerald-900/40 to-emerald-700/20">
                         <span className="text-5xl font-bold text-emerald-500/60">
                           {initial}
                         </span>

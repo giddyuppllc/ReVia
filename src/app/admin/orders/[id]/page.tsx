@@ -36,7 +36,7 @@ export default async function OrderDetailPage({
       {/* Back link */}
       <Link
         href="/admin/orders"
-        className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-emerald-950/50 hover:text-emerald-950 transition-colors"
       >
         <ArrowLeft size={16} />
         Back to Orders
@@ -45,19 +45,19 @@ export default async function OrderDetailPage({
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-2xl font-bold text-emerald-950">
             Order{" "}
             <span className="font-mono text-emerald-400">
               {order.id.slice(0, 8)}...
             </span>
           </h1>
-          <p className="text-sm text-white/40 mt-1">
+          <p className="text-sm text-emerald-800/50 mt-1">
             Placed on {order.createdAt.toLocaleDateString()} at{" "}
             {order.createdAt.toLocaleTimeString()}
           </p>
         </div>
         <span
-          className={`px-3 py-1.5 rounded-full text-sm font-medium capitalize ${statusColors[order.status] ?? "bg-gray-500/20 text-gray-400"}`}
+          className={`px-3 py-1.5 rounded-full text-sm font-medium capitalize ${statusColors[order.status] ?? "bg-gray-500/20 text-emerald-800/50"}`}
         >
           {order.status}
         </span>
@@ -65,22 +65,22 @@ export default async function OrderDetailPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Customer Info */}
-        <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
-          <h2 className="text-sm font-medium text-white/50 mb-4">
+        <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6">
+          <h2 className="text-sm font-medium text-emerald-950/50 mb-4">
             Customer Details
           </h2>
           <div className="space-y-3 text-sm">
             <div>
-              <span className="text-white/40">Name</span>
-              <p className="text-white">{order.name}</p>
+              <span className="text-emerald-800/50">Name</span>
+              <p className="text-emerald-950">{order.name}</p>
             </div>
             <div>
-              <span className="text-white/40">Email</span>
-              <p className="text-white">{order.email}</p>
+              <span className="text-emerald-800/50">Email</span>
+              <p className="text-emerald-950">{order.email}</p>
             </div>
             {order.user && (
               <div>
-                <span className="text-white/40">Account</span>
+                <span className="text-emerald-800/50">Account</span>
                 <p className="text-emerald-400 text-xs">Registered User</p>
               </div>
             )}
@@ -88,11 +88,11 @@ export default async function OrderDetailPage({
         </div>
 
         {/* Shipping Address */}
-        <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
-          <h2 className="text-sm font-medium text-white/50 mb-4">
+        <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6">
+          <h2 className="text-sm font-medium text-emerald-950/50 mb-4">
             Shipping Address
           </h2>
-          <div className="text-sm text-white/80 space-y-1">
+          <div className="text-sm text-emerald-950/80 space-y-1">
             <p>{order.name}</p>
             <p>{order.address}</p>
             <p>
@@ -103,27 +103,27 @@ export default async function OrderDetailPage({
         </div>
 
         {/* Tracking */}
-        <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
-          <h2 className="text-sm font-medium text-white/50 mb-4">
+        <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6">
+          <h2 className="text-sm font-medium text-emerald-950/50 mb-4">
             Tracking Info
           </h2>
           {order.tracking ? (
-            <p className="text-white font-mono text-sm">{order.tracking}</p>
+            <p className="text-emerald-950 font-mono text-sm">{order.tracking}</p>
           ) : (
-            <p className="text-white/30 text-sm">No tracking number yet</p>
+            <p className="text-emerald-950/30 text-sm">No tracking number yet</p>
           )}
         </div>
       </div>
 
       {/* Order Items */}
-      <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/10">
-          <h2 className="text-sm font-medium text-white/50">Order Items</h2>
+      <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl overflow-hidden">
+        <div className="px-6 py-4 border-b border-emerald-200/40">
+          <h2 className="text-sm font-medium text-emerald-950/50">Order Items</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-white/40 border-b border-white/10 bg-white/[0.02]">
+              <tr className="text-emerald-800/50 border-b border-emerald-200/40 bg-white/500">
                 <th className="text-left px-6 py-3 font-medium">Product</th>
                 <th className="text-left px-6 py-3 font-medium">Variant</th>
                 <th className="text-right px-6 py-3 font-medium">Price</th>
@@ -135,33 +135,33 @@ export default async function OrderDetailPage({
               {order.items.map((item) => (
                 <tr
                   key={item.id}
-                  className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                  className="border-b border-emerald-100/40 hover:bg-white/50 transition-colors"
                 >
-                  <td className="px-6 py-4 text-white">{item.productName}</td>
-                  <td className="px-6 py-4 text-white/60">
+                  <td className="px-6 py-4 text-emerald-950">{item.productName}</td>
+                  <td className="px-6 py-4 text-emerald-800/60">
                     {item.variantLabel}
                   </td>
-                  <td className="px-6 py-4 text-white/60 text-right">
+                  <td className="px-6 py-4 text-emerald-800/60 text-right">
                     ${item.price.toFixed(2)}
                   </td>
-                  <td className="px-6 py-4 text-white/60 text-right">
+                  <td className="px-6 py-4 text-emerald-800/60 text-right">
                     {item.quantity}
                   </td>
-                  <td className="px-6 py-4 text-white font-medium text-right">
+                  <td className="px-6 py-4 text-emerald-950 font-medium text-right">
                     ${(item.price * item.quantity).toFixed(2)}
                   </td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
-              <tr className="border-t border-white/10">
+              <tr className="border-t border-emerald-200/40">
                 <td
                   colSpan={4}
-                  className="px-6 py-4 text-right text-white/50 font-medium"
+                  className="px-6 py-4 text-right text-emerald-950/50 font-medium"
                 >
                   Total
                 </td>
-                <td className="px-6 py-4 text-right text-white text-lg font-bold">
+                <td className="px-6 py-4 text-right text-emerald-950 text-lg font-bold">
                   ${order.total.toFixed(2)}
                 </td>
               </tr>
@@ -171,8 +171,8 @@ export default async function OrderDetailPage({
       </div>
 
       {/* Status Update Form */}
-      <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
-        <h2 className="text-sm font-medium text-white/50 mb-4">
+      <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6">
+        <h2 className="text-sm font-medium text-emerald-950/50 mb-4">
           Update Status
         </h2>
         <OrderStatusForm orderId={order.id} currentStatus={order.status} />

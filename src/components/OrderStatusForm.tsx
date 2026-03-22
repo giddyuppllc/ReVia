@@ -63,13 +63,13 @@ export default function OrderStatusForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex gap-4 items-end flex-wrap">
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm text-white/50 mb-2">
+          <label className="block text-sm text-emerald-950/50 mb-2">
             New Status
           </label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500/50 transition-colors capitalize"
+            className="w-full bg-white/50 border border-emerald-200/40 rounded-xl px-4 py-2.5 text-emerald-950 text-sm focus:outline-none focus:border-emerald-500/50 transition-colors capitalize"
           >
             {statuses.map((s) => (
               <option key={s} value={s} className="bg-white capitalize">
@@ -81,7 +81,7 @@ export default function OrderStatusForm({
 
         {status === "shipped" && (
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm text-white/50 mb-2">
+            <label className="block text-sm text-emerald-950/50 mb-2">
               Tracking Number
             </label>
             <input
@@ -89,7 +89,7 @@ export default function OrderStatusForm({
               value={tracking}
               onChange={(e) => setTracking(e.target.value)}
               placeholder="Enter tracking number"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
+              className="w-full bg-white/50 border border-emerald-200/40 rounded-xl px-4 py-2.5 text-emerald-950 text-sm placeholder:text-emerald-950/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
             />
           </div>
         )}
@@ -97,7 +97,7 @@ export default function OrderStatusForm({
         <button
           type="submit"
           disabled={loading || status === currentStatus}
-          className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded-xl transition-colors flex items-center gap-2"
+          className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-emerald-950 text-sm font-medium rounded-xl transition-colors flex items-center gap-2"
         >
           {loading && <Loader2 size={16} className="animate-spin" />}
           Update
@@ -108,7 +108,7 @@ export default function OrderStatusForm({
         <div
           className={`flex items-center gap-2 text-sm px-4 py-3 rounded-xl ${
             feedback.type === "success"
-              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+              ? "bg-emerald-100 text-emerald-400 border border-emerald-500/20"
               : "bg-red-500/10 text-red-400 border border-red-500/20"
           }`}
         >

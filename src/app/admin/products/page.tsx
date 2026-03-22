@@ -25,8 +25,8 @@ export default async function ProductsPage({
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Products</h1>
-        <p className="text-sm text-white/40">
+        <h1 className="text-2xl font-bold text-emerald-950">Products</h1>
+        <p className="text-sm text-emerald-800/50">
           {products.length} product{products.length !== 1 ? "s" : ""}
         </p>
       </div>
@@ -38,27 +38,27 @@ export default async function ProductsPage({
           name="q"
           defaultValue={searchQuery ?? ""}
           placeholder="Search products by name..."
-          className="flex-1 max-w-md bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
+          className="flex-1 max-w-md bg-white/50 border border-emerald-200/40 rounded-xl px-4 py-2.5 text-emerald-950 text-sm placeholder:text-emerald-950/20 focus:outline-none focus:border-emerald-500/50 transition-colors"
         />
         <button
           type="submit"
-          className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-xl transition-colors"
+          className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-emerald-950 text-sm font-medium rounded-xl transition-colors"
         >
           Search
         </button>
       </form>
 
       {/* Products Table */}
-      <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl overflow-hidden">
+      <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl overflow-hidden">
         {products.length === 0 ? (
-          <p className="text-white/40 text-sm py-12 text-center">
+          <p className="text-emerald-800/50 text-sm py-12 text-center">
             No products found.
           </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-white/40 border-b border-white/10 bg-white/[0.02]">
+                <tr className="text-emerald-800/50 border-b border-emerald-200/40 bg-white/500">
                   <th className="text-left px-6 py-4 font-medium">Name</th>
                   <th className="text-left px-6 py-4 font-medium">Category</th>
                   <th className="text-left px-6 py-4 font-medium">Variants</th>
@@ -78,7 +78,7 @@ export default async function ProductsPage({
                   return (
                     <tr
                       key={product.id}
-                      className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                      className="border-b border-emerald-100/40 hover:bg-white/50 transition-colors"
                     >
                       <td className="px-6 py-4">
                         <Link
@@ -88,13 +88,13 @@ export default async function ProductsPage({
                           {product.name}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 text-white/50">
+                      <td className="px-6 py-4 text-emerald-950/50">
                         {product.category.name}
                       </td>
-                      <td className="px-6 py-4 text-white/50">
+                      <td className="px-6 py-4 text-emerald-950/50">
                         {product.variants.length}
                       </td>
-                      <td className="px-6 py-4 text-white font-medium">
+                      <td className="px-6 py-4 text-emerald-950 font-medium">
                         {lowestPrice !== null ? `$${lowestPrice.toFixed(2)}` : "—"}
                       </td>
                       <td className="px-6 py-4">
@@ -104,7 +104,7 @@ export default async function ProductsPage({
                             className="text-yellow-400 fill-yellow-400"
                           />
                         ) : (
-                          <Star size={16} className="text-white/20" />
+                          <Star size={16} className="text-emerald-950/20" />
                         )}
                       </td>
                     </tr>

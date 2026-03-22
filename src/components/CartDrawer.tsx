@@ -73,7 +73,7 @@ export default function CartDrawer() {
                       className="flex gap-4 rounded-xl border border-neutral-100 bg-neutral-50 p-4"
                     >
                       {/* Thumbnail placeholder */}
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-50 to-emerald-100">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-emerald-50 to-emerald-100">
                         <span className="text-lg font-bold text-emerald-600/60">
                           {item.productName.charAt(0)}
                         </span>

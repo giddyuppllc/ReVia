@@ -40,7 +40,7 @@ export default async function BlogPage({
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
           The ReVia{" "}
-          <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
             Journal
           </span>
         </h1>

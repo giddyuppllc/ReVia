@@ -65,7 +65,7 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-white">Dashboard Overview</h1>
+      <h1 className="text-2xl font-bold text-emerald-950">Dashboard Overview</h1>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -74,26 +74,26 @@ export default async function AdminDashboard() {
           return (
             <div
               key={stat.label}
-              className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6"
+              className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-sm text-white/50">{stat.label}</span>
+                <span className="text-sm text-emerald-950/50">{stat.label}</span>
                 <div
                   className={`w-10 h-10 rounded-xl ${stat.bgColor} flex items-center justify-center`}
                 >
                   <Icon size={20} className={stat.color} />
                 </div>
               </div>
-              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-2xl font-bold text-emerald-950">{stat.value}</p>
             </div>
           );
         })}
       </div>
 
       {/* Recent Orders */}
-      <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+      <div className="bg-white/50 backdrop-blur border border-emerald-200/40 rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
+          <h2 className="text-lg font-semibold text-emerald-950">Recent Orders</h2>
           <Link
             href="/admin/orders"
             className="text-sm text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
@@ -103,14 +103,14 @@ export default async function AdminDashboard() {
         </div>
 
         {recentOrders.length === 0 ? (
-          <p className="text-white/40 text-sm py-8 text-center">
+          <p className="text-emerald-800/50 text-sm py-8 text-center">
             No orders yet.
           </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-white/40 border-b border-white/10">
+                <tr className="text-emerald-800/50 border-b border-emerald-200/40">
                   <th className="text-left pb-3 font-medium">Order ID</th>
                   <th className="text-left pb-3 font-medium">Customer</th>
                   <th className="text-left pb-3 font-medium">Total</th>
@@ -122,7 +122,7 @@ export default async function AdminDashboard() {
                 {recentOrders.map((order) => (
                   <tr
                     key={order.id}
-                    className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                    className="border-b border-emerald-100/40 hover:bg-white/50 transition-colors"
                   >
                     <td className="py-3">
                       <Link
@@ -132,18 +132,18 @@ export default async function AdminDashboard() {
                         {order.id.slice(0, 8)}...
                       </Link>
                     </td>
-                    <td className="py-3 text-white/70">{order.name}</td>
-                    <td className="py-3 text-white font-medium">
+                    <td className="py-3 text-emerald-950/70">{order.name}</td>
+                    <td className="py-3 text-emerald-950 font-medium">
                       ${order.total.toFixed(2)}
                     </td>
                     <td className="py-3">
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[order.status] ?? "bg-gray-500/20 text-gray-400"}`}
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[order.status] ?? "bg-gray-500/20 text-emerald-800/50"}`}
                       >
                         {order.status}
                       </span>
                     </td>
-                    <td className="py-3 text-white/50">
+                    <td className="py-3 text-emerald-950/50">
                       {order.createdAt.toLocaleDateString()}
                     </td>
                   </tr>

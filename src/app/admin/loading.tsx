@@ -9,11 +9,11 @@ export default function AdminLoading() {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="animate-pulse rounded-2xl border border-white/10 bg-white/5 p-6"
+            className="animate-pulse rounded-2xl border border-emerald-200/40 bg-white/50 p-6"
           >
             <div className="mb-4 flex items-center justify-between">
               <div className="h-4 w-24 rounded bg-white/10" />
-              <div className="h-10 w-10 rounded-xl bg-white/5" />
+              <div className="h-10 w-10 rounded-xl bg-white/50" />
             </div>
             <div className="h-7 w-20 rounded bg-white/10" />
           </div>
@@ -21,19 +21,19 @@ export default function AdminLoading() {
       </div>
 
       {/* Recent orders skeleton */}
-      <div className="animate-pulse rounded-2xl border border-white/10 bg-white/5 p-6">
+      <div className="animate-pulse rounded-2xl border border-emerald-200/40 bg-white/50 p-6">
         <div className="mb-6 flex items-center justify-between">
           <div className="h-5 w-32 rounded bg-white/10" />
-          <div className="h-4 w-16 rounded bg-white/5" />
+          <div className="h-4 w-16 rounded bg-white/50" />
         </div>
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="flex gap-4">
-              <div className="h-4 w-20 rounded bg-white/5" />
-              <div className="h-4 w-32 rounded bg-white/5" />
-              <div className="h-4 w-16 rounded bg-white/5" />
-              <div className="h-4 w-20 rounded bg-white/5" />
-              <div className="h-4 w-24 rounded bg-white/5" />
+              <div className="h-4 w-20 rounded bg-white/50" />
+              <div className="h-4 w-32 rounded bg-white/50" />
+              <div className="h-4 w-16 rounded bg-white/50" />
+              <div className="h-4 w-20 rounded bg-white/50" />
+              <div className="h-4 w-24 rounded bg-white/50" />
             </div>
           ))}
         </div>

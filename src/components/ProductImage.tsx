@@ -49,7 +49,7 @@ export default function ProductImage({
 
   return (
     <div
-      className={`group relative flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${from} ${to} ${sizeClasses[size]} ${className}`}
+      className={`group relative flex items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br ${from} ${to} ${sizeClasses[size]} ${className}`}
     >
       {/* Subtle animated background pattern */}
       <div className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-30">
