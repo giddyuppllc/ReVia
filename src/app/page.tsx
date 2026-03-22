@@ -23,7 +23,7 @@ export default async function HomePage() {
       <HeroBanner />
 
       {/* Stats bar */}
-      <section className="border-y border-neutral-200 bg-white">
+      <section className="border-y border-emerald-200/40 bg-white/50 backdrop-blur-sm">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
           {[
             { icon: FlaskConical, label: "Lab-Verified", sub: "98%+ Purity" },
@@ -36,8 +36,8 @@ export default async function HomePage() {
                 <s.icon className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-neutral-900">{s.label}</p>
-                <p className="text-xs text-neutral-500">{s.sub}</p>
+                <p className="text-sm font-semibold text-emerald-950">{s.label}</p>
+                <p className="text-xs text-emerald-800/50">{s.sub}</p>
               </div>
             </div>
           ))}
@@ -49,11 +49,11 @@ export default async function HomePage() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">Curated Selection</p>
-            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">Featured Products</h2>
+            <h2 className="text-3xl font-bold text-emerald-950 sm:text-4xl">Featured Products</h2>
           </div>
           <Link
             href="/shop"
-            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-neutral-200 bg-white px-5 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 hover:text-neutral-900"
+            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-emerald-200/40 bg-white/50 backdrop-blur-sm px-5 py-2.5 text-sm font-medium text-emerald-900/60 transition hover:bg-neutral-50 hover:text-emerald-950"
           >
             View All
           </Link>
@@ -87,7 +87,7 @@ export default async function HomePage() {
       {/* Categories */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">Browse</p>
-        <h2 className="text-3xl font-bold text-neutral-900 mb-8 sm:text-4xl">Shop by Category</h2>
+        <h2 className="text-3xl font-bold text-emerald-950 mb-8 sm:text-4xl">Shop by Category</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories.map((cat) => (
             <CategoryCard
@@ -104,10 +104,10 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="relative overflow-hidden rounded-3xl border border-emerald-200 bg-emerald-50 p-10 md:p-16">
           <div className="relative text-center">
-            <h2 className="text-2xl font-bold text-neutral-900 md:text-3xl">
+            <h2 className="text-2xl font-bold text-emerald-950 md:text-3xl">
               Stay in the Loop
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-neutral-600">
+            <p className="mx-auto mt-3 max-w-lg text-emerald-900/60">
               New compounds, research news, and exclusive offers — straight to your inbox.
             </p>
             <div className="mx-auto mt-8 max-w-md">
@@ -118,12 +118,12 @@ export default async function HomePage() {
       </section>
 
       {/* RUO */}
-      <section className="border-t border-neutral-200 bg-neutral-100 py-10">
+      <section className="border-t border-emerald-200/40 bg-emerald-50/50 py-10">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-700/40 mb-2">
             Important Notice
           </p>
-          <p className="text-sm text-neutral-500 leading-relaxed">
+          <p className="text-sm text-emerald-800/50 leading-relaxed">
             All products sold by ReVia are intended for laboratory research use
             only. They are not intended for human or animal consumption, or for
             use in the diagnosis, treatment, cure, or prevention of any disease.

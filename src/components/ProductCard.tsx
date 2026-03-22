@@ -63,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/shop/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-emerald-200/40 bg-white/60 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-emerald-900/5 hover:-translate-y-1 hover:bg-white/80"
     >
       {/* Image area */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         ) : (
           <div className={`flex h-full w-full items-center justify-center bg-linear-to-br ${gradient}`}>
-            <span className="text-6xl font-black text-neutral-400/40 select-none">
+            <span className="text-6xl font-black text-emerald-400/30 select-none">
               {catName.substring(0, 2).toUpperCase()}
             </span>
           </div>
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Category pill */}
         <div className="absolute bottom-3 left-3">
-          <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-neutral-600">
+          <span className="rounded-full bg-emerald-50/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-800/60">
             {catName}
           </span>
         </div>
@@ -95,14 +95,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4 pt-3">
-        <h3 className="text-sm font-semibold text-neutral-900 leading-snug line-clamp-2 group-hover:text-neutral-700 transition-colors">
+        <h3 className="text-sm font-semibold text-emerald-950 leading-snug line-clamp-2 group-hover:text-neutral-700 transition-colors">
           {product.name}
         </h3>
 
         <div className="mt-auto flex items-center justify-between pt-3">
           {cheapest && (
-            <span className="text-base font-bold text-neutral-900">
-              {hasMultiple && <span className="text-xs font-normal text-neutral-500 mr-1">from</span>}
+            <span className="text-base font-bold text-emerald-950">
+              {hasMultiple && <span className="text-xs font-normal text-emerald-800/50 mr-1">from</span>}
               ${cheapest.price.toFixed(2)}
             </span>
           )}

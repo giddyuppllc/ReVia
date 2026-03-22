@@ -1,13 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
-  --muted: #737373;
+  --background: #f0fdf4;
+  --foreground: #1a2e1a;
+  --surface: rgba(255, 255, 255, 0.65);
+  --surface-hover: rgba(255, 255, 255, 0.8);
+  --border: rgba(5, 150, 105, 0.15);
   --accent: #059669;
-  --accent-light: #d1fae5;
-  --surface: #ffffff;
-  --border: #e5e5e5;
 }
 
 @theme inline {
@@ -22,15 +21,32 @@ html {
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  /* Frosted green glass background */
+  background:
+    linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 25%, #e6f7ed 50%, #d1fae5 75%, #ecfdf5 100%);
+  background-attachment: fixed;
+}
+
+/* Ambient green glow orbs */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 50% 50% at 20% 20%, rgba(16, 185, 129, 0.12), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 30%, rgba(52, 211, 153, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 80%, rgba(5, 150, 105, 0.06), transparent 60%),
+    radial-gradient(ellipse 30% 30% at 70% 70%, rgba(110, 231, 183, 0.1), transparent 60%);
+  pointer-events: none;
 }
 
 ::selection {
-  background: rgba(5, 150, 105, 0.15);
+  background: rgba(5, 150, 105, 0.2);
   color: #064e3b;
 }
 
@@ -40,6 +56,21 @@ body {
   border-radius: 4px;
 }
 
+/* Frosted glass card */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(5, 150, 105, 0.12);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(5, 150, 105, 0.15);
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -47,9 +78,9 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: rgba(5, 150, 105, 0.2);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: rgba(5, 150, 105, 0.35);
 }

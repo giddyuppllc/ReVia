@@ -40,7 +40,7 @@ export default async function WishlistPage() {
       </div>
 
       {wishlistItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-20 text-center backdrop-blur-xl">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-emerald-200/40 bg-white/5 px-6 py-20 text-center backdrop-blur-xl">
           <Heart className="mb-4 h-12 w-12 text-gray-600" />
           <h2 className="text-lg font-semibold text-white">
             Your wishlist is empty
@@ -72,7 +72,7 @@ export default async function WishlistPage() {
             return (
               <div
                 key={item.id}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a1a] transition-colors hover:border-emerald-500/30"
+                className="group overflow-hidden rounded-2xl border border-emerald-200/40 bg-white/60 backdrop-blur-sm transition-colors hover:border-emerald-300"
               >
                 <Link href={`/shop/${product.slug}`}>
                   {/* Image */}

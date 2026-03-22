@@ -38,12 +38,12 @@ export default function CategoryCard({ name, slug, productCount }: CategoryCardP
   return (
     <Link
       href={`/shop?category=${slug}`}
-      className="group relative overflow-hidden rounded-2xl bg-white border border-neutral-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+      className="group relative overflow-hidden rounded-2xl bg-white/50 backdrop-blur-sm border border-emerald-200/40 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/5 hover:bg-white/70"
     >
       <div className={`flex flex-col items-start justify-end bg-gradient-to-br ${meta.gradient} p-5 h-32 sm:h-36`}>
         <span className="text-2xl mb-2">{meta.emoji}</span>
-        <h3 className="text-base font-bold text-neutral-800 leading-tight">{name}</h3>
-        <p className="text-xs text-neutral-500 mt-0.5">
+        <h3 className="text-base font-bold text-emerald-900 leading-tight">{name}</h3>
+        <p className="text-xs text-emerald-800/50 mt-0.5">
           {productCount} {productCount === 1 ? "product" : "products"}
         </p>
       </div>
