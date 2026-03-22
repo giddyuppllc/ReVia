@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import JsonLd from "@/components/JsonLd";
+export const dynamic = "force-dynamic";
 
 function readTime(html: string): number {
   const text = html.replace(/<[^>]*>/g, "");

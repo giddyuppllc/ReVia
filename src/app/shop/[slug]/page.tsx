@@ -8,6 +8,7 @@ import AddToCart from "@/components/AddToCart";
 import WishlistButton from "@/components/WishlistButton";
 import ReviewSection from "@/components/ReviewSection";
 import JsonLd from "@/components/JsonLd";
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ProductEditForm from "@/components/ProductEditForm";
+export const dynamic = "force-dynamic";
 
 export default async function AdminProductEditPage({
   params,

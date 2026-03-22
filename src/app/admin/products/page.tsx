@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { Star } from "lucide-react";
+export const dynamic = "force-dynamic";
 
 export default async function ProductsPage({
   searchParams,

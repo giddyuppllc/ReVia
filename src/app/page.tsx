@@ -5,6 +5,7 @@ import CategoryCard from "@/components/CategoryCard";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Link from "next/link";
 import { FlaskConical, Truck, HeadphonesIcon, Atom } from "lucide-react";
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const featuredProducts = await prisma.product.findMany({
