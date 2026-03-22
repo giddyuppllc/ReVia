@@ -29,15 +29,15 @@ const legalLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#111]">
+    <footer className="border-t border-neutral-200 bg-neutral-50">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-2xl font-bold text-emerald-500 tracking-tight">
+            <Link href="/" className="text-2xl font-bold text-emerald-700 tracking-tight">
               ReVia
             </Link>
-            <p className="mt-3 text-sm text-gray-500 leading-relaxed">
+            <p className="mt-3 text-sm text-neutral-500 leading-relaxed">
               Premium research-grade peptides and compounds for scientific research.
               Rigorous quality testing on every batch.
             </p>
@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Shop */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400">
               Shop
             </h3>
             <ul className="mt-4 space-y-3">
@@ -53,7 +53,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-500 transition-colors hover:text-emerald-400"
+                    className="text-sm text-neutral-600 transition-colors hover:text-neutral-900"
                   >
                     {link.label}
                   </Link>
@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400">
               Company
             </h3>
             <ul className="mt-4 space-y-3">
@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-500 transition-colors hover:text-emerald-400"
+                    className="text-sm text-neutral-600 transition-colors hover:text-neutral-900"
                   >
                     {link.label}
                   </Link>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400">
               Legal
             </h3>
             <ul className="mt-4 space-y-3">
@@ -91,7 +91,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-500 transition-colors hover:text-emerald-400"
+                    className="text-sm text-neutral-600 transition-colors hover:text-neutral-900"
                   >
                     {link.label}
                   </Link>
@@ -102,12 +102,12 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="mt-12 border-t border-white/10 pt-8">
+        <div className="mt-12 border-t border-neutral-200 pt-8">
           <div className="max-w-md mx-auto text-center">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-400 mb-4">
               Stay Updated
             </h3>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-neutral-500 mb-4">
               Get the latest research peptide news and exclusive offers.
             </p>
             <NewsletterSignup />
@@ -115,8 +115,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 border-t border-white/10 pt-8 text-center">
-          <p className="text-xs text-gray-600">
+        <div className="mt-8 border-t border-neutral-200 pt-8 text-center">
+          <p className="text-xs text-neutral-500">
             &copy; 2024&ndash;2026 ReVia. All rights reserved. For research use only.
           </p>
         </div>

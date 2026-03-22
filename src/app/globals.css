@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #e4e4e7;
+  --background: #fafafa;
+  --foreground: #171717;
+  --muted: #737373;
+  --accent: #059669;
+  --accent-light: #d1fae5;
+  --surface: #ffffff;
+  --border: #e5e5e5;
 }
 
 @theme inline {
@@ -12,54 +17,39 @@
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-  min-height: 100vh;
-}
-
-/* Subtle ambient glow — NOT overdone */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(16, 185, 129, 0.07), transparent 70%),
-    radial-gradient(ellipse 40% 50% at 100% 50%, rgba(20, 184, 166, 0.04), transparent 70%);
-  pointer-events: none;
-}
-
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Selection color */
-::selection {
-  background: rgba(16, 185, 129, 0.3);
-  color: #fff;
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Focus ring utility */
+::selection {
+  background: rgba(5, 150, 105, 0.15);
+  color: #064e3b;
+}
+
 *:focus-visible {
-  outline: 2px solid rgba(16, 185, 129, 0.5);
+  outline: 2px solid rgba(5, 150, 105, 0.4);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 4px;
+  background: #d4d4d4;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #a3a3a3;
 }

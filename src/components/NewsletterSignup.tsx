@@ -40,7 +40,7 @@ export default function NewsletterSignup() {
 
   if (status === "success") {
     return (
-      <div className="flex items-center gap-2 text-emerald-400">
+      <div className="flex items-center gap-2 text-emerald-600">
         <CheckCircle className="h-5 w-5" />
         <span className="text-sm font-medium">Thank you for subscribing!</span>
       </div>
@@ -51,14 +51,14 @@ export default function NewsletterSignup() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             required
-            className="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-white placeholder-gray-500 outline-none transition-colors focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30"
+            className="w-full rounded-xl border border-neutral-300 bg-white py-2.5 pl-10 pr-4 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30"
           />
         </div>
         <button
@@ -74,7 +74,7 @@ export default function NewsletterSignup() {
         </button>
       </div>
       {status === "error" && (
-        <p className="text-xs text-red-400">{errorMessage}</p>
+        <p className="text-xs text-red-500">{errorMessage}</p>
       )}
     </form>
   );

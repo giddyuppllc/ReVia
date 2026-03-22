@@ -12,17 +12,17 @@ const iconMap = {
 };
 
 const colorMap = {
-  success: "border-emerald-500/30 bg-emerald-950/80 text-emerald-300",
-  error: "border-red-500/30 bg-red-950/80 text-red-300",
-  info: "border-blue-500/30 bg-blue-950/80 text-blue-300",
-  warning: "border-yellow-500/30 bg-yellow-950/80 text-yellow-300",
+  success: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  error: "border-red-200 bg-red-50 text-red-800",
+  info: "border-blue-200 bg-blue-50 text-blue-800",
+  warning: "border-yellow-200 bg-yellow-50 text-yellow-800",
 };
 
 const iconColorMap = {
-  success: "text-emerald-400",
-  error: "text-red-400",
-  info: "text-blue-400",
-  warning: "text-yellow-400",
+  success: "text-emerald-600",
+  error: "text-red-600",
+  info: "text-blue-600",
+  warning: "text-yellow-600",
 };
 
 export default function Toast() {
@@ -41,13 +41,13 @@ export default function Toast() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 80, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className={`pointer-events-auto flex items-center gap-3 rounded-xl border px-4 py-3 shadow-lg backdrop-blur-md ${colorMap[toast.type]}`}
+              className={`pointer-events-auto flex items-center gap-3 rounded-xl border px-4 py-3 shadow-lg ${colorMap[toast.type]}`}
             >
               <Icon className={`h-5 w-5 shrink-0 ${iconColorMap[toast.type]}`} />
               <span className="text-sm font-medium">{toast.message}</span>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="ml-2 shrink-0 rounded-lg p-1 transition-colors hover:bg-white/10"
+                className="ml-2 shrink-0 rounded-lg p-1 transition-colors hover:bg-black/5"
                 aria-label="Dismiss"
               >
                 <X className="h-4 w-4" />

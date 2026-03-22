@@ -81,12 +81,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
     <JsonLd data={productLd} />
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* ── Breadcrumb ── */}
-      <nav className="mb-8 flex items-center gap-1 text-sm text-gray-500">
-        <Link href="/" className="transition hover:text-gray-300">
+      <nav className="mb-8 flex items-center gap-1 text-sm text-neutral-400">
+        <Link href="/" className="transition hover:text-neutral-700">
           Home
         </Link>
         <ChevronRight className="h-3.5 w-3.5" />
-        <Link href="/shop" className="transition hover:text-gray-300">
+        <Link href="/shop" className="transition hover:text-neutral-700">
           Shop
         </Link>
         <ChevronRight className="h-3.5 w-3.5" />
@@ -94,20 +94,20 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <>
             <Link
               href={`/shop?category=${product.category.slug}`}
-              className="transition hover:text-gray-300"
+              className="transition hover:text-neutral-700"
             >
               {product.category.name}
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
           </>
         )}
-        <span className="text-gray-300">{product.name}</span>
+        <span className="text-neutral-700">{product.name}</span>
       </nav>
 
       {/* ── Product layout ── */}
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Image */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a1a]">
+        <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
           <div className="absolute right-3 top-3 z-10">
             <WishlistButton productId={product.id} />
           </div>
@@ -118,8 +118,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-emerald-900/40 to-emerald-700/20">
-              <span className="text-7xl font-bold text-emerald-500/60">
+            <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100">
+              <span className="text-7xl font-bold text-emerald-600/40">
                 {product.name.charAt(0)}
               </span>
             </div>
@@ -129,17 +129,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
         {/* Details */}
         <div className="flex flex-col justify-center">
           {product.category && (
-            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500">
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
               {product.category.name}
             </p>
           )}
 
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
             {product.name}
           </h1>
 
           {product.description && (
-            <p className="mt-4 text-base leading-relaxed text-gray-400">
+            <p className="mt-4 text-base leading-relaxed text-neutral-500">
               {product.description}
             </p>
           )}
@@ -160,8 +160,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
 
           {/* RUO Disclaimer */}
-          <div className="mt-8 rounded-xl border border-yellow-600/20 bg-yellow-900/10 px-4 py-3 text-xs leading-relaxed text-yellow-200/80">
-            <strong className="font-semibold text-yellow-300">
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-800">
+            <strong className="font-semibold text-amber-900">
               For Research Use Only.
             </strong>{" "}
             This product is intended solely for laboratory research purposes. It is
@@ -178,7 +178,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       {/* ── Related Products ── */}
       {related.length > 0 && (
         <div className="mt-20">
-          <h2 className="text-xl font-bold text-white">Related Products</h2>
+          <h2 className="text-xl font-bold text-neutral-900">Related Products</h2>
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} />

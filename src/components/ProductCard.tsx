@@ -23,16 +23,16 @@ interface Product {
 }
 
 const catColors: Record<string, string> = {
-  Recovery: "from-emerald-600 to-teal-800",
-  Metabolic: "from-amber-600 to-orange-800",
-  "Growth Hormone": "from-blue-600 to-indigo-800",
-  Nootropic: "from-violet-600 to-purple-800",
-  Longevity: "from-cyan-600 to-blue-800",
-  Cosmetic: "from-pink-600 to-rose-800",
-  Immune: "from-green-600 to-emerald-800",
-  Mitochondrial: "from-sky-600 to-cyan-800",
-  Sleep: "from-indigo-600 to-violet-800",
-  Stacks: "from-emerald-500 to-cyan-700",
+  Recovery: "from-emerald-100 to-teal-200",
+  Metabolic: "from-amber-100 to-orange-200",
+  "Growth Hormone": "from-blue-100 to-indigo-200",
+  Nootropic: "from-violet-100 to-purple-200",
+  Longevity: "from-cyan-100 to-blue-200",
+  Cosmetic: "from-pink-100 to-rose-200",
+  Immune: "from-green-100 to-emerald-200",
+  Mitochondrial: "from-sky-100 to-cyan-200",
+  Sleep: "from-indigo-100 to-violet-200",
+  Stacks: "from-emerald-100 to-cyan-200",
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   const hasMultiple = product.variants.length > 1;
   const catName = product.category?.name ?? "Peptide";
-  const gradient = catColors[catName] ?? "from-emerald-600 to-teal-800";
+  const gradient = catColors[catName] ?? "from-emerald-100 to-teal-200";
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/shop/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-[#141414] transition-all duration-300 hover:border-emerald-500/25 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/40"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
     >
       {/* Image area */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -79,18 +79,15 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         ) : (
           <div className={`flex h-full w-full items-center justify-center bg-linear-to-br ${gradient}`}>
-            <span className="text-6xl font-black text-white/20 select-none">
+            <span className="text-6xl font-black text-neutral-400/40 select-none">
               {catName.substring(0, 2).toUpperCase()}
             </span>
           </div>
         )}
 
-        {/* Bottom gradient fade */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-[#141414] to-transparent" />
-
         {/* Category pill */}
         <div className="absolute bottom-3 left-3">
-          <span className="rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 backdrop-blur-sm">
+          <span className="rounded-full bg-neutral-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-neutral-600">
             {catName}
           </span>
         </div>
@@ -98,20 +95,20 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4 pt-3">
-        <h3 className="text-sm font-semibold text-gray-100 leading-snug line-clamp-2 group-hover:text-white transition-colors">
+        <h3 className="text-sm font-semibold text-neutral-900 leading-snug line-clamp-2 group-hover:text-neutral-700 transition-colors">
           {product.name}
         </h3>
 
         <div className="mt-auto flex items-center justify-between pt-3">
           {cheapest && (
-            <span className="text-base font-bold text-white">
-              {hasMultiple && <span className="text-xs font-normal text-gray-500 mr-1">from</span>}
+            <span className="text-base font-bold text-neutral-900">
+              {hasMultiple && <span className="text-xs font-normal text-neutral-500 mr-1">from</span>}
               ${cheapest.price.toFixed(2)}
             </span>
           )}
 
           {hasMultiple ? (
-            <span className="rounded-lg bg-white/5 px-3 py-1.5 text-xs font-medium text-emerald-400 border border-emerald-500/20 transition group-hover:bg-emerald-500/10">
+            <span className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-600 border border-emerald-200 transition group-hover:bg-emerald-100">
               Options
             </span>
           ) : (

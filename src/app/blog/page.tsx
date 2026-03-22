@@ -38,13 +38,13 @@ export default async function BlogPage({
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Hero */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
           The ReVia{" "}
-          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
             Journal
           </span>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-neutral-500">
           Insights, research news, and education from the world of peptide
           science.
         </p>
@@ -57,7 +57,7 @@ export default async function BlogPage({
           className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
             !category
               ? "bg-emerald-600 text-white"
-              : "bg-white/5 text-gray-300 hover:bg-white/10"
+              : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
           }`}
         >
           All
@@ -69,7 +69,7 @@ export default async function BlogPage({
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
               category === c.category
                 ? "bg-emerald-600 text-white"
-                : "bg-white/5 text-gray-300 hover:bg-white/10"
+                : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
             }`}
           >
             {c.category}
@@ -83,7 +83,7 @@ export default async function BlogPage({
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
-            className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all hover:border-emerald-500/30 hover:bg-white/[0.07]"
+            className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
           >
             {post.image && (
               <div className="relative aspect-[16/9] overflow-hidden">
@@ -92,23 +92,22 @@ export default async function BlogPage({
                   alt={post.title}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
             )}
             <div className="p-6">
-              <div className="flex items-center gap-3 text-xs text-gray-500">
-                <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 font-medium text-emerald-400">
+              <div className="flex items-center gap-3 text-xs text-neutral-400">
+                <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-600">
                   {post.category}
                 </span>
                 <span>{readTime(post.content)} min read</span>
               </div>
-              <h2 className="mt-3 text-lg font-semibold text-white line-clamp-2 group-hover:text-emerald-400 transition-colors">
+              <h2 className="mt-3 text-lg font-semibold text-neutral-900 line-clamp-2 group-hover:text-emerald-600 transition-colors">
                 {post.title}
               </h2>
-              <p className="mt-2 text-sm text-gray-400 line-clamp-3">
+              <p className="mt-2 text-sm text-neutral-500 line-clamp-3">
                 {post.excerpt}
               </p>
-              <p className="mt-4 text-xs text-gray-500">
+              <p className="mt-4 text-xs text-neutral-400">
                 {new Date(post.publishedAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -121,7 +120,7 @@ export default async function BlogPage({
       </div>
 
       {posts.length === 0 && (
-        <p className="mt-16 text-center text-gray-500">
+        <p className="mt-16 text-center text-neutral-500">
           No posts found in this category.
         </p>
       )}

@@ -36,10 +36,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/90 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-emerald-500 tracking-tight">
+        <Link href="/" className="text-2xl font-bold text-emerald-700 tracking-tight">
           ReVia
         </Link>
 
@@ -49,7 +49,7 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400"
+                className="text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
               >
                 {link.label}
               </Link>
@@ -65,14 +65,14 @@ export default function Navbar() {
               {user.role === "admin" && (
                 <Link
                   href="/admin"
-                  className="hidden text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400 sm:block"
+                  className="hidden text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900 sm:block"
                 >
                   Admin
                 </Link>
               )}
               <Link
                 href="/account"
-                className="flex items-center gap-1.5 rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/10 hover:text-emerald-400"
+                className="flex items-center gap-1.5 rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
                 aria-label="Account"
               >
                 <User className="h-5 w-5" />
@@ -82,7 +82,7 @@ export default function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="hidden text-sm font-medium text-gray-300 transition-colors hover:text-emerald-400 sm:block"
+              className="hidden text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900 sm:block"
             >
               Login
             </Link>
@@ -91,12 +91,12 @@ export default function Navbar() {
           {/* Cart button */}
           <button
             onClick={toggleCart}
-            className="relative rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/10 hover:text-emerald-400"
+            className="relative rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
             aria-label="Open cart"
           >
             <ShoppingCart className="h-5 w-5" />
             {totalItems > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white">
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white">
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}
@@ -105,7 +105,7 @@ export default function Navbar() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/10 md:hidden"
+            className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 md:hidden"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -115,14 +115,14 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-black/95 backdrop-blur-xl md:hidden">
+        <div className="border-t border-neutral-200 bg-white md:hidden">
           <ul className="flex flex-col gap-1 px-4 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-emerald-400"
+                  className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
                 >
                   {link.label}
                 </Link>
@@ -134,7 +134,7 @@ export default function Navbar() {
                   <Link
                     href="/account"
                     onClick={() => setMobileOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-emerald-400"
+                    className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
                   >
                     Account
                   </Link>
@@ -144,7 +144,7 @@ export default function Navbar() {
                     <Link
                       href="/admin"
                       onClick={() => setMobileOpen(false)}
-                      className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-emerald-400"
+                      className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
                     >
                       Admin
                     </Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-sm font-medium text-emerald-400 transition-colors hover:bg-white/5"
+                  className="block rounded-lg px-4 py-3 text-sm font-medium text-emerald-700 transition-colors hover:bg-neutral-50"
                 >
                   Login
                 </Link>

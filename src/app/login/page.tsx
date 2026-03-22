@@ -41,21 +41,21 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-        <h1 className="mb-2 text-center text-3xl font-bold text-white">Welcome Back</h1>
-        <p className="mb-8 text-center text-sm text-gray-400">
+      <div className="w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
+        <h1 className="mb-2 text-center text-3xl font-bold text-neutral-900">Welcome Back</h1>
+        <p className="mb-8 text-center text-sm text-neutral-500">
           Sign in to your ReVia account
         </p>
 
         {error && (
-          <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-300">
+            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-neutral-700">
               Email
             </label>
             <input
@@ -64,13 +64,13 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+              className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-300">
+            <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-neutral-700">
               Password
             </label>
             <input
@@ -79,7 +79,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+              className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
               placeholder="Enter your password"
             />
           </div>
@@ -93,9 +93,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-400">
+        <p className="mt-6 text-center text-sm text-neutral-500">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+          <Link href="/register" className="text-emerald-600 hover:text-emerald-500 transition-colors">
             Create one
           </Link>
         </p>

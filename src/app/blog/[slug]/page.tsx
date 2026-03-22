@@ -68,15 +68,15 @@ export default async function BlogPostPage({
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         {/* Breadcrumb */}
-        <nav className="mb-8 text-sm text-gray-500">
-          <Link href="/" className="hover:text-white">
+        <nav className="mb-8 text-sm text-neutral-400">
+          <Link href="/" className="hover:text-neutral-700">
             Home
           </Link>{" "}
           /{" "}
-          <Link href="/blog" className="hover:text-white">
+          <Link href="/blog" className="hover:text-neutral-700">
             Blog
           </Link>{" "}
-          / <span className="text-gray-400">{post.title}</span>
+          / <span className="text-neutral-700">{post.title}</span>
         </nav>
 
         {/* Hero image */}
@@ -91,8 +91,8 @@ export default async function BlogPostPage({
         )}
 
         {/* Meta */}
-        <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
-          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
+          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
             {post.category}
           </span>
           <span>By {post.author}</span>
@@ -108,7 +108,7 @@ export default async function BlogPostPage({
           <span>{readTime(post.content)} min read</span>
         </div>
 
-        <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h1 className="mt-6 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
           {post.title}
         </h1>
 
@@ -121,20 +121,20 @@ export default async function BlogPostPage({
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="mx-auto max-w-7xl border-t border-white/10 px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-white">Related Articles</h2>
+        <section className="mx-auto max-w-7xl border-t border-neutral-200 px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-neutral-900">Related Articles</h2>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {related.map((r) => (
               <Link
                 key={r.id}
                 href={`/blog/${r.slug}`}
-                className="group rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-emerald-500/30"
+                className="group rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:shadow-md hover:-translate-y-1"
               >
-                <span className="text-xs text-emerald-400">{r.category}</span>
-                <h3 className="mt-2 font-semibold text-white group-hover:text-emerald-400 transition-colors line-clamp-2">
+                <span className="text-xs text-emerald-600">{r.category}</span>
+                <h3 className="mt-2 font-semibold text-neutral-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
                   {r.title}
                 </h3>
-                <p className="mt-2 text-sm text-gray-400 line-clamp-2">
+                <p className="mt-2 text-sm text-neutral-500 line-clamp-2">
                   {r.excerpt}
                 </p>
               </Link>
@@ -147,14 +147,14 @@ export default async function BlogPostPage({
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        .prose-revia h2 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 2rem; margin-bottom: 0.75rem; }
-        .prose-revia p { color: #a1a1aa; line-height: 1.8; margin-bottom: 1.25rem; }
+        .prose-revia h2 { font-size: 1.5rem; font-weight: 700; color: #171717; margin-top: 2rem; margin-bottom: 0.75rem; }
+        .prose-revia p { color: #525252; line-height: 1.8; margin-bottom: 1.25rem; }
         .prose-revia ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-        .prose-revia li { color: #a1a1aa; line-height: 1.8; margin-bottom: 0.5rem; }
-        .prose-revia li strong { color: #d4d4d8; }
-        .prose-revia blockquote { border-left: 3px solid #10b981; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #d4d4d8; }
-        .prose-revia em { color: #71717a; }
-        .prose-revia a { color: #34d399; text-decoration: underline; }
+        .prose-revia li { color: #525252; line-height: 1.8; margin-bottom: 0.5rem; }
+        .prose-revia li strong { color: #171717; }
+        .prose-revia blockquote { border-left: 3px solid #059669; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #404040; }
+        .prose-revia em { color: #737373; }
+        .prose-revia a { color: #059669; text-decoration: underline; }
       `,
         }}
       />

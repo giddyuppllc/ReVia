@@ -68,10 +68,10 @@ export default async function ShopPage({
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* ── Header ── */}
-      <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+      <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
         Shop All Products
       </h1>
-      <p className="mt-2 text-sm text-gray-400">
+      <p className="mt-2 text-sm text-neutral-500">
         Showing {products.length} product{products.length !== 1 ? "s" : ""}
       </p>
 
@@ -81,13 +81,13 @@ export default async function ShopPage({
           {category && <input type="hidden" name="category" value={category} />}
           {sort && <input type="hidden" name="sort" value={sort} />}
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <input
               type="text"
               name="q"
               defaultValue={q ?? ""}
               placeholder="Search products..."
-              className="w-full rounded-lg border border-white/10 bg-white/5 py-2 pl-10 pr-4 text-sm text-white placeholder-gray-500 outline-none transition focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30"
+              className="w-full rounded-lg border border-neutral-300 bg-white py-2 pl-10 pr-4 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30"
             />
           </div>
           <button
@@ -99,7 +99,7 @@ export default async function ShopPage({
         </form>
 
         {/* Sort dropdown as links */}
-        <div className="flex items-center gap-2 text-sm text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-neutral-500">
           <span>Sort:</span>
           <div className="flex gap-1">
             {[
@@ -119,7 +119,7 @@ export default async function ShopPage({
                   className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
                     isActive
                       ? "bg-emerald-600 text-white"
-                      : "bg-white/5 text-gray-300 hover:bg-white/10"
+                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                   }`}
                 >
                   {s.label}
@@ -134,7 +134,7 @@ export default async function ShopPage({
       <div className="mt-10 flex flex-col gap-10 lg:flex-row">
         {/* Sidebar */}
         <aside className="w-full shrink-0 lg:w-56">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-neutral-400">
             Categories
           </h2>
           <ul className="mt-3 space-y-1">
@@ -143,8 +143,8 @@ export default async function ShopPage({
                 href="/shop"
                 className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
                   !category
-                    ? "bg-emerald-600/20 text-emerald-400"
-                    : "text-gray-300 hover:bg-white/5"
+                    ? "bg-emerald-50 text-emerald-600"
+                    : "text-neutral-600 hover:bg-neutral-100"
                 }`}
               >
                 All
@@ -158,8 +158,8 @@ export default async function ShopPage({
                     href={`/shop?category=${cat.slug}${q ? `&q=${q}` : ""}${sort ? `&sort=${sort}` : ""}`}
                     className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
                       isActive
-                        ? "bg-emerald-600/20 text-emerald-400"
-                        : "text-gray-300 hover:bg-white/5"
+                        ? "bg-emerald-50 text-emerald-600"
+                        : "text-neutral-600 hover:bg-neutral-100"
                     }`}
                   >
                     {cat.name}
@@ -179,7 +179,7 @@ export default async function ShopPage({
           </div>
         ) : (
           <div className="flex flex-1 items-center justify-center py-20">
-            <p className="text-gray-500">No products found.</p>
+            <p className="text-neutral-500">No products found.</p>
           </div>
         )}
       </div>

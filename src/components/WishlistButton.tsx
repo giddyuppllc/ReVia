@@ -69,14 +69,14 @@ export default function WishlistButton({ productId }: { productId: string }) {
     <button
       onClick={toggle}
       disabled={loading}
-      className="group/heart rounded-full bg-black/50 p-2 backdrop-blur-sm transition-colors hover:bg-black/70"
+      className="group/heart rounded-full bg-white/80 p-2 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
       aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
     >
       <Heart
         className={`h-4 w-4 transition-colors ${
           inWishlist
             ? "fill-red-500 text-red-500"
-            : "text-white/70 group-hover/heart:text-red-400"
+            : "text-neutral-400 group-hover/heart:text-red-400"
         }`}
       />
     </button>

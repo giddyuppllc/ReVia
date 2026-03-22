@@ -41,7 +41,7 @@ export default function AddToCart({
     <div className="space-y-6">
       {/* Variant selector */}
       <div>
-        <h3 className="mb-3 text-sm font-medium text-gray-400">Select Variant</h3>
+        <h3 className="mb-3 text-sm font-medium text-neutral-500">Select Variant</h3>
         <div className="flex flex-wrap gap-3">
           {variants.map((v) => {
             const isSelected = v.id === selectedId;
@@ -52,10 +52,10 @@ export default function AddToCart({
                 disabled={!v.inStock}
                 className={`rounded-xl border px-4 py-3 text-sm font-medium transition ${
                   isSelected
-                    ? "border-emerald-500 bg-emerald-600/20 text-emerald-400"
+                    ? "border-emerald-600 bg-emerald-50 text-emerald-700"
                     : v.inStock
-                    ? "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10"
-                    : "cursor-not-allowed border-white/5 bg-white/[.02] text-gray-600 line-through"
+                    ? "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300 hover:bg-neutral-50"
+                    : "cursor-not-allowed border-neutral-100 bg-neutral-50 text-neutral-300 line-through"
                 }`}
               >
                 <span className="block">{v.label}</span>
@@ -70,7 +70,7 @@ export default function AddToCart({
 
       {/* Price display */}
       {selected && (
-        <p className="text-2xl font-bold text-white">
+        <p className="text-2xl font-bold text-neutral-900">
           ${(selected.price / 100).toFixed(2)}
         </p>
       )}
@@ -84,7 +84,7 @@ export default function AddToCart({
             ? "bg-emerald-700 text-white"
             : selected?.inStock
             ? "bg-emerald-600 text-white hover:bg-emerald-500"
-            : "cursor-not-allowed bg-gray-700 text-gray-400"
+            : "cursor-not-allowed bg-neutral-200 text-neutral-400"
         }`}
       >
         {added ? (

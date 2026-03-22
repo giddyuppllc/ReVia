@@ -92,22 +92,22 @@ export default function FAQContent() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
           Frequently Asked{" "}
-          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Questions</span>
+          <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">Questions</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-400">Everything you need to know about ReVia, our products, and how we support your research.</p>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-neutral-500">Everything you need to know about ReVia, our products, and how we support your research.</p>
       </div>
 
       <div className="relative mx-auto mt-10 max-w-xl">
-        <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
-        <input type="text" placeholder="Search questions..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-12 pr-4 text-white placeholder-gray-500 outline-none transition focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30" />
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400" />
+        <input type="text" placeholder="Search questions..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full rounded-xl border border-neutral-300 bg-white py-3 pl-12 pr-4 text-neutral-900 placeholder-neutral-400 outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30" />
       </div>
 
       <div className="mt-12 space-y-10">
         {filtered.map((section) => (
           <div key={section.title}>
-            <div className="mb-4 flex items-center gap-3 text-emerald-400">
+            <div className="mb-4 flex items-center gap-3 text-emerald-600">
               {section.icon}
               <h2 className="text-xl font-semibold">{section.title}</h2>
             </div>
@@ -116,15 +116,15 @@ export default function FAQContent() {
                 const key = `${section.title}-${item.q}`;
                 const isOpen = openIndex === key;
                 return (
-                  <div key={key} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                    <button onClick={() => setOpenIndex(isOpen ? null : key)} className="flex w-full items-center justify-between px-5 py-4 text-left text-white transition hover:bg-white/[0.03]">
+                  <div key={key} className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                    <button onClick={() => setOpenIndex(isOpen ? null : key)} className="flex w-full items-center justify-between px-5 py-4 text-left text-neutral-900 transition hover:bg-neutral-50">
                       <span className="pr-4 font-medium">{item.q}</span>
-                      <ChevronDown className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`h-5 w-5 shrink-0 text-neutral-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
                       {isOpen && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
-                          <p className="border-t border-white/5 px-5 py-4 text-gray-400 leading-relaxed">{item.a}</p>
+                          <p className="border-t border-neutral-100 px-5 py-4 text-neutral-500 leading-relaxed">{item.a}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -136,11 +136,11 @@ export default function FAQContent() {
         ))}
       </div>
 
-      {filtered.length === 0 && <p className="mt-12 text-center text-gray-500">No questions match your search.</p>}
+      {filtered.length === 0 && <p className="mt-12 text-center text-neutral-500">No questions match your search.</p>}
 
-      <div className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-        <h3 className="text-xl font-semibold text-white">Still have questions?</h3>
-        <p className="mt-2 text-gray-400">Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.</p>
+      <div className="mt-16 rounded-2xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
+        <h3 className="text-xl font-semibold text-neutral-900">Still have questions?</h3>
+        <p className="mt-2 text-neutral-500">Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.</p>
         <Link href="/contact" className="mt-6 inline-flex items-center justify-center rounded-xl bg-emerald-600 px-8 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500">Contact Support</Link>
       </div>
     </section>

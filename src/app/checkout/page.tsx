@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ShoppingBag, ArrowLeft, Trash2, Loader2, Tag } from "lucide-react";
+import { ShoppingBag, ArrowLeft, Trash2, Loader2, Tag, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 
 export default function CheckoutPage() {
@@ -35,7 +35,8 @@ export default function CheckoutPage() {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const subtotal = totalPrice();
-  const finalTotal = Math.max(0, subtotal - couponDiscount);
+  const shippingCost = subtotal >= 20000 ? 0 : 2500;
+  const finalTotal = Math.max(0, subtotal - couponDiscount) + shippingCost;
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -121,15 +122,15 @@ export default function CheckoutPage() {
   if (orderId) {
     return (
       <section className="mx-auto flex max-w-xl flex-col items-center px-4 py-32 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-600/20">
-          <ShoppingBag className="h-8 w-8 text-emerald-400" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+          <ShoppingBag className="h-8 w-8 text-emerald-600" />
         </div>
-        <h1 className="mt-6 text-2xl font-bold text-white">
+        <h1 className="mt-6 text-2xl font-bold text-neutral-900">
           Thank you for your order!
         </h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-neutral-500">
           Your order{" "}
-          <span className="font-semibold text-emerald-400">
+          <span className="font-semibold text-emerald-600">
             #{orderId.slice(-8).toUpperCase()}
           </span>{" "}
           has been received. We will send a confirmation to your email.
@@ -147,9 +148,9 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <section className="mx-auto flex max-w-xl flex-col items-center px-4 py-32 text-center">
-        <ShoppingBag className="h-12 w-12 text-gray-600" />
-        <h1 className="mt-4 text-xl font-bold text-white">Your cart is empty</h1>
-        <p className="mt-2 text-sm text-gray-400">
+        <ShoppingBag className="h-12 w-12 text-neutral-300" />
+        <h1 className="mt-4 text-xl font-bold text-neutral-900">Your cart is empty</h1>
+        <p className="mt-2 text-sm text-neutral-500">
           Browse our catalog and add products to get started.
         </p>
         <Link
@@ -164,26 +165,26 @@ export default function CheckoutPage() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30";
+    "w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30";
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight text-white">Checkout</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-neutral-900">Checkout</h1>
 
       <div className="mt-10 grid gap-12 lg:grid-cols-5">
         {/* -- Form -- */}
         <form onSubmit={handleSubmit} className="space-y-6 lg:col-span-3">
-          <h2 className="text-lg font-semibold text-white">Shipping Information</h2>
+          <h2 className="text-lg font-semibold text-neutral-900">Shipping Information</h2>
 
           {error && (
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
               {error}
             </div>
           )}
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-400">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">
                 Full Name
               </label>
               <input
@@ -197,7 +198,7 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-400">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">
                 Email
               </label>
               <input
@@ -213,7 +214,7 @@ export default function CheckoutPage() {
           </div>
 
           <div>
-            <label className="mb-1 block text-xs font-medium text-gray-400">
+            <label className="mb-1 block text-xs font-medium text-neutral-500">
               Address
             </label>
             <input
@@ -229,7 +230,7 @@ export default function CheckoutPage() {
 
           <div className="grid gap-4 sm:grid-cols-3">
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-400">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">
                 City
               </label>
               <input
@@ -243,7 +244,7 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-400">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">
                 State
               </label>
               <input
@@ -257,7 +258,7 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-gray-400">
+              <label className="mb-1 block text-xs font-medium text-neutral-500">
                 ZIP Code
               </label>
               <input
@@ -290,30 +291,30 @@ export default function CheckoutPage() {
 
         {/* -- Cart Summary -- */}
         <div className="lg:col-span-2">
-          <div className="rounded-2xl border border-white/10 bg-[#1a1a1a] p-6">
-            <h2 className="text-lg font-semibold text-white">Order Summary</h2>
+          <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-neutral-900">Order Summary</h2>
 
-            <ul className="mt-4 divide-y divide-white/5">
+            <ul className="mt-4 divide-y divide-neutral-100">
               {items.map((item) => (
                 <li
                   key={item.variantId}
                   className="flex items-start justify-between gap-3 py-3"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-gray-200 truncate">
+                    <p className="text-sm font-medium text-neutral-900 truncate">
                       {item.productName}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-neutral-500">
                       {item.variantLabel} &times; {item.quantity}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-300">
+                    <span className="text-sm font-medium text-neutral-700">
                       ${((item.price * item.quantity) / 100).toFixed(2)}
                     </span>
                     <button
                       onClick={() => removeItem(item.variantId)}
-                      className="text-gray-600 transition hover:text-red-400"
+                      className="text-neutral-400 transition hover:text-red-500"
                       disabled={submitting}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -324,19 +325,19 @@ export default function CheckoutPage() {
             </ul>
 
             {/* Coupon Code Section */}
-            <div className="mt-4 border-t border-white/10 pt-4">
-              <label className="mb-2 flex items-center gap-1.5 text-xs font-medium text-gray-400">
+            <div className="mt-4 border-t border-neutral-200 pt-4">
+              <label className="mb-2 flex items-center gap-1.5 text-xs font-medium text-neutral-500">
                 <Tag size={12} />
                 Coupon Code
               </label>
               {appliedCoupon ? (
-                <div className="flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2">
-                  <span className="text-sm font-mono text-emerald-400">
+                <div className="flex items-center justify-between rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2">
+                  <span className="text-sm font-mono text-emerald-700">
                     {appliedCoupon}
                   </span>
                   <button
                     onClick={handleRemoveCoupon}
-                    className="text-xs text-white/40 hover:text-red-400 transition"
+                    className="text-xs text-neutral-400 hover:text-red-500 transition"
                     disabled={submitting}
                   >
                     Remove
@@ -356,7 +357,7 @@ export default function CheckoutPage() {
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={submitting || couponApplying || !couponCode.trim()}
-                    className="shrink-0 rounded-lg bg-white/10 px-4 py-2 text-xs font-medium text-white transition hover:bg-white/20 disabled:opacity-40"
+                    className="shrink-0 rounded-lg bg-neutral-100 px-4 py-2 text-xs font-medium text-neutral-700 transition hover:bg-neutral-200 disabled:opacity-40"
                   >
                     {couponApplying ? (
                       <Loader2 size={14} className="animate-spin" />
@@ -370,8 +371,8 @@ export default function CheckoutPage() {
                 <p
                   className={`mt-2 text-xs ${
                     couponMessage.type === "success"
-                      ? "text-emerald-400"
-                      : "text-red-400"
+                      ? "text-emerald-600"
+                      : "text-red-500"
                   }`}
                 >
                   {couponMessage.text}
@@ -379,24 +380,40 @@ export default function CheckoutPage() {
               )}
             </div>
 
-            <div className="mt-4 border-t border-white/10 pt-4 space-y-2">
+            <div className="mt-4 border-t border-neutral-200 pt-4 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">Subtotal</span>
-                <span className="text-sm text-white/70">
+                <span className="text-sm text-neutral-500">Subtotal</span>
+                <span className="text-sm text-neutral-700">
                   ${(subtotal / 100).toFixed(2)}
                 </span>
               </div>
               {couponDiscount > 0 && (
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-emerald-400">Discount</span>
-                  <span className="text-sm text-emerald-400">
+                  <span className="text-sm text-emerald-600">Discount</span>
+                  <span className="text-sm text-emerald-600">
                     -${(couponDiscount / 100).toFixed(2)}
                   </span>
                 </div>
               )}
-              <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                <span className="text-sm font-medium text-gray-400">Total</span>
-                <span className="text-lg font-bold text-white">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-neutral-500">Shipping</span>
+                <span className="text-sm text-neutral-700">
+                  {shippingCost === 0 ? (
+                    <span className="text-emerald-600 font-medium">FREE</span>
+                  ) : (
+                    "$25.00"
+                  )}
+                </span>
+              </div>
+              {shippingCost > 0 && (
+                <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+                  <Truck className="h-3.5 w-3.5 shrink-0" />
+                  Add ${((20000 - subtotal) / 100).toFixed(2)} more for free shipping
+                </div>
+              )}
+              <div className="flex items-center justify-between pt-2 border-t border-neutral-100">
+                <span className="text-sm font-medium text-neutral-700">Total</span>
+                <span className="text-lg font-bold text-neutral-900">
                   ${(finalTotal / 100).toFixed(2)}
                 </span>
               </div>

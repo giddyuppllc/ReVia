@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import ShippingBanner from "@/components/ShippingBanner";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import Footer from "@/components/Footer";
@@ -87,11 +88,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white">
+      <body className="min-h-full flex flex-col bg-[#fafafa] text-neutral-900">
         <JsonLd data={organizationLd} />
         <Navbar />
+        <ShippingBanner />
         <CartDrawer />
         <Toast />
         <main className="flex-1">{children}</main>

@@ -23,7 +23,7 @@ export default async function HomePage() {
       <HeroBanner />
 
       {/* Stats bar */}
-      <section className="border-y border-white/5 bg-white/[0.02]">
+      <section className="border-y border-neutral-200 bg-white">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px sm:grid-cols-4">
           {[
             { icon: FlaskConical, label: "Lab-Verified", sub: "98%+ Purity" },
@@ -32,12 +32,12 @@ export default async function HomePage() {
             { icon: Atom, label: "74+ Compounds", sub: "Growing Catalog" },
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-4 px-6 py-6 sm:py-8">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                <s.icon className="h-5 w-5 text-emerald-400" />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 border border-emerald-200">
+                <s.icon className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">{s.label}</p>
-                <p className="text-xs text-gray-500">{s.sub}</p>
+                <p className="text-sm font-semibold text-neutral-900">{s.label}</p>
+                <p className="text-xs text-neutral-500">{s.sub}</p>
               </div>
             </div>
           ))}
@@ -48,12 +48,12 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-2">Curated Selection</p>
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">Featured Products</h2>
+            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">Curated Selection</p>
+            <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl">Featured Products</h2>
           </div>
           <Link
             href="/shop"
-            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
+            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-neutral-200 bg-white px-5 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50 hover:text-neutral-900"
           >
             View All
           </Link>
@@ -78,7 +78,7 @@ export default async function HomePage() {
           ))}
         </div>
         <div className="mt-8 text-center sm:hidden">
-          <Link href="/shop" className="text-emerald-400 font-medium text-sm">
+          <Link href="/shop" className="text-emerald-600 font-medium text-sm">
             View All Products →
           </Link>
         </div>
@@ -86,8 +86,8 @@ export default async function HomePage() {
 
       {/* Categories */}
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-2">Browse</p>
-        <h2 className="text-3xl font-bold text-white mb-8 sm:text-4xl">Shop by Category</h2>
+        <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">Browse</p>
+        <h2 className="text-3xl font-bold text-neutral-900 mb-8 sm:text-4xl">Shop by Category</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories.map((cat) => (
             <CategoryCard
@@ -102,13 +102,12 @@ export default async function HomePage() {
 
       {/* Newsletter */}
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-emerald-900/30 via-[#111] to-teal-900/20 p-10 md:p-16">
-          <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-emerald-500/10 blur-[80px]" />
+        <div className="relative overflow-hidden rounded-3xl border border-emerald-200 bg-emerald-50 p-10 md:p-16">
           <div className="relative text-center">
-            <h2 className="text-2xl font-bold text-white md:text-3xl">
+            <h2 className="text-2xl font-bold text-neutral-900 md:text-3xl">
               Stay in the Loop
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-gray-400">
+            <p className="mx-auto mt-3 max-w-lg text-neutral-600">
               New compounds, research news, and exclusive offers — straight to your inbox.
             </p>
             <div className="mx-auto mt-8 max-w-md">
@@ -119,12 +118,12 @@ export default async function HomePage() {
       </section>
 
       {/* RUO */}
-      <section className="border-t border-white/5 bg-white/[0.015] py-10">
+      <section className="border-t border-neutral-200 bg-neutral-100 py-10">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-500/70 mb-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-2">
             Important Notice
           </p>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-neutral-500 leading-relaxed">
             All products sold by ReVia are intended for laboratory research use
             only. They are not intended for human or animal consumption, or for
             use in the diagnosis, treatment, cure, or prevention of any disease.
