@@ -57,7 +57,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm">
         <h1 className="mb-2 text-center text-3xl font-bold text-neutral-900">Create Account</h1>
         <p className="mb-8 text-center text-sm text-neutral-500">
-          Join ReVia for access to research-grade peptides
+          Join ReVia for access to premium peptides
         </p>
 
         {error && (

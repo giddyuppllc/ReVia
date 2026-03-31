@@ -100,10 +100,9 @@ export default async function StacksPage() {
         })}
       </div>
 
-      {/* RUO disclaimer */}
-      <p className="mt-16 text-center text-xs text-neutral-400 max-w-2xl mx-auto">
-        For Research Use Only. Not for human consumption. These products are intended solely for
-        in vitro research and are not approved for diagnostic or therapeutic use.
+      {/* Disclaimer */}
+      <p className="mt-16 text-center text-xs text-stone-400 max-w-2xl mx-auto">
+        These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
       </p>
     </section>
   );

@@ -58,7 +58,7 @@ export default function HeroBanner() {
                 >
                   <Atom className="h-3.5 w-3.5 text-sky-500" />
                 </motion.span>
-                Now Serving <CompoundCounter delay={3.8} /> Compounds
+                Independently Verified &bull; &gt;99% Purity
               </span>
             </motion.div>
 
@@ -69,7 +69,7 @@ export default function HeroBanner() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                Your Research.
+                Premium Peptides.
               </motion.span>
               <motion.span
                 className="block"
@@ -77,7 +77,7 @@ export default function HeroBanner() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                Our Peptides.
+                Proven Purity.
               </motion.span>
               <motion.span
                 className="block"
@@ -85,7 +85,7 @@ export default function HeroBanner() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 2.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                Pure <span className="hero-shimmer">Science.</span>
+                Real <span className="hero-shimmer">Results.</span>
               </motion.span>
             </h1>
 
@@ -95,7 +95,7 @@ export default function HeroBanner() {
               transition={{ duration: 0.6, delay: 2.9 }}
               className="mt-6 text-lg text-stone-600 leading-relaxed sm:text-xl max-w-lg"
             >
-              Trusted by researchers worldwide. 98%+ purity, same-day shipping, and a catalog built for the science of tomorrow.
+              Your trusted source for independently tested, pharmaceutical-grade peptides. Every batch verified to &gt;99% purity with same-day shipping nationwide.
             </motion.p>
 
             <motion.div
@@ -141,9 +141,9 @@ export default function HeroBanner() {
               className="mt-14 flex flex-wrap gap-x-8 gap-y-3"
             >
               {[
-                { icon: FlaskConical, text: "98%+ Purity" },
+                { icon: FlaskConical, text: ">99% Purity" },
                 { icon: Truck, text: "Same-Day Shipping" },
-                { icon: Package, text: "85+ Compounds" },
+                { icon: Package, text: "85+ Peptides" },
                 { icon: MapPin, text: "US-Based" },
               ].map((b) => (
                 <div key={b.text} className="flex items-center gap-2.5 text-sm text-stone-500">

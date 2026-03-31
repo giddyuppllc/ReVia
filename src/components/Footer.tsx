@@ -87,8 +87,8 @@ export default function Footer() {
               <Image src="/images/revia-text.png" alt="ReVia" width={100} height={30} className="h-6 w-auto" />
             </Link>
             <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
-              Premium research-grade peptides and compounds for scientific research.
-              Rigorous quality testing on every batch.
+              Premium peptides, independently verified to &gt;99% purity.
+              Your trusted source since 2024.
             </p>
             <div className="flex items-center gap-2 text-sm text-stone-500">
               <Mail className="h-4 w-4 text-sky-500" />
@@ -127,15 +127,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* RUO + Copyright */}
+        {/* Copyright */}
         <AnimatedContainer delay={0.6} className="mt-6 border-t border-sky-200/30 pt-4 text-center space-y-2">
           <p className="text-xs text-stone-400 leading-relaxed max-w-2xl mx-auto">
-            All products sold by ReVia are intended for laboratory research use
-            only. They are not intended for human or animal consumption, or for
-            use in the diagnosis, treatment, cure, or prevention of any disease.
+            These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
           </p>
           <p className="text-xs text-stone-400">
-            &copy; 2024&ndash;{new Date().getFullYear()} ReVia Research Supply LLC. All rights reserved.
+            &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.
           </p>
         </AnimatedContainer>
       </div>

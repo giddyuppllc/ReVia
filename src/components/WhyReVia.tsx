@@ -6,12 +6,12 @@ import { FlaskConical, Shield, Truck, Award, Microscope, HeartHandshake } from "
 const features = [
   {
     icon: FlaskConical,
-    title: "98%+ Purity Guaranteed",
-    description: "Every batch is third-party tested with certificates of analysis available for full transparency.",
+    title: ">99% Purity Guaranteed",
+    description: "Every batch is independently tested with certificates of analysis available for full transparency.",
   },
   {
     icon: Shield,
-    title: "Research-Grade Quality",
+    title: "Pharmaceutical-Grade Quality",
     description: "Manufactured in certified facilities with rigorous quality control at every stage of production.",
   },
   {
@@ -21,18 +21,18 @@ const features = [
   },
   {
     icon: Award,
-    title: "85+ Compounds",
-    description: "One of the largest research peptide catalogs available — from metabolics to nootropics and beyond.",
+    title: "85+ Peptides",
+    description: "One of the largest peptide catalogs available — from metabolics to nootropics and beyond.",
   },
   {
     icon: Microscope,
-    title: "Built for Researchers",
+    title: "Built for You",
     description: "Detailed compound profiles, dosing references, and dedicated support from a knowledgeable team.",
   },
   {
     icon: HeartHandshake,
-    title: "Trusted by Scientists",
-    description: "Serving research institutions, universities, and independent labs across the United States.",
+    title: "Trusted Nationwide",
+    description: "Serving thousands of customers across the United States with consistent quality and care.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function WhyReVia() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-4 text-stone-500 max-w-2xl mx-auto"
           >
-            We hold ourselves to the highest standards so you can focus on what matters — your research.
+            We hold ourselves to the highest standards so you can focus on what matters — your results.
           </motion.p>
         </div>
 

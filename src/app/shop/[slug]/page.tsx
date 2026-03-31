@@ -55,7 +55,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description ?? `${product.name} research peptide from ReVia`,
+    description: product.description ?? `${product.name} — premium peptide from ReVia, independently verified to >99% purity`,
     brand: { "@type": "Brand", name: "ReVia" },
     category: product.category.name,
     offers: {
@@ -161,15 +161,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
             />
           </div>
 
-          {/* RUO Disclaimer */}
-          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-800">
-            <strong className="font-semibold text-amber-900">
-              For Research Use Only.
-            </strong>{" "}
-            This product is intended solely for laboratory research purposes. It is
-            not intended for human or veterinary use, food, cosmetic, household, or
-            agricultural applications. By purchasing, you confirm the product will be
-            used exclusively for in-vitro research by qualified professionals.
+          {/* Disclaimer */}
+          <div className="mt-8 rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 text-xs leading-relaxed text-stone-500">
+            These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
           </div>
         </div>
       </div>

@@ -32,37 +32,37 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "ReVia | Research-Grade Peptides",
+    default: "ReVia | Premium Peptides, Proven Purity",
     template: "%s | ReVia",
   },
   description:
-    "Premium research-grade peptides and compounds for scientific research. Rigorous testing, fast shipping, extensive catalog.",
+    "Your #1 trusted source for independently verified peptides with >99% purity. Same-day shipping, 85+ compounds, US-based.",
   keywords: [
-    "research peptides",
+    "peptides",
     "peptide supply",
     "BPC-157",
     "semaglutide",
     "tirzepatide",
     "GHK-Cu",
-    "research compounds",
+    "premium peptides",
     "peptide vendor",
   ],
-  authors: [{ name: "ReVia Research Supply" }],
-  creator: "ReVia Research Supply LLC",
+  authors: [{ name: "ReVia" }],
+  creator: "ReVia LLC",
   metadataBase: new URL("https://revia.bio"),
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "ReVia",
-    title: "ReVia | Research-Grade Peptides",
+    title: "ReVia | Premium Peptides, Proven Purity",
     description:
-      "Premium research-grade peptides and compounds for scientific research.",
+      "Your #1 trusted source for independently verified peptides with >99% purity.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReVia | Research-Grade Peptides",
+    title: "ReVia | Premium Peptides, Proven Purity",
     description:
-      "Premium research-grade peptides and compounds for scientific research.",
+      "Your #1 trusted source for independently verified peptides with >99% purity.",
   },
   robots: {
     index: true,

@@ -30,7 +30,7 @@ const STACK_META: Record<
     benefits: [
       { icon: Zap, title: "Dual Mechanism", body: "Combines GLP-1/GIP agonism with amylin analogue signaling for complementary metabolic pathways." },
       { icon: FlaskConical, title: "Single Vial Convenience", body: "Pre-blended by Lance's lab — no separate reconstitution or mixing required." },
-      { icon: ShieldCheck, title: "Research-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
+      { icon: ShieldCheck, title: "Pharmaceutical-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
     ],
     ingredients: [
       { name: "Tirzepatide", dose: "10mg", role: "Dual GLP-1/GIP receptor agonist — studied for insulin secretion, appetite regulation, and fat oxidation.", slug: "tirzepatide" },
@@ -44,7 +44,7 @@ const STACK_META: Record<
     benefits: [
       { icon: Zap, title: "Triple Synergy", body: "Adds growth hormone secretagogue signaling to dual GLP-1/amylin action for enhanced body composition research." },
       { icon: FlaskConical, title: "Single Vial Convenience", body: "All three compounds precision-blended — research-ready from day one." },
-      { icon: ShieldCheck, title: "Research-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
+      { icon: ShieldCheck, title: "Pharmaceutical-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
     ],
     ingredients: [
       { name: "Tirzepatide", dose: "10mg", role: "Dual GLP-1/GIP receptor agonist — studied for insulin secretion, appetite regulation, and fat oxidation.", slug: "tirzepatide" },
@@ -59,7 +59,7 @@ const STACK_META: Record<
     benefits: [
       { icon: Zap, title: "Systemic Recovery", body: "BPC-157 and TB-500 operate through complementary repair mechanisms for localized and systemic healing." },
       { icon: FlaskConical, title: "Regenerative Triad", body: "GHK-Cu adds copper peptide signaling for anti-inflammatory and skin/tissue regeneration support." },
-      { icon: ShieldCheck, title: "Research-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
+      { icon: ShieldCheck, title: "Pharmaceutical-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
     ],
     ingredients: [
       { name: "BPC-157", dose: "10mg", role: "Body protective compound — studied for gut lining repair, tendon healing, and systemic anti-inflammatory effects.", slug: "bpc-157-tb-500" },
@@ -74,7 +74,7 @@ const STACK_META: Record<
     benefits: [
       { icon: Zap, title: "Six-Peptide Formula", body: "Covers metabolic support, GH secretagogue, recovery, and skin health signaling in a single research formulation." },
       { icon: FlaskConical, title: "Comprehensive Research Protocol", body: "Designed for studies examining the intersection of body composition, tissue repair, and aesthetic outcomes." },
-      { icon: ShieldCheck, title: "Research-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
+      { icon: ShieldCheck, title: "Pharmaceutical-Grade Purity", body: "Lyophilized, third-party tested, produced in a certified facility." },
     ],
     ingredients: [
       { name: "Tirzepatide", dose: "10mg", role: "Dual GLP-1/GIP receptor agonist — metabolic and appetite regulation research.", slug: "tirzepatide" },
@@ -283,11 +283,9 @@ export default async function StackDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* ── RUO Disclaimer ── */}
-        <p className="text-xs text-neutral-400 text-center max-w-2xl mx-auto pb-4">
-          For Research Use Only. Not for human consumption. These products are intended solely for
-          in vitro research and are not approved for diagnostic or therapeutic use. ReVia makes no
-          claims regarding the therapeutic efficacy of any product.
+        {/* ── Disclaimer ── */}
+        <p className="text-xs text-stone-400 text-center max-w-2xl mx-auto pb-4">
+          These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
         </p>
       </div>
     </div>
