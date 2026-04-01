@@ -1,0 +1,54 @@
+{
+  "name": "revia-build",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "~7.5.0",
+    "@prisma/client": "~7.5.0",
+    "bcryptjs": "~3.0.3",
+    "cookie": "~1.1.1",
+    "dotenv": "~17.3.1",
+    "framer-motion": "~12.38.0",
+    "jose": "~6.2.2",
+    "jsonwebtoken": "~9.0.3",
+    "lucide-react": "~0.577.0",
+    "next": "16.2.1",
+    "next-mdx-remote": "~6.0.0",
+    "nodemailer": "~8.0.3",
+    "pg": "~8.20.0",
+    "prisma": "~7.5.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sharp": "~0.34.5",
+    "slugify": "~1.6.8",
+    "uuid": "~13.0.0",
+    "zustand": "~5.0.12"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed-v3.ts"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "~2.4.6",
+    "@types/cookie": "~0.6.0",
+    "@types/jsonwebtoken": "~9.0.10",
+    "@types/node": "^20",
+    "@types/nodemailer": "~7.0.11",
+    "@types/pg": "~8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/uuid": "~10.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "tailwindcss": "^4",
+    "tsx": "~4.21.0",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,326 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F0EDE5;
+  --foreground: #3D3229;
+  --surface: rgba(255, 255, 255, 0.65);
+  --surface-hover: rgba(255, 255, 255, 0.8);
+  --border: rgba(163, 133, 105, 0.15);
+  --accent: #A38569;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jost), 'Jost', system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+
+  /* Warm mocha palette centered on Cloud Dancer */
+  --color-sky-50: #FAF8F4;
+  --color-sky-100: #F0EDE5;
+  --color-sky-200: #E3DDD2;
+  --color-sky-300: #D1C7B8;
+  --color-sky-400: #B8A68F;
+  --color-sky-500: #A38569;
+  --color-sky-600: #8B6D4F;
+  --color-sky-700: #725840;
+  --color-sky-800: #5C4733;
+  --color-sky-900: #4A3929;
+  --color-sky-950: #3D3229;
+
+  /* Remap blue → mocha (slightly warmer/darker variant) */
+  --color-blue-50: #F8F5F0;
+  --color-blue-100: #EDE8DF;
+  --color-blue-200: #DDD5C8;
+  --color-blue-300: #C7BAA8;
+  --color-blue-400: #B09880;
+  --color-blue-500: #96795C;
+  --color-blue-600: #7D6347;
+  --color-blue-700: #665038;
+  --color-blue-800: #52402D;
+  --color-blue-900: #423424;
+  --color-blue-950: #352A1E;
+
+  /* Remap indigo → deep mocha */
+  --color-indigo-50: #F7F4EF;
+  --color-indigo-100: #EAE4D9;
+  --color-indigo-200: #D6CCB9;
+  --color-indigo-300: #BDAD94;
+  --color-indigo-400: #A08A6B;
+  --color-indigo-500: #876F52;
+  --color-indigo-600: #6F5A40;
+  --color-indigo-700: #5A4834;
+  --color-indigo-800: #483A2A;
+  --color-indigo-900: #3B2F22;
+  --color-indigo-950: #2E251B;
+
+  /* Remap cyan → warm sand */
+  --color-cyan-50: #FBF9F5;
+  --color-cyan-100: #F3EFE7;
+  --color-cyan-200: #E6DFD3;
+  --color-cyan-300: #D5CABB;
+  --color-cyan-400: #C0AF96;
+  --color-cyan-500: #AB9474;
+  --color-cyan-600: #917A59;
+  --color-cyan-700: #776347;
+  --color-cyan-800: #5F4F39;
+  --color-cyan-900: #4D402E;
+  --color-cyan-950: #3E3425;
+
+  /* Remap violet → dark espresso */
+  --color-violet-50: #F6F3EE;
+  --color-violet-100: #E8E2D7;
+  --color-violet-200: #D3C9B8;
+  --color-violet-300: #B9AA92;
+  --color-violet-400: #9C876A;
+  --color-violet-500: #826D50;
+  --color-violet-600: #6A5840;
+  --color-violet-700: #564734;
+  --color-violet-800: #45392A;
+  --color-violet-900: #382E22;
+  --color-violet-950: #2B241B;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-jost), 'Jost', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background: #F0EDE5;
+}
+
+/* Cormorant Garamond for all headings site-wide */
+h1, h2, h3, h4 {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Keep sans-serif for legal/policy pages and footer */
+.font-legal h1,
+.font-legal h2,
+.font-legal h3,
+.font-legal h4 {
+  font-family: var(--font-jost), 'Jost', system-ui, sans-serif;
+}
+
+
+::selection {
+  background: rgba(163, 133, 105, 0.2);
+  color: #3D3229;
+}
+
+*:focus-visible {
+  outline: 2px solid rgba(163, 133, 105, 0.4);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Frosted glass card */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(163, 133, 105, 0.12);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(163, 133, 105, 0.15);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(163, 133, 105, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 133, 105, 0.35);
+}
+
+/* Hero shimmer text effect */
+.hero-shimmer {
+  background: linear-gradient(
+    110deg,
+    #3D3229 35%,
+    #A38569 50%,
+    #3D3229 65%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-sweep 8s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0%, 100% { background-position: 100% center; }
+  50% { background-position: 0% center; }
+}
+
+/* Shipping banner sparkle — plays once after drop-in */
+.shipping-sparkle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 60%,
+    transparent 100%
+  );
+  animation: shipping-sweep 1s ease-in-out 8.5s forwards;
+}
+
+@keyframes shipping-sweep {
+  0% { left: -60%; }
+  100% { left: 120%; }
+}
+
+/* Pill shimmer sweep — plays once after entry */
+.pill-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(163, 133, 105, 0.25) 50%,
+    transparent 100%
+  );
+  animation: pill-sweep 0.8s ease-in-out 4.6s forwards;
+}
+
+@keyframes pill-sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Rotating gradient border animation */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-border {
+  to { --border-angle: 360deg; }
+}
+
+/* Policy page content styling */
+.policy-content h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #3D3229;
+  margin-bottom: 0.5rem;
+}
+
+.policy-content h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #3D3229;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(163, 133, 105, 0.15);
+}
+
+.policy-content h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4A3929;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.policy-content p {
+  color: #5C4733;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+
+.policy-content ul,
+.policy-content ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.policy-content ul {
+  list-style-type: disc;
+}
+
+.policy-content ol {
+  list-style-type: decimal;
+}
+
+.policy-content li {
+  color: #5C4733;
+  line-height: 1.85;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.policy-content a {
+  color: #8B6D4F;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.policy-content a:hover {
+  color: #A38569;
+}
+
+.policy-content strong {
+  color: #3D3229;
+}
+
+.policy-content table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  border: 1px solid rgba(163, 133, 105, 0.2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.policy-content th {
+  background: rgba(240, 237, 229, 0.6);
+  color: #4A3929;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.policy-content td {
+  color: #5C4733;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(163, 133, 105, 0.1);
+}
+
+.glow-border-blue {
+  --border-angle: 0deg;
+  background: conic-gradient(from var(--border-angle), transparent, #A38569 30%, transparent 50%, #A38569 80%, transparent) border-box;
+  border: 2px solid transparent;
+  animation: spin-border 3s linear infinite;
+}

@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  products    Product[]
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  name        String
+  slug        String           @unique
+  description String?
+  categoryId  String
+  category    Category         @relation(fields: [categoryId], references: [id])
+  variants    ProductVariant[]
+  image       String?
+  featured    Boolean          @default(false)
+  active      Boolean          @default(true)
+  tags        String           @default("[]")
+  wishlist    Wishlist[]
+  reviews     Review[]
+
+  @@index([categoryId])
+}
+
+model ProductVariant {
+  id               String  @id @default(cuid())
+  productId        String
+  product          Product @relation(fields: [productId], references: [id])
+  label            String
+  price            Float
+  compareAtPrice   Float?
+  sku              String  @unique
+  inStock          Boolean @default(true)
+  retailPrice      Float?
+  foundersPrice    Float?
+  friendsPrice     Float?
+  quantity         Int     @default(0)
+  reorderThreshold Int     @default(0)
+
+  @@index([productId])
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  sessionId String
+  variantId String
+  quantity  Int    @default(1)
+
+  @@index([sessionId])
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  name      String
+  role      String     @default("customer")
+  createdAt DateTime   @default(now())
+  orders    Order[]
+  wishlist  Wishlist[]
+  reviews   Review[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  email     String
+  name      String
+  address   String
+  city      String
+  state     String
+  zip       String
+  country   String      @default("US")
+  status    String      @default("pending")
+  tracking  String?
+  total     Float
+  items     OrderItem[]
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id           String @id @default(cuid())
+  orderId      String
+  order        Order  @relation(fields: [orderId], references: [id])
+  productName  String
+  variantLabel String
+  price        Float
+  quantity     Int
+
+  @@index([orderId])
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  rating    Int
+  title     String
+  body      String
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@index([userId])
+}
+
+model Coupon {
+  id        String    @id @default(cuid())
+  code      String    @unique
+  type      String    @default("percentage")
+  value     Float
+  minOrder  Float     @default(0)
+  maxUses   Int       @default(0)
+  usedCount Int       @default(0)
+  active    Boolean   @default(true)
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id                    String   @id @default("singleton")
+  activePricingTier     String   @default("retail")
+  freeShippingThreshold Int      @default(15000)
+  updatedAt             DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  author      String   @default("ReVia Research Team")
+  category    String   @default("Industry News")
+  image       String?
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
