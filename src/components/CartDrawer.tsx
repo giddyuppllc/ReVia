@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Minus, Plus, ShoppingBag, Truck } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag, Truck, PartyPopper } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useToastStore } from "@/store/toast";
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST } from "@/lib/constants";
@@ -16,7 +17,21 @@ export default function CartDrawer() {
   const totalPrice = useCartStore((s) => s.totalPrice());
   const addToast = useToastStore((s) => s.addToast);
 
-  const shippingCost = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  const [threshold, setThreshold] = useState(FREE_SHIPPING_THRESHOLD);
+
+  useEffect(() => {
+    fetch("/api/admin/settings")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.freeShippingThreshold) setThreshold(data.freeShippingThreshold);
+      })
+      .catch(() => {});
+  }, []);
+
+  const shippingCost = totalPrice >= threshold ? 0 : SHIPPING_COST;
+  const progress = Math.min((totalPrice / threshold) * 100, 100);
+  const remaining = threshold - totalPrice;
+  const qualifies = totalPrice >= threshold;
 
   return (
     <AnimatePresence>
@@ -73,11 +88,15 @@ export default function CartDrawer() {
                       key={item.variantId}
                       className="flex gap-4 rounded-xl border border-neutral-100 bg-neutral-50 p-4"
                     >
-                      {/* Thumbnail placeholder */}
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-sky-50 to-sky-100">
-                        <span className="text-lg font-bold text-sky-600/60">
-                          {item.productName.charAt(0)}
-                        </span>
+                      {/* Thumbnail */}
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-white border border-neutral-100 overflow-hidden">
+                        {item.image ? (
+                          <img src={item.image} alt={item.productName} className="h-full w-full object-contain p-1" />
+                        ) : (
+                          <span className="text-lg font-bold text-sky-600/60">
+                            {item.productName.charAt(0)}
+                          </span>
+                        )}
                       </div>
 
                       <div className="flex flex-1 flex-col">
@@ -153,17 +172,39 @@ export default function CartDrawer() {
                     {shippingCost === 0 ? (
                       <span className="text-sky-600 font-medium">FREE</span>
                     ) : (
-                      "$25.00"
+                      `$${(SHIPPING_COST / 100).toFixed(2)}`
                     )}
                   </span>
                 </div>
 
-                {shippingCost > 0 && (
-                  <div className="flex items-center gap-2 rounded-lg bg-sky-50 px-3 py-2 text-xs text-stone-600">
-                    <Truck className="h-3.5 w-3.5 shrink-0" />
-                    Add ${((FREE_SHIPPING_THRESHOLD - totalPrice) / 100).toFixed(2)} more for free shipping
+                {/* Free shipping progress bar */}
+                <div className="rounded-xl bg-sky-50/80 border border-sky-200/50 p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      {qualifies ? (
+                        <PartyPopper className="h-3.5 w-3.5 text-sky-600" />
+                      ) : (
+                        <Truck className="h-3.5 w-3.5 text-sky-500" />
+                      )}
+                      <span className="text-xs font-medium text-stone-700">
+                        {qualifies
+                          ? "You've unlocked free shipping!"
+                          : `$${(remaining / 100).toFixed(2)} away from free shipping`}
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-medium text-stone-400">
+                      ${(threshold / 100).toFixed(0)}
+                    </span>
                   </div>
-                )}
+                  <div className="h-2 w-full rounded-full bg-sky-200/50 overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full bg-gradient-to-r from-sky-500 to-sky-400"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                    />
+                  </div>
+                </div>
 
                 <div className="flex items-center justify-between pt-2 border-t border-neutral-100">
                   <span className="text-sm font-medium text-neutral-700">Total</span>
@@ -175,7 +216,7 @@ export default function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={closeCart}
-                  className="block w-full rounded-xl bg-sky-600 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-sky-500"
+                  className="block w-full rounded-xl bg-sky-400 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-sky-500"
                 >
                   Checkout
                 </Link>

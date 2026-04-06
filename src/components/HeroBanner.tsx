@@ -58,7 +58,7 @@ export default function HeroBanner() {
                 >
                   <Atom className="h-3.5 w-3.5 text-sky-500" />
                 </motion.span>
-                Independently Verified &bull; &gt;99% Purity
+                US-Manufactured &bull; cGMP Certified
               </span>
             </motion.div>
 
@@ -67,7 +67,7 @@ export default function HeroBanner() {
                 className="block"
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
               >
                 Premium Peptides.
               </motion.span>
@@ -75,7 +75,7 @@ export default function HeroBanner() {
                 className="block"
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
               >
                 Proven Purity.
               </motion.span>
@@ -83,7 +83,7 @@ export default function HeroBanner() {
                 className="block"
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }}
               >
                 Real <span className="hero-shimmer">Results.</span>
               </motion.span>
@@ -107,7 +107,7 @@ export default function HeroBanner() {
               {/* Explore — blue flow button */}
               <Link
                 href="/shop"
-                className="group relative flex items-center gap-1 overflow-hidden border-[1.5px] border-sky-500/50 bg-sky-500 rounded-full px-8 py-4 text-base font-bold text-white cursor-pointer hover:text-stone-800 hover:border-stone-300/60 active:scale-[0.95]"
+                className="group relative flex items-center gap-1 overflow-hidden border-[1.5px] border-sky-400/50 bg-sky-400 rounded-full px-8 py-4 text-base font-bold text-white cursor-pointer hover:text-stone-800 hover:border-stone-300/60 active:scale-[0.95]"
               >
                 <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-white fill-none z-[9] group-hover:left-4 group-hover:stroke-stone-800 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
                 <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
@@ -117,19 +117,16 @@ export default function HeroBanner() {
                 <ArrowRight className="absolute w-4 h-4 right-4 stroke-white fill-none z-[9] group-hover:right-[-25%] group-hover:stroke-stone-800 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
               </Link>
 
-              {/* View Stacks — transparent button with blue rotating border */}
+              {/* View Stacks — clean border button */}
               <Link
                 href="/shop?category=stacks"
-                className="group relative flex items-center gap-1 overflow-hidden rounded-full px-8 py-4 text-base font-bold text-stone-600 cursor-pointer hover:text-white active:scale-[0.95] glow-border-blue"
-                style={{ transition: "color 600ms cubic-bezier(0.23,1,0.32,1)" }}
+                className="group relative flex items-center gap-1 overflow-hidden rounded-full border-2 border-sky-300/60 bg-[#F0EDE5] px-8 py-4 text-base font-bold text-stone-600 cursor-pointer hover:text-white active:scale-[0.95] transition-colors duration-500"
               >
-                {/* Inner fill */}
-                <span className="absolute inset-[2px] rounded-full bg-[#F0EDE5] z-[0]" />
                 <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-stone-600 fill-none z-[9] group-hover:left-4 group-hover:stroke-white transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
                 <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
                   View Stacks
                 </span>
-                <span className="absolute inset-[2px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-sky-500 opacity-0 group-hover:w-[300px] group-hover:h-[300px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)] z-[0]" />
+                <span className="absolute inset-0 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-sky-400 opacity-0 group-hover:w-[300px] group-hover:h-[300px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)] z-[0]" />
                 <ArrowRight className="absolute w-4 h-4 right-4 stroke-stone-600 fill-none z-[9] group-hover:right-[-25%] group-hover:stroke-white transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
               </Link>
             </motion.div>
@@ -142,6 +139,7 @@ export default function HeroBanner() {
             >
               {[
                 { icon: FlaskConical, text: ">99% Purity" },
+                { icon: Atom, text: "LC-MS Verified" },
                 { icon: Truck, text: "Same-Day Shipping" },
                 { icon: Package, text: "85+ Peptides" },
                 { icon: MapPin, text: "US-Based" },
@@ -157,7 +155,7 @@ export default function HeroBanner() {
           <motion.div
             initial={{ opacity: 0, scale: 0.93 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
             className="hidden lg:block"
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/10 border border-sky-200/40 bg-white/30 backdrop-blur-sm p-2">

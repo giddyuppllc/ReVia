@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
         &quot;us,&quot; or &quot;our&quot;) is committed to protecting the
         privacy of our customers and website visitors. This Privacy Policy
         describes how we collect, use, disclose, and safeguard your personal
-        information when you visit our website at revia.bio (the
+        information when you visit our website at revialife.com (the
         &quot;Site&quot;) or make a purchase. By using the Site, you consent to
         the practices described in this policy.
       </p>

@@ -17,7 +17,7 @@ export default function AcceptableUsePolicyPage() {
         This Acceptable Use Policy (&quot;AUP&quot;) governs the purchase and
         use of all products sold by ReVia Research Supply LLC (&quot;ReVia,&quot;
         &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) through our website
-        at revia.bio. By purchasing or using any ReVia product, you agree to
+        at revialife.com. By purchasing or using any ReVia product, you agree to
         comply with this AUP. Violation of this policy may result in immediate
         account termination and legal action.
       </p>

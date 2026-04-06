@@ -48,7 +48,7 @@ function createTransporter() {
   return null;
 }
 
-const FROM = '"ReVia" <orders@revialife.com>';
+const FROM = '"ReVia Research Supply" <orders@revialife.com>';
 
 async function send(to: string, subject: string, html: string) {
   const transporter = createTransporter();
@@ -211,7 +211,7 @@ export async function sendWelcomeEmail(name: string, email: string) {
     <p style="${subtext}">Hi ${name}, your account has been created. You now have access to our full catalog of research-grade peptides.</p>
 
     <div style="text-align:center;margin:24px 0;">
-      <a href="${process.env.NEXT_PUBLIC_URL || "https://revia.bio"}/shop" style="${btnStyle}">Browse Catalog</a>
+      <a href="${process.env.NEXT_PUBLIC_URL || "https://revialife.com"}/shop" style="${btnStyle}">Browse Catalog</a>
     </div>
 
     <hr style="${divider}"/>
@@ -225,4 +225,78 @@ export async function sendWelcomeEmail(name: string, email: string) {
 </div>`;
 
   await send(email, "Welcome to ReVia Research Supply", html);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Password Reset                                                     */
+/* ------------------------------------------------------------------ */
+
+export async function sendPasswordResetEmail(
+  name: string,
+  email: string,
+  resetToken: string
+) {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
+  const resetUrl = `${baseUrl}/reset-password?token=${resetToken}`;
+
+  const html = `
+<div style="${wrapper}">
+  <div style="${card}">
+    <h1 style="${heading}">Reset Your Password</h1>
+    <p style="${subtext}">Hi ${name}, we received a request to reset your password. Click the button below to choose a new one.</p>
+
+    <div style="text-align:center;margin:24px 0;">
+      <a href="${resetUrl}" style="${btnStyle}">Reset Password</a>
+    </div>
+
+    <hr style="${divider}"/>
+
+    <p style="color:#9ca3af;font-size:13px;margin:0;">
+      This link expires in <strong style="color:#e5e5e5;">1 hour</strong>. If you didn&rsquo;t request this, you can safely ignore this email.
+    </p>
+
+    <p style="color:#6b7280;font-size:11px;margin-top:16px;word-break:break-all;">
+      Or copy this link: ${resetUrl}
+    </p>
+
+    <p style="${footer}">&copy; ReVia Research Supply &mdash; For research use only.</p>
+  </div>
+</div>`;
+
+  await send(email, "Reset Your Password — ReVia", html);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Email Verification                                                 */
+/* ------------------------------------------------------------------ */
+
+export async function sendVerificationEmail(
+  name: string,
+  email: string,
+  verifyToken: string
+) {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
+  const verifyUrl = `${baseUrl}/api/auth/verify-email?token=${verifyToken}`;
+
+  const html = `
+<div style="${wrapper}">
+  <div style="${card}">
+    <h1 style="${heading}">Verify Your Email</h1>
+    <p style="${subtext}">Hi ${name}, thanks for creating a ReVia account. Please verify your email address to complete your registration.</p>
+
+    <div style="text-align:center;margin:24px 0;">
+      <a href="${verifyUrl}" style="${btnStyle}">Verify Email</a>
+    </div>
+
+    <hr style="${divider}"/>
+
+    <p style="color:#9ca3af;font-size:13px;margin:0;">
+      If you didn&rsquo;t create an account with ReVia, you can safely ignore this email.
+    </p>
+
+    <p style="${footer}">&copy; ReVia Research Supply &mdash; For research use only.</p>
+  </div>
+</div>`;
+
+  await send(email, "Verify Your Email — ReVia", html);
 }

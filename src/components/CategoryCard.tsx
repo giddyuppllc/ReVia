@@ -56,6 +56,7 @@ const categoryIcons: Record<string, ComponentType<{ className?: string }>> = {
   "immune": ShieldPlus,
   "longevity": Activity,
   "metabolic": Flame,
+  "weight-management": Flame,
   "mitochondrial": Zap,
   "neuropeptide": Brain,
   "neuroprotective": Microscope,
@@ -87,8 +88,8 @@ export default function CategoryCard({ name, slug, productCount }: CategoryCardP
         onHoverEnd={() => setHovered(false)}
         whileHover={{
           y: -4,
-          boxShadow: "0 8px 24px rgba(114, 197, 234, 0.15)",
-          borderColor: "rgba(114, 197, 234, 0.4)",
+          boxShadow: "0 8px 24px rgba(163, 133, 105, 0.15)",
+          borderColor: "rgba(163, 133, 105, 0.4)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
@@ -103,8 +104,8 @@ export default function CategoryCard({ name, slug, productCount }: CategoryCardP
         <motion.div
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
           animate={{
-            backgroundColor: hovered ? "rgb(74, 175, 224)" : "rgb(240, 249, 254)",
-            borderColor: hovered ? "rgb(74, 175, 224)" : "rgb(190, 229, 249)",
+            backgroundColor: hovered ? "rgb(163, 133, 105)" : "rgb(250, 248, 244)",
+            borderColor: hovered ? "rgb(163, 133, 105)" : "rgb(227, 221, 210)",
           }}
           style={{ border: "1px solid" }}
           transition={{ duration: 0.2 }}

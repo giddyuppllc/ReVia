@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Insights, research news, and education from the world of peptide science. The ReVia Journal.",
+    "Industry news, product updates, and insights from the ReVia team. The ReVia Journal.",
 };
 
 function readTime(html: string): number {
@@ -39,15 +39,11 @@ export default async function BlogPage({
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Hero */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl">
-          The ReVia{" "}
-          <span className="bg-linear-to-r from-sky-600 to-blue-500 bg-clip-text text-transparent">
-            Journal
-          </span>
+        <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
+          The ReVia Blog
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-neutral-500">
-          Insights, research news, and education from the world of peptide
-          science.
+          Industry news, product updates, and insights from the ReVia team.
         </p>
       </div>
 
@@ -57,7 +53,7 @@ export default async function BlogPage({
           href="/blog"
           className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
             !category
-              ? "bg-sky-600 text-white"
+              ? "bg-sky-400 text-white"
               : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
           }`}
         >
@@ -69,7 +65,7 @@ export default async function BlogPage({
             href={`/blog?category=${encodeURIComponent(c.category)}`}
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
               category === c.category
-                ? "bg-sky-600 text-white"
+                ? "bg-sky-400 text-white"
                 : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
             }`}
           >

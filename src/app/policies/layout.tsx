@@ -28,33 +28,35 @@ export default function PoliciesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-12">
+    <div className="font-legal min-h-screen text-stone-900">
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:px-10 lg:px-16">
+        <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-14">
           {/* Sidebar */}
           <aside className="mb-10 lg:mb-0">
-            <nav className="sticky top-10">
-              <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Legal &amp; Policies
-              </h2>
-              <ul className="space-y-1">
-                {policyLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <nav className="lg:sticky lg:top-24">
+              <div className="rounded-2xl border border-sky-200/40 bg-sky-50/60 backdrop-blur-sm p-4">
+                <h2 className="mb-4 px-2 text-sm font-bold uppercase tracking-widest text-stone-700">
+                  Legal &amp; Policies
+                </h2>
+                <ul className="space-y-1.5">
+                  {policyLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="block rounded-xl bg-white/70 border border-sky-200/40 px-4 py-2.5 text-sm font-medium text-stone-600 transition-all hover:bg-white hover:shadow-sm hover:text-stone-800"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
           </aside>
 
           {/* Main content */}
           <main className="min-w-0">
-            <article className="prose prose-gray max-w-none prose-headings:scroll-mt-20 prose-h1:text-3xl prose-h1:font-bold prose-h2:text-xl prose-h2:font-semibold prose-h3:text-lg prose-h3:font-medium prose-p:leading-7 prose-li:leading-7">
+            <article className="policy-content rounded-2xl border border-sky-200/40 bg-white/80 backdrop-blur-sm p-8 sm:p-10 shadow-sm">
               {children}
             </article>
           </main>

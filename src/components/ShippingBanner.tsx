@@ -21,7 +21,7 @@ export default function ShippingBanner() {
   }, []);
 
   return (
-    <div className="sticky top-[57px] z-40" style={{ background: isHome ? "#EFF8FE" : "transparent" }}>
+    <div className="sticky top-[57px] z-40" style={{ background: isHome ? "#F0EDE5" : "transparent" }}>
       {/* Clip wrapper so the banner is hidden above when translated */}
       <div className="overflow-hidden">
         <motion.div

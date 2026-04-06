@@ -16,7 +16,7 @@ export default function CookiePolicyPage() {
       <p>
         ReVia Research Supply LLC (&quot;ReVia,&quot; &quot;we,&quot;
         &quot;us,&quot; or &quot;our&quot;) uses cookies and similar tracking
-        technologies on our website at revia.bio (the &quot;Site&quot;). This
+        technologies on our website at revialife.com (the &quot;Site&quot;). This
         Cookie Policy explains what cookies are, how we use them, and how you
         can manage your preferences.
       </p>

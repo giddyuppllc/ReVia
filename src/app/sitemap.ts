@@ -13,21 +13,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   const productUrls = products.map((p) => ({
-    url: `https://revia.bio/shop/${p.slug}`,
+    url: `https://revialife.com/shop/${p.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
   const categoryUrls = categories.map((c) => ({
-    url: `https://revia.bio/shop?category=${c.slug}`,
+    url: `https://revialife.com/shop?category=${c.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
 
   const blogUrls = blogPosts.map((b) => ({
-    url: `https://revia.bio/blog/${b.slug}`,
+    url: `https://revialife.com/blog/${b.slug}`,
     lastModified: b.publishedAt,
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -35,37 +35,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: "https://revia.bio",
+      url: "https://revialife.com",
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: "https://revia.bio/shop",
+      url: "https://revialife.com/shop",
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
-      url: "https://revia.bio/blog",
+      url: "https://revialife.com/blog",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://revia.bio/faq",
+      url: "https://revialife.com/faq",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
-      url: "https://revia.bio/about",
+      url: "https://revialife.com/about",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: "https://revia.bio/contact",
+      url: "https://revialife.com/contact",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,

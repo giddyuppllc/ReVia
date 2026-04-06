@@ -3,13 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { getActiveTier, resolvePriceForVariant } from "@/lib/pricing";
 import ProductCard from "@/components/ProductCard";
-import AddToCart from "@/components/AddToCart";
-import WishlistButton from "@/components/WishlistButton";
 import ReviewSection from "@/components/ReviewSection";
 import JsonLd from "@/components/JsonLd";
-import { getProductImage } from "@/lib/product-images";
-export const dynamic = "force-dynamic";
+import { getProductImage, getVariantImages } from "@/lib/product-images";
+import ProductDetailView from "@/components/ProductDetailView";
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -49,8 +49,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   if (!product) return notFound();
 
-  const minPrice = Math.min(...product.variants.map((v) => v.price));
-  const maxPrice = Math.max(...product.variants.map((v) => v.price));
+  const tier = await getActiveTier();
+  const resolvedVariants = product.variants.map((v) => ({
+    ...v,
+    price: resolvePriceForVariant(v, tier),
+  }));
+
+  const minPrice = Math.min(...resolvedVariants.map((v) => v.price));
+  const maxPrice = Math.max(...resolvedVariants.map((v) => v.price));
   const productLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -69,7 +75,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   };
 
   /* ── Related products (same category, exclude current) ── */
-  const related = await prisma.product.findMany({
+  const rawRelated = await prisma.product.findMany({
     where: {
       categoryId: product.categoryId,
       id: { not: product.id },
@@ -77,6 +83,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
     include: { variants: true, category: true },
     take: 4,
   });
+  const related = rawRelated.map((p) => ({
+    ...p,
+    variants: p.variants.map((v) => ({ ...v, price: resolvePriceForVariant(v, tier) })),
+  }));
 
   return (
     <>
@@ -107,66 +117,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </nav>
 
       {/* ── Product layout ── */}
-      <div className="grid gap-12 lg:grid-cols-2">
-        {/* Image */}
-        <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-          <div className="absolute right-3 top-3 z-10">
-            <WishlistButton productId={product.id} />
-          </div>
-          {getProductImage(product.slug, product.image) ? (
-            <img
-              src={getProductImage(product.slug, product.image)!}
-              alt={product.name}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex aspect-square w-full items-center justify-center bg-linear-to-br from-sky-50 to-sky-100">
-              <span className="text-7xl font-bold text-sky-600/40">
-                {product.name.charAt(0)}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Details */}
-        <div className="flex flex-col justify-center">
-          {product.category && (
-            <p className="text-xs font-semibold uppercase tracking-widest text-sky-600">
-              {product.category.name}
-            </p>
-          )}
-
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            {product.name}
-          </h1>
-
-          {product.description && (
-            <p className="mt-4 text-base leading-relaxed text-neutral-500">
-              {product.description}
-            </p>
-          )}
-
-          {/* Variant selector + Add to Cart (client component) */}
-          <div className="mt-8">
-            <AddToCart
-              variants={product.variants.map((v) => ({
-                id: v.id,
-                label: v.label,
-                price: v.price,
-                inStock: v.inStock,
-              }))}
-              productName={product.name}
-              productSlug={product.slug}
-              productImage={getProductImage(product.slug, product.image)}
-            />
-          </div>
-
-          {/* Disclaimer */}
-          <div className="mt-8 rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 text-xs leading-relaxed text-stone-500">
-            These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
-          </div>
-        </div>
-      </div>
+      <ProductDetailView
+        productName={product.name}
+        productSlug={product.slug}
+        productDescription={product.description}
+        categoryName={product.category?.name}
+        defaultImage={getProductImage(product.slug, product.image)}
+        variantImages={getVariantImages(product.slug, resolvedVariants)}
+        variants={resolvedVariants.map((v) => ({
+          id: v.id,
+          label: v.label,
+          price: v.price,
+          inStock: v.inStock,
+          stockStatus: (v as { stockStatus?: string }).stockStatus ?? (v.inStock ? "in_stock" : "out_of_stock"),
+        }))}
+        coaUrl={product.coaUrl}
+      />
 
       {/* ── Reviews ── */}
       <ReviewSection productId={product.id} />

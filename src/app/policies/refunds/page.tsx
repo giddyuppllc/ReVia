@@ -46,10 +46,10 @@ export default function RefundPolicyPage() {
         within <strong>forty-eight (48) hours</strong> of delivery. To file a
         damage claim, email us at{" "}
         <a
-          href="mailto:info@revialife.com"
+          href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
         >
-          info@revialife.com
+          orders@revialife.com
         </a>{" "}
         with:
       </p>
@@ -127,10 +127,10 @@ export default function RefundPolicyPage() {
         <br />
         Email:{" "}
         <a
-          href="mailto:info@revialife.com"
+          href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
         >
-          info@revialife.com
+          orders@revialife.com
         </a>
       </address>
     </>

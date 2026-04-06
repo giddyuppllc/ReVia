@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin", "/api", "/checkout", "/account"],
       },
     ],
-    sitemap: "https://revia.bio/sitemap.xml",
+    sitemap: "https://revialife.com/sitemap.xml",
   };
 }

@@ -9,7 +9,7 @@ export default function WaveDivider({
 }) {
   const fills: Record<string, string> = {
     white: "#ffffff",
-    sky: "#e0f2fe",
+    sky: "#E3DDD2",
   };
 
   return (

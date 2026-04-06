@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono, Fraunces, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono, Fraunces, Space_Grotesk, Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
@@ -30,6 +30,18 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const jost = Jost({
+  variable: "--font-jost",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: {
     default: "ReVia | Premium Peptides, Proven Purity",
@@ -49,7 +61,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "ReVia" }],
   creator: "ReVia LLC",
-  metadataBase: new URL("https://revia.bio"),
+  metadataBase: new URL("https://revialife.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -69,7 +81,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://revia.bio",
+    canonical: "https://revialife.com",
   },
 };
 
@@ -77,8 +89,8 @@ const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "ReVia Research Supply",
-  url: "https://revia.bio",
-  logo: "https://revia.bio/logo.png",
+  url: "https://revialife.com",
+  logo: "https://revialife.com/logo.png",
   description: "Premium research-grade peptides and compounds for scientific research.",
   contactPoint: {
     "@type": "ContactPoint",
@@ -100,7 +112,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${mono.variable} ${fraunces.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${mono.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${cormorant.variable} ${jost.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-[#453834]">
         <JsonLd data={organizationLd} />

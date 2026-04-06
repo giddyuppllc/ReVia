@@ -18,7 +18,7 @@ export default function PaymentPolicyPage() {
         &quot;us,&quot; or &quot;our&quot;) is committed to providing a secure
         and transparent payment experience. This Payment Policy outlines the
         terms governing payment for products purchased through our website at
-        revia.bio.
+        revialife.com.
       </p>
 
       <h2>1. Accepted Payment Methods</h2>
@@ -57,10 +57,10 @@ export default function PaymentPolicyPage() {
         If you do not recognize a charge, please review your recent orders
         before contacting your bank, and reach out to us at{" "}
         <a
-          href="mailto:info@revialife.com"
+          href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
         >
-          info@revialife.com
+          orders@revialife.com
         </a>{" "}
         for clarification.
       </p>
@@ -143,10 +143,10 @@ export default function PaymentPolicyPage() {
       <p>
         If you believe a charge is incorrect, we encourage you to contact us at{" "}
         <a
-          href="mailto:info@revialife.com"
+          href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
         >
-          info@revialife.com
+          orders@revialife.com
         </a>{" "}
         before initiating a chargeback with your bank. Filing a chargeback
         without first contacting us may result in delays in resolution and may
@@ -166,10 +166,10 @@ export default function PaymentPolicyPage() {
         <br />
         Email:{" "}
         <a
-          href="mailto:info@revialife.com"
+          href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
         >
-          info@revialife.com
+          orders@revialife.com
         </a>
       </address>
     </>

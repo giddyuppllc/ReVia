@@ -1,4 +1,14 @@
 import type { Metadata } from "next";
+import {
+  Shield,
+  BadgeCheck,
+  Lightbulb,
+  Truck,
+  Quote,
+  FlaskConical,
+  Microscope,
+  ShieldCheck,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,227 +19,214 @@ export const metadata: Metadata = {
 const values = [
   {
     title: "Quality Without Compromise",
-    icon: "shield",
+    icon: Shield,
     description:
       "Every single batch goes through rigorous HPLC and mass spectrometry testing. We publish full certificates of analysis because we believe transparency builds trust.",
-    image: "https://images.unsplash.com/photo-1582719471384-894fbb16f461?w=400&h=250&fit=crop",
   },
   {
     title: "Radical Integrity",
-    icon: "check-circle",
+    icon: BadgeCheck,
     description:
       "We maintain transparent sourcing and manufacturing processes. Our supply chain is fully documented and auditable, because your research deserves nothing less.",
-    image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=250&fit=crop",
   },
   {
     title: "Relentless Innovation",
-    icon: "lightbulb",
+    icon: Lightbulb,
     description:
       "Science never stands still, and neither do we. We are continually expanding our catalog with cutting-edge compounds to keep your research on the frontier.",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=250&fit=crop",
   },
   {
     title: "Service That Cares",
-    icon: "truck",
+    icon: Truck,
     description:
       "Fast, discreet shipping with real-time tracking. Our team of scientists and support specialists is here to answer your questions, not just your tickets.",
-    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=250&fit=crop",
   },
 ];
 
-const iconMap: Record<string, React.ReactNode> = {
-  shield: (
-    <svg
-      className="w-8 h-8 text-sky-600"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-      />
-    </svg>
-  ),
-  "check-circle": (
-    <svg
-      className="w-8 h-8 text-sky-600"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-  ),
-  lightbulb: (
-    <svg
-      className="w-8 h-8 text-sky-600"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-      />
-    </svg>
-  ),
-  truck: (
-    <svg
-      className="w-8 h-8 text-sky-600"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-      />
-    </svg>
-  ),
-};
+function ScrollDivider({ label }: { label?: string }) {
+  return (
+    <div className="flex flex-col items-center py-4">
+      {label && (
+        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-stone-300 mb-3">
+          {label}
+        </p>
+      )}
+      <div className="w-px h-16 bg-gradient-to-b from-sky-300/40 to-sky-200/20" />
+    </div>
+  );
+}
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero with background image */}
-      <section className="relative py-24 overflow-hidden bg-[#fafafa]">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1600&h=600&fit=crop"
-            alt="Laboratory environment"
-            className="h-full w-full object-cover opacity-10"
-          />
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-neutral-900 mb-6">
-            The People Behind{" "}
-            <span className="bg-linear-to-r from-sky-600 via-blue-500 to-sky-600 bg-clip-text text-transparent">
-              ReVia
-            </span>
+      {/* Hero */}
+      <section className="relative py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-100/60 via-sky-50/30 to-transparent" />
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-500 mb-5">
+            About ReVia
+          </p>
+          <h1 className="text-5xl font-bold text-stone-900 leading-tight sm:text-6xl">
+            The People Behind ReVia
           </h1>
-          <p className="text-xl text-neutral-500 leading-relaxed max-w-2xl mx-auto">
+          <div className="mx-auto mt-8 h-px w-16 bg-sky-300/60" />
+          <p className="mt-8 text-xl text-stone-500 leading-relaxed max-w-2xl mx-auto">
             We started ReVia because we believe every researcher deserves access
             to compounds they can trust completely. No shortcuts, no compromise
-            -- just pure science, delivered with care.
+            — just pure science, delivered with care.
           </p>
         </div>
       </section>
 
+      <ScrollDivider label="Scroll" />
+
       {/* Mission */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
-        <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-2/5 relative">
-              <img
-                src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=500&h=400&fit=crop"
-                alt="Microscope research"
-                className="h-full w-full object-cover min-h-[250px]"
-              />
-            </div>
-            <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4">Our Mission</h2>
-              <p className="text-neutral-600 leading-relaxed text-lg">
-                We are here to accelerate scientific discovery by putting
-                premium-grade peptides and compounds into the hands of
-                researchers who are changing the world. Every product in our
-                catalog is synthesized under strict quality controls and verified
-                through independent testing. Because when your reagents are
-                reliable, your breakthroughs become repeatable.
-              </p>
-            </div>
-          </div>
+      <section className="max-w-3xl mx-auto px-4 py-16">
+        <div className="text-center mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-500 mb-2">
+            Our Mission
+          </p>
+          <div className="mx-auto h-px w-10 bg-sky-300/60 mb-8" />
         </div>
+        <p className="text-stone-600 leading-relaxed text-lg text-center">
+          We are here to accelerate scientific discovery by putting
+          premium-grade peptides and compounds into the hands of
+          researchers who are changing the world. Every product in our
+          catalog is synthesized under strict quality controls and verified
+          through independent testing. Because when your reagents are
+          reliable, your breakthroughs become repeatable.
+        </p>
       </section>
 
+      <ScrollDivider />
+
       {/* Values */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-neutral-900 mb-4 text-center">
-          What We Stand For
-        </h2>
-        <p className="text-neutral-500 text-center mb-10 max-w-xl mx-auto">
-          These are not just words on a page. They are the principles we build
-          every decision on.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((value) => (
-            <div
-              key={value.title}
-              className="group relative overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
-            >
-              <div className="h-32 overflow-hidden">
-                <img
-                  src={value.image}
-                  alt={value.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-              <div className="relative p-6 pt-4">
-                <div className="mb-4">{iconMap[value.icon]}</div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-500 mb-2">
+            Our Values
+          </p>
+          <h2 className="text-3xl font-bold text-stone-900">
+            What We Stand For
+          </h2>
+          <div className="mx-auto mt-4 h-px w-10 bg-sky-300/60" />
+          <p className="mt-4 text-stone-500 max-w-xl mx-auto">
+            These are not just words on a page. They are the principles we build
+            every decision on.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-sky-200/40 rounded-2xl overflow-hidden border border-sky-200/40">
+          {values.map((value) => {
+            const Icon = value.icon;
+            return (
+              <div
+                key={value.title}
+                className="bg-white/90 p-8 transition-colors hover:bg-sky-50/50"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100/80 border border-sky-200/50 mb-5">
+                  <Icon className="h-5 w-5 text-sky-500" strokeWidth={1.75} />
+                </div>
+                <h3 className="text-lg font-semibold text-stone-900 mb-2">
                   {value.title}
                 </h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">
+                <p className="text-stone-500 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Team / Community feel section */}
+      <ScrollDivider />
+
+      {/* Origin Quote */}
+      <section className="max-w-3xl mx-auto px-4 py-16">
+        <div className="relative text-center">
+          <Quote className="mx-auto h-8 w-8 text-sky-300/60 mb-6" strokeWidth={1.5} />
+          <blockquote className="text-2xl font-medium text-stone-800 leading-relaxed italic">
+            Our founding team spent years on the bench before building ReVia.
+            We know what it is like to wait weeks for a shipment, only to
+            find the purity is not what was promised. We built ReVia to be
+            the supplier we always wished we had.
+          </blockquote>
+          <div className="mx-auto mt-8 h-px w-16 bg-sky-300/60" />
+          <p className="mt-6 text-stone-500 leading-relaxed max-w-2xl mx-auto">
+            Today, we serve hundreds of labs and independent researchers
+            across the country. Whether you are running your first assay or
+            your thousandth, we are here to make sure your compounds are the
+            last thing you have to worry about.
+          </p>
+        </div>
+      </section>
+
+      <ScrollDivider label="Testing" />
+
+      {/* Our Testing Process */}
       <section className="max-w-5xl mx-auto px-4 py-16">
-        <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm p-8 md:p-12">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/3 flex-shrink-0">
-              <div className="overflow-hidden rounded-2xl border border-neutral-200">
-                <img
-                  src="https://images.unsplash.com/photo-1582719471384-894fbb16f461?w=400&h=400&fit=crop"
-                  alt="Lab team at work"
-                  className="w-full h-auto object-cover"
-                />
-              </div>
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-500 mb-2">
+            Quality Assurance
+          </p>
+          <h2 className="text-3xl font-bold text-stone-900">
+            Our Testing Process
+          </h2>
+          <div className="mx-auto mt-4 h-px w-10 bg-sky-300/60" />
+          <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+            We don&apos;t just test the raw material — we test the finished product
+            exactly as it would be used. This level of verification is unmatched
+            in the industry.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="rounded-2xl border border-sky-200/40 bg-white/90 p-6 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100/80 border border-sky-200/50 mx-auto mb-4">
+              <FlaskConical className="h-6 w-6 text-sky-500" strokeWidth={1.75} />
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-neutral-900 mb-4">
-                Built by Scientists, for Scientists
-              </h2>
-              <p className="text-neutral-600 leading-relaxed mb-4">
-                Our founding team spent years on the bench before building ReVia.
-                We know what it is like to wait weeks for a shipment, only to
-                find the purity is not what was promised. We built ReVia to be
-                the supplier we always wished we had.
-              </p>
-              <p className="text-neutral-500 leading-relaxed">
-                Today, we serve hundreds of labs and independent researchers
-                across the country. Whether you are running your first assay or
-                your thousandth, we are here to make sure your compounds are the
-                last thing you have to worry about.
-              </p>
+            <h3 className="text-base font-semibold text-stone-900 mb-2">HPLC Purity Testing</h3>
+            <p className="text-sm text-stone-500 leading-relaxed">
+              Every batch is tested via High-Performance Liquid Chromatography
+              to confirm &gt;99% purity before release. Full COAs are published
+              for every product.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-sky-200/40 bg-white/90 p-6 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100/80 border border-sky-200/50 mx-auto mb-4">
+              <Microscope className="h-6 w-6 text-sky-500" strokeWidth={1.75} />
             </div>
+            <h3 className="text-base font-semibold text-stone-900 mb-2">LC-MS After Reconstitution</h3>
+            <p className="text-sm text-stone-500 leading-relaxed">
+              We are adding liquid chromatography–mass spectrometry testing on
+              reconstituted peptides — verifying the molecule exactly as it
+              enters use. No other company currently does this.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-sky-200/40 bg-white/90 p-6 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100/80 border border-sky-200/50 mx-auto mb-4">
+              <ShieldCheck className="h-6 w-6 text-sky-500" strokeWidth={1.75} />
+            </div>
+            <h3 className="text-base font-semibold text-stone-900 mb-2">Heavy Metal Screening</h3>
+            <p className="text-sm text-stone-500 leading-relaxed">
+              All products are screened for toxic heavy metals including lead,
+              arsenic, mercury, and cadmium — plus sterility and endotoxin
+              testing on every batch.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Research Use Only */}
-      <section className="bg-neutral-100 border-y border-neutral-200 py-12">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold text-sky-600 mb-3">
+      <ScrollDivider />
+
+      {/* Commitment to Responsible Research */}
+      <section className="bg-sky-50/60 border-y border-sky-200/30 py-12">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h3 className="text-xl font-semibold text-sky-500 mb-3">
             Commitment to Responsible Research
           </h3>
-          <p className="text-neutral-500 leading-relaxed">
+          <p className="text-stone-500 leading-relaxed">
             All ReVia products are sold strictly for laboratory and scientific
             research purposes. They are not intended for human or animal
             consumption, or for use in the diagnosis, treatment, cure, or

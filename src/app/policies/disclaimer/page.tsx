@@ -16,7 +16,7 @@ export default function DisclaimerPage() {
       <p>
         This Disclaimer applies to all products sold by ReVia Research Supply
         LLC (&quot;ReVia,&quot; &quot;we,&quot; &quot;us,&quot; or
-        &quot;our&quot;) through our website at revia.bio and to all content
+        &quot;our&quot;) through our website at revialife.com and to all content
         published on the Site. By accessing the Site or purchasing any product,
         you acknowledge that you have read, understood, and agree to this
         Disclaimer.

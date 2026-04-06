@@ -72,7 +72,7 @@ export default function NewsletterSignup({ variant = "light" }: { variant?: "lig
           className={`shrink-0 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
             isDark
               ? "bg-white text-sky-600 hover:bg-sky-50"
-              : "bg-sky-600 text-white hover:bg-sky-500"
+              : "bg-sky-400 text-white hover:bg-sky-500"
           }`}
         >
           {status === "loading" ? (

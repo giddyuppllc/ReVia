@@ -20,7 +20,8 @@ const footerSections = [
     label: "Company",
     links: [
       { title: "About", href: "/about" },
-      { title: "Blog", href: "/blog" },
+      { title: "Articles", href: "/learn?tab=articles" },
+      { title: "Research", href: "/learn?tab=research" },
       { title: "Contact", href: "/contact" },
       { title: "FAQ", href: "/faq" },
     ],
@@ -65,7 +66,7 @@ function AnimatedContainer({
       initial={{ y: 20, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, amount: 0.5 }}
-      transition={{ delay, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ delay, duration: 0.5, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -75,10 +76,10 @@ function AnimatedContainer({
 
 export default function Footer() {
   return (
-    <footer className="relative w-full border-t border-sky-200/40 bg-sky-50/60">
+    <footer className="font-legal relative w-full border-t border-sky-200/40 bg-sky-50/60">
       <div className="bg-sky-400/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 
-      <div className="mx-auto max-w-7xl px-6 py-6 lg:py-8">
+      <div className="mx-auto max-w-7xl px-6 py-5 lg:py-6">
         <div className="grid w-full gap-6 xl:grid-cols-3 xl:gap-8">
           {/* Brand column */}
           <AnimatedContainer className="space-y-3">
@@ -128,11 +129,11 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <AnimatedContainer delay={0.6} className="mt-6 border-t border-sky-200/30 pt-4 text-center space-y-2">
-          <p className="text-xs text-stone-400 leading-relaxed max-w-2xl mx-auto">
-            These statements have not been evaluated by the FDA. Products are not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
+        <AnimatedContainer delay={0.6} className="mt-4 border-t border-sky-200/30 pt-3 text-center space-y-1.5">
+          <p className="text-[10px] text-stone-400 leading-relaxed max-w-6xl mx-auto">
+            All products sold by ReVia carry a Research Use Only (RUO) designation as required by current US regulations and are intended for laboratory research use only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. This designation is standard practice for compounds awaiting formal FDA classification and does not reflect the quality, purity, or manufacturing standard. Our formulations meet pharmaceutical-grade specifications and are manufactured to physician-use (PUD) standards throughout.
           </p>
-          <p className="text-xs text-stone-400">
+          <p className="text-[10px] text-stone-400">
             &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.
           </p>
         </AnimatedContainer>

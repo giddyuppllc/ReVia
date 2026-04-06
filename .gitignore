@@ -42,3 +42,6 @@ prisma/seed-original-backup.ts
 
 # claude code
 .claude/
+CLAUDE.md
+AGENTS.md
+ReVia-transfer-prompt.md

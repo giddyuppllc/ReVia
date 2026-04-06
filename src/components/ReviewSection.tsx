@@ -143,7 +143,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
       {isLoggedIn && !showForm && (
         <button
           onClick={() => setShowForm(true)}
-          className="mt-6 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500"
+          className="mt-6 rounded-lg bg-sky-400 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500"
         >
           Write a Review
         </button>
@@ -194,7 +194,7 @@ export default function ReviewSection({ productId }: { productId: string }) {
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500 disabled:opacity-50"
+              className="rounded-lg bg-sky-400 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500 disabled:opacity-50"
             >
               {submitting ? "Submitting..." : "Submit Review"}
             </button>

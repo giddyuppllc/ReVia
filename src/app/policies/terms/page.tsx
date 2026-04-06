@@ -17,7 +17,7 @@ export default function TermsOfServicePage() {
         Welcome to ReVia Research Supply LLC (&quot;ReVia,&quot; &quot;we,&quot;
         &quot;us,&quot; or &quot;our&quot;). These Terms of Service
         (&quot;Terms&quot;) govern your access to and use of our website located
-        at revia.bio (the &quot;Site&quot;) and any purchases made through the
+        at revialife.com (the &quot;Site&quot;) and any purchases made through the
         Site. By accessing or using the Site, you agree to be bound by these
         Terms. If you do not agree, do not use the Site.
       </p>

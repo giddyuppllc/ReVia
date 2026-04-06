@@ -5,8 +5,9 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import WhyReVia from "@/components/WhyReVia";
 import CategoriesSection from "@/components/CategoriesSection";
 import NewsletterBanner from "@/components/NewsletterBanner";
+import HomeFAQ from "@/components/HomeFAQ";
 import FloatingPaths from "@/components/FloatingPaths";
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function HomePage() {
   const tier = await getActiveTier();
@@ -69,6 +70,9 @@ export default async function HomePage() {
           }))}
         />
       </div>
+
+      {/* FAQ */}
+      <HomeFAQ />
 
       {/* Newsletter */}
       <NewsletterBanner />
