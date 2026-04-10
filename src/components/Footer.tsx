@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { Facebook, Instagram, Youtube, Linkedin, Mail } from "lucide-react";
+import { Facebook, Instagram, Youtube, Linkedin, Mail, Phone } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
 const footerSections = [
@@ -98,10 +98,16 @@ export default function Footer() {
                 contact@revialife.com
               </a>
             </div>
+            <div className="flex items-center gap-2 text-sm text-stone-500">
+              <Phone className="h-4 w-4 text-sky-500" />
+              <a href="tel:+13052901462" className="hover:text-sky-600 transition-colors">
+                (305) 290-1462
+              </a>
+            </div>
           </AnimatedContainer>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 md:gap-8 xl:col-span-2">
             {footerSections.map((section, index) => (
               <AnimatedContainer key={section.label} delay={0.1 + index * 0.1}>
                 <div className="mb-6 md:mb-0">

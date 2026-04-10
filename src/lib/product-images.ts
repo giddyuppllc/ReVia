@@ -96,6 +96,19 @@ const productImages: Record<string, string> = {
   "revia-renew": "/images/products/renew-220mgblend.png",
   "revia-sculpt-glow": "/images/products/sculptglow-145mgblend.png",
 
+  // Capsules
+  "rebalance": "/images/products/rebalance-capsules.png",
+  "recover": "/images/products/recover-capsules.png",
+  "revive": "/images/products/revive-capsules.png",
+  "rebalance-sample-pack": "/images/products/rebalance-sample-pack.png",
+  "recover-sample-pack": "/images/products/recover-sample-pack.png",
+  "revive-sample-pack": "/images/products/revive-sample-pack.png",
+
+  // Supplies
+  "bac-water": "/images/products/bac-water.png",
+  "acetic-acid-water": "/images/products/acetic-acid-water.png",
+  "syringes": "/images/products/syringes.png",
+
   // Antioxidant
   "glutathione": "/images/products/glutathione-1500mg.png",
 

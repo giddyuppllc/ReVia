@@ -126,6 +126,7 @@ export async function sendOrderConfirmation(
   <div style="${card}">
     <h1 style="${heading}">Order Confirmed</h1>
     <p style="${subtext}">Thank you, ${order.name}! Your order <strong style="color:#10b981;">#${order.id.slice(-8).toUpperCase()}</strong> has been received.</p>
+    ${order.status === "pre_order" ? '<div style="background-color:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:12px;margin-bottom:16px;text-align:center;"><span style="color:#f59e0b;font-size:13px;font-weight:600;">⏳ This order contains pre-order items</span><br/><span style="color:#9ca3af;font-size:12px;">Estimated to ship within 5–7 business days</span></div>' : ''}
 
     <table style="width:100%;border-collapse:collapse;">
       <thead>

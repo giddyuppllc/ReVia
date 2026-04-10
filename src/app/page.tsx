@@ -30,6 +30,21 @@ export default async function HomePage() {
 
   return (
     <div className="relative">
+      {/* Hero background image — backmost layer */}
+      <div className="absolute top-4 left-4 right-4 h-[55vh] sm:top-6 sm:left-8 sm:right-8 sm:h-[65vh] lg:left-12 lg:right-12 z-0 overflow-hidden rounded-2xl sm:rounded-3xl">
+        <img
+          src="/images/hero-vials.png"
+          alt=""
+          className="h-full w-full object-cover object-[65%_20%]"
+        />
+        {/* Bottom fade so it blends into the page */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] via-transparent to-transparent" />
+        {/* Mobile: strong overlay so text is readable */}
+        <div className="absolute inset-0 bg-[#F0EDE5]/70 sm:hidden" />
+        {/* Desktop: left fade only */}
+        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5]/80 from-10% to-transparent to-50%" />
+      </div>
+
       {/* Floating paths - in front of hero bg, behind all content */}
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
         <FloatingPaths />

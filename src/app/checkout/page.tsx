@@ -81,6 +81,7 @@ export default function CheckoutPage() {
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   const subtotal = totalPrice();
+  const hasPreOrderItems = items.some((i) => i.isPreOrder);
   const afterDiscount = Math.max(0, subtotal - couponDiscount);
 
   // Check if free shipping promo applies
@@ -397,7 +398,7 @@ export default function CheckoutPage() {
             </button>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-6 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-2">
               {[
                 { icon: Lock, label: "Secure Checkout" },
                 { icon: BadgeCheck, label: "cGMP Certified" },
@@ -435,6 +436,9 @@ export default function CheckoutPage() {
                         </p>
                         <p className="text-xs text-stone-500">
                           {item.variantLabel} &times; {item.quantity}
+                          {item.isPreOrder && (
+                            <span className="ml-1.5 rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-amber-700 uppercase">Pre-Order</span>
+                          )}
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
@@ -615,6 +619,16 @@ export default function CheckoutPage() {
                   <span>·</span>
                   <span>Insured shipments</span>
                 </div>
+                {hasPreOrderItems && (
+                  <div className="mt-3 rounded-lg border border-amber-200/60 bg-amber-50/80 px-3 py-2.5">
+                    <p className="text-xs font-medium text-amber-700">
+                      ⏳ Your cart contains pre-order items
+                    </p>
+                    <p className="text-[10px] text-amber-600 mt-0.5">
+                      Pre-order items are estimated to ship within 5–7 business days. In-stock items will ship separately on the next business day.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

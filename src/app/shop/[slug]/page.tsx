@@ -79,6 +79,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     where: {
       categoryId: product.categoryId,
       id: { not: product.id },
+      active: true,
     },
     include: { variants: true, category: true },
     take: 4,

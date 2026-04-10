@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Mail, Clock, ArrowRight, Check } from "lucide-react";
+import { Mail, Clock, ArrowRight, Check, Phone } from "lucide-react";
 
 const subjectLabels: Record<string, string> = {
   order: "Order Question",
@@ -165,6 +165,16 @@ export default function ContactPage() {
               </div>
               <a href="mailto:contact@revialife.com" className="text-sm text-sky-600 hover:text-sky-500 transition-colors">
                 contact@revialife.com
+              </a>
+            </div>
+            <div className="h-px bg-sky-200/30" />
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <Phone className="h-4 w-4 text-sky-500" />
+                <h3 className="text-sm font-semibold text-stone-800">Phone</h3>
+              </div>
+              <a href="tel:+13052901462" className="text-sm text-sky-600 hover:text-sky-500 transition-colors">
+                (305) 290-1462
               </a>
             </div>
             <div className="h-px bg-sky-200/30" />

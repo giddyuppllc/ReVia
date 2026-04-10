@@ -156,9 +156,9 @@ export default function WhyReVia() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-sky-50/80">
-                  <th className="text-left px-5 py-4 font-semibold text-stone-600 text-xs uppercase tracking-wider">Standard</th>
-                  <th className="text-center px-5 py-4 font-semibold text-sky-700 text-xs uppercase tracking-wider">ReVia</th>
-                  <th className="text-center px-5 py-4 font-semibold text-stone-400 text-xs uppercase tracking-wider">Overseas</th>
+                  <th className="text-left px-2 py-3 sm:px-5 sm:py-4 font-semibold text-stone-600 text-[10px] sm:text-xs uppercase tracking-wider">Standard</th>
+                  <th className="text-center px-2 py-3 sm:px-5 sm:py-4 font-semibold text-sky-700 text-[10px] sm:text-xs uppercase tracking-wider">ReVia</th>
+                  <th className="text-center px-2 py-3 sm:px-5 sm:py-4 font-semibold text-stone-400 text-[10px] sm:text-xs uppercase tracking-wider">Overseas</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-sky-100/50">
@@ -173,15 +173,15 @@ export default function WhyReVia() {
                   { label: "LC-MS Verification", us: "Post-reconstitution", them: "Never performed" },
                 ].map((row) => (
                   <tr key={row.label} className="bg-white/60 hover:bg-sky-50/30 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-stone-700">{row.label}</td>
-                    <td className="px-5 py-3.5 text-center">
-                      <span className="inline-flex items-center gap-1.5 text-sky-600 font-medium">
+                    <td className="px-2 py-2.5 sm:px-5 sm:py-3.5 font-medium text-stone-700 text-xs sm:text-sm">{row.label}</td>
+                    <td className="px-2 py-2.5 sm:px-5 sm:py-3.5 text-center">
+                      <span className="inline-flex items-center gap-1 text-sky-600 font-medium text-xs sm:text-sm">
                         <CircleCheck className="h-4 w-4" />
                         {row.us}
                       </span>
                     </td>
                     <td className="px-5 py-3.5 text-center">
-                      <span className="inline-flex items-center gap-1.5 text-stone-400">
+                      <span className="inline-flex items-center gap-1 text-stone-400 text-xs sm:text-sm">
                         <CircleX className="h-4 w-4 text-red-300" />
                         {row.them}
                       </span>

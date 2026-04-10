@@ -61,7 +61,7 @@ export default function AccountTabs({ user, orders, totalSpent }: AccountTabsPro
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`relative flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
+            className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-semibold transition-colors sm:gap-2 sm:px-4 sm:py-3 sm:text-sm ${
               activeTab === tab.id
                 ? "text-stone-800"
                 : "text-stone-400 hover:text-stone-600"

@@ -43,6 +43,7 @@ export default function AddToCart({
       price: selected.price,
       slug: productSlug,
       image: productImage ?? undefined,
+      isPreOrder,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
