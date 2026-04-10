@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { FlaskConical, Truck, Package, MapPin, ArrowRight, Atom } from "lucide-react";
 
 function CompoundCounter({ delay }: { delay: number }) {
@@ -41,28 +41,28 @@ function CompoundCounter({ delay }: { delay: number }) {
 
 export default function HeroBanner() {
   return (
-    <section className="relative min-h-[60vh] flex items-center">
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
+    <section className="relative h-[55vh] sm:h-[65vh] flex items-center">
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-10 lg:px-12">
+        <div className="max-w-xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 3.8, type: "spring", stiffness: 200, damping: 15 }}
               className="relative inline-block"
             >
-              <span className="pill-shimmer relative inline-flex items-center gap-2 rounded-full border border-sky-400/60 bg-white/60 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold tracking-widest text-stone-600 uppercase overflow-hidden">
+              <span className="pill-shimmer relative inline-flex items-center gap-1.5 rounded-full border border-sky-400/60 bg-white/60 backdrop-blur-sm px-2.5 py-1 text-[9px] font-semibold tracking-widest text-stone-600 uppercase overflow-hidden sm:gap-2 sm:px-4 sm:py-1.5 sm:text-xs">
                 <motion.span
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
-                  <Atom className="h-3.5 w-3.5 text-sky-500" />
+                  <Atom className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-sky-500" />
                 </motion.span>
                 US-Manufactured &bull; cGMP Certified
               </span>
             </motion.div>
 
-            <h1 className="mt-8 text-5xl font-extrabold tracking-tight text-stone-800 sm:text-6xl lg:text-7xl leading-[1.1]">
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 sm:mt-5 sm:text-5xl lg:text-6xl leading-[1.1]">
               <motion.span
                 className="block"
                 initial={{ opacity: 0, y: 25 }}
@@ -93,21 +93,22 @@ export default function HeroBanner() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 2.9 }}
-              className="mt-6 text-lg text-stone-600 leading-relaxed sm:text-xl max-w-lg"
+              className="mt-2 text-sm text-stone-600 leading-relaxed sm:mt-3 sm:text-base max-w-lg"
             >
-              Your trusted source for independently tested, pharmaceutical-grade peptides. Every batch verified to &gt;99% purity with same-day shipping nationwide.
+              <span className="hidden sm:inline">Your trusted source for independently tested, pharmaceutical-grade peptides. Every batch verified to &gt;99% purity with same-day shipping nationwide.</span>
+              <span className="sm:hidden">Independently tested, pharmaceutical-grade peptides. &gt;99% purity verified.</span>
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 3.2 }}
-              className="mt-10 flex flex-col gap-4 sm:flex-row"
+              className="mt-4 flex flex-row flex-wrap gap-2.5 sm:mt-5 sm:gap-3"
             >
               {/* Explore — blue flow button */}
               <Link
                 href="/shop"
-                className="group relative flex items-center gap-1 overflow-hidden border-[1.5px] border-sky-400/50 bg-sky-400 rounded-full px-8 py-4 text-base font-bold text-white cursor-pointer hover:text-stone-800 hover:border-stone-300/60 active:scale-[0.95]"
+                className="group relative flex items-center gap-1 overflow-hidden border-[1.5px] border-sky-400/50 bg-sky-400 rounded-full px-4 py-2.5 text-xs font-bold text-white sm:px-8 sm:py-4 sm:text-base cursor-pointer hover:text-stone-800 hover:border-stone-300/60 active:scale-[0.95]"
               >
                 <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-white fill-none z-[9] group-hover:left-4 group-hover:stroke-stone-800 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
                 <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
@@ -120,7 +121,7 @@ export default function HeroBanner() {
               {/* View Stacks — clean border button */}
               <Link
                 href="/shop?category=stacks"
-                className="group relative flex items-center gap-1 overflow-hidden rounded-full border-2 border-sky-300/60 bg-[#F0EDE5] px-8 py-4 text-base font-bold text-stone-600 cursor-pointer hover:text-white active:scale-[0.95] transition-colors duration-500"
+                className="group relative flex items-center gap-1 overflow-hidden rounded-full border-2 border-sky-300/60 bg-[#F0EDE5] px-4 py-2.5 text-xs font-bold text-stone-600 sm:px-8 sm:py-4 sm:text-base cursor-pointer hover:text-white active:scale-[0.95] transition-colors duration-500"
               >
                 <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-stone-600 fill-none z-[9] group-hover:left-4 group-hover:stroke-white transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
                 <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
@@ -135,7 +136,7 @@ export default function HeroBanner() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 3.5 }}
-              className="mt-14 flex flex-wrap gap-x-8 gap-y-3"
+              className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 sm:mt-8 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
             >
               {[
                 { icon: FlaskConical, text: ">99% Purity" },
@@ -144,28 +145,12 @@ export default function HeroBanner() {
                 { icon: Package, text: "85+ Peptides" },
                 { icon: MapPin, text: "US-Based" },
               ].map((b) => (
-                <div key={b.text} className="flex items-center gap-2.5 text-sm text-stone-500">
+                <div key={b.text} className="flex items-center gap-1 text-[10px] text-stone-500 sm:gap-2.5 sm:text-sm">
                   <b.icon className="h-4 w-4 text-sky-600/70" />
                   {b.text}
                 </div>
               ))}
             </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.93 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="hidden lg:block"
-          >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/10 border border-sky-200/40 bg-white/30 backdrop-blur-sm p-2">
-              <img
-                src="/images/hero-landing.png"
-                alt="ReVia research peptides"
-                className="w-full rounded-2xl object-cover"
-              />
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

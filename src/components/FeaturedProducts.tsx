@@ -97,41 +97,18 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
   }, []);
 
   return (
-    <section className="relative py-12">
-      <div className="flex items-end justify-between mb-8 mx-auto max-w-7xl px-6">
+    <section className="relative py-6 sm:py-8">
+      <div className="flex items-center justify-between mb-4 mx-auto max-w-7xl px-6">
         <div>
-          <motion.p
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-2"
-          >
-            Curated Selection
-          </motion.p>
-          <motion.h2
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl font-bold text-stone-800 sm:text-4xl"
-          >
-            Featured Products
-          </motion.h2>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-600 mb-1">Curated Selection</p>
+          <h2 className="text-xl font-bold text-stone-800 sm:text-2xl">Featured Products</h2>
         </div>
-        <motion.div
-          initial={shouldReduceMotion ? {} : { opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <Link
+          href="/shop"
+          className="hidden sm:inline-flex items-center gap-1 rounded-lg border border-sky-200/40 bg-white/50 px-4 py-2 text-xs font-medium text-stone-600 transition hover:bg-white hover:shadow-md"
         >
-          <Link
-            href="/shop"
-            className="hidden sm:inline-flex items-center gap-1 rounded-xl border border-sky-200/40 bg-white/50 backdrop-blur-sm px-5 py-2.5 text-sm font-medium text-stone-600 transition hover:bg-white hover:shadow-md hover:text-stone-800"
-          >
-            View All →
-          </Link>
-        </motion.div>
+          View All →
+        </Link>
       </div>
 
       {/* Carousel with edge masks */}
@@ -169,7 +146,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
           {loopProducts.map((product, i) => (
             <div
               key={`${product.id}-${i}`}
-              className="w-[280px] flex-shrink-0"
+              className="w-[220px] sm:w-[240px] flex-shrink-0"
             >
               <ProductCard product={product} />
             </div>
@@ -177,7 +154,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
         </div>
       </div>
 
-      <div className="mt-8 text-center sm:hidden px-6">
+      <div className="mt-4 text-center sm:hidden px-6">
         <Link href="/shop" className="text-sky-600 font-medium text-sm">
           View All Products →
         </Link>

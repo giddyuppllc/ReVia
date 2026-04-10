@@ -39,7 +39,7 @@ export default function ProductDetailView({
   const currentImage = variantImages[selectedVariantId] ?? defaultImage;
 
   return (
-    <div className="grid gap-12 lg:grid-cols-2">
+    <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12">
       {/* Image */}
       <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
         {currentImage ? (

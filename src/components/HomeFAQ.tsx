@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "How fast do you ship?",
-    a: "Orders placed before 2 PM EST on business days ship the same day. We offer Standard (5–7 days), Priority (2–3 days), and Overnight shipping. Temperature-sensitive products ship with insulated packaging and cold packs.",
+    a: "All orders ship next business day. We offer Standard (5–7 days), Expedited (2–3 days), and Overnight (next day) shipping. All shipments include tracking, insurance, and discreet packaging.",
   },
   {
     q: "Do you ship internationally?",

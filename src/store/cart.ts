@@ -11,6 +11,7 @@ export interface CartItem {
   quantity: number;
   image?: string;
   slug: string;
+  isPreOrder?: boolean;
 }
 
 interface CartState {
