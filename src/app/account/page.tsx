@@ -29,13 +29,22 @@ export default async function AccountPage() {
 
   const serializedOrders = orders.map((o) => ({
     id: o.id,
+    invoiceNumber: o.invoiceNumber ?? "",
     createdAt: o.createdAt.toISOString(),
     total: o.total,
     status: o.status,
+    paymentMethod: o.paymentMethod ?? "zelle",
+    paymentStatus: o.paymentStatus ?? "awaiting",
+    tracking: o.tracking ?? null,
+    address: o.address,
+    city: o.city,
+    state: o.state,
+    zip: o.zip,
     items: o.items.map((item) => ({
       id: item.id,
       productName: item.productName,
       variantLabel: item.variantLabel,
+      price: item.price,
       quantity: item.quantity,
     })),
   }));
