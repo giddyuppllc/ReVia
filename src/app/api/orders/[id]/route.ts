@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
-import { sendShippingNotification, sendPaymentConfirmation, sendOrderCancellation } from "@/lib/email";
+import { sendShippingNotification, sendPaymentConfirmation, sendOrderCancellation, sendDeliveryConfirmation, sendOrderStatusUpdate } from "@/lib/email";
 
 /* ------------------------------------------------------------------ */
 /*  GET /api/orders/[id] – get a single order                         */
@@ -143,12 +143,30 @@ export async function PATCH(
       }
     }
 
+    // Send delivery confirmation
+    if (status === "delivered") {
+      try {
+        await sendDeliveryConfirmation(order, order.email);
+      } catch (emailErr) {
+        console.error("Failed to send delivery confirmation:", emailErr);
+      }
+    }
+
     // Send cancellation email
     if (status === "cancelled") {
       try {
         await sendOrderCancellation(order, order.email, "Order cancelled by admin.");
       } catch (emailErr) {
         console.error("Failed to send cancellation email:", emailErr);
+      }
+    }
+
+    // Send generic status update for statuses not covered above
+    if (status && !["shipped", "delivered", "cancelled"].includes(status) && !paymentStatus) {
+      try {
+        await sendOrderStatusUpdate(order, order.email, status);
+      } catch (emailErr) {
+        console.error("Failed to send status update email:", emailErr);
       }
     }
 
