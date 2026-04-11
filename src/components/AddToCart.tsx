@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingCart, Check, Clock, XCircle } from "lucide-react";
+import Link from "next/link";
+import { ShoppingCart, Check, Clock, XCircle, Lock } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import { useAuth } from "@/lib/useAuth";
 
 interface AddToCartProps {
   variants: { id: string; label: string; price: number; inStock: boolean; stockStatus?: string }[];
@@ -27,6 +29,7 @@ export default function AddToCart({
   );
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
+  const { isLoggedIn, loading: authLoading } = useAuth();
 
   const selected = variants.find((v) => v.id === selectedId);
   const status = selected?.stockStatus ?? (selected?.inStock ? "in_stock" : "out_of_stock");
@@ -48,6 +51,27 @@ export default function AddToCart({
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
+
+  // Paywall: must be logged in to see prices and purchase
+  if (!authLoading && !isLoggedIn) {
+    return (
+      <div className="space-y-6">
+        <div className="rounded-2xl border-2 border-dashed border-stone-200 bg-stone-50 p-8 text-center">
+          <Lock className="h-8 w-8 text-stone-300 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold text-stone-700 mb-1">Sign in to view pricing</h3>
+          <p className="text-sm text-stone-500 mb-4">Create a free account to see prices, add products to your cart, and place orders.</p>
+          <div className="flex items-center justify-center gap-3">
+            <Link href="/login" className="rounded-xl bg-sky-400 px-6 py-2.5 text-sm font-semibold text-white hover:bg-sky-500 transition">
+              Sign In
+            </Link>
+            <Link href="/register" className="rounded-xl border border-sky-300 px-6 py-2.5 text-sm font-medium text-sky-700 hover:bg-sky-50 transition">
+              Create Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

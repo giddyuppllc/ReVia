@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Lock } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import { useAuth } from "@/lib/useAuth";
 import { getProductImage, getVariantImages } from "@/lib/product-images";
 
 interface Variant {
@@ -38,6 +39,7 @@ const catColors: Record<string, string> = {
 
 export default function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((s) => s.addItem);
+  const { isLoggedIn } = useAuth();
 
   const cheapest = product.variants.length
     ? product.variants.reduce((min, v) => (v.price < min.price ? v : min), product.variants[0])
@@ -101,25 +103,37 @@ export default function ProductCard({ product }: { product: Product }) {
         </h3>
 
         <div className="mt-auto flex items-center justify-between pt-3">
-          {cheapest && (
-            <span className="text-base font-bold text-stone-800">
-              {hasMultiple && <span className="text-xs font-normal text-stone-500 mr-1">from</span>}
-              ${(cheapest.price / 100).toFixed(2)}
-            </span>
-          )}
-
-          {hasMultiple ? (
-            <span className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-sky-700 border border-sky-300/50 transition group-hover:bg-sky-50">
-              Options
-            </span>
+          {isLoggedIn ? (
+            <>
+              {cheapest && (
+                <span className="text-base font-bold text-stone-800">
+                  {hasMultiple && <span className="text-xs font-normal text-stone-500 mr-1">from</span>}
+                  ${(cheapest.price / 100).toFixed(2)}
+                </span>
+              )}
+              {hasMultiple ? (
+                <span className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-sky-700 border border-sky-300/50 transition group-hover:bg-sky-50">
+                  Options
+                </span>
+              ) : (
+                <button
+                  onClick={handleAdd}
+                  className="flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-sky-700 border border-sky-300/50 transition hover:bg-sky-50 active:scale-95"
+                >
+                  <ShoppingCart className="h-3.5 w-3.5" />
+                  Add
+                </button>
+              )}
+            </>
           ) : (
-            <button
-              onClick={handleAdd}
-              className="flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-sky-700 border border-sky-300/50 transition hover:bg-sky-50 active:scale-95"
+            <Link
+              href="/login"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 rounded-lg bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-500 border border-stone-200 transition hover:bg-stone-200"
             >
-              <ShoppingCart className="h-3.5 w-3.5" />
-              Add
-            </button>
+              <Lock className="h-3 w-3" />
+              Sign in for pricing
+            </Link>
           )}
         </div>
       </div>

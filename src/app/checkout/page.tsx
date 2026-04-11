@@ -19,12 +19,14 @@ import {
   Bitcoin,
 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import { useAuth } from "@/lib/useAuth";
 import { SHIPPING_METHODS, PAYMENT_METHODS, type ShippingMethod, type PaymentMethod } from "@/lib/constants";
 import { calculateTax, getTaxRate } from "@/lib/tax";
 import FloatingOrbs from "@/components/FloatingOrbs";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { isLoggedIn, loading: authLoading } = useAuth();
   const items = useCartStore((s) => s.items);
   const totalPrice = useCartStore((s) => s.totalPrice);
   const clearCart = useCartStore((s) => s.clearCart);
@@ -194,6 +196,28 @@ export default function CheckoutPage() {
       setSubmitting(false);
     }
   };
+
+  // Auth gate — redirect to login if not signed in
+  if (!authLoading && !isLoggedIn) {
+    return (
+      <section className="relative mx-auto flex max-w-xl flex-col items-center px-4 py-32 text-center">
+        <FloatingOrbs />
+        <div className="relative z-10">
+          <Lock className="mx-auto h-12 w-12 text-stone-300 mb-4" />
+          <h1 className="text-xl font-bold text-stone-900">Sign in to checkout</h1>
+          <p className="mt-2 text-sm text-stone-500">You need an account to place orders.</p>
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <Link href="/login" className="rounded-xl bg-sky-400 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-500 transition">
+              Sign In
+            </Link>
+            <Link href="/register" className="rounded-xl border border-sky-300 px-6 py-3 text-sm font-medium text-sky-700 hover:bg-sky-50 transition">
+              Create Account
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (orderId) {
     const paymentLabels: Record<PaymentMethod, string> = {
