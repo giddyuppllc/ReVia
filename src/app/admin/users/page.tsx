@@ -10,7 +10,10 @@ export default async function AdminUsersPage() {
       name: true,
       email: true,
       role: true,
+      suspended: true,
       emailVerified: true,
+      rewardPoints: true,
+      lifetimeSpent: true,
       createdAt: true,
       _count: { select: { orders: true } },
     },
@@ -19,6 +22,9 @@ export default async function AdminUsersPage() {
 
   const serialized = users.map((u) => ({
     ...u,
+    suspended: u.suspended ?? false,
+    rewardPoints: u.rewardPoints ?? 0,
+    lifetimeSpent: u.lifetimeSpent ?? 0,
     createdAt: u.createdAt.toISOString(),
     orderCount: u._count.orders,
   }));

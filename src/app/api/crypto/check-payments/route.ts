@@ -110,9 +110,37 @@ export async function POST(request: NextRequest) {
           },
         });
 
+        // ── Award reward points on payment confirmation ──
+        const order = payment.order;
+        if (order.userId) {
+          try {
+            const pointsEarned = Math.floor(order.total / 100);
+            await prisma.user.update({
+              where: { id: order.userId },
+              data: {
+                rewardPoints: { increment: pointsEarned },
+                lifetimeSpent: { increment: Math.round(order.total) },
+              },
+            });
+
+            const drawingSettings = await prisma.siteSettings.findUnique({ where: { id: "singleton" } });
+            const entryAmount = (drawingSettings as { drawingEntryAmount?: number })?.drawingEntryAmount ?? 5000;
+            const drawingEntries = Math.floor(order.total / entryAmount);
+            if (drawingEntries > 0) {
+              const currentMonth = new Date().toISOString().slice(0, 7);
+              await prisma.drawingEntry.upsert({
+                where: { userId_month: { userId: order.userId, month: currentMonth } },
+                update: { entries: { increment: drawingEntries } },
+                create: { userId: order.userId, month: currentMonth, entries: drawingEntries },
+              });
+            }
+          } catch (rewardErr) {
+            console.error("Failed to award rewards:", rewardErr);
+          }
+        }
+
         // ── Send payment confirmation email ──
         try {
-          const order = payment.order;
           await sendPaymentConfirmation(
             {
               id: order.id,

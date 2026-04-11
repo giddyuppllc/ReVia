@@ -57,6 +57,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (user.suspended) {
+      return NextResponse.json(
+        { error: "Your account has been suspended. Contact support at contact@revialife.com" },
+        { status: 403 }
+      );
+    }
+
     const token = generateToken({ id: user.id, email: user.email, role: user.role });
     const cookie = serialize("auth-token", token, {
       httpOnly: true,

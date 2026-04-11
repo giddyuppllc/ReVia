@@ -93,8 +93,40 @@ export async function PATCH(
       include: { items: true },
     });
 
-    // Send payment confirmation email
+    // On payment confirmation: award rewards + send email
     if (paymentStatus === "confirmed") {
+      // Award reward points, lifetime spend, and drawing entries
+      if (order.userId) {
+        try {
+          const pointsEarned = Math.floor(order.total / 100); // 1 point per $1
+          await prisma.user.update({
+            where: { id: order.userId },
+            data: {
+              rewardPoints: { increment: pointsEarned },
+              lifetimeSpent: { increment: Math.round(order.total) },
+            },
+          });
+
+          // Award monthly drawing entries
+          const drawingSettings = await prisma.siteSettings.findUnique({ where: { id: "singleton" } });
+          const entryAmount = (drawingSettings as { drawingEntryAmount?: number })?.drawingEntryAmount ?? 5000;
+          const drawingEntries = Math.floor(order.total / entryAmount);
+          if (drawingEntries > 0) {
+            const currentMonth = new Date().toISOString().slice(0, 7);
+            await prisma.drawingEntry.upsert({
+              where: { userId_month: { userId: order.userId, month: currentMonth } },
+              update: { entries: { increment: drawingEntries } },
+              create: { userId: order.userId, month: currentMonth, entries: drawingEntries },
+            });
+          }
+
+          console.log(`Awarded ${pointsEarned} points + ${drawingEntries} drawing entries to user ${order.userId}`);
+        } catch (rewardErr) {
+          console.error("Failed to award rewards:", rewardErr);
+        }
+      }
+
+      // Send payment confirmation email
       try {
         await sendPaymentConfirmation(order, order.email);
       } catch (emailErr) {

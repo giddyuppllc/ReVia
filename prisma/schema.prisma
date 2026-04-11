@@ -68,6 +68,7 @@ model User {
   password          String
   name              String
   role              String     @default("customer")
+  suspended         Boolean    @default(false)
   emailVerified     Boolean    @default(false)
   verifyToken       String?
   resetToken        String?
