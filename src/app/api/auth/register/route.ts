@@ -7,6 +7,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { validateEmail, validatePassword, sanitizeString } from "@/lib/validation";
 import crypto from "crypto";
 import { sendVerificationEmail } from "@/lib/email";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +25,18 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { email, name, password } = body;
+    const { email, name, password, turnstileToken } = body;
+
+    // Verify Turnstile (bot protection)
+    if (turnstileToken) {
+      const turnstileValid = await verifyTurnstile(turnstileToken);
+      if (!turnstileValid) {
+        return NextResponse.json(
+          { error: "Bot verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+    }
 
     // Validate inputs
     if (!email || !name || !password) {

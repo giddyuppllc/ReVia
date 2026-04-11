@@ -52,27 +52,6 @@ export default function AddToCart({
     setTimeout(() => setAdded(false), 1500);
   };
 
-  // Paywall: must be logged in to see prices and purchase
-  if (!authLoading && !isLoggedIn) {
-    return (
-      <div className="space-y-6">
-        <div className="rounded-2xl border-2 border-dashed border-stone-200 bg-stone-50 p-8 text-center">
-          <Lock className="h-8 w-8 text-stone-300 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold text-stone-700 mb-1">Sign in to view pricing</h3>
-          <p className="text-sm text-stone-500 mb-4">Create a free account to see prices, add products to your cart, and place orders.</p>
-          <div className="flex items-center justify-center gap-3">
-            <Link href="/login" className="rounded-xl bg-sky-400 px-6 py-2.5 text-sm font-semibold text-white hover:bg-sky-500 transition">
-              Sign In
-            </Link>
-            <Link href="/register" className="rounded-xl border border-sky-300 px-6 py-2.5 text-sm font-medium text-sky-700 hover:bg-sky-50 transition">
-              Create Account
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       {/* Variant selector */}
@@ -132,42 +111,53 @@ export default function AddToCart({
         </div>
       )}
 
-      {/* Add to cart / Pre-order / Out of stock button */}
-      <button
-        onClick={handleAdd}
-        disabled={!canPurchase}
-        className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition ${
-          added
-            ? "bg-sky-700 text-white"
-            : isOutOfStock
-            ? "cursor-not-allowed bg-neutral-200 text-neutral-400"
-            : isPreOrder
-            ? "bg-amber-500 text-white hover:bg-amber-600"
-            : "bg-sky-400 text-white hover:bg-sky-500"
-        }`}
-      >
-        {added ? (
-          <>
-            <Check className="h-5 w-5" />
-            Added to Cart
-          </>
-        ) : isOutOfStock ? (
-          <>
-            <XCircle className="h-5 w-5" />
-            Out of Stock
-          </>
-        ) : isPreOrder ? (
-          <>
-            <Clock className="h-5 w-5" />
-            Pre-Order Now
-          </>
-        ) : (
-          <>
-            <ShoppingCart className="h-5 w-5" />
-            Add to Cart
-          </>
-        )}
-      </button>
+      {/* Add to cart / Pre-order / Out of stock / Sign in button */}
+      {isOutOfStock ? (
+        <button
+          disabled
+          className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold cursor-not-allowed bg-neutral-200 text-neutral-400"
+        >
+          <XCircle className="h-5 w-5" />
+          Out of Stock
+        </button>
+      ) : !authLoading && !isLoggedIn ? (
+        <Link
+          href="/login"
+          className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold bg-sky-400 text-white hover:bg-sky-500 transition"
+        >
+          <Lock className="h-5 w-5" />
+          Sign In to Purchase
+        </Link>
+      ) : (
+        <button
+          onClick={handleAdd}
+          disabled={!canPurchase || authLoading}
+          className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition ${
+            added
+              ? "bg-sky-700 text-white"
+              : isPreOrder
+              ? "bg-amber-500 text-white hover:bg-amber-600"
+              : "bg-sky-400 text-white hover:bg-sky-500"
+          } disabled:opacity-60`}
+        >
+          {added ? (
+            <>
+              <Check className="h-5 w-5" />
+              Added to Cart
+            </>
+          ) : isPreOrder ? (
+            <>
+              <Clock className="h-5 w-5" />
+              Pre-Order Now
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="h-5 w-5" />
+              Add to Cart
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }

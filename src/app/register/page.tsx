@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import Turnstile from "@/components/Turnstile";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -13,6 +14,8 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const handleTurnstile = useCallback((token: string) => setTurnstileToken(token), []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,7 +37,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name: `${firstName.trim()} ${lastName.trim()}`, password }),
+        body: JSON.stringify({ email, name: `${firstName.trim()} ${lastName.trim()}`, password, turnstileToken }),
       });
 
       const data = await res.json();
@@ -144,6 +147,8 @@ export default function RegisterPage() {
               placeholder="Re-enter your password"
             />
           </div>
+
+          <Turnstile onVerify={handleTurnstile} />
 
           <button
             type="submit"

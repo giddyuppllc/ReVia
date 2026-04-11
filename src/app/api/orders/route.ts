@@ -8,6 +8,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { validateShippingAddress, validateOrderItems, sanitizeString } from "@/lib/validation";
 import { calculateTax } from "@/lib/tax";
 import type { PaymentMethod } from "@/lib/constants";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 /* ------------------------------------------------------------------ */
 /*  Invoice number generator: RV-YYYYMMDD-XXXX                        */
@@ -59,12 +60,24 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { items, shipping, couponCode, paymentMethod } = body as {
+    const { items, shipping, couponCode, paymentMethod, turnstileToken } = body as {
       items: OrderItemInput[];
       shipping: ShippingInput;
       couponCode?: string;
       paymentMethod?: string;
+      turnstileToken?: string;
     };
+
+    // ── Verify Turnstile (bot protection) ──
+    if (turnstileToken) {
+      const turnstileValid = await verifyTurnstile(turnstileToken);
+      if (!turnstileValid) {
+        return NextResponse.json(
+          { error: "Bot verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+    }
 
     // ── Validate payment method ──
     const method = (paymentMethod && VALID_PAYMENT_METHODS.includes(paymentMethod as PaymentMethod))

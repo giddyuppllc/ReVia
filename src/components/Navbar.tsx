@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCart, Menu, X, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCartStore } from "@/store/cart";
@@ -18,6 +18,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<{ role: string } | null>(null);
@@ -104,16 +105,14 @@ export default function Navbar() {
             </Link>
           )}
 
-          {user && (
-            <button onClick={toggleCart} className="relative rounded-xl p-2 text-stone-600 transition hover:bg-sky-50" aria-label="Open cart">
-              <ShoppingCart className="h-5 w-5" />
-              {mounted && totalItems > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 text-[10px] font-bold text-white">
-                  {totalItems > 99 ? "99+" : totalItems}
-                </span>
-              )}
-            </button>
-          )}
+          <button onClick={() => user ? toggleCart() : router.push("/login")} className="relative rounded-xl p-2 text-stone-600 transition hover:bg-sky-50" aria-label="Open cart">
+            <ShoppingCart className="h-5 w-5" />
+            {mounted && totalItems > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 text-[10px] font-bold text-white">
+                {totalItems > 99 ? "99+" : totalItems}
+              </span>
+            )}
+          </button>
 
           <button onClick={() => setMobileOpen(!mobileOpen)} className="rounded-xl p-2 text-stone-600 hover:bg-sky-50 md:hidden" aria-label="Toggle menu">
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

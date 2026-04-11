@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Turnstile from "@/components/Turnstile";
 import {
   ShoppingBag,
   ArrowLeft,
@@ -48,6 +49,8 @@ export default function CheckoutPage() {
   const [orderPaymentMethod, setOrderPaymentMethod] = useState<PaymentMethod>("zelle");
   const [error, setError] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const handleTurnstile = useCallback((token: string) => setTurnstileToken(token), []);
 
   // Payment & shipping method
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("zelle");
@@ -168,6 +171,7 @@ export default function CheckoutPage() {
           shippingMethod,
           paymentMethod,
           couponCode: appliedCoupon || undefined,
+          turnstileToken: turnstileToken || undefined,
         }),
       });
 
@@ -489,19 +493,28 @@ export default function CheckoutPage() {
                 <span className="text-xs leading-relaxed text-stone-600">
                   I confirm that I am a qualified researcher and that all products
                   purchased are for <strong className="text-stone-700">laboratory research use only</strong>.
-                  I understand that these products are not intended for human or
-                  animal consumption, or for use in the diagnosis, treatment, cure,
-                  or prevention of any disease. I agree to the{" "}
+                  These products are <strong className="text-stone-700">not intended for human or
+                  animal consumption</strong>, or for use in the diagnosis, treatment, cure,
+                  or prevention of any disease.{" "}
+                  <strong className="text-stone-700">I accept full responsibility for my research
+                  activities and acknowledge that ReVia Research Supply LLC shall not be
+                  liable for any injury, damage, or loss resulting from the use or misuse
+                  of any product.</strong>{" "}
+                  I agree to the{" "}
                   <a href="/policies/terms" target="_blank" className="text-sky-600 hover:text-sky-500 underline">
                     Terms of Service
-                  </a>{" "}
-                  and{" "}
+                  </a>,{" "}
                   <a href="/policies/aup" target="_blank" className="text-sky-600 hover:text-sky-500 underline">
                     Acceptable Use Policy
+                  </a>, and{" "}
+                  <a href="/policies/disclaimer" target="_blank" className="text-sky-600 hover:text-sky-500 underline">
+                    Disclaimer
                   </a>.
                 </span>
               </label>
             </div>
+
+            <Turnstile onVerify={handleTurnstile} />
 
             {/* Place Order button */}
             <button
