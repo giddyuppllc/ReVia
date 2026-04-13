@@ -152,7 +152,7 @@ export default function CartDrawer() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-neutral-500">Shipping</span>
                   <span className="text-xs text-neutral-400">
-                    from ${(SHIPPING_METHODS.standard.price / 100).toFixed(2)}
+                    from $7.95
                   </span>
                 </div>
 

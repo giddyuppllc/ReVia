@@ -1,7 +1,7 @@
 // All monetary values in CENTS (divide by 100 to display as dollars)
 
 export const SHIPPING_METHODS = {
-  standard: { label: "Flat Rate Shipping", price: 2500, estimate: "3-5 business days" },
+  standard: { label: "Standard Shipping", price: 795, estimate: "5-7 business days" },
 } as const;
 
 export type ShippingMethod = keyof typeof SHIPPING_METHODS;

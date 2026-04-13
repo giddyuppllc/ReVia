@@ -9,7 +9,7 @@ const STATE_TAX_RATES: Record<string, number> = {
   CO: 0.029,
   CT: 0.0635,
   DC: 0.06,
-  FL: 0.06,
+  FL: 0.065,
   GA: 0.04,
   HI: 0.04,
   ID: 0.06,
