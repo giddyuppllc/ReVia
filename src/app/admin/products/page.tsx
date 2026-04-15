@@ -1,15 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import AdminProductTable from "@/components/AdminProductTable";
+import AddProductForm from "@/components/AddProductForm";
 export const dynamic = "force-dynamic";
 
 export default async function ProductsPage() {
-  const products = await prisma.product.findMany({
-    include: {
-      category: true,
-      variants: true,
-    },
-    orderBy: { name: "asc" },
-  });
+  const [products, categories] = await Promise.all([
+    prisma.product.findMany({
+      include: { category: true, variants: true },
+      orderBy: { name: "asc" },
+    }),
+    prisma.category.findMany({ orderBy: { name: "asc" } }),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -19,6 +20,8 @@ export default async function ProductsPage() {
           {products.length} product{products.length !== 1 ? "s" : ""}
         </p>
       </div>
+
+      <AddProductForm categories={categories.map(c => ({ id: c.id, name: c.name }))} />
 
       <AdminProductTable
         products={products.map((p) => ({
