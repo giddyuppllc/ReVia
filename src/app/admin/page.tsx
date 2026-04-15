@@ -94,7 +94,7 @@ export default async function AdminDashboard() {
     },
     {
       label: "Total Revenue",
-      value: `$${revenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`,
+      value: `$${(revenue / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}`,
       icon: DollarSign,
       color: "text-sky-400",
       bgColor: "bg-sky-400/10",
@@ -186,7 +186,7 @@ export default async function AdminDashboard() {
               <h2 className="text-lg font-semibold text-stone-800">Revenue (14 days)</h2>
             </div>
             <p className="text-sm font-medium text-stone-600">
-              ${chartData.reduce((s, d) => s + d.total, 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              ${(chartData.reduce((s, d) => s + d.total, 0) / 100).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </p>
           </div>
           <div className="flex items-end gap-1 h-36">
@@ -194,7 +194,7 @@ export default async function AdminDashboard() {
               const height = maxRevenue > 0 ? (d.total / maxRevenue) * 100 : 0;
               const dayLabel = new Date(d.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
               return (
-                <div key={d.date} className="flex-1 flex flex-col items-center gap-1 group" title={`${dayLabel}: $${d.total.toFixed(2)}`}>
+                <div key={d.date} className="flex-1 flex flex-col items-center gap-1 group" title={`${dayLabel}: $${(d.total / 100).toFixed(2)}`}>
                   <div
                     className="w-full rounded-t-sm bg-sky-400/70 hover:bg-sky-500 transition-colors min-h-[2px]"
                     style={{ height: `${Math.max(height, 2)}%` }}
@@ -328,7 +328,7 @@ export default async function AdminDashboard() {
                       </Link>
                     </td>
                     <td className="py-3 text-stone-800/70">{order.name}</td>
-                    <td className="py-3 text-stone-800 font-medium">${order.total.toFixed(2)}</td>
+                    <td className="py-3 text-stone-800 font-medium">${(order.total / 100).toFixed(2)}</td>
                     <td className="py-3">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[order.status] ?? "bg-gray-500/20 text-stone-500"}`}>
                         {order.status}

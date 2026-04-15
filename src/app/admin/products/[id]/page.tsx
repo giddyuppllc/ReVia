@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ProductEditForm from "@/components/ProductEditForm";
+import CoaUpload from "@/components/CoaUpload";
 export const dynamic = "force-dynamic";
 
 export default async function AdminProductEditPage({
@@ -43,6 +44,8 @@ export default async function AdminProductEditPage({
       </div>
 
       <ProductEditForm product={product} categories={categories} />
+
+      <CoaUpload productId={product.id} productName={product.name} currentCoaUrl={product.coaUrl} />
     </div>
   );
 }
