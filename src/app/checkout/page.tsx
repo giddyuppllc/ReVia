@@ -229,6 +229,7 @@ export default function CheckoutPage() {
       }
 
       clearCart();
+      useCartStore.getState().closeCart();
 
       // Bitcoin orders → redirect to crypto payment page
       if (paymentMethod === "bitcoin") {
@@ -313,6 +314,30 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {orderPaymentMethod === "zelle" && (
+              <div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-left space-y-2">
+                <p className="text-xs font-semibold text-sky-800 uppercase tracking-wider">Zelle Payment</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div><span className="text-stone-500">Tag:</span> <span className="font-mono font-semibold text-stone-800">revialife</span></div>
+                  <div><span className="text-stone-500">Email:</span> <span className="font-semibold text-stone-800">mss@revialife.com</span></div>
+                  <div><span className="text-stone-500">Name:</span> <span className="font-semibold text-stone-800">Revia LLC</span></div>
+                  <div><span className="text-stone-500">Amount:</span> <span className="font-mono font-bold text-stone-900">${(orderTotal / 100).toFixed(2)}</span></div>
+                </div>
+              </div>
+            )}
+            {orderPaymentMethod === "wire" && (
+              <div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-left space-y-2">
+                <p className="text-xs font-semibold text-sky-800 uppercase tracking-wider">Wire / ACH Transfer</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div><span className="text-stone-500">Bank:</span> <span className="font-semibold text-stone-800">JPMorgan Chase</span></div>
+                  <div><span className="text-stone-500">Name:</span> <span className="font-semibold text-stone-800">Revia LLC</span></div>
+                  <div><span className="text-stone-500">Routing:</span> <span className="font-mono font-semibold text-stone-800">267084131</span></div>
+                  <div><span className="text-stone-500">Account:</span> <span className="font-mono font-semibold text-stone-800">2917059589</span></div>
+                  <div><span className="text-stone-500">Type:</span> <span className="font-semibold text-stone-800">Checking</span></div>
+                  <div><span className="text-stone-500">Amount:</span> <span className="font-mono font-bold text-stone-900">${(orderTotal / 100).toFixed(2)}</span></div>
+                </div>
+              </div>
+            )}
             <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
               <p className="text-xs text-amber-800 font-medium">
                 ⚠️ Include your invoice number <span className="font-mono font-bold">{orderInvoice}</span> in your payment note/memo so we can match your payment.
