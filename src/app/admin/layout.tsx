@@ -18,6 +18,7 @@ import {
   BarChart3,
   ClipboardList,
   MessageCircle,
+  Link2,
 } from "lucide-react";
 
 const navItems = [
@@ -29,6 +30,7 @@ const navItems = [
   { href: "/admin/wholesale", label: "Wholesale Order", icon: ClipboardList },
   { href: "/admin/newsletter", label: "Newsletter", icon: FileText },
   { href: "/admin/coupons", label: "Coupons", icon: Ticket },
+  { href: "/admin/affiliates", label: "Affiliates", icon: Link2 },
   { href: "/admin/leads", label: "Chat Leads", icon: MessageCircle },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/drawing", label: "Monthly Drawing", icon: Ticket },

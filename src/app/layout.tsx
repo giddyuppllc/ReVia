@@ -7,6 +7,8 @@ import JsonLd from "@/components/JsonLd";
 import LayoutShell from "@/components/LayoutShell";
 import ChatWidget from "@/components/ChatWidget";
 import CookieConsent from "@/components/CookieConsent";
+import AffiliateTracker from "@/components/AffiliateTracker";
+import { Suspense } from "react";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
@@ -123,6 +125,7 @@ export default function RootLayout({
         <LayoutShell>{children}</LayoutShell>
         <ChatWidget />
         <CookieConsent />
+        <Suspense><AffiliateTracker /></Suspense>
       </body>
     </html>
   );

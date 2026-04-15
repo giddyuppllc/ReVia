@@ -894,3 +894,73 @@ export async function sendNewsletterWelcome(email: string) {
 
   await send(email, "Welcome to the ReVia Newsletter", html);
 }
+
+/* ------------------------------------------------------------------ */
+/*  15. Affiliate Approved                                             */
+/* ------------------------------------------------------------------ */
+
+export async function sendAffiliateApprovedEmail(
+  name: string,
+  email: string,
+  affiliateCode: string
+) {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
+  const link = `${baseUrl}/?ref=${affiliateCode}`;
+
+  const html = `
+<div style="${wrapper}">
+  <div style="${card}">
+    <h1 style="${heading}">Welcome to the ReVia Affiliate Program!</h1>
+    <p style="${subtext}">
+      Congratulations, ${name}! Your affiliate application has been approved. You can now start earning commissions on every sale you refer.
+    </p>
+
+    <div style="${infoBox}text-align:center;">
+      <p style="${labelStyle}">Your Affiliate Link</p>
+      <p style="color:#10b981;font-size:16px;font-weight:700;margin:0 0 12px;word-break:break-all;">${link}</p>
+      <p style="${labelStyle}">Your Code</p>
+      <p style="color:#10b981;font-size:20px;font-weight:700;margin:0;letter-spacing:2px;font-family:monospace;">${affiliateCode}</p>
+    </div>
+
+    <p style="color:#9ca3af;font-size:13px;margin:16px 0;">
+      Share your link on social media, your website, or with colleagues. You earn a commission on every sale made through your link.
+    </p>
+
+    <div style="text-align:center;margin:24px 0;">
+      <a href="${baseUrl}/account" style="${btnStyle}">View Your Dashboard</a>
+    </div>
+
+    ${footerBlock()}
+  </div>
+</div>`;
+
+  await send(email, "Welcome to the ReVia Affiliate Program!", html);
+}
+
+/* ------------------------------------------------------------------ */
+/*  16. Affiliate Rejected                                             */
+/* ------------------------------------------------------------------ */
+
+export async function sendAffiliateRejectedEmail(
+  name: string,
+  email: string
+) {
+  const html = `
+<div style="${wrapper}">
+  <div style="${card}">
+    <h1 style="${heading}">Affiliate Application Update</h1>
+    <p style="${subtext}">
+      Hi ${name}, thank you for your interest in the ReVia Affiliate Program. After reviewing your application, we're unable to approve it at this time.
+    </p>
+
+    <p style="color:#9ca3af;font-size:13px;margin:0;">
+      If you have questions or would like to reapply in the future, please contact us at
+      <a href="mailto:contact@revialife.com" style="color:#10b981;">contact@revialife.com</a>.
+    </p>
+
+    ${footerBlock()}
+  </div>
+</div>`;
+
+  await send(email, "Affiliate Application Update — ReVia", html);
+}

@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import AffiliateTab from "@/components/AffiliateTab";
 import {
   Package,
   Gift,
   User,
+  Link2,
   ArrowRight,
   ArrowLeft,
   Ticket,
@@ -61,6 +63,7 @@ interface AccountTabsProps {
 const tabs = [
   { id: "orders", label: "Orders", icon: Package },
   { id: "rewards", label: "Rewards", icon: Gift },
+  { id: "affiliate", label: "Affiliate", icon: Link2 },
   { id: "profile", label: "Profile", icon: User },
 ] as const;
 
@@ -118,6 +121,7 @@ export default function AccountTabs({ user, orders, totalSpent }: AccountTabsPro
         >
           {activeTab === "orders" && <OrdersTab orders={orders} totalSpent={totalSpent} />}
           {activeTab === "rewards" && <RewardsTab />}
+          {activeTab === "affiliate" && <AffiliateTab />}
           {activeTab === "profile" && <ProfileTab user={user} />}
         </motion.div>
       </AnimatePresence>

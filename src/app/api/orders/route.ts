@@ -229,6 +229,16 @@ export async function POST(request: NextRequest) {
     // ── Generate invoice number ──
     const invoiceNumber = generateInvoiceNumber();
 
+    // ── Check for affiliate referral cookie ──
+    let affiliateId: string | null = null;
+    const refCookie = cookieStore.get("revia_ref")?.value;
+    if (refCookie) {
+      const affiliate = await prisma.affiliate.findUnique({ where: { affiliateCode: refCookie } });
+      if (affiliate && affiliate.status === "approved" && affiliate.userId !== user.id) {
+        affiliateId = affiliate.id;
+      }
+    }
+
     // ── Create order ──
     const order = await prisma.order.create({
       data: {
@@ -240,6 +250,7 @@ export async function POST(request: NextRequest) {
         state: sanitizedShipping.state,
         zip: sanitizedShipping.zip,
         total,
+        affiliateId,
         paymentMethod: method,
         paymentStatus: "awaiting",
         status: "pending_payment",

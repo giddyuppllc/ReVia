@@ -133,6 +133,35 @@ export async function PATCH(
         }
       }
 
+      // Award affiliate commission
+      if (order.affiliateId) {
+        try {
+          const affiliate = await prisma.affiliate.findUnique({ where: { id: order.affiliateId } });
+          if (affiliate) {
+            const commission = Math.round(order.total * (affiliate.commissionRate / 100));
+            await prisma.affiliateConversion.create({
+              data: {
+                affiliateId: affiliate.id,
+                orderId: order.id,
+                orderTotal: order.total,
+                commission,
+                status: "confirmed",
+              },
+            });
+            await prisma.affiliate.update({
+              where: { id: affiliate.id },
+              data: {
+                totalOrders: { increment: 1 },
+                totalRevenue: { increment: Math.round(order.total) },
+                totalCommission: { increment: commission },
+              },
+            });
+          }
+        } catch (affErr) {
+          console.error("Failed to track affiliate conversion:", affErr);
+        }
+      }
+
       // Send payment confirmation email
       try {
         await sendPaymentConfirmation(order, order.email);
