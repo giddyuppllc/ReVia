@@ -51,7 +51,7 @@ export default async function HomePage() {
       {/* Hero background image — backmost layer */}
       <div className="absolute top-4 left-4 right-4 h-[55vh] sm:top-6 sm:left-8 sm:right-8 sm:h-[65vh] lg:left-12 lg:right-12 z-0 overflow-hidden rounded-2xl sm:rounded-3xl">
         <img
-          src="/images/hero-vials.png"
+          src="/images/hero-vials.webp"
           alt=""
           className="h-full w-full object-cover object-[65%_20%]"
         />

@@ -121,7 +121,12 @@ const productImages: Record<string, string> = {
 };
 
 export function getProductImage(slug: string, dbImage?: string | null): string | null {
-  return productImages[slug] ?? dbImage ?? null;
+  const img = productImages[slug] ?? dbImage ?? null;
+  // Prefer WebP version if the path is a .png product image
+  if (img && img.endsWith(".png") && img.includes("/images/products/")) {
+    return img.replace(".png", ".webp");
+  }
+  return img;
 }
 
 /**
@@ -294,9 +299,11 @@ export function getVariantImages(
     const key = `${productSlug}::${v.label}`;
     const filename = variantImageMap[key];
     if (filename) {
-      map[v.id] = `/images/products/${filename}`;
+      // Prefer WebP
+      const webp = filename.replace(".png", ".webp");
+      map[v.id] = `/images/products/${webp}`;
     } else if (defaultImg) {
-      map[v.id] = defaultImg;
+      map[v.id] = defaultImg.endsWith(".png") ? defaultImg.replace(".png", ".webp") : defaultImg;
     }
   }
 
