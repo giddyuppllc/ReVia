@@ -5,7 +5,7 @@ import EasyPostClient from "@easypost/api";
 /* ------------------------------------------------------------------ */
 
 function getClient(): InstanceType<typeof EasyPostClient> {
-  const key = process.env.EASYPOST_API_TEST_KEY || process.env.EASYPOST_API_KEY;
+  const key = process.env.EASYPOST_API_KEY || process.env.EASYPOST_API_TEST_KEY;
   if (!key) throw new Error("EASYPOST_API_KEY not configured");
   return new EasyPostClient(key);
 }
