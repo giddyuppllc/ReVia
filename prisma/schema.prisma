@@ -333,3 +333,22 @@ model BatchRecord {
   @@index([productId])
   @@index([batchNumber])
 }
+
+model BrandPartner {
+  id              String   @id @default(cuid())
+  businessName    String
+  contactName     String
+  email           String
+  phone           String
+  businessType    String   // "medspa" | "clinic" | "gym" | "wellness" | "pharmacy" | "other"
+  website         String?
+  clientCount     String?  // "1-50" | "51-200" | "201-500" | "500+"
+  instagram       String?
+  facebook        String?
+  tiktok          String?
+  linkedin        String?
+  message         String?
+  status          String   @default("pending") // "pending" | "contacted" | "approved" | "declined"
+  notes           String?  // admin notes
+  createdAt       DateTime @default(now())
+}

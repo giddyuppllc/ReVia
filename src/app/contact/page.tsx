@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, Clock, ArrowRight, Check, Phone } from "lucide-react";
+import BrandPartnerCard from "@/components/BrandPartnerCard";
 
 const subjectLabels: Record<string, string> = {
   order: "Order Question",
@@ -228,6 +229,11 @@ export default function ContactPage() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Brand Partner Card */}
+      <div className="mx-auto max-w-lg mt-12">
+        <BrandPartnerCard />
       </div>
     </section>
   );

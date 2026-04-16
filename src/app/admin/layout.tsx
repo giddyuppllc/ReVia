@@ -21,6 +21,7 @@ import {
   ClipboardList,
   MessageCircle,
   Link2,
+  Building2,
 } from "lucide-react";
 
 const navItems = [
@@ -34,6 +35,7 @@ const navItems = [
   { href: "/admin/batches", label: "Batch Records", icon: Layers },
   { href: "/admin/newsletter", label: "Newsletter", icon: FileText },
   { href: "/admin/coupons", label: "Coupons", icon: Ticket },
+  { href: "/admin/partners", label: "Brand Partners", icon: Building2 },
   { href: "/admin/affiliates", label: "Affiliates", icon: Link2 },
   { href: "/admin/leads", label: "Chat Leads", icon: MessageCircle },
   { href: "/admin/customers", label: "Customers", icon: Users },
