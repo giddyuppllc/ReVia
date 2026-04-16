@@ -25,16 +25,21 @@ interface Product {
 
 const catColors: Record<string, string> = {
   Recovery: "from-sky-100 to-blue-200",
-  Metabolic: "from-amber-100 to-orange-200",
   "Metabolic Research": "from-amber-100 to-orange-200",
-  "Growth Hormone": "from-blue-100 to-indigo-200",
+  "Performance & GH Research": "from-blue-100 to-indigo-200",
   Nootropic: "from-violet-100 to-purple-200",
   Longevity: "from-cyan-100 to-blue-200",
   Cosmetic: "from-pink-100 to-rose-200",
-  Immune: "from-sky-100 to-blue-200",
+  "Immune Modulation Research": "from-sky-100 to-blue-200",
   Mitochondrial: "from-sky-100 to-cyan-200",
-  Sleep: "from-indigo-100 to-violet-200",
+  "Circadian Research": "from-indigo-100 to-violet-200",
   Stacks: "from-sky-100 to-blue-200",
+  "Inflammatory Response Research": "from-orange-100 to-red-200",
+  "Endocrine Research": "from-purple-100 to-indigo-200",
+  "Specialty Research": "from-rose-100 to-pink-200",
+  "Melanogenesis Research": "from-amber-100 to-yellow-200",
+  "Neuroprotection Research": "from-teal-100 to-cyan-200",
+  "Reproductive Biology Research": "from-pink-100 to-rose-200",
 };
 
 export default function ProductCard({ product }: { product: Product }) {

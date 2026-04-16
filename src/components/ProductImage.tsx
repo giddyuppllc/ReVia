@@ -2,15 +2,14 @@
 
 const categoryGradients: Record<string, [string, string]> = {
   Recovery: ["from-sky-600", "to-blue-500"],
-  Metabolic: ["from-amber-600", "to-orange-500"],
-  "metabolic optimization": ["from-amber-600", "to-orange-500"],
-  "Growth Hormone": ["from-blue-600", "to-indigo-500"],
+  "Metabolic Research": ["from-amber-600", "to-orange-500"],
+  "Performance & GH Research": ["from-blue-600", "to-indigo-500"],
   Nootropic: ["from-violet-600", "to-purple-500"],
   Longevity: ["from-cyan-600", "to-blue-500"],
   Cosmetic: ["from-pink-600", "to-rose-500"],
-  Immune: ["from-sky-600", "to-sky-500"],
+  "Immune Modulation Research": ["from-sky-600", "to-sky-500"],
   Mitochondrial: ["from-sky-600", "to-cyan-500"],
-  Sleep: ["from-indigo-600", "to-violet-500"],
+  "Circadian Research": ["from-indigo-600", "to-violet-500"],
   Stacks: ["from-sky-600", "to-cyan-500"],
 };
 
