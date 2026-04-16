@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 import { getActiveTier, resolvePriceForVariant, getTierSavingsMessage } from "@/lib/pricing";
 import { ArrowRight } from "lucide-react";
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "ReVia Stacks | Precision-Blended Peptide Formulas",
@@ -26,6 +29,10 @@ const STACK_TAGLINES: Record<string, string> = {
 };
 
 export default async function StacksPage() {
+  const cookieStore = await cookies();
+  const user = await getAuthUser(cookieStore);
+  if (!user) redirect("/login");
+
   const tier = await getActiveTier();
 
   const stacks = await prisma.product.findMany({

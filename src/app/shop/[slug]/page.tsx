@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { getAuthUser } from "@/lib/auth";
 import { getActiveTier, resolvePriceForVariant } from "@/lib/pricing";
 import ProductCard from "@/components/ProductCard";
 import ReviewSection from "@/components/ReviewSection";
 import JsonLd from "@/components/JsonLd";
 import { getProductImage, getVariantImages } from "@/lib/product-images";
 import ProductDetailView from "@/components/ProductDetailView";
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -37,6 +39,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
+  const cookieStore = await cookies();
+  const user = await getAuthUser(cookieStore);
+  if (!user) redirect("/login");
+
   const { slug } = await params;
 
   const product = await prisma.product.findUnique({
