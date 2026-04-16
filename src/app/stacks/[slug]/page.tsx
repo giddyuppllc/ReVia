@@ -285,8 +285,6 @@ export default async function StackDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* ── Disclaimer ── */}
-        <p className="text-xs text-stone-400 text-center max-w-2xl mx-auto pb-4">
       </div>
     </div>
   );
