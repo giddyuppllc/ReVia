@@ -295,3 +295,41 @@ model AffiliateConversion {
   @@index([affiliateId])
   @@index([orderId])
 }
+
+model Campaign {
+  id          String   @id @default(cuid())
+  name        String
+  subject     String
+  body        String   // HTML email body
+  template    String   @default("newsletter") // "newsletter" | "discount" | "new_product" | "restock" | "custom"
+  audience    String   @default("all") // "all" | "customers_only" | "affiliates" | "custom"
+  status      String   @default("draft") // "draft" | "sent" | "scheduled"
+  sentCount   Int      @default(0)
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model BatchRecord {
+  id              String   @id @default(cuid())
+  productId       String
+  batchNumber     String
+  manufactureDate DateTime
+  testDate        DateTime
+  labName         String   @default("Chromate")
+  purityPercent   Float
+  hplcPass        Boolean  @default(true)
+  lcmsPass        Boolean  @default(true)
+  endotoxinPass   Boolean  @default(true)
+  sterilityPass   Boolean  @default(true)
+  heavyMetalsPass Boolean  @default(true)
+  residualSolventPass Boolean @default(true)
+  aminoAcidPass   Boolean  @default(true)
+  bioburdenPass   Boolean  @default(true)
+  peptideContentPass Boolean @default(true)
+  notes           String?
+  active          Boolean  @default(true) // current batch
+  createdAt       DateTime @default(now())
+
+  @@index([productId])
+  @@index([batchNumber])
+}

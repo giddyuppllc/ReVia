@@ -11,6 +11,7 @@ import ReviewSection from "@/components/ReviewSection";
 import JsonLd from "@/components/JsonLd";
 import { getProductImage, getVariantImages } from "@/lib/product-images";
 import ProductDetailView from "@/components/ProductDetailView";
+import BatchTimeline from "@/components/BatchTimeline";
 export const dynamic = "force-dynamic";
 
 interface PageProps {
@@ -140,6 +141,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
         }))}
         coaUrl={product.coaUrl}
       />
+
+      {/* ── Batch Transparency ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BatchTimeline productSlug={product.slug} />
+      </div>
 
       {/* ── Reviews ── */}
       <ReviewSection productId={product.id} />
