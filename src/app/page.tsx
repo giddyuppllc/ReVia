@@ -51,9 +51,6 @@ export default async function HomePage() {
         {/* Hero */}
         <HeroBanner />
 
-        {/* Quality Assurance — above the image links */}
-        <TrustTicker />
-
         {/* Image links (3 cards) */}
         <HeroCarousel />
 
@@ -110,6 +107,9 @@ export default async function HomePage() {
             )}
           </div>
         </div>
+
+        {/* Quality Assurance */}
+        <TrustTicker />
 
         {/* FAQ */}
         <HomeFAQ />
