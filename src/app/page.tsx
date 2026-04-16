@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import { getActiveTier, resolvePriceForVariant } from "@/lib/pricing";
@@ -16,26 +17,21 @@ export default async function HomePage() {
   const user = await getAuthUser(cookieStore);
   const isLoggedIn = !!user;
 
-  // Only fetch products if logged in (paywall)
-  let featuredProducts: Array<{
-    id: string; name: string; slug: string; image: string | null;
-    variants: Array<{ id: string; label: string; price: number }>;
-    category: { name: string };
-  }> = [];
-
-  if (isLoggedIn) {
-    const tier = await getActiveTier();
-    const rawFeatured = await prisma.product.findMany({
-      where: { featured: true, active: true },
-      include: { variants: true, category: true },
-      take: 8,
-    });
-    featuredProducts = rawFeatured.map((p) => ({
-      id: p.id, name: p.name, slug: p.slug, image: p.image,
-      variants: p.variants.map((v) => ({ id: v.id, label: v.label, price: resolvePriceForVariant(v, tier) })),
-      category: { name: p.category.name },
-    }));
-  }
+  // Always fetch featured products (for mystery carousel)
+  const tier = await getActiveTier();
+  const rawFeatured = await prisma.product.findMany({
+    where: { featured: true, active: true },
+    include: { variants: true, category: true },
+    take: 8,
+  });
+  const featuredProducts = rawFeatured.map((p) => ({
+    id: p.id, name: p.name, slug: p.slug, image: p.image,
+    variants: p.variants.map((v) => ({
+      id: v.id, label: v.label,
+      price: isLoggedIn ? resolvePriceForVariant(v, tier) : 0,
+    })),
+    category: { name: p.category.name },
+  }));
 
   return (
     <div className="relative">
@@ -53,23 +49,67 @@ export default async function HomePage() {
 
       <div className="relative z-[2]">
         {/* Hero */}
-        <div>
-          <HeroBanner />
-          <HeroCarousel />
-        </div>
+        <HeroBanner />
 
-        {/* Trust Ticker — always visible */}
+        {/* Quality Assurance — above the image links */}
         <TrustTicker />
 
-        {/* Featured Products — logged-in only */}
-        {isLoggedIn && featuredProducts.length > 0 && (
+        {/* Image links (3 cards) */}
+        <HeroCarousel />
+
+        {/* Featured Products Carousel — always visible */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-sky-50/40 via-white to-sky-50/30" />
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-sky-50/40 via-white to-sky-50/30" />
-            <div className="relative">
+            {isLoggedIn ? (
               <FeaturedProducts products={featuredProducts} />
-            </div>
+            ) : (
+              /* Mystery locked carousel for guests */
+              <div className="py-12">
+                <div className="mx-auto max-w-7xl px-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-2">Featured Research Compounds</p>
+                  <h2 className="text-3xl font-bold text-stone-800 mb-8 sm:text-4xl">Curated Selection</h2>
+                </div>
+                <div className="relative overflow-hidden">
+                  {/* Blurred product cards */}
+                  <div className="flex gap-6 px-6 overflow-hidden">
+                    {featuredProducts.slice(0, 5).map((p) => (
+                      <div key={p.id} className="shrink-0 w-56 rounded-2xl border border-sky-200/50 bg-sky-50/80 overflow-hidden blur-[6px] select-none pointer-events-none">
+                        <div className="aspect-square bg-white flex items-center justify-center p-6">
+                          {p.image && <img src={p.image} alt="" className="max-h-full max-w-full object-contain" />}
+                        </div>
+                        <div className="p-4 bg-sky-100/80">
+                          <div className="h-4 bg-stone-300/40 rounded w-3/4 mb-2" />
+                          <div className="h-3 bg-stone-300/30 rounded w-1/2" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Lock overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-white/80 via-white/60 to-white/80">
+                    <div className="text-center">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-stone-800 mx-auto mb-3">
+                        <svg className="h-6 w-6 text-sky-400" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                      </div>
+                      <p className="text-lg font-bold text-stone-800">Sign in to browse our catalog</p>
+                      <p className="text-sm text-stone-500 mt-1 mb-4">Create a free research account to view products and pricing</p>
+                      <div className="flex items-center justify-center gap-3">
+                        <Link href="/login" className="rounded-xl bg-sky-400 px-6 py-2.5 text-sm font-semibold text-white hover:bg-sky-500 transition">
+                          Sign In
+                        </Link>
+                        <Link href="/register" className="rounded-xl border border-sky-300 px-6 py-2.5 text-sm font-medium text-sky-700 hover:bg-sky-50 transition">
+                          Create Account
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* FAQ */}
         <HomeFAQ />
