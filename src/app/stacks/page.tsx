@@ -101,8 +101,6 @@ export default async function StacksPage() {
         })}
       </div>
 
-      {/* Disclaimer */}
-      <p className="mt-16 text-center text-xs text-stone-400 max-w-2xl mx-auto">
     </section>
   );
 }
