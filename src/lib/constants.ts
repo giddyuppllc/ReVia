@@ -41,6 +41,11 @@ export const PAYMENT_METHODS = {
     icon: "₿",
     description: "Pay with Bitcoin via Kraken Pay",
   },
+  card: {
+    label: "Credit / Debit Card",
+    icon: "💳",
+    description: "Pay by card — a secure payment link will be sent to you",
+  },
 } as const;
 
 export type PaymentMethod = keyof typeof PAYMENT_METHODS;

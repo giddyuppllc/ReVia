@@ -40,6 +40,7 @@ const paymentMethodLabels: Record<string, string> = {
   zelle: "Zelle",
   wire: "Wire/ACH",
   bitcoin: "Bitcoin",
+  card: "Card (Pay Link)",
 };
 
 const statusRank: Record<string, number> = {

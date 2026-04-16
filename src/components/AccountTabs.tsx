@@ -82,6 +82,7 @@ const paymentMethodLabels: Record<string, string> = {
   zelle: "Zelle",
   wire: "Wire / ACH",
   bitcoin: "Bitcoin",
+  card: "Credit / Debit Card",
 };
 
 export default function AccountTabs({ user, orders, totalSpent }: AccountTabsProps) {

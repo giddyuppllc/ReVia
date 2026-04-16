@@ -338,9 +338,17 @@ export default function CheckoutPage() {
                 </div>
               </div>
             )}
+            {orderPaymentMethod === "card" && (
+              <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-left">
+                <p className="text-xs font-semibold text-emerald-800 uppercase tracking-wider mb-1">Credit / Debit Card</p>
+                <p className="text-xs text-emerald-700">A secure payment link will be emailed to you shortly. Look for an email with the subject <strong>&quot;ReVia {orderInvoice}&quot;</strong>.</p>
+              </div>
+            )}
             <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
               <p className="text-xs text-amber-800 font-medium">
-                ⚠️ Include your invoice number <span className="font-mono font-bold">{orderInvoice}</span> in your payment note/memo so we can match your payment.
+                {orderPaymentMethod === "card"
+                  ? `Your invoice number is ${orderInvoice}. A payment link will be sent to your email.`
+                  : `⚠️ Include your invoice number ${orderInvoice} in your payment note/memo so we can match your payment.`}
               </p>
               <p className="text-xs text-amber-700 mt-1">
                 Orders without payment within 48 hours may be cancelled.
@@ -519,6 +527,7 @@ export default function CheckoutPage() {
                 {([
                   { key: "zelle" as PaymentMethod, icon: Banknote, label: "Zelle", desc: "Instant, fee-free payment via Zelle" },
                   { key: "wire" as PaymentMethod, icon: Building2, label: "Wire Transfer", desc: "Domestic or international wire transfer" },
+                  { key: "card" as PaymentMethod, icon: ShieldCheck, label: "Credit / Debit Card", desc: "A secure payment link will be sent to your email" },
                   { key: "bitcoin" as PaymentMethod, icon: Bitcoin, label: "Bitcoin (Kraken Pay)", desc: "Pay with BTC via Kraken Pay" },
                 ]).map((method) => (
                   <label

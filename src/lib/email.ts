@@ -242,6 +242,24 @@ function paymentInstructions(method: string, invoiceNum: string, total: number) 
       </div>`;
   }
 
+  if (method === "card") {
+    return `
+      <div style="${infoBox}">
+        <p style="color:#10b981;font-size:16px;font-weight:700;margin:0 0 16px;text-align:center;">Credit / Debit Card Payment</p>
+        <p style="color:#e5e5e5;font-size:14px;margin:0 0 12px;text-align:center;">
+          A secure payment link will be sent to your email shortly.
+        </p>
+        <p style="${labelStyle}">Amount</p>
+        <p style="${monoValue}">${amount}</p>
+        <p style="${labelStyle}">Invoice</p>
+        <p style="${monoValue}">${invoiceNum}</p>
+        <hr style="${divider}"/>
+        <p style="color:#9ca3af;font-size:12px;margin:0;text-align:center;">
+          Look for an email with subject <strong style="color:#e5e5e5;">ReVia ${invoiceNum}</strong>. Click the secure link to complete your card payment.
+        </p>
+      </div>`;
+  }
+
   return "";
 }
 

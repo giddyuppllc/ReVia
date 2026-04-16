@@ -21,6 +21,7 @@ const paymentMethodLabels: Record<string, string> = {
   zelle: "Zelle",
   wire: "Wire / ACH Transfer",
   bitcoin: "Bitcoin (Kraken)",
+  card: "Credit / Debit Card (Pay Link)",
 };
 
 export default async function OrderDetailPage({
