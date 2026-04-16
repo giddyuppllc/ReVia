@@ -276,6 +276,7 @@ export default function CheckoutPage() {
       zelle: "Zelle",
       wire: "Wire Transfer",
       bitcoin: "Bitcoin (Kraken Pay)",
+      card: "Credit / Debit Card",
     };
 
     return (
