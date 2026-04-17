@@ -18,6 +18,7 @@ import {
   Banknote,
   Building2,
   Bitcoin,
+  Link2,
 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useAuth } from "@/lib/useAuth";
@@ -80,6 +81,25 @@ export default function CheckoutPage() {
     text: string;
   } | null>(null);
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+
+  // Affiliate code state
+  const [affiliateCode, setAffiliateCode] = useState("");
+  const [affiliateApplying, setAffiliateApplying] = useState(false);
+  const [appliedAffiliate, setAppliedAffiliate] = useState<{ code: string; referredBy: string } | null>(null);
+  const [affiliateMessage, setAffiliateMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
+  // Auto-prefill affiliate code from revia_ref cookie if present
+  useEffect(() => {
+    const cookies = document.cookie.split(";").map((c) => c.trim());
+    const refCookie = cookies.find((c) => c.startsWith("revia_ref="));
+    if (refCookie) {
+      const code = refCookie.split("=")[1];
+      if (code) setAffiliateCode(code);
+    }
+  }, []);
 
   useEffect(() => {
     fetch("/api/admin/settings")
@@ -189,6 +209,37 @@ export default function CheckoutPage() {
     setCouponMessage(null);
   };
 
+  const handleApplyAffiliate = async () => {
+    if (!affiliateCode.trim()) return;
+    setAffiliateApplying(true);
+    setAffiliateMessage(null);
+    try {
+      const res = await fetch("/api/affiliate/lookup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: affiliateCode.trim() }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setAppliedAffiliate({ code: data.code, referredBy: data.referredBy });
+        setAffiliateMessage({ type: "success", text: `Referred by ${data.referredBy}` });
+      } else {
+        setAppliedAffiliate(null);
+        setAffiliateMessage({ type: "error", text: data.message || "Invalid code" });
+      }
+    } catch {
+      setAffiliateMessage({ type: "error", text: "Failed to validate code" });
+    } finally {
+      setAffiliateApplying(false);
+    }
+  };
+
+  const handleRemoveAffiliate = () => {
+    setAffiliateCode("");
+    setAppliedAffiliate(null);
+    setAffiliateMessage(null);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -218,6 +269,7 @@ export default function CheckoutPage() {
           shippingCost,
           paymentMethod,
           couponCode: appliedCoupon || undefined,
+          affiliateCode: appliedAffiliate?.code || undefined,
           turnstileToken: turnstileToken || undefined,
         }),
       });
@@ -677,11 +729,11 @@ export default function CheckoutPage() {
                   ))}
                 </ul>
 
-                {/* Coupon Code Section */}
+                {/* Promo Code Section */}
                 <div className="mt-4 border-t border-sky-100 pt-4">
                   <label className="mb-2 flex items-center gap-1.5 text-xs font-medium text-stone-500">
                     <Tag size={12} />
-                    Coupon Code
+                    Promo Code
                   </label>
                   {appliedCoupon ? (
                     <div className="flex items-center justify-between rounded-xl border border-sky-200 bg-sky-50 px-3 py-2">
@@ -731,6 +783,64 @@ export default function CheckoutPage() {
                       }`}
                     >
                       {couponMessage.text}
+                    </p>
+                  )}
+                </div>
+
+                {/* Affiliate Code Section */}
+                <div className="mt-4 border-t border-sky-100 pt-4">
+                  <label className="mb-2 flex items-center gap-1.5 text-xs font-medium text-stone-500">
+                    <Link2 size={12} />
+                    Affiliate Code <span className="text-stone-300 font-normal">(optional)</span>
+                  </label>
+                  {appliedAffiliate ? (
+                    <div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+                      <span className="text-sm font-mono text-emerald-700">
+                        {appliedAffiliate.code}
+                      </span>
+                      <button
+                        onClick={handleRemoveAffiliate}
+                        className="text-xs text-stone-400 hover:text-red-500 transition"
+                        disabled={submitting}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={affiliateCode}
+                        onChange={(e) => setAffiliateCode(e.target.value)}
+                        placeholder="Enter affiliate code"
+                        className={`${inputClass} flex-1`}
+                        disabled={submitting || affiliateApplying}
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyAffiliate}
+                        disabled={
+                          submitting || affiliateApplying || !affiliateCode.trim()
+                        }
+                        className="shrink-0 rounded-xl bg-sky-50 border border-sky-200/50 px-4 py-2 text-xs font-medium text-stone-700 transition hover:bg-sky-100 disabled:opacity-40"
+                      >
+                        {affiliateApplying ? (
+                          <Loader2 size={14} className="animate-spin" />
+                        ) : (
+                          "Apply"
+                        )}
+                      </button>
+                    </div>
+                  )}
+                  {affiliateMessage && (
+                    <p
+                      className={`mt-2 text-xs ${
+                        affiliateMessage.type === "success"
+                          ? "text-emerald-600"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {affiliateMessage.text}
                     </p>
                   )}
                 </div>

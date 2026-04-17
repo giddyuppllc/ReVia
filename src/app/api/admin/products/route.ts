@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
         categoryId,
         featured: featured ?? false,
         tags: tags ? JSON.stringify(tags) : "[]",
+        categoryLinks: { create: [{ categoryId }] },
         variants:
           variants && variants.length > 0
             ? {

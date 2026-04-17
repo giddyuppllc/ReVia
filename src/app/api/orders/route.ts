@@ -70,13 +70,14 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { items, shipping, couponCode, paymentMethod, shippingCost: clientShippingCost, turnstileToken } = body as {
+    const { items, shipping, couponCode, paymentMethod, shippingCost: clientShippingCost, turnstileToken, affiliateCode } = body as {
       items: OrderItemInput[];
       shipping: ShippingInput;
       couponCode?: string;
       paymentMethod?: string;
       shippingCost?: number;
       turnstileToken?: string;
+      affiliateCode?: string;
     };
 
     // ── Verify Turnstile (bot protection) ──
@@ -169,35 +170,35 @@ export async function POST(request: NextRequest) {
 
       if (!coupon) {
         return NextResponse.json(
-          { error: "Invalid coupon code" },
+          { error: "Invalid promo code" },
           { status: 400 }
         );
       }
 
       if (!coupon.active) {
         return NextResponse.json(
-          { error: "This coupon is no longer active" },
+          { error: "This promo code is no longer active" },
           { status: 400 }
         );
       }
 
       if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) {
         return NextResponse.json(
-          { error: "This coupon has expired" },
+          { error: "This promo code has expired" },
           { status: 400 }
         );
       }
 
       if (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses) {
         return NextResponse.json(
-          { error: "This coupon has reached its usage limit" },
+          { error: "This promo code has reached its usage limit" },
           { status: 400 }
         );
       }
 
       if (total < coupon.minOrder) {
         return NextResponse.json(
-          { error: `Minimum order of $${(coupon.minOrder / 100).toFixed(2)} required for this coupon` },
+          { error: `Minimum order of $${(coupon.minOrder / 100).toFixed(2)} required for this promo code` },
           { status: 400 }
         );
       }
@@ -229,11 +230,13 @@ export async function POST(request: NextRequest) {
     // ── Generate invoice number ──
     const invoiceNumber = generateInvoiceNumber();
 
-    // ── Check for affiliate referral cookie ──
+    // ── Resolve affiliate attribution (explicit code wins over cookie) ──
     let affiliateId: string | null = null;
-    const refCookie = cookieStore.get("revia_ref")?.value;
-    if (refCookie) {
-      const affiliate = await prisma.affiliate.findUnique({ where: { affiliateCode: refCookie } });
+    const explicitCode = affiliateCode?.trim().toUpperCase();
+    const refCookie = cookieStore.get("revia_ref")?.value?.trim().toUpperCase();
+    const codeToUse = explicitCode || refCookie;
+    if (codeToUse) {
+      const affiliate = await prisma.affiliate.findUnique({ where: { affiliateCode: codeToUse } });
       if (affiliate && affiliate.status === "approved" && affiliate.userId !== user.id) {
         affiliateId = affiliate.id;
       }
@@ -251,6 +254,7 @@ export async function POST(request: NextRequest) {
         zip: sanitizedShipping.zip,
         total,
         affiliateId,
+        couponId: appliedCouponId,
         paymentMethod: method,
         paymentStatus: "awaiting",
         status: "pending_payment",

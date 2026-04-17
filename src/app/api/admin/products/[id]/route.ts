@@ -54,12 +54,13 @@ export async function PATCH(
       }
     }
 
-    const { name, description, featured, active, categoryId, image, coaUrl } = body as {
+    const { name, description, featured, active, categoryId, categoryIds, image, coaUrl } = body as {
       name?: string;
       description?: string;
       featured?: boolean;
       active?: boolean;
       categoryId?: string;
+      categoryIds?: string[];
       image?: string;
       coaUrl?: string | null;
     };
@@ -73,20 +74,50 @@ export async function PATCH(
     if (image !== undefined) data.image = image;
     if (coaUrl !== undefined) data.coaUrl = coaUrl;
 
-    if (Object.keys(data).length === 0 && !body.variants) {
+    if (Object.keys(data).length === 0 && !body.variants && categoryIds === undefined) {
       return NextResponse.json({ error: "Nothing to update" }, { status: 400 });
     }
 
-    const product = Object.keys(data).length > 0
-      ? await prisma.product.update({
-          where: { id },
-          data,
-          include: { variants: true, category: true },
-        })
-      : await prisma.product.findUnique({
-          where: { id },
-          include: { variants: true, category: true },
+    if (Object.keys(data).length > 0) {
+      await prisma.product.update({ where: { id }, data });
+    }
+
+    // Sync multi-category assignments. Always include the primary.
+    if (Array.isArray(categoryIds)) {
+      const primary = data.categoryId as string | undefined;
+      const target = new Set(categoryIds.filter((c): c is string => typeof c === "string" && c.length > 0));
+      if (primary) target.add(primary);
+
+      const existingLinks = await prisma.productCategory.findMany({ where: { productId: id } });
+      const existingIds = new Set(existingLinks.map((l) => l.categoryId));
+
+      const toAdd = [...target].filter((c) => !existingIds.has(c));
+      const toRemove = [...existingIds].filter((c) => !target.has(c));
+
+      if (toRemove.length > 0) {
+        await prisma.productCategory.deleteMany({
+          where: { productId: id, categoryId: { in: toRemove } },
         });
+      }
+      if (toAdd.length > 0) {
+        await prisma.productCategory.createMany({
+          data: toAdd.map((categoryId) => ({ productId: id, categoryId })),
+          skipDuplicates: true,
+        });
+      }
+    } else if (data.categoryId) {
+      // If only primary changed and no explicit categoryIds, ensure the new primary is linked.
+      await prisma.productCategory.upsert({
+        where: { productId_categoryId: { productId: id, categoryId: data.categoryId as string } },
+        update: {},
+        create: { productId: id, categoryId: data.categoryId as string },
+      });
+    }
+
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: { variants: true, category: true, categoryLinks: { include: { category: true } } },
+    });
 
     return NextResponse.json({ product });
   } catch (err) {
@@ -115,6 +146,8 @@ export async function DELETE(
     await prisma.productVariant.deleteMany({ where: { productId: id } });
     // Delete reviews referencing this product
     await prisma.review.deleteMany({ where: { productId: id } });
+    // Delete category links (cascade should handle this, but be explicit)
+    await prisma.productCategory.deleteMany({ where: { productId: id } });
     // Then delete the product
     await prisma.product.delete({ where: { id } });
 

@@ -35,9 +35,11 @@ interface ProductData {
 export default function ProductEditForm({
   product,
   categories,
+  assignedCategoryIds,
 }: {
   product: ProductData;
   categories: Category[];
+  assignedCategoryIds: string[];
 }) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
@@ -48,11 +50,33 @@ export default function ProductEditForm({
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description ?? "");
   const [categoryId, setCategoryId] = useState(product.categoryId);
+  // All categories assigned — always includes primary categoryId too.
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<Set<string>>(
+    () => new Set([product.categoryId, ...assignedCategoryIds]),
+  );
   const [featured, setFeatured] = useState(product.featured);
   const [coaUrl, setCoaUrl] = useState(product.coaUrl ?? "");
   const [variants, setVariants] = useState<Variant[]>(
     product.variants.map((v) => ({ ...v, isNew: false }))
   );
+
+  const toggleCategory = (id: string) => {
+    setSelectedCategoryIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        if (id === categoryId) return prev; // can't unassign the primary
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handlePrimaryChange = (id: string) => {
+    setCategoryId(id);
+    setSelectedCategoryIds((prev) => new Set([id, ...prev]));
+  };
 
   const inputClass =
     "w-full rounded-lg border border-sky-200/40 bg-white/50 px-4 py-2.5 text-sm text-stone-800 placeholder-gray-500 outline-none transition focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/30";
@@ -71,6 +95,7 @@ export default function ProductEditForm({
           name,
           description,
           categoryId,
+          categoryIds: Array.from(selectedCategoryIds),
           featured,
           coaUrl: coaUrl || null,
           variants: existingVariants.map(v => ({ id: v.id, label: v.label, price: v.price })),
@@ -233,11 +258,11 @@ export default function ProductEditForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-xs font-medium text-stone-500">
-              Category
+              Primary Category
             </label>
             <select
               value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
+              onChange={(e) => handlePrimaryChange(e.target.value)}
               className={inputClass}
             >
               {categories.map((cat) => (
@@ -246,6 +271,7 @@ export default function ProductEditForm({
                 </option>
               ))}
             </select>
+            <p className="mt-1 text-[10px] text-stone-400">Used for breadcrumbs and default listings.</p>
           </div>
 
           <div className="flex items-end">
@@ -264,6 +290,37 @@ export default function ProductEditForm({
               />
               {featured ? "Featured" : "Not Featured"}
             </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="mb-2 block text-xs font-medium text-stone-500">
+            All Categories <span className="text-stone-400 font-normal">(product appears on each selected category&apos;s page)</span>
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => {
+              const selected = selectedCategoryIds.has(cat.id);
+              const isPrimary = cat.id === categoryId;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => toggleCategory(cat.id)}
+                  disabled={isPrimary}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                    selected
+                      ? isPrimary
+                        ? "border-sky-400 bg-sky-500 text-white cursor-default"
+                        : "border-sky-300 bg-sky-100 text-sky-700 hover:bg-sky-200"
+                      : "border-stone-200 bg-white text-stone-500 hover:border-sky-200 hover:text-sky-600"
+                  }`}
+                  title={isPrimary ? "Primary — change via the dropdown above" : undefined}
+                >
+                  {cat.name}
+                  {isPrimary && <span className="text-[9px] opacity-80 uppercase tracking-wider">primary</span>}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

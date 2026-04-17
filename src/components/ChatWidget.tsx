@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { MessageCircle, X, Send, Loader2, Minimize2, FlaskConical, User } from "lucide-react";
+import { MessageCircle, X, Send, Minimize2, FlaskConical, User } from "lucide-react";
 import Turnstile from "@/components/Turnstile";
 
 interface Message {
@@ -9,38 +9,35 @@ interface Message {
   content: string;
 }
 
-// Client-side topic keywords — if message contains NONE of these, deflect without API call
-const TOPIC_KEYWORDS = [
-  "peptide", "bpc", "tb-500", "tb500", "ghk", "tirz", "sema", "reta", "mots",
-  "ipamor", "cjc", "sermor", "tesam", "ghrp", "igf", "foxo", "fox-04", "epitalon",
-  "humanin", "nad", "ss-31", "slu", "selank", "semax", "dihexa", "pinealon",
-  "cerebrolysin", "kisspeptin", "pt-141", "pt141", "dsip", "melanotan", "oxytocin",
-  "thymalin", "thymosin", "kpv", "ll-37", "vip", "ara-290", "follistatin",
-  "hexarellin", "aicar", "aod", "adipotide", "mazdutide", "survodutide",
-  "cagrilintide", "retatrutide", "tirzepatide", "semaglutide",
-  "capsule", "rebalance", "recover", "revive", "glow", "klow", "lean", "renew", "sculpt",
-  "stack", "blend", "oral", "liquid", "serum", "snap-8", "privive", "glutathione",
-  "l-carnitine", "bac water", "syringe", "supply",
-  "order", "ship", "shipping", "price", "cost", "buy", "purchase", "cart", "checkout",
-  "pay", "zelle", "wire", "bitcoin", "btc", "crypto", "account", "login", "sign",
-  "reward", "drawing", "coupon", "discount", "code",
-  "revia", "research", "purity", "coa", "certificate", "cgmp", "lab", "quality",
-  "weight", "fat", "metabol", "growth", "hormone", "recovery", "heal", "repair",
-  "immune", "neuro", "brain", "cognit", "longev", "anti-aging", "aging",
-  "skin", "cosmetic", "tanning", "sleep", "sexual", "reproduct",
-  "what do you", "what peptide", "tell me about", "do you carry", "do you have",
-  "how do i", "how much", "recommend", "suggest", "compare", "difference",
-  "hello", "hi", "hey", "help", "thanks", "thank you",
-];
-
-function isOnTopic(message: string): boolean {
-  const lower = message.toLowerCase();
-  // Short messages (greetings) are always on-topic
-  if (lower.length < 20) return true;
-  return TOPIC_KEYWORDS.some((kw) => lower.includes(kw));
+interface WidgetConfig {
+  enabled: boolean;
+  topicKeywords: string[];
+  clientDeflect: string;
+  welcomeTitle: string;
+  welcomeBody: string;
+  quickQuestions: string[];
 }
 
-const CLIENT_DEFLECT = "I'm ReVia's peptide research assistant — I can help with product questions, research applications, pricing, or ordering. What research area are you interested in?";
+const FALLBACK_CONFIG: WidgetConfig = {
+  enabled: true,
+  topicKeywords: [],
+  clientDeflect: "I'm ReVia's peptide research assistant — I can help with product questions, research applications, pricing, or ordering. What research area are you interested in?",
+  welcomeTitle: "How can I help with your research?",
+  welcomeBody: "Ask about peptides, mechanisms of action, available products, or how to order.",
+  quickQuestions: [
+    "What metabolic research peptides do you carry?",
+    "Tell me about BPC-157 research",
+    "What recovery peptides are available?",
+    "How do I place an order?",
+  ],
+};
+
+function isOnTopic(message: string, keywords: string[]): boolean {
+  const lower = message.toLowerCase();
+  if (lower.length < 20) return true;
+  if (keywords.length === 0) return true; // no gate configured = no filter
+  return keywords.some((kw) => lower.includes(kw));
+}
 
 function getSessionId(): string {
   if (typeof window === "undefined") return "";
@@ -59,6 +56,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
+  const [config, setConfig] = useState<WidgetConfig>(FALLBACK_CONFIG);
   const handleTurnstile = useCallback((token: string) => setTurnstileToken(token), []);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +71,24 @@ export default function ChatWidget() {
     }
   }, [open, minimized]);
 
+  useEffect(() => {
+    fetch("/api/chat/config")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) {
+          setConfig({
+            enabled: data.enabled ?? true,
+            topicKeywords: data.topicKeywords ?? [],
+            clientDeflect: data.clientDeflect || FALLBACK_CONFIG.clientDeflect,
+            welcomeTitle: data.welcomeTitle || FALLBACK_CONFIG.welcomeTitle,
+            welcomeBody: data.welcomeBody || FALLBACK_CONFIG.welcomeBody,
+            quickQuestions: Array.isArray(data.quickQuestions) && data.quickQuestions.length > 0 ? data.quickQuestions : FALLBACK_CONFIG.quickQuestions,
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const sendMessage = useCallback(async (text?: string) => {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
@@ -83,8 +99,8 @@ export default function ChatWidget() {
     setInput("");
 
     // Client-side topic filter — no API call for off-topic
-    if (!isOnTopic(msg)) {
-      setMessages((prev) => [...prev, { role: "assistant", content: CLIENT_DEFLECT }]);
+    if (!isOnTopic(msg, config.topicKeywords)) {
+      setMessages((prev) => [...prev, { role: "assistant", content: config.clientDeflect }]);
       return;
     }
 
@@ -218,17 +234,12 @@ export default function ChatWidget() {
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-50 border border-sky-200/50 mx-auto mb-3">
               <FlaskConical className="h-6 w-6 text-sky-500" />
             </div>
-            <p className="text-sm font-semibold text-stone-700">How can I help with your research?</p>
+            <p className="text-sm font-semibold text-stone-700">{config.welcomeTitle}</p>
             <p className="text-xs text-stone-400 mt-1 max-w-[260px] mx-auto leading-relaxed">
-              Ask about peptides, mechanisms of action, available products, or how to order.
+              {config.welcomeBody}
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
-              {[
-                "What metabolic research peptides do you carry?",
-                "Tell me about BPC-157 research",
-                "What recovery peptides are available?",
-                "How do I place an order?",
-              ].map((q) => (
+              {config.quickQuestions.map((q) => (
                 <button
                   key={q}
                   onClick={() => quickAsk(q)}

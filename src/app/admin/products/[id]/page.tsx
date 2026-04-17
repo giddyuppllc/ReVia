@@ -15,7 +15,11 @@ export default async function AdminProductEditPage({
 
   const product = await prisma.product.findUnique({
     where: { id },
-    include: { variants: true, category: true },
+    include: {
+      variants: true,
+      category: true,
+      categoryLinks: { select: { categoryId: true } },
+    },
   });
 
   if (!product) {
@@ -25,6 +29,8 @@ export default async function AdminProductEditPage({
   const categories = await prisma.category.findMany({
     orderBy: { name: "asc" },
   });
+
+  const assignedCategoryIds = product.categoryLinks.map((l) => l.categoryId);
 
   return (
     <div className="space-y-6">
@@ -43,7 +49,7 @@ export default async function AdminProductEditPage({
         <span className="text-sm text-stone-800/30">ID: {product.id}</span>
       </div>
 
-      <ProductEditForm product={product} categories={categories} />
+      <ProductEditForm product={product} categories={categories} assignedCategoryIds={assignedCategoryIds} />
 
       <CoaUpload productId={product.id} productName={product.name} currentCoaUrl={product.coaUrl} />
     </div>

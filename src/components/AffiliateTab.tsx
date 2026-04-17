@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Check, RefreshCw, Loader2, Link2, BarChart3, DollarSign, MousePointer, ShoppingCart, Pencil, Save } from "lucide-react";
+import { Copy, Check, RefreshCw, Loader2, Link2, BarChart3, DollarSign, MousePointer, ShoppingCart, Pencil, Save, Hash } from "lucide-react";
 
 interface AffiliateData {
   id: string; status: string; commissionRate: number; affiliateCode: string;
@@ -21,6 +21,7 @@ export default function AffiliateTab() {
   const [loading, setLoading] = useState(true);
   const [applying, setApplying] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
   const [editing, setEditing] = useState(false);
   const [savingSocials, setSavingSocials] = useState(false);
@@ -85,6 +86,13 @@ export default function AffiliateTab() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const copyCode = () => {
+    if (!affiliate?.affiliateCode) return;
+    navigator.clipboard.writeText(affiliate.affiliateCode);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
   const regenerateCode = async () => {
     setRegenerating(true);
     try {
@@ -118,8 +126,8 @@ export default function AffiliateTab() {
     return (
       <div className="rounded-2xl border border-sky-200/40 bg-white/80 p-6 shadow-sm space-y-5">
         <div>
-          <h2 className="text-lg font-semibold text-stone-900">Become a ReVia Affiliate</h2>
-          <p className="text-sm text-stone-500 mt-1">Earn 3% commission on every sale you refer. Share your unique link and get paid.</p>
+          <h2 className="text-lg font-semibold text-stone-900">Earn a Commission</h2>
+          <p className="text-sm text-stone-500 mt-1">Become a ReVia affiliate and earn commission on every sale you refer. Share your unique link and get paid. Your rate is set when your application is approved.</p>
         </div>
         {message && <div className={`rounded-lg px-4 py-2.5 text-sm ${message.type === "success" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>{message.text}</div>}
         <div className="grid gap-4 sm:grid-cols-2">
@@ -167,18 +175,38 @@ export default function AffiliateTab() {
     <div className="space-y-5">
       {message && <div className={`rounded-lg px-4 py-2.5 text-sm ${message.type === "success" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>{message.text}</div>}
 
+      {/* Commission headline */}
+      <div className="rounded-2xl border border-emerald-200/60 bg-gradient-to-br from-emerald-50 to-sky-50 p-5">
+        <p className="text-xs text-emerald-700 uppercase tracking-wider font-medium mb-1">Your Commission Rate</p>
+        <p className="text-3xl font-bold text-stone-900">{affiliate.commissionRate}<span className="text-lg text-stone-500">%</span></p>
+        <p className="text-xs text-stone-500 mt-1">Earned on every sale attributed to your code or link.</p>
+      </div>
+
       {/* Link */}
       <div className="rounded-2xl border border-sky-200/40 bg-white/80 p-5">
-        <p className="text-xs text-stone-500 uppercase tracking-wider font-medium mb-2">Your Affiliate Link</p>
+        <p className="text-xs text-stone-500 uppercase tracking-wider font-medium mb-2 flex items-center gap-1.5"><Link2 className="h-3.5 w-3.5" /> Your Affiliate Link</p>
         <div className="flex items-center gap-2">
           <input readOnly value={`https://revialife.com/?ref=${affiliate.affiliateCode}`} className="flex-1 rounded-xl bg-sky-50 border border-sky-200 px-4 py-2.5 text-sm font-mono text-sky-700 outline-none" />
           <button onClick={copyLink} className="rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-400 transition">
             {copied ? <><Check className="h-4 w-4 inline mr-1" />Copied</> : <><Copy className="h-4 w-4 inline mr-1" />Copy</>}
           </button>
-          <button onClick={regenerateCode} disabled={regenerating} className="rounded-xl border border-sky-200 px-3 py-2.5 text-stone-500 hover:bg-sky-50 transition" title="Regenerate link">
+          <button onClick={regenerateCode} disabled={regenerating} className="rounded-xl border border-sky-200 px-3 py-2.5 text-stone-500 hover:bg-sky-50 transition" title="Regenerate link & code">
             <RefreshCw className={`h-4 w-4 ${regenerating ? "animate-spin" : ""}`} />
           </button>
         </div>
+        <p className="text-[11px] text-stone-400 mt-2">Anyone who visits this link gets your code attached for 30 days.</p>
+      </div>
+
+      {/* Code (standalone, for verbal/offline sharing) */}
+      <div className="rounded-2xl border border-sky-200/40 bg-white/80 p-5">
+        <p className="text-xs text-stone-500 uppercase tracking-wider font-medium mb-2 flex items-center gap-1.5"><Hash className="h-3.5 w-3.5" /> Your Affiliate Code</p>
+        <div className="flex items-center gap-2">
+          <input readOnly value={affiliate.affiliateCode} className="flex-1 rounded-xl bg-sky-50 border border-sky-200 px-4 py-2.5 text-base font-mono font-bold tracking-wider text-sky-700 outline-none" />
+          <button onClick={copyCode} className="rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-400 transition">
+            {copiedCode ? <><Check className="h-4 w-4 inline mr-1" />Copied</> : <><Copy className="h-4 w-4 inline mr-1" />Copy</>}
+          </button>
+        </div>
+        <p className="text-[11px] text-stone-400 mt-2">Customers can enter this code at checkout or when creating an account to attribute their purchase to you.</p>
       </div>
 
       {/* Stats */}
@@ -198,7 +226,6 @@ export default function AffiliateTab() {
       </div>
 
       <div className="flex items-center gap-4 text-xs text-stone-400">
-        <span>Commission Rate: <strong className="text-stone-700">{affiliate.commissionRate}%</strong></span>
         <span>Conversion: <strong className="text-stone-700">{convRate}%</strong></span>
         <span>Paid Out: <strong className="text-stone-700">${(affiliate.paidCommission / 100).toFixed(2)}</strong></span>
       </div>

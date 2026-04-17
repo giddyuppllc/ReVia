@@ -25,7 +25,13 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { email, name, password, turnstileToken } = body;
+    const { email, name, password, turnstileToken, affiliateCode } = body as {
+      email?: string;
+      name?: string;
+      password?: string;
+      turnstileToken?: string;
+      affiliateCode?: string;
+    };
 
     // Verify Turnstile (bot protection)
     if (turnstileToken) {
@@ -107,7 +113,23 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json({ user });
-    response.headers.set("Set-Cookie", cookie);
+    response.headers.append("Set-Cookie", cookie);
+
+    // Attach affiliate referral cookie if a valid affiliate code was provided
+    if (affiliateCode) {
+      const code = affiliateCode.trim().toUpperCase();
+      const affiliate = await prisma.affiliate.findUnique({ where: { affiliateCode: code } });
+      if (affiliate && affiliate.status === "approved" && affiliate.userId !== user.id) {
+        const refCookie = serialize("revia_ref", code, {
+          path: "/",
+          sameSite: "lax",
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          secure: process.env.NODE_ENV === "production",
+        });
+        response.headers.append("Set-Cookie", refCookie);
+      }
+    }
+
     return response;
   } catch {
     return NextResponse.json(

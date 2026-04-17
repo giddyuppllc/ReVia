@@ -7,29 +7,42 @@ datasource db {
 }
 
 model Category {
-  id          String    @id @default(cuid())
-  name        String
-  slug        String    @unique
-  description String?
-  image       String?
-  products    Product[]
+  id             String            @id @default(cuid())
+  name           String
+  slug           String            @unique
+  description    String?
+  image          String?
+  products       Product[]
+  productLinks   ProductCategory[]
 }
 
 model Product {
-  id          String           @id @default(cuid())
-  name        String
-  slug        String           @unique
-  description String?
-  categoryId  String
-  category    Category         @relation(fields: [categoryId], references: [id])
-  variants    ProductVariant[]
-  image       String?
-  coaUrl      String?
-  featured    Boolean          @default(false)
-  active      Boolean          @default(true)
-  tags        String           @default("[]")
-  reviews     Review[]
+  id             String            @id @default(cuid())
+  name           String
+  slug           String            @unique
+  description    String?
+  categoryId     String
+  category       Category          @relation(fields: [categoryId], references: [id])
+  categoryLinks  ProductCategory[]
+  variants       ProductVariant[]
+  image          String?
+  coaUrl         String?
+  featured       Boolean           @default(false)
+  active         Boolean           @default(true)
+  tags           String            @default("[]")
+  reviews        Review[]
 
+  @@index([categoryId])
+}
+
+model ProductCategory {
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([productId, categoryId])
+  @@index([productId])
   @@index([categoryId])
 }
 
@@ -103,6 +116,8 @@ model Order {
   labelUrl           String?  // EasyPost label PDF URL
   total              Float
   affiliateId   String?
+  couponId      String?
+  coupon        Coupon?        @relation(fields: [couponId], references: [id])
   items         OrderItem[]
   cryptoPayment CryptoPayment?
   userId        String?
@@ -111,6 +126,8 @@ model Order {
 
   @@index([userId])
   @@index([invoiceNumber])
+  @@index([affiliateId])
+  @@index([couponId])
 }
 
 model CryptoPayment {
@@ -177,6 +194,7 @@ model Coupon {
   blockedEmails  String    @default("") // comma-separated emails blocked from using this code
   expiresAt      DateTime?
   createdAt      DateTime  @default(now())
+  orders         Order[]
 }
 
 model Newsletter {
@@ -246,6 +264,20 @@ model ChatLead {
 
   @@index([sessionId])
   @@index([createdAt])
+}
+
+model ChatbotConfig {
+  id                String   @id @default("singleton")
+  enabled           Boolean  @default(true)
+  systemPrompt      String   // LLM system instructions + guardrails
+  topicKeywords     String   @default("") // newline-separated allowed topic keywords
+  clientDeflect     String   // message when user message fails keyword gate
+  offTopicResponse  String   // message when server-side off-topic patterns match
+  welcomeTitle      String   @default("How can I help with your research?")
+  welcomeBody       String   @default("Ask about peptides, mechanisms of action, available products, or how to order.")
+  quickQuestions    String   @default("[]") // JSON array of suggested opener questions
+  updatedAt         DateTime @updatedAt
+  updatedBy         String?
 }
 
 model ContactMessage {

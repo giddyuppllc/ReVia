@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Link2, Check, X, Loader2, DollarSign, Trash2, Search } from "lucide-react";
+import Link from "next/link";
+import { Link2, Check, X, Loader2, DollarSign, Trash2, Search, ChevronRight } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 interface Affiliate {
@@ -174,6 +175,11 @@ export default function AdminAffiliatesPage() {
                         </button>
                       )}
                     </>
+                  )}
+                  {a.status === "approved" && (
+                    <Link href={`/admin/affiliates/${a.id}`} className="rounded-lg border border-neutral-200 px-2.5 py-1.5 text-xs font-medium text-neutral-600 hover:bg-neutral-50 hover:text-sky-600 transition inline-flex items-center gap-1" title="View details">
+                      Details <ChevronRight className="h-3 w-3" />
+                    </Link>
                   )}
                   <button onClick={() => deleteAffiliate(a.id)} disabled={actionLoading === a.id} className="rounded-lg p-1.5 text-neutral-300 hover:text-red-500 hover:bg-red-50 transition">
                     <Trash2 className="h-3.5 w-3.5" />

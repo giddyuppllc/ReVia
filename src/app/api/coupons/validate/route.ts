@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     if (!code) {
       return NextResponse.json(
-        { valid: false, message: "Coupon code is required" },
+        { valid: false, message: "Promo code is required" },
         { status: 400 }
       );
     }
@@ -21,28 +21,28 @@ export async function POST(request: NextRequest) {
     if (!coupon) {
       return NextResponse.json({
         valid: false,
-        message: "Invalid coupon code",
+        message: "Invalid promo code",
       });
     }
 
     if (!coupon.active) {
       return NextResponse.json({
         valid: false,
-        message: "This coupon is no longer active",
+        message: "This promo code is no longer active",
       });
     }
 
     if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) {
       return NextResponse.json({
         valid: false,
-        message: "This coupon has expired",
+        message: "This promo code has expired",
       });
     }
 
     if (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses) {
       return NextResponse.json({
         valid: false,
-        message: "This coupon has reached its usage limit",
+        message: "This promo code has reached its usage limit",
       });
     }
 
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       if (blocked.includes(userEmail)) {
         return NextResponse.json({
           valid: false,
-          message: "This coupon is not available for your account",
+          message: "This promo code is not available for your account",
         });
       }
     }
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       if (allowed.length > 0 && userEmail && !allowed.includes(userEmail)) {
         return NextResponse.json({
           valid: false,
-          message: "This coupon is not available for your account",
+          message: "This promo code is not available for your account",
         });
       }
     }
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error("POST /api/coupons/validate error:", err);
     return NextResponse.json(
-      { valid: false, message: "Failed to validate coupon" },
+      { valid: false, message: "Failed to validate promo code" },
       { status: 500 }
     );
   }

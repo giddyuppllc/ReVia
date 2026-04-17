@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Turnstile from "@/components/Turnstile";
 
 export default function RegisterPage() {
@@ -12,11 +12,46 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [affiliateCode, setAffiliateCode] = useState("");
+  const [affiliateStatus, setAffiliateStatus] = useState<{ valid: boolean; referredBy?: string } | null>(null);
+  const [affiliateChecking, setAffiliateChecking] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const handleTurnstile = useCallback((token: string) => setTurnstileToken(token), []);
+
+  // Auto-prefill affiliate code from revia_ref cookie
+  useEffect(() => {
+    const cookies = document.cookie.split(";").map((c) => c.trim());
+    const refCookie = cookies.find((c) => c.startsWith("revia_ref="));
+    if (refCookie) {
+      const code = refCookie.split("=")[1];
+      if (code) setAffiliateCode(code);
+    }
+  }, []);
+
+  // Validate affiliate code on change (debounced)
+  useEffect(() => {
+    const code = affiliateCode.trim();
+    if (!code) {
+      setAffiliateStatus(null);
+      return;
+    }
+    setAffiliateChecking(true);
+    const t = setTimeout(() => {
+      fetch("/api/affiliate/lookup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      })
+        .then((r) => r.json())
+        .then((d) => setAffiliateStatus(d.valid ? { valid: true, referredBy: d.referredBy } : { valid: false }))
+        .catch(() => setAffiliateStatus({ valid: false }))
+        .finally(() => setAffiliateChecking(false));
+    }, 400);
+    return () => { clearTimeout(t); setAffiliateChecking(false); };
+  }, [affiliateCode]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -38,7 +73,13 @@ export default function RegisterPage() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name: `${firstName.trim()} ${lastName.trim()}`, password, turnstileToken }),
+        body: JSON.stringify({
+          email,
+          name: `${firstName.trim()} ${lastName.trim()}`,
+          password,
+          turnstileToken,
+          affiliateCode: affiliateStatus?.valid ? affiliateCode.trim().toUpperCase() : undefined,
+        }),
       });
 
       const data = await res.json();
@@ -147,6 +188,29 @@ export default function RegisterPage() {
               className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="Re-enter your password"
             />
+          </div>
+
+          <div>
+            <label htmlFor="affiliateCode" className="mb-1.5 block text-sm font-medium text-neutral-700">
+              Affiliate Code <span className="text-neutral-400 font-normal">(optional)</span>
+            </label>
+            <input
+              id="affiliateCode"
+              type="text"
+              value={affiliateCode}
+              onChange={(e) => setAffiliateCode(e.target.value.toUpperCase())}
+              className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 font-mono text-neutral-900 placeholder-neutral-400 outline-none transition-colors focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              placeholder="Enter if a ReVia affiliate referred you"
+            />
+            {affiliateCode.trim() && (
+              <p className={`mt-1.5 text-xs ${affiliateChecking ? "text-neutral-400" : affiliateStatus?.valid ? "text-emerald-600" : "text-red-500"}`}>
+                {affiliateChecking
+                  ? "Checking..."
+                  : affiliateStatus?.valid
+                    ? `Referred by ${affiliateStatus.referredBy}`
+                    : "Invalid code"}
+              </p>
+            )}
           </div>
 
           {/* Terms & RUO Agreement */}

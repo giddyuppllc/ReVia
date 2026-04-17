@@ -75,7 +75,7 @@ export default function CouponManager({
       setCoupons((prev) => [data.coupon, ...prev]);
       setFormData({ code: "", type: "percentage", value: "", minOrder: "", maxUses: "", expiresAt: "", allowedEmails: "", blockedEmails: "" });
       setShowForm(false);
-      setMessage({ type: "success", text: "Coupon created!" });
+      setMessage({ type: "success", text: "Promo code created!" });
       router.refresh();
     } catch (err) {
       setMessage({ type: "error", text: err instanceof Error ? err.message : "Failed to create" });
@@ -125,7 +125,7 @@ export default function CouponManager({
         setCoupons((prev) => prev.map((c) => c.id === id ? { ...c, ...data.coupon } : c));
         setEditingId(null);
         setEditData({});
-        setMessage({ type: "success", text: "Coupon updated!" });
+        setMessage({ type: "success", text: "Promo code updated!" });
       }
     } catch (err) {
       console.error("Failed to save coupon:", err);
@@ -135,13 +135,13 @@ export default function CouponManager({
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this coupon? This cannot be undone.")) return;
+    if (!confirm("Delete this promo code? This cannot be undone.")) return;
     setDeletingId(id);
     try {
       const res = await fetch(`/api/admin/coupons/${id}`, { method: "DELETE" });
       if (res.ok) {
         setCoupons((prev) => prev.filter((c) => c.id !== id));
-        setMessage({ type: "success", text: "Coupon deleted." });
+        setMessage({ type: "success", text: "Promo code deleted." });
         router.refresh();
       }
     } catch (err) {
@@ -162,12 +162,12 @@ export default function CouponManager({
       {/* Create Button / Form */}
       {!showForm ? (
         <button onClick={() => setShowForm(true)} className="flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500">
-          <Plus size={16} /> New Coupon
+          <Plus size={16} /> New Promo Code
         </button>
       ) : (
         <div className="bg-white border border-neutral-200 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-neutral-900">Create Coupon</h2>
+            <h2 className="text-lg font-semibold text-neutral-900">Create Promo Code</h2>
             <button onClick={() => setShowForm(false)} className="text-neutral-400 hover:text-neutral-600 transition"><X size={18} /></button>
           </div>
 
@@ -219,7 +219,7 @@ export default function CouponManager({
 
             <div className="flex justify-end">
               <button type="submit" disabled={creating} className="flex items-center gap-2 rounded-xl bg-sky-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-500 disabled:opacity-60">
-                {creating && <Loader2 size={14} className="animate-spin" />} Create Coupon
+                {creating && <Loader2 size={14} className="animate-spin" />} Create Promo Code
               </button>
             </div>
           </form>
@@ -229,7 +229,7 @@ export default function CouponManager({
       {/* Coupons List */}
       <div className="space-y-3">
         {coupons.length === 0 ? (
-          <p className="text-neutral-400 text-sm py-12 text-center bg-white rounded-2xl border border-neutral-200">No coupons yet.</p>
+          <p className="text-neutral-400 text-sm py-12 text-center bg-white rounded-2xl border border-neutral-200">No promo codes yet.</p>
         ) : (
           coupons.map((coupon) => {
             const isEditing = editingId === coupon.id;

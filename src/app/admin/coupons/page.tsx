@@ -19,9 +19,9 @@ export default async function AdminCouponsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-stone-800">Coupons</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Promo Codes</h1>
         <p className="text-sm text-stone-500">
-          {coupons.length} coupon{coupons.length !== 1 ? "s" : ""}
+          {coupons.length} code{coupons.length !== 1 ? "s" : ""}
         </p>
       </div>
 

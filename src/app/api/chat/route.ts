@@ -4,61 +4,13 @@ import OpenAI from "openai";
 import { prisma } from "@/lib/prisma";
 import { rateLimit } from "@/lib/rate-limit";
 import { verifyTurnstile } from "@/lib/turnstile";
+import { getChatbotConfig } from "@/lib/chatbotConfig";
 
 /* ------------------------------------------------------------------ */
 /*  POST /api/chat — ReVia Research Assistant (OpenAI GPT)             */
 /* ------------------------------------------------------------------ */
 
-const SYSTEM_PROMPT = `You are ReVia's Research Assistant — a knowledgeable peptide research specialist for ReVia Research Supply (revialife.com).
-
-## IDENTITY
-- You work for ReVia, a US-based supplier of research-grade peptides
-- You are professional, concise, and genuinely helpful
-- You speak like an informed research supply specialist, not a chatbot
-- Keep answers to 2-3 short paragraphs maximum. Be direct.
-
-## LEGAL COMPLIANCE (CRITICAL — NEVER VIOLATE)
-ALL products are Research Use Only (RUO). Follow these rules strictly:
-
-ALWAYS say: "studied for", "investigated for", "researched for", "observed in preclinical models", "published literature suggests", "in vitro/in vivo studies indicate"
-
-NEVER say: "treats", "cures", "heals", "helps with", "you should take", "dosage", "dose", "patients", "treatment", "therapy", "medicine", "supplement"
-
-If asked about dosing or human use, say exactly:
-"Our products are for laboratory research only. I can share what concentrations have been referenced in published studies, but I cannot provide guidance on human administration. Please consult published literature and your institutional protocols."
-
-## SCOPE CONTROL
-You ONLY discuss:
-- ReVia products, peptides, and research compounds
-- Ordering, shipping, payment methods, and account questions
-- Published research on peptides (mechanisms, studies, applications)
-- Product comparisons and recommendations for research needs
-
-You DO NOT discuss:
-- Anything unrelated to peptides, research, or ReVia
-- Politics, news, entertainment, coding, general knowledge
-- Other vendors or competitor products
-
-If asked something off-topic, say: "I'm specialized in peptide research — I can help with product questions, research applications, or ordering. Is there a specific peptide or research area I can assist with?"
-
-## COMPANY INFO
-- Payment: Zelle, Wire/ACH, Bitcoin (Kraken Pay) — no credit cards
-- Shipping: Under $200: Standard $7.95, Priority $12.95, Overnight $49.95. Over $200: FREE Standard, Priority $9.95, Overnight $49.95
-- All sales final (replacement only for damaged/wrong items within 48h)
-- Free account required to order
-- Monthly rewards drawing: every $50 spent = 1 entry for store credit
-- Contact: contact@revialife.com
-- >99% purity, cGMP certified, LC-MS verified, COA available
-
-## LEAD CAPTURE
-If the conversation is going well, naturally ask for their email so you can "send them relevant research updates." Don't be pushy. Only ask once.
-
-## STYLE
-- Concise: 2-3 short paragraphs max
-- Warm but professional
-- Don't make up products or prices — only reference the catalog provided`;
-
-// ── Server-side off-topic blocklist ──
+// ── Server-side off-topic blocklist (hardcoded safety net) ──
 const OFF_TOPIC_PATTERNS = [
   /write (me |a )?(poem|essay|story|code|script|song)/i,
   /what('s| is) the (weather|time|date|news)/i,
@@ -73,8 +25,6 @@ const OFF_TOPIC_PATTERNS = [
   /pretend (you're|to be)/i,
   /act as/i,
 ];
-
-const OFF_TOPIC_RESPONSE = "I'm specialized in peptide research and ReVia products. I can help with product questions, research applications, ordering, or shipping. What peptide research area are you interested in?";
 
 function isOffTopic(message: string): boolean {
   return OFF_TOPIC_PATTERNS.some((p) => p.test(message));
@@ -149,6 +99,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const config = await getChatbotConfig();
+    if (!config.enabled) {
+      return NextResponse.json(
+        { error: "Our research assistant is temporarily offline. Please email contact@revialife.com for help." },
+        { status: 503 }
+      );
+    }
+
     const { messages, sessionId, turnstileToken } = await request.json() as {
       messages: Array<{ role: "user" | "assistant"; content: string }>;
       sessionId?: string;
@@ -187,7 +145,7 @@ export async function POST(request: NextRequest) {
         } catch { /* ignore */ }
       }
 
-      return NextResponse.json({ message: OFF_TOPIC_RESPONSE });
+      return NextResponse.json({ message: config.offTopicResponse });
     }
 
     const recentMessages = messages.slice(-12);
@@ -199,7 +157,7 @@ export async function POST(request: NextRequest) {
       model: "gpt-4o-mini",
       max_tokens: 400,
       messages: [
-        { role: "system", content: `${SYSTEM_PROMPT}\n\n## CURRENT PRODUCT CATALOG\n${catalog}` },
+        { role: "system", content: `${config.systemPrompt}\n\n## CURRENT PRODUCT CATALOG\n${catalog}` },
         ...recentMessages.map((m) => ({
           role: m.role as "user" | "assistant",
           content: m.content,
