@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Link2, Users, ShoppingCart, DollarSign, Ticket } from "lucide-react";
+import AffiliateCodeEditor from "@/components/AffiliateCodeEditor";
 
 export const dynamic = "force-dynamic";
 
@@ -75,10 +76,7 @@ export default async function AdminAffiliateDetailPage({
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${affiliate.status === "approved" ? "bg-emerald-100 text-emerald-700" : affiliate.status === "pending" ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-600"}`}>{affiliate.status}</span>
             </div>
             <p className="text-sm text-neutral-500">{affiliate.user.email}</p>
-            <div className="mt-3 flex items-center gap-2">
-              <Link2 className="h-4 w-4 text-sky-500" />
-              <span className="font-mono text-sm font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-lg">{affiliate.affiliateCode}</span>
-            </div>
+            <AffiliateCodeEditor affiliateId={affiliate.id} initialCode={affiliate.affiliateCode} />
           </div>
           <div className="text-right">
             <p className="text-xs text-neutral-400 uppercase tracking-wider">Commission Rate</p>

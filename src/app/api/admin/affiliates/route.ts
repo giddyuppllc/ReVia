@@ -39,7 +39,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { affiliateId, status, commissionRate, paidCommission } = await request.json();
+    const { affiliateId, status, commissionRate, paidCommission, affiliateCode } = await request.json();
     if (!affiliateId) {
       return NextResponse.json({ error: "affiliateId required" }, { status: 400 });
     }
@@ -58,6 +58,26 @@ export async function PATCH(request: NextRequest) {
     if (status && ["pending", "approved", "rejected"].includes(status)) data.status = status;
     if (typeof commissionRate === "number" && commissionRate >= 0 && commissionRate <= 50) data.commissionRate = commissionRate;
     if (typeof paidCommission === "number") data.paidCommission = paidCommission;
+
+    if (typeof affiliateCode === "string") {
+      const nextCode = affiliateCode.trim().toUpperCase();
+      if (!/^[A-Z0-9][A-Z0-9_-]{2,19}$/.test(nextCode)) {
+        return NextResponse.json(
+          { error: "Code must be 3–20 characters, letters/numbers/hyphens/underscores, and start with a letter or number." },
+          { status: 400 }
+        );
+      }
+      if (nextCode !== affiliate.affiliateCode) {
+        const clash = await prisma.affiliate.findUnique({ where: { affiliateCode: nextCode } });
+        if (clash && clash.id !== affiliateId) {
+          return NextResponse.json(
+            { error: `Code "${nextCode}" is already in use by another affiliate.`, code: "CODE_TAKEN" },
+            { status: 409 }
+          );
+        }
+        data.affiliateCode = nextCode;
+      }
+    }
 
     await prisma.affiliate.update({ where: { id: affiliateId }, data });
 

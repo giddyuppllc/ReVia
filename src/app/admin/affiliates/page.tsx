@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Link2, Check, X, Loader2, DollarSign, Trash2, Search, ChevronRight } from "lucide-react";
+import { Check, X, Loader2, DollarSign, Trash2, Search, ChevronRight, Pencil } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 interface Affiliate {
@@ -25,6 +25,8 @@ export default function AdminAffiliatesPage() {
   const [search, setSearch] = useState("");
   const [editingRate, setEditingRate] = useState<string | null>(null);
   const [newRate, setNewRate] = useState("");
+  const [editingCode, setEditingCode] = useState<string | null>(null);
+  const [newCode, setNewCode] = useState("");
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
@@ -42,12 +44,18 @@ export default function AdminAffiliatesPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ affiliateId, ...data }),
       });
-      if (!res.ok) throw new Error("Failed");
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setMessage({ type: "error", text: body.error || "Failed to update" });
+        return false;
+      }
       setAffiliates((prev) => prev.map((a) => a.id === affiliateId ? { ...a, ...data } as Affiliate : a));
       setMessage({ type: "success", text: "Updated!" });
       router.refresh();
+      return true;
     } catch {
       setMessage({ type: "error", text: "Failed to update" });
+      return false;
     } finally { setActionLoading(null); }
   };
 
@@ -118,7 +126,39 @@ export default function AdminAffiliatesPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="font-semibold text-neutral-900">{a.user.name}</p>
-                    <span className="font-mono text-xs text-sky-600 bg-sky-50 px-2 py-0.5 rounded">{a.affiliateCode}</span>
+                    {editingCode === a.id ? (
+                      <div className="flex items-center gap-1">
+                        <input
+                          type="text"
+                          autoFocus
+                          value={newCode}
+                          onChange={(e) => setNewCode(e.target.value.toUpperCase())}
+                          maxLength={20}
+                          placeholder="MIKE2026"
+                          className="w-32 rounded-lg border border-sky-300 px-2 py-0.5 text-xs font-mono uppercase outline-none focus:border-sky-500"
+                        />
+                        <button
+                          onClick={async () => {
+                            const trimmed = newCode.trim().toUpperCase();
+                            if (!trimmed || trimmed === a.affiliateCode) { setEditingCode(null); return; }
+                            const ok = await updateAffiliate(a.id, { affiliateCode: trimmed });
+                            if (ok) setEditingCode(null);
+                          }}
+                          disabled={actionLoading === a.id}
+                          className="rounded-lg bg-sky-500 px-2 py-0.5 text-[10px] text-white disabled:opacity-60"
+                        >Save</button>
+                        <button onClick={() => setEditingCode(null)} className="text-[10px] text-neutral-400 hover:text-neutral-600">Cancel</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setEditingCode(a.id); setNewCode(a.affiliateCode); }}
+                        className="group inline-flex items-center gap-1 font-mono text-xs text-sky-600 bg-sky-50 hover:bg-sky-100 px-2 py-0.5 rounded transition"
+                        title="Edit affiliate code"
+                      >
+                        {a.affiliateCode}
+                        <Pencil className="h-2.5 w-2.5 opacity-0 group-hover:opacity-70 transition" />
+                      </button>
+                    )}
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${a.status === "approved" ? "bg-emerald-100 text-emerald-700" : a.status === "pending" ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-600"}`}>{a.status}</span>
                   </div>
                   <p className="text-xs text-neutral-400">{a.user.email}</p>
