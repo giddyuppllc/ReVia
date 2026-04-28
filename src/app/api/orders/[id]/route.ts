@@ -78,10 +78,10 @@ export async function PATCH(
       );
     }
 
-    // Get current order state BEFORE updating (for duplicate prevention)
+    // Get current order state BEFORE updating (for duplicate prevention + refund coupon decrement)
     const currentOrder = await prisma.order.findUnique({
       where: { id },
-      select: { paymentStatus: true },
+      select: { paymentStatus: true, status: true },
     });
 
     const updateData: Record<string, string> = {};
@@ -188,12 +188,22 @@ export async function PATCH(
       }
     }
 
-    // Send cancellation email
-    if (status === "cancelled") {
+    // Send cancellation email + free up the coupon slot
+    if (status === "cancelled" && currentOrder?.status !== "cancelled") {
       try {
         await sendOrderCancellation(order, order.email, "Order cancelled by admin.");
       } catch (emailErr) {
         console.error("Failed to send cancellation email:", emailErr);
+      }
+      if (order.couponId) {
+        try {
+          await prisma.coupon.update({
+            where: { id: order.couponId },
+            data: { usedCount: { decrement: 1 } },
+          });
+        } catch (couponErr) {
+          console.error("Failed to decrement coupon usedCount on cancel:", couponErr);
+        }
       }
     }
 

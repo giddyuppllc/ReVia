@@ -35,22 +35,26 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { code, type, value, minOrder, maxUses, expiresAt, allowedEmails, blockedEmails } = body as {
+    const { code, type, value, minOrder, maxUses, perUserLimit, expiresAt, startsAt, allowedEmails, blockedEmails, campaign } = body as {
       code: string;
       type?: string;
       value: number;
       minOrder?: number;
       maxUses?: number;
+      perUserLimit?: number;
       expiresAt?: string;
+      startsAt?: string;
       allowedEmails?: string;
       blockedEmails?: string;
+      campaign?: string;
     };
 
-    if (!code || value === undefined) {
-      return NextResponse.json(
-        { error: "Code and value are required" },
-        { status: 400 }
-      );
+    if (!code) {
+      return NextResponse.json({ error: "Code is required" }, { status: 400 });
+    }
+    const isShipping = type === "shipping";
+    if (!isShipping && value === undefined) {
+      return NextResponse.json({ error: "Value is required" }, { status: 400 });
     }
 
     const existing = await prisma.coupon.findUnique({
@@ -67,11 +71,14 @@ export async function POST(request: NextRequest) {
       data: {
         code: code.toUpperCase().trim(),
         type: type ?? "percentage",
-        value,
+        value: isShipping ? 0 : value,
         minOrder: minOrder ?? 0,
         maxUses: maxUses ?? 0,
+        perUserLimit: perUserLimit ?? 0,
         allowedEmails: allowedEmails ?? "",
         blockedEmails: blockedEmails ?? "",
+        campaign: campaign?.trim() || null,
+        startsAt: startsAt ? new Date(startsAt) : null,
         expiresAt: expiresAt ? new Date(expiresAt) : null,
       },
     });

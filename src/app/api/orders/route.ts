@@ -233,37 +233,60 @@ export async function POST(request: NextRequest) {
     // ── Apply coupon if provided ──
     let appliedCouponId: string | null = null;
     let couponDiscountAmount = 0;
+    let freeShippingFromCoupon = false;
     if (couponCode) {
       const coupon = await prisma.coupon.findUnique({
         where: { code: couponCode.toUpperCase().trim() },
       });
 
       if (!coupon) {
-        return NextResponse.json(
-          { error: "Invalid promo code" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Invalid promo code" }, { status: 400 });
       }
 
       if (!coupon.active) {
+        return NextResponse.json({ error: "This promo code is no longer active" }, { status: 400 });
+      }
+
+      const now = new Date();
+      if (coupon.startsAt && new Date(coupon.startsAt) > now) {
         return NextResponse.json(
-          { error: "This promo code is no longer active" },
+          { error: `This promo code becomes active on ${new Date(coupon.startsAt).toLocaleDateString()}` },
           { status: 400 }
         );
       }
 
-      if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) {
-        return NextResponse.json(
-          { error: "This promo code has expired" },
-          { status: 400 }
-        );
+      if (coupon.expiresAt && new Date(coupon.expiresAt) < now) {
+        return NextResponse.json({ error: "This promo code has expired" }, { status: 400 });
       }
 
       if (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses) {
-        return NextResponse.json(
-          { error: "This promo code has reached its usage limit" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "This promo code has reached its usage limit" }, { status: 400 });
+      }
+
+      const buyerEmail = sanitizedShipping.email;
+      if (coupon.blockedEmails) {
+        const blocked = coupon.blockedEmails.split(",").map(e => e.trim().toLowerCase()).filter(Boolean);
+        if (blocked.includes(buyerEmail)) {
+          return NextResponse.json({ error: "This promo code is not available for your account" }, { status: 400 });
+        }
+      }
+      if (coupon.allowedEmails) {
+        const allowed = coupon.allowedEmails.split(",").map(e => e.trim().toLowerCase()).filter(Boolean);
+        if (allowed.length > 0 && !allowed.includes(buyerEmail)) {
+          return NextResponse.json({ error: "This promo code is not available for your account" }, { status: 400 });
+        }
+      }
+
+      if (coupon.perUserLimit > 0) {
+        const userUseCount = await prisma.order.count({
+          where: { couponId: coupon.id, email: buyerEmail },
+        });
+        if (userUseCount >= coupon.perUserLimit) {
+          return NextResponse.json(
+            { error: `You have already used this promo code the maximum of ${coupon.perUserLimit} time${coupon.perUserLimit === 1 ? "" : "s"}` },
+            { status: 400 }
+          );
+        }
       }
 
       if (total < coupon.minOrder) {
@@ -273,16 +296,19 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      let discount = 0;
-      if (coupon.type === "percentage") {
-        discount = Math.round(total * (coupon.value / 100));
+      if (coupon.type === "shipping") {
+        freeShippingFromCoupon = true;
+        // discount amount is recorded after we know the shipping fee, below
+      } else if (coupon.type === "percentage") {
+        const discount = Math.round(total * (coupon.value / 100));
+        total = Math.max(0, total - discount);
+        couponDiscountAmount = discount;
       } else {
-        discount = Math.min(coupon.value, total);
+        const discount = Math.min(coupon.value, total);
+        total = Math.max(0, total - discount);
+        couponDiscountAmount = discount;
       }
-
-      total = Math.max(0, total - discount);
       appliedCouponId = coupon.id;
-      couponDiscountAmount = discount;
     }
 
     // ── Calculate tax based on state ──
@@ -291,11 +317,15 @@ export async function POST(request: NextRequest) {
 
     // ── Validate and add shipping cost ──
     const VALID_SHIPPING_COSTS = [0, 795, 995, 1295, 4995]; // all possible shipping rates in cents
-    const shipping_fee = typeof clientShippingCost === "number"
+    const baseShippingFee = typeof clientShippingCost === "number"
       && clientShippingCost >= 0
       && VALID_SHIPPING_COSTS.includes(clientShippingCost)
       ? clientShippingCost
       : 795; // default to standard $7.95 if invalid
+    const shipping_fee = freeShippingFromCoupon ? 0 : baseShippingFee;
+    if (freeShippingFromCoupon) {
+      couponDiscountAmount = baseShippingFee;
+    }
     total = total + shipping_fee;
 
     // ── Generate invoice number ──

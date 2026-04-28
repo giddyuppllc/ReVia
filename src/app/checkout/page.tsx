@@ -83,6 +83,7 @@ export default function CheckoutPage() {
     text: string;
   } | null>(null);
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [couponFreeShipping, setCouponFreeShipping] = useState(false);
 
   // Affiliate code state
   const [affiliateCode, setAffiliateCode] = useState("");
@@ -168,7 +169,8 @@ export default function CheckoutPage() {
 
   // Check if free shipping promo applies
   const promoActive = freeShippingPromo?.enabled && afterDiscount >= (freeShippingPromo?.threshold ?? 0);
-  const shippingCost = promoActive ? 0 : (selectedRate?.price ?? 795);
+  const baseShippingCost = selectedRate?.price ?? 795;
+  const shippingCost = (promoActive || couponFreeShipping) ? 0 : baseShippingCost;
 
   const taxAmount = calculateTax(form.state, afterDiscount);
   const taxRate = getTaxRate(form.state);
@@ -183,17 +185,19 @@ export default function CheckoutPage() {
       const res = await fetch("/api/coupons/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: couponCode.trim(), subtotal, email: form.email }),
+        body: JSON.stringify({ code: couponCode.trim(), subtotal, email: form.email, shippingCost: baseShippingCost }),
       });
 
       const data = await res.json();
 
       if (data.valid) {
-        setCouponDiscount(data.discount);
+        setCouponDiscount(data.freeShipping ? 0 : data.discount);
+        setCouponFreeShipping(!!data.freeShipping);
         setAppliedCoupon(couponCode.trim().toUpperCase());
         setCouponMessage({ type: "success", text: data.message });
       } else {
         setCouponDiscount(0);
+        setCouponFreeShipping(false);
         setAppliedCoupon(null);
         setCouponMessage({ type: "error", text: data.message });
       }
@@ -207,6 +211,7 @@ export default function CheckoutPage() {
   const handleRemoveCoupon = () => {
     setCouponCode("");
     setCouponDiscount(0);
+    setCouponFreeShipping(false);
     setAppliedCoupon(null);
     setCouponMessage(null);
   };
@@ -269,7 +274,10 @@ export default function CheckoutPage() {
             zip: form.zip,
           },
           shippingMethod: selectedRate?.label ?? "Standard Shipping",
-          shippingCost,
+          // Send base cost when a free-shipping coupon is in play so the server
+          // can record the actual savings; otherwise send the displayed cost
+          // (which respects threshold-based site-wide promo zeroing).
+          shippingCost: couponFreeShipping ? baseShippingCost : shippingCost,
           paymentMethod,
           couponCode: appliedCoupon || undefined,
           affiliateCode: appliedAffiliate?.code || undefined,

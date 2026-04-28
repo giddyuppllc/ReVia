@@ -17,16 +17,19 @@ export async function PATCH(
 
     const { id } = await params;
     const body = await request.json();
-    const { code, type, value, minOrder, maxUses, active, expiresAt, allowedEmails, blockedEmails } = body as {
+    const { code, type, value, minOrder, maxUses, perUserLimit, active, expiresAt, startsAt, allowedEmails, blockedEmails, campaign } = body as {
       code?: string;
       type?: string;
       value?: number;
       minOrder?: number;
       maxUses?: number;
+      perUserLimit?: number;
       active?: boolean;
       expiresAt?: string | null;
+      startsAt?: string | null;
       allowedEmails?: string;
       blockedEmails?: string;
+      campaign?: string | null;
     };
 
     const data: Record<string, unknown> = {};
@@ -35,11 +38,16 @@ export async function PATCH(
     if (value !== undefined) data.value = value;
     if (minOrder !== undefined) data.minOrder = minOrder;
     if (maxUses !== undefined) data.maxUses = maxUses;
+    if (perUserLimit !== undefined) data.perUserLimit = perUserLimit;
     if (active !== undefined) data.active = active;
     if (allowedEmails !== undefined) data.allowedEmails = allowedEmails;
     if (blockedEmails !== undefined) data.blockedEmails = blockedEmails;
+    if (campaign !== undefined) data.campaign = campaign?.trim() || null;
     if (expiresAt !== undefined) {
       data.expiresAt = expiresAt ? new Date(expiresAt) : null;
+    }
+    if (startsAt !== undefined) {
+      data.startsAt = startsAt ? new Date(startsAt) : null;
     }
 
     const coupon = await prisma.coupon.update({

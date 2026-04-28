@@ -54,7 +54,18 @@ export default async function AdminCouponDetailPage({
   const totalRevenue = orders.reduce((s, o) => s + o.total, 0);
   const hasBreakdownGap = orders.some((o) => o.couponDiscount == null);
 
-  const valueLabel = coupon.type === "percentage" ? `${coupon.value}%` : `$${(coupon.value / 100).toFixed(2)}`;
+  const valueLabel =
+    coupon.type === "shipping"
+      ? "Free shipping"
+      : coupon.type === "percentage"
+        ? `${coupon.value}%`
+        : `$${(coupon.value / 100).toFixed(2)}`;
+  const typeDescription =
+    coupon.type === "shipping"
+      ? "Free shipping coupon"
+      : coupon.type === "percentage"
+        ? "Percentage off"
+        : "Fixed amount off";
 
   return (
     <div className="space-y-6">
@@ -74,8 +85,13 @@ export default async function AdminCouponDetailPage({
               </span>
             </div>
             <p className="text-sm text-neutral-500 mt-1">
-              {coupon.type === "percentage" ? "Percentage off" : "Fixed amount off"}
+              {typeDescription}
+              {coupon.campaign && <> · Campaign: <span className="font-medium text-neutral-700">{coupon.campaign}</span></>}
               {coupon.minOrder > 0 && <> · Min order ${(coupon.minOrder / 100).toFixed(2)}</>}
+              {coupon.perUserLimit > 0 && <> · Max {coupon.perUserLimit}/user</>}
+              {coupon.startsAt && (
+                <> · Starts {new Date(coupon.startsAt).toLocaleDateString()}</>
+              )}
               {coupon.expiresAt && (
                 <> · Expires {new Date(coupon.expiresAt).toLocaleDateString()}</>
               )}

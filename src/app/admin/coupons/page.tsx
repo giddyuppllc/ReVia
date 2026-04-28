@@ -12,6 +12,8 @@ export default async function AdminCouponsPage() {
     ...c,
     allowedEmails: c.allowedEmails ?? "",
     blockedEmails: c.blockedEmails ?? "",
+    campaign: c.campaign ?? null,
+    startsAt: c.startsAt ? c.startsAt.toISOString() : null,
     expiresAt: c.expiresAt ? c.expiresAt.toISOString() : null,
     createdAt: c.createdAt.toISOString(),
   }));
