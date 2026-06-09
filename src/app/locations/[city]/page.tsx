@@ -58,11 +58,13 @@ export default async function CityHubPage({ params }: PageProps) {
     `ReVia Life supplies research-grade peptides to researchers and labs in ${city.name}, ${city.state}. ${city.angle} — and ReVia ships the full catalog to ${city.name} and nearby areas including ${city.nearbyAreas.join(", ")}. Every compound is third-party COA tested and intended strictly for research use.`;
 
   // Group by category for a scannable, non-thin layout.
-  const byCategory = new Map<string, typeof products>();
+  type ProductRow = (typeof products)[number];
+  const byCategory = new Map<string, ProductRow[]>();
   for (const p of products) {
     const k = p.category.name;
-    if (!byCategory.has(k)) byCategory.set(k, []);
-    byCategory.get(k)!.push(p);
+    const arr = byCategory.get(k);
+    if (arr) arr.push(p);
+    else byCategory.set(k, [p]);
   }
 
   const breadcrumb = [
