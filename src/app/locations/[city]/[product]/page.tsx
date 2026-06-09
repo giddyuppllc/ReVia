@@ -99,6 +99,32 @@ export default async function CityProductPage({ params }: PageProps) {
       },
     ];
 
+  // Internal-link mesh: other products available in this city (same category
+  // first), and this product across other cities in the region. Turns the
+  // 1,800+ geo pages into a crawlable network instead of isolated leaves —
+  // the single biggest lever for programmatic-SEO health.
+  const siblings = await prisma.product
+    .findMany({
+      where: { active: true, slug: { not: product.slug } },
+      select: { slug: true, name: true, featured: true, category: { select: { name: true } } },
+    })
+    .catch(() => [] as { slug: string; name: string; featured: boolean; category: { name: string } | null }[]);
+  const sameCategory = siblings.filter((s) => s.category?.name === product.category.name);
+  const otherCategory = siblings.filter((s) => s.category?.name !== product.category.name);
+  const relatedProducts = [
+    ...sameCategory,
+    ...otherCategory.filter((o) => o.featured),
+    ...otherCategory,
+  ]
+    .filter((s, i, a) => a.findIndex((x) => x.slug === s.slug) === i)
+    .slice(0, 8)
+    .map((s) => ({ slug: s.slug, name: s.name, categoryName: s.category?.name ?? "" }));
+
+  const relatedCities = [
+    ...CITIES.filter((c) => c.slug !== city.slug && c.region === city.region),
+    ...CITIES.filter((c) => c.slug !== city.slug && c.region !== city.region),
+  ].slice(0, 8);
+
   const breadcrumb = [
     { name: "Home", url: SITE },
     { name: "Locations", url: `${SITE}/locations` },
@@ -217,6 +243,47 @@ export default async function CityProductPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* Other research peptides in this city — internal mesh */}
+      {relatedProducts.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xl font-bold text-neutral-900">
+            Other research peptides available in {city.name}
+          </h2>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {relatedProducts.map((rp) => (
+              <Link
+                key={rp.slug}
+                href={`/locations/${city.slug}/${rp.slug}`}
+                className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 hover:bg-neutral-50"
+              >
+                <span className="text-[15px] font-medium text-neutral-800">{rp.name}</span>
+                <span className="ml-3 shrink-0 text-xs text-neutral-500">{rp.categoryName}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Same product across other cities in the region — geo cluster mesh */}
+      {relatedCities.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xl font-bold text-neutral-900">
+            Buy {product.name} in other {city.region} cities
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-3 text-sm">
+            {relatedCities.map((rc) => (
+              <Link
+                key={rc.slug}
+                href={`/locations/${rc.slug}/${product.slug}`}
+                className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50"
+              >
+                {product.name} in {rc.name}, {rc.stateAbbr}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Links */}
       <section className="mt-10 flex flex-wrap gap-3 text-sm">
