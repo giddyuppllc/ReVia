@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import { prisma } from "@/lib/prisma";
 import { CITIES } from "@/data/cities";
 
 const SITE = "https://revialife.com";
 
 export const dynamic = "force-static";
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Research Peptides by Location — Florida & East Coast | ReVia Life",
@@ -15,9 +17,20 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE}/locations` },
 };
 
-export default function LocationsIndexPage() {
+export default async function LocationsIndexPage() {
   const florida = CITIES.filter((c) => c.region === "Florida");
   const eastCoast = CITIES.filter((c) => c.region === "East Coast");
+
+  // Most-searched products — gives the index outbound links to the /shop money
+  // pages so crawl equity flows down to them, not only to the city hubs.
+  const topProducts = await prisma.product
+    .findMany({
+      where: { active: true },
+      select: { slug: true, name: true, category: { select: { name: true } } },
+      orderBy: [{ featured: "desc" }, { name: "asc" }],
+      take: 12,
+    })
+    .catch(() => [] as { slug: string; name: string; category: { name: string } | null }[]);
 
   const breadcrumb = [
     { name: "Home", url: SITE },
@@ -71,6 +84,29 @@ export default function LocationsIndexPage() {
 
       <Section title="Florida" items={florida} />
       <Section title="East Coast" items={eastCoast} />
+
+      {topProducts.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-lg font-bold text-neutral-900">Most-searched research peptides</h2>
+          <p className="mt-2 max-w-3xl text-sm text-neutral-600">
+            Popular compounds researchers source through ReVia Life — available across all {CITIES.length} metros.
+          </p>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {topProducts.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/shop/${p.slug}`}
+                className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
+              >
+                <span className="font-medium text-neutral-900">{p.name}</span>
+                {p.category?.name && (
+                  <span className="ml-3 shrink-0 text-xs text-neutral-500">{p.category.name}</span>
+                )}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <p className="mt-12 border-t border-neutral-200 pt-6 text-xs leading-relaxed text-neutral-400">
         For research use only. Not for human or veterinary use.

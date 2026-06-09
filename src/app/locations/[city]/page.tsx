@@ -85,6 +85,13 @@ export default async function CityHubPage({ params }: PageProps) {
     })),
   };
 
+  // Lateral hub-to-hub mesh: link to sibling city hubs (same region first) so
+  // the 25 metros interlink, not just hang off the /locations index.
+  const relatedCities = [
+    ...CITIES.filter((c) => c.slug !== city.slug && c.region === city.region),
+    ...CITIES.filter((c) => c.slug !== city.slug && c.region !== city.region),
+  ].slice(0, 8);
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
       <JsonLd data={itemListSchema} />
@@ -145,6 +152,25 @@ export default async function CityHubPage({ params }: PageProps) {
             </section>
           ))}
         </div>
+      )}
+
+      {relatedCities.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-lg font-bold text-neutral-900">
+            Research peptides in other {city.region} cities
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-3 text-sm">
+            {relatedCities.map((rc) => (
+              <Link
+                key={rc.slug}
+                href={`/locations/${rc.slug}`}
+                className="rounded-full border border-neutral-300 px-4 py-2 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
+              >
+                {rc.name}, {rc.stateAbbr}
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
 
       <p className="mt-12 border-t border-neutral-200 pt-6 text-xs leading-relaxed text-neutral-400">

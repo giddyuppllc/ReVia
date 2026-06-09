@@ -8,6 +8,7 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { getProductImage } from "@/lib/product-images";
 import { CITIES, getCity } from "@/data/cities";
 import { getCityProductCopy } from "@/data/geo-copy";
+import { getCityProductContext } from "@/data/geo-context";
 
 // Geofenced product × city money page: "Buy [Product] Research Peptide in
 // [City]". Research-use-only / informational framing throughout — these pages
@@ -77,6 +78,7 @@ export default async function CityProductPage({ params }: PageProps) {
   const minPrice = prices.length ? Math.min(...prices) : 0;
   const image = `${SITE}${getProductImage(product.slug, product.image)}`;
   const copy = getCityProductCopy(city.slug, product.slug);
+  const context = getCityProductContext(city.slug, product.slug);
 
   const intro =
     copy.intro ??
@@ -207,6 +209,29 @@ export default async function CityProductPage({ params }: PageProps) {
         </Link>
       </div>
 
+      {/* Sizes & pricing — real product substance for the buy-intent query */}
+      {product.variants.some((v) => v.price > 0) && (
+        <section className="mt-8">
+          <h2 className="text-xl font-bold text-neutral-900">{product.name} sizes &amp; pricing</h2>
+          <div className="mt-4 overflow-hidden rounded-2xl border border-neutral-200">
+            {product.variants
+              .filter((v) => v.price > 0)
+              .map((v, i) => (
+                <div
+                  key={v.id}
+                  className={`flex items-center justify-between px-5 py-3 text-sm ${i % 2 ? "bg-neutral-50" : "bg-white"}`}
+                >
+                  <span className="font-medium text-neutral-800">{v.label}</span>
+                  <span className="font-semibold text-neutral-900">{usd(v.price)}</span>
+                </div>
+              ))}
+          </div>
+          <p className="mt-2 text-xs text-neutral-500">
+            Prices shown for research use only. Ships to {city.name} and the surrounding {city.region} region.
+          </p>
+        </section>
+      )}
+
       {/* Overview */}
       {product.description && (
         <section className="mt-10">
@@ -214,6 +239,16 @@ export default async function CityProductPage({ params }: PageProps) {
           <p className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-neutral-700">
             {product.description}
           </p>
+        </section>
+      )}
+
+      {/* Unique per-city research context — kills cross-city duplication */}
+      {context && (
+        <section className="mt-10">
+          <h2 className="text-xl font-bold text-neutral-900">
+            {product.name} research in {city.name}
+          </h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-neutral-700">{context}</p>
         </section>
       )}
 
