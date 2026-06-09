@@ -89,8 +89,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // cities. The long-tail product×city pages render on demand (ISR) and are
   // discoverable via the city hubs; featured combos are surfaced here to focus
   // crawl budget on the highest-intent terms.
-  const geoFeatured = await prisma.product.findMany({
-    where: { active: true, featured: true },
+  const geoProducts = await prisma.product.findMany({
+    where: { active: true },
     select: { slug: true },
   });
   const locationUrls: MetadataRoute.Sitemap = [
@@ -102,11 +102,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     })),
     ...CITIES.flatMap((c) =>
-      geoFeatured.map((p) => ({
+      geoProducts.map((p) => ({
         url: `${SITE}/locations/${c.slug}/${p.slug}`,
         lastModified: new Date(),
         changeFrequency: "weekly" as const,
-        priority: 0.6,
+        priority: 0.55,
       })),
     ),
   ];
