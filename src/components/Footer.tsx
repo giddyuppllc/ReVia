@@ -48,6 +48,7 @@ const footerSections = [
       { title: "Peptides", href: "/shop?category=peptides" },
       { title: "Stacks", href: "/shop?category=stacks" },
       { title: "Accessories", href: "/shop?category=accessories" },
+      { title: "Shop by Location", href: "/locations" },
     ],
   },
   {
@@ -145,9 +146,13 @@ export default function Footer() {
             {footerSections.map((section, index) => (
               <AnimatedContainer key={section.label} delay={0.1 + index * 0.1}>
                 <div className="mb-6 md:mb-0">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-stone-400">
+                  <div
+                    role="heading"
+                    aria-level={2}
+                    className="text-xs font-semibold uppercase tracking-wider text-stone-400"
+                  >
                     {section.label}
-                  </h3>
+                  </div>
                   <ul className="mt-2.5 space-y-1.5">
                     {section.links.map((link) => {
                       const isExternal = "external" in link && link.external;
