@@ -5,6 +5,7 @@ import { ChevronRight, FlaskConical, ShieldCheck, Zap } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getActiveTier, resolvePriceForVariant, getTierSavingsMessage } from "@/lib/pricing";
 import AddToCart from "@/components/AddToCart";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 export const revalidate = 60;
 
 interface PageProps {
@@ -150,6 +151,13 @@ export default async function StackDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://revialife.com/" },
+          { name: "Stacks", url: "https://revialife.com/stacks" },
+          { name: product.name, url: `https://revialife.com/stacks/${product.slug}` },
+        ]}
+      />
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <nav className="flex items-center gap-1 text-xs text-neutral-400">

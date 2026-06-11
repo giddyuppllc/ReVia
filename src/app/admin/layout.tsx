@@ -23,6 +23,7 @@ import {
   Bot,
   Link2,
   Building2,
+  Filter,
 } from "lucide-react";
 
 const navItems = [
@@ -39,6 +40,7 @@ const navItems = [
   { href: "/admin/partners", label: "Brand Partners", icon: Building2 },
   { href: "/admin/affiliates", label: "Affiliates", icon: Link2 },
   { href: "/admin/leads", label: "Chat Leads", icon: MessageCircle },
+  { href: "/admin/funnel-leads", label: "Funnel Leads", icon: Filter },
   { href: "/admin/chatbot", label: "Chatbot", icon: Bot },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/drawing", label: "Monthly Drawing", icon: Ticket },

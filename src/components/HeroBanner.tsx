@@ -62,7 +62,10 @@ export default function HeroBanner() {
               </span>
             </motion.div>
 
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 sm:mt-5 sm:text-5xl lg:text-6xl leading-[1.1]">
+            <h1
+              aria-label="Premium Peptides. Proven Purity. Real Results."
+              className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 sm:mt-5 sm:text-5xl lg:text-6xl leading-[1.1]"
+            >
               <motion.span
                 className="block"
                 initial={{ opacity: 0, y: 25 }}

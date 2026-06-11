@@ -5,6 +5,7 @@ import {
 } from "@/data/research-compounds";
 import ResearchDetailClient from "./ResearchDetailClient";
 import { notFound } from "next/navigation";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 /* ── Static generation ── */
 export function generateStaticParams() {
@@ -51,5 +52,16 @@ export default async function ResearchDetailPage({
     notFound();
   }
 
-  return <ResearchDetailClient compound={compound} />;
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://revialife.com/" },
+          { name: "Research", url: "https://revialife.com/research" },
+          { name: compound.name, url: `https://revialife.com/research/${compound.slug}` },
+        ]}
+      />
+      <ResearchDetailClient compound={compound} />
+    </>
+  );
 }

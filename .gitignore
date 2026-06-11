@@ -47,3 +47,9 @@ prisma/seed-original-backup.ts
 CLAUDE.md
 AGENTS.md
 ReVia-transfer-prompt.md
+
+.env
+.env.*
+*.bak
+*.bak.*
+*.bundle

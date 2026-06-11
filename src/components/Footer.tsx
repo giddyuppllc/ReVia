@@ -48,6 +48,7 @@ const footerSections = [
       { title: "Peptides", href: "/shop?category=peptides" },
       { title: "Stacks", href: "/shop?category=stacks" },
       { title: "Accessories", href: "/shop?category=accessories" },
+      { title: "Shop by Location", href: "/locations" },
     ],
   },
   {

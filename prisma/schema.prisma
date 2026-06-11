@@ -275,6 +275,28 @@ model ChatLead {
   @@index([createdAt])
 }
 
+model FunnelLead {
+  id              String   @id @default(cuid())
+  email           String?
+  sourceDomain    String   // funnel site that captured the lead, e.g. "matchyourstack.com"
+  path            String   // "email_capture" | "direct_click" | "quiz" | "pdf_download" | "referral"
+  productInterest String   @default("[]") // JSON array of product slugs/names of interest
+  referralCode    String?  // ReVia affiliate code if the funnel carried one
+  utmSource       String?
+  utmMedium       String?
+  utmCampaign     String?
+  utmContent      String?
+  meta            String   @default("{}") // JSON: quiz answers, page, extra context
+  ip              String?
+  userAgent       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([sourceDomain])
+  @@index([email])
+  @@index([createdAt])
+}
+
 model ChatbotConfig {
   id                String   @id @default("singleton")
   enabled           Boolean  @default(true)
