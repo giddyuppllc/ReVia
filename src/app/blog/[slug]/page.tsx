@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import JsonLd from "@/components/JsonLd";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 export const revalidate = 60;
 
 function readTime(html: string): number {
@@ -60,12 +61,24 @@ export default async function BlogPostPage({
       url: "https://revialife.com",
     },
     datePublished: post.publishedAt.toISOString(),
+    dateModified: post.publishedAt.toISOString(),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://revialife.com/blog/${post.slug}`,
+    },
     image: post.image ?? undefined,
   };
 
   return (
     <>
       <JsonLd data={articleLd} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://revialife.com/" },
+          { name: "Learn", url: "https://revialife.com/learn" },
+          { name: post.title, url: `https://revialife.com/blog/${post.slug}` },
+        ]}
+      />
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         {/* Breadcrumb */}
@@ -98,13 +111,13 @@ export default async function BlogPostPage({
           </span>
           <span>By {post.author}</span>
           <span>·</span>
-          <span>
+          <time dateTime={post.publishedAt.toISOString()}>
             {new Date(post.publishedAt).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
-          </span>
+          </time>
           <span>·</span>
           <span>{readTime(post.content)} min read</span>
         </div>

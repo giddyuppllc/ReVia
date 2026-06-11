@@ -80,6 +80,9 @@ export default function ProductCard({ product }: { product: Product }) {
             <img
               src={image}
               alt={product.name}
+              width={400}
+              height={400}
+              loading="lazy"
               className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
             />
           </div>

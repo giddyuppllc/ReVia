@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { researchCompounds } from "@/data/research-compounds";
+import { CITIES } from "@/data/cities";
 export const dynamic = "force-dynamic";
 
 const SITE = "https://revialife.com";
@@ -27,12 +28,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const categoryUrls: MetadataRoute.Sitemap = categories.map((c) => ({
-    url: `${SITE}/shop?category=${c.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
+  // Category filter URLs intentionally excluded from the sitemap (audit May 2026):
+  // they're thin filter views of /shop, not standalone landing pages.
+  void categories;
 
   const blogUrls: MetadataRoute.Sitemap = blogPosts.map((b) => ({
     url: `${SITE}/blog/${b.slug}`,
@@ -87,13 +85,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 
+  // Geofenced engine: /locations index + 25 city hubs + featured products ×
+  // cities. The long-tail product×city pages render on demand (ISR) and are
+  // discoverable via the city hubs; featured combos are surfaced here to focus
+  // crawl budget on the highest-intent terms.
+  const geoProducts = await prisma.product.findMany({
+    where: { active: true, featured: true },
+    select: { slug: true },
+  });
+  const locationUrls: MetadataRoute.Sitemap = [
+    { url: `${SITE}/locations`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    ...CITIES.map((c) => ({
+      url: `${SITE}/locations/${c.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
+    ...CITIES.flatMap((c) =>
+      geoProducts.map((p) => ({
+        url: `${SITE}/locations/${c.slug}/${p.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.55,
+      })),
+    ),
+  ];
+
   return [
     ...staticUrls,
     ...productUrls,
     ...stackUrls,
     ...researchUrls,
     ...blogUrls,
-    ...categoryUrls,
     ...policyUrls,
+    ...locationUrls,
   ];
 }

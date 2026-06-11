@@ -44,6 +44,8 @@ export default function HeroCarousel() {
               <img
                 src={slide.image}
                 alt={slide.title}
+                width={1600}
+                height={900}
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />

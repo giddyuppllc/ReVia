@@ -30,8 +30,12 @@ export default async function StacksPage() {
 
   const tier = await getActiveTier();
 
+  // Stacks are products in the "Stacks" category — the same definition the
+  // sitemap and the /stacks/[slug] detail pages use. The previous
+  // `tags contains "hero-stack"` filter matched nothing in production, which
+  // left this listing rendering blank.
   const stacks = await prisma.product.findMany({
-    where: { active: true, tags: { contains: "hero-stack" } },
+    where: { active: true, category: { name: { equals: "Stacks", mode: "insensitive" } } },
     include: { variants: true, category: true },
     orderBy: { name: "asc" },
   });

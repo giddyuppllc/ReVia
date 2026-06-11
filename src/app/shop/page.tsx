@@ -5,13 +5,23 @@ import { prisma } from "@/lib/prisma";
 import { getActiveTier, resolvePriceForVariant } from "@/lib/pricing";
 import ProductCard from "@/components/ProductCard";
 import FloatingOrbs from "@/components/FloatingOrbs";
+import ItemListSchema from "@/components/seo/ItemListSchema";
 
 // ISR — cache for 60s, serve stale while revalidating up to 5min
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Shop | ReVia",
+  title: "Shop All Peptides & Research Compounds | ReVia Life",
+  description:
+    "Browse ReVia's full catalog of research-grade peptides and compounds. Independently verified to >99% purity, USA-shipped, third-party tested, with COA available on request.",
   alternates: { canonical: "https://revialife.com/shop" },
+  openGraph: {
+    title: "Shop All Peptides & Research Compounds | ReVia Life",
+    description:
+      "Browse ReVia's full catalog of research-grade peptides and compounds. >99% purity, USA-shipped, third-party tested.",
+    url: "https://revialife.com/shop",
+    type: "website",
+  },
 };
 
 export default async function ShopPage({
@@ -120,6 +130,13 @@ export default async function ShopPage({
 
   return (
     <section className="relative mx-auto max-w-[1440px] px-6 py-16 sm:px-10 lg:px-16">
+      <ItemListSchema
+        name="ReVia Life — Research Peptides Catalog"
+        items={productsWithTierPricing.map((p) => ({
+          name: p.name,
+          url: `https://revialife.com/shop/${p.slug}`,
+        }))}
+      />
       <FloatingOrbs />
 
       {/* ── Header ── */}

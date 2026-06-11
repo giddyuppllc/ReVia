@@ -72,13 +72,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "ReVia",
-    url: "https://revialife.com",
+    url: "https://revialife.com/",
     title: "ReVia | Premium Peptides, Proven Purity",
     description:
       "Your #1 trusted source for independently verified peptides with >99% purity.",
     images: [
       {
-        url: "/images/hero-vials.png",
+        url: "/images/hero-overlook.webp",
         width: 1200,
         height: 630,
         alt: "ReVia — Premium peptides, proven purity",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     title: "ReVia | Premium Peptides, Proven Purity",
     description:
       "Your #1 trusted source for independently verified peptides with >99% purity.",
-    images: ["/images/hero-vials.png"],
+    images: ["/images/hero-overlook.webp"],
   },
   robots: {
     index: true,
@@ -117,6 +117,21 @@ const organizationLd = {
   },
 };
 
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "ReVia Life",
+  url: "https://revialife.com/",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://revialife.com/shop?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -128,6 +143,12 @@ export default function RootLayout({
       className={`${jakarta.variable} ${mono.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${cormorant.variable} ${jost.variable} h-full antialiased`}
     >
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-overlook.webp"
+          fetchPriority="high"
+        />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDJGY6R2PS" />
         <script
           dangerouslySetInnerHTML={{
@@ -138,6 +159,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-[#453834]">
         <RuoBanner />
         <JsonLd data={organizationLd} />
+        <JsonLd data={websiteLd} />
         <CartDrawer />
         <Toast />
         <LayoutShell>{children}</LayoutShell>
