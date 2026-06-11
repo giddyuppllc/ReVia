@@ -85,12 +85,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 
-  // Geofenced engine: /locations index + 25 city hubs + featured products ×
-  // cities. The long-tail product×city pages render on demand (ISR) and are
-  // discoverable via the city hubs; featured combos are surfaced here to focus
-  // crawl budget on the highest-intent terms.
+  // Geofenced engine: /locations index + 25 city hubs + FEATURED products ×
+  // cities ONLY. The full product×city long tail still renders on demand (ISR)
+  // and stays discoverable via the city hubs' internal links — but we keep it
+  // OUT of the sitemap so a young domain's crawl budget concentrates on the
+  // highest-intent combos instead of ~1,800 thin pages (the comment's original
+  // "focus crawl budget" intent; the query previously emitted every product).
   const geoProducts = await prisma.product.findMany({
-    where: { active: true },
+    where: { active: true, featured: true },
     select: { slug: true },
   });
   const locationUrls: MetadataRoute.Sitemap = [
