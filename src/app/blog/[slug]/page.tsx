@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `https://revialife.com/blog/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,

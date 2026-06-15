@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/disclaimer" },
   title: "Disclaimer",
   description:
     "Legal disclaimer for ReVia Research Supply LLC. All products are for research use only and are not intended for human consumption.",

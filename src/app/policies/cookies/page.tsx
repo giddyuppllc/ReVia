@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/cookies" },
   title: "Cookie Policy",
   description:
     "Cookie Policy for ReVia Research Supply LLC. Learn about the cookies and tracking technologies we use on our website.",

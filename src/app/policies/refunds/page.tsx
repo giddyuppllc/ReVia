@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/refunds" },
   title: "Refund & Return Policy",
   description:
     "Refund and Return Policy for ReVia Research Supply LLC. Understand our all-sales-final policy and the limited exceptions for damaged or incorrect shipments.",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/payments" },
   title: "Payment Policy",
   description:
     "Payment Policy for ReVia Research Supply LLC. Learn about accepted payment methods, billing, taxes, and fraud prevention for research peptide purchases.",

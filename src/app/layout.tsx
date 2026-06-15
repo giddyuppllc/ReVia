@@ -55,16 +55,6 @@ export const metadata: Metadata = {
   },
   description:
     "Your #1 trusted source for independently verified peptides with >99% purity. Same-day shipping, 85+ compounds, US-based.",
-  keywords: [
-    "peptides",
-    "peptide supply",
-    "BPC-157",
-    "semaglutide",
-    "tirzepatide",
-    "GHK-Cu",
-    "premium peptides",
-    "peptide vendor",
-  ],
   authors: [{ name: "ReVia" }],
   creator: "ReVia LLC",
   metadataBase: new URL("https://revialife.com"),
@@ -152,7 +142,7 @@ export default function RootLayout({
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDJGY6R2PS" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WDJGY6R2PS');`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WDJGY6R2PS',{linker:{domains:['revialife.com','world-wide-peptide.com']}});`,
           }}
         />
       </head>

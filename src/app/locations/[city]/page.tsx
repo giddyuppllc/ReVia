@@ -85,6 +85,28 @@ export default async function CityHubPage({ params }: PageProps) {
     })),
   };
 
+  // City-scoped Store schema so the location hub isn't carrying only the
+  // sitewide Organization/WebSite markup (it's a research-supply storefront
+  // serving this metro, not a physical shop — no street address).
+  const storeSchema = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: `ReVia Life — ${city.name}, ${city.stateAbbr}`,
+    url: `${SITE}/locations/${city.slug}`,
+    image: `${SITE}/images/hero-overlook.webp`,
+    description: `Research-grade peptides shipped to ${city.name}, ${city.state}. Third-party COA tested, research use only.`,
+    areaServed: {
+      "@type": "City",
+      name: city.name,
+      addressRegion: city.stateAbbr,
+    },
+    parentOrganization: {
+      "@type": "Organization",
+      name: "ReVia Research Supply",
+      url: SITE,
+    },
+  };
+
   // Lateral hub-to-hub mesh: link to sibling city hubs (same region first) so
   // the 25 metros interlink, not just hang off the /locations index.
   const relatedCities = [
@@ -95,6 +117,7 @@ export default async function CityHubPage({ params }: PageProps) {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
       <JsonLd data={itemListSchema} />
+      <JsonLd data={storeSchema} />
       <BreadcrumbSchema items={breadcrumb} />
 
       <nav className="mb-6 flex flex-wrap items-center gap-1 text-xs text-neutral-500">

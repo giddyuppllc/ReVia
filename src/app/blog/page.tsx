@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Industry news, product updates, and insights from the ReVia team. The ReVia Journal.",
+  alternates: { canonical: "https://revialife.com/blog" },
 };
 
 function readTime(html: string): number {

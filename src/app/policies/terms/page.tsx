@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/terms" },
   title: "Terms of Service",
   description:
     "Terms of Service for ReVia Research Supply LLC. Read the terms and conditions governing your use of our website and purchase of research-use-only peptides.",

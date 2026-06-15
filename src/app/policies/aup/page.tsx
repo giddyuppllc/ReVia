@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/aup" },
   title: "Acceptable Use Policy",
   description:
     "Acceptable Use Policy for ReVia Research Supply LLC. Understand the permitted and prohibited uses of our research-use-only peptide products.",

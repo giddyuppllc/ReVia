@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about ReVia research peptides, ordering, shipping, and more.",
+  alternates: { canonical: "https://revialife.com/faq" },
 };
 
 const faqData = [

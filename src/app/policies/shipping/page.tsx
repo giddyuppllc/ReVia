@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/shipping" },
   title: "Shipping Policy",
   description:
     "Shipping Policy for ReVia Research Supply LLC. Learn about our processing times, shipping methods, cold chain handling, and delivery guidelines for research peptides.",

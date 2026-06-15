@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://revialife.com/policies/ccpa" },
   title: "CCPA Notice",
   description:
     "California Consumer Privacy Act (CCPA) Notice for ReVia Research Supply LLC. Learn about your privacy rights as a California resident.",

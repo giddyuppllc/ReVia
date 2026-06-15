@@ -1,6 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Canonical host: 308-redirect the www. variant to the bare apex so Google
+  // stops indexing www.revialife.com pages as duplicate "alternate" URLs.
+  // (The origin does receive Host: www.revialife.com through Cloudflare, so
+  // this fires server-side.) Pair with Cloudflare "Always Use HTTPS" for the
+  // http -> https leg.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.revialife.com" }],
+        destination: "https://revialife.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
