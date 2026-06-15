@@ -30,6 +30,7 @@ const VALID_PATHS = new Set([
   "quiz",
   "pdf_download",
   "referral",
+  "pageview",
 ]);
 
 function corsHeaders(origin: string | null): Record<string, string> {
