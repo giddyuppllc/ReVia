@@ -5,7 +5,10 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email } = body;
+    const { email, source } = body as { email?: string; source?: string };
+    // The welcome popup trades an email for the WELCOME10 first-order code, so an
+    // address we already hold is not an error there — it still gets the code.
+    const fromWelcomePopup = source === "welcome-popup";
 
     if (!email || typeof email !== "string") {
       return NextResponse.json(
@@ -26,26 +29,34 @@ export async function POST(request: Request) {
       where: { email: email.toLowerCase().trim() },
     });
 
-    if (existing) {
+    if (existing && !fromWelcomePopup) {
       return NextResponse.json(
         { error: "This email is already subscribed" },
         { status: 409 }
       );
     }
 
-    await prisma.newsletter.create({
-      data: { email: email.toLowerCase().trim() },
-    });
+    const address = email.toLowerCase().trim();
+
+    if (!existing) {
+      await prisma.newsletter.create({ data: { email: address } });
+    }
 
     // Send newsletter welcome email
     try {
-      const { sendNewsletterWelcome } = await import("@/lib/email");
-      await sendNewsletterWelcome(email.toLowerCase().trim());
+      const { sendNewsletterWelcome, sendWelcomeDiscount } = await import("@/lib/email");
+      if (fromWelcomePopup) {
+        await sendWelcomeDiscount(address);
+      } else {
+        await sendNewsletterWelcome(address);
+      }
     } catch (emailErr) {
       console.error("Failed to send newsletter welcome:", emailErr);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      fromWelcomePopup ? { success: true, code: "WELCOME10" } : { success: true }
+    );
   } catch {
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },
