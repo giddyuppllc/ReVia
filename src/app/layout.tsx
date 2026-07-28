@@ -68,7 +68,7 @@ export const metadata: Metadata = {
       "Your #1 trusted source for independently verified peptides with >99% purity.",
     images: [
       {
-        url: "/images/hero-overlook.webp",
+        url: "/images/hero-lab-coa.webp",
         width: 1200,
         height: 630,
         alt: "ReVia — Premium peptides, proven purity",
