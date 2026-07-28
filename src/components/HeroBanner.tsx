@@ -44,7 +44,7 @@ export default function HeroBanner() {
     <section className="relative h-[58vh] sm:h-[74vh] flex items-center">
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-10 lg:px-12">
-        <div className="max-w-xl">
+        <div className="max-w-xl rounded-3xl border border-white/45 bg-[#F0EDE5]/40 backdrop-blur-xl backdrop-saturate-125 px-6 py-7 shadow-[0_10px_40px_-12px_rgba(31,42,54,0.18)] sm:px-9 sm:py-10">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
