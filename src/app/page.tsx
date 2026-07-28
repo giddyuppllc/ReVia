@@ -32,7 +32,7 @@ export default async function HomePage() {
   return (
     <div className="relative">
       {/* Hero background */}
-      <div className="absolute top-0 left-0 right-0 h-[58vh] sm:h-[74vh] z-0 overflow-hidden bg-[#F0EDE5]">
+      <div className="absolute top-0 left-0 right-0 h-[calc(58vh+5rem)] sm:h-[calc(74vh+6rem)] z-0 overflow-hidden bg-[#F0EDE5]">
         <img
           src="/images/hero-lab-coa.webp"
           alt=""
