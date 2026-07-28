@@ -41,9 +41,8 @@ export default async function HomePage() {
           fetchPriority="high"
           className="h-full w-full object-cover object-[50%_55%] sm:object-[68%_42%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] from-2% via-[#F0EDE5]/25 via-22% to-transparent to-55%" />
-        <div className="absolute inset-0 bg-[#F0EDE5]/82 sm:hidden" />
-        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5] from-25% via-[#F0EDE5]/88 via-44% to-transparent to-74%" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] from-0% via-[#F0EDE5]/20 via-14% to-transparent to-38%" />
+        <div className="absolute inset-0 bg-[#F0EDE5]/20 sm:hidden" />
       </div>
 
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
