@@ -1,161 +1,154 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FlaskConical, Truck, Package, MapPin, ArrowRight, Atom } from "lucide-react";
+import { FlaskConical, Truck, Package, MapPin, ArrowRight, Atom, ShieldCheck } from "lucide-react";
 
-function CompoundCounter({ delay }: { delay: number }) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
+const HEADLINE = "Premium Peptides. Proven Purity. Real Results.";
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setStarted(true), delay * 1000);
-    return () => clearTimeout(timeout);
-  }, [delay]);
+// Fine print sits under the headline in the top bar, not in the fact ticker.
+const FINE_PRINT =
+  "A trusted laboratory supply source for independently tested, research-grade peptides. Every batch verified to >99% purity. For research use only.";
 
-  useEffect(() => {
-    if (!started) return;
-    const target = 85;
-    const totalDuration = 1800;
-    let startTime: number;
+// Bottom bar is facts only now.
+const INFO = [
+  { icon: FlaskConical, text: ">99% Purity" },
+  { icon: Atom, text: "LC-MS Verified" },
+  { icon: ShieldCheck, text: "US-Manufactured · cGMP Certified" },
+  { icon: Truck, text: "Same-Day Dispatch" },
+  { icon: Package, text: "85+ Peptides" },
+  { icon: MapPin, text: "US-Based" },
+];
 
-    function tick(now: number) {
-      if (!startTime) startTime = now;
-      const elapsed = now - startTime;
-      // Cubic easing — starts slow, accelerates exponentially
-      const progress = Math.min((elapsed / totalDuration) ** 3, 1);
-      setCount(Math.round(progress * target));
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        setCount(target);
-      }
-    }
-
-    requestAnimationFrame(tick);
-  }, [started]);
-
-  return <>{count === 85 ? "85+" : count}</>;
+/**
+ * Seamless horizontal ticker: two identical copies, travelling exactly half the
+ * track width, so copy two lands where copy one began.
+ *
+ * Spacing between copies is the caller's job (trailing padding on the cell).
+ * Make that padding wide enough that one copy exceeds the viewport, or both are
+ * on screen at once and it reads as stuttering repetition rather than a loop.
+ */
+function Ticker({
+  children,
+  duration,
+  reverse = false,
+  fadeFrom,
+}: {
+  children: React.ReactNode;
+  duration: number;
+  reverse?: boolean;
+  fadeFrom: string;
+}) {
+  return (
+    <div className="relative overflow-hidden">
+      <div className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r ${fadeFrom} to-transparent sm:w-20`} />
+      <div className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l ${fadeFrom} to-transparent sm:w-20`} />
+      <motion.div
+        className="flex w-max"
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ x: { repeat: Infinity, repeatType: "loop", duration, ease: "linear" } }}
+      >
+        {/* Two copies in separate boxes — bare sibling `children` would collide keys */}
+        <div className="flex shrink-0 items-center">{children}</div>
+        <div className="flex shrink-0 items-center" aria-hidden="true">
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
 }
 
 export default function HeroBanner() {
   return (
-    <section className="relative min-h-[58vh] sm:min-h-[74vh] flex items-center py-10 sm:py-12">
+    <section className="relative h-[58vh] sm:h-[74vh]">
+      <h1 className="sr-only">Premium Peptides. Proven Purity. Real Results.</h1>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-10 lg:max-w-none lg:mx-0 lg:px-14">
-        <div className="max-w-xl rounded-3xl border border-white/30 sm:border-white/55 bg-[#F0EDE5]/15 sm:bg-[#F0EDE5]/45 backdrop-blur-sm sm:backdrop-blur-xl backdrop-saturate-125 px-5 py-6 shadow-[0_10px_40px_-12px_rgba(31,42,54,0.22)] sm:px-9 sm:py-10">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 3.8, type: "spring", stiffness: 200, damping: 15 }}
-              className="relative inline-block"
-            >
-              <span className="pill-shimmer relative inline-flex items-center gap-1.5 rounded-full border border-sky-400/60 bg-white/60 backdrop-blur-sm px-2.5 py-1 text-[9px] font-semibold tracking-widest text-stone-600 uppercase overflow-hidden sm:gap-2 sm:px-4 sm:py-1.5 sm:text-xs">
-                <motion.span
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >
-                  <Atom className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-sky-500" />
-                </motion.span>
-                US-Manufactured &bull; cGMP Certified
-              </span>
-            </motion.div>
-
-            <h1
-              aria-label="Premium Peptides. Proven Purity. Real Results."
-              className="mt-3 text-[2.15rem] font-extrabold tracking-[-0.03em] text-stone-800 sm:mt-6 sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05]"
-            >
-              <motion.span
-                className="block"
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-              >
-                Premium Peptides.
-              </motion.span>
-              <motion.span
-                className="block"
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.5, ease: "easeOut" }}
-              >
-                Proven Purity.
-              </motion.span>
-              <motion.span
-                className="block"
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }}
-              >
-                Real <span className="hero-shimmer">Results.</span>
-              </motion.span>
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 2.9 }}
-              className="mt-2 text-sm text-stone-600 leading-relaxed sm:mt-3 sm:text-base max-w-lg"
-            >
-              <span className="hidden sm:inline">A trusted laboratory supply source for independently tested, research-grade peptides. Every batch verified to &gt;99% purity. For research use only.</span>
-              <span className="sm:hidden">Research-grade peptides. &gt;99% purity. For research use only.</span>
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 3.2 }}
-              className="mt-4 flex flex-row flex-wrap gap-2.5 sm:mt-5 sm:gap-3"
-            >
-              {/* Explore — blue flow button */}
-              <Link
-                href="/shop"
-                className="group relative flex items-center gap-1 overflow-hidden border-[1.5px] border-sky-400/50 bg-sky-400 rounded-full px-4 py-2.5 text-xs font-bold text-white sm:px-8 sm:py-4 sm:text-base cursor-pointer hover:text-stone-800 hover:border-stone-300/60 active:scale-[0.95]"
-              >
-                <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-white fill-none z-[9] group-hover:left-4 group-hover:stroke-stone-800 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
-                <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
-                  Shop Now
-                </span>
-                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full opacity-0 group-hover:w-[300px] group-hover:h-[300px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)]" />
-                <ArrowRight className="absolute w-4 h-4 right-4 stroke-white fill-none z-[9] group-hover:right-[-25%] group-hover:stroke-stone-800 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
-              </Link>
-
-              {/* View Stacks — clean border button */}
-              <Link
-                href="/shop?category=stacks"
-                className="group relative flex items-center gap-1 overflow-hidden rounded-full border-2 border-sky-300/60 bg-[#F0EDE5] px-4 py-2.5 text-xs font-bold text-stone-600 sm:px-8 sm:py-4 sm:text-base cursor-pointer hover:text-white active:scale-[0.95] transition-colors duration-500"
-              >
-                <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-stone-600 fill-none z-[9] group-hover:left-4 group-hover:stroke-white transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
-                <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
-                  View Stacks
-                </span>
-                <span className="absolute inset-0 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-sky-400 opacity-0 group-hover:w-[300px] group-hover:h-[300px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)] z-[0]" />
-                <ArrowRight className="absolute w-4 h-4 right-4 stroke-stone-600 fill-none z-[9] group-hover:right-[-25%] group-hover:stroke-white transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 3.5 }}
-              className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1 sm:mt-8 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-2"
-            >
-              {[
-                { icon: FlaskConical, text: ">99% Purity" },
-                { icon: Atom, text: "LC-MS Verified" },
-                { icon: Truck, text: "Same-Day Dispatch" },
-                { icon: Package, text: "85+ Peptides" },
-                { icon: MapPin, text: "US-Based" },
-              ].map((b) => (
-                <div key={b.text} className="flex items-center gap-1 text-[10px] text-stone-500 sm:gap-2.5 sm:text-sm">
-                  <b.icon className="h-4 w-4 text-sky-600/70" />
-                  {b.text}
-                </div>
-              ))}
-            </motion.div>
+      {/* ── TOP BAR ── proper glass: low-opacity fill, heavy blur, a bright top
+          edge and a soft shadow underneath so it lifts off the photo. */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="absolute inset-x-0 top-0 z-20"
+        aria-hidden="true"
+      >
+        {/* Static — the headline is the one thing that should hold still. */}
+        <div className="border-t border-white/60 border-b border-white/25 bg-[#F0EDE5]/35 px-5 py-3 text-center shadow-[0_8px_28px_-10px_rgba(31,42,54,0.28)] backdrop-blur-2xl backdrop-saturate-150 sm:py-4">
+          <p className="font-display text-xl leading-tight tracking-tight text-stone-800 sm:text-3xl lg:text-4xl">
+            {HEADLINE}
+          </p>
+          <p className="mx-auto mt-1 max-w-3xl text-[9px] font-medium leading-snug text-stone-600/90 sm:mt-1.5 sm:text-[11px]">
+            {FINE_PRINT}
+          </p>
         </div>
+      </motion.div>
+
+      {/* ── CENTRE ── buttons only */}
+      <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-5">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="pointer-events-auto flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-4"
+        >
+          {/* Shop Now — solid brand blue */}
+          <Link
+            href="/shop"
+            // NOTE: globals.css remaps the whole sky-*/blue-* scale to warm mocha
+            // (--color-sky-500: #A38569), so `bg-sky-500` renders brown. An actual
+            // blue has to be an explicit hex — this one matches the logo swoosh
+            // and the vial label bands.
+            className="group relative flex items-center gap-1 overflow-hidden rounded-full border-[1.5px] border-[#3E97CE] bg-[#3E97CE] px-5 py-3 text-sm font-bold text-white shadow-xl shadow-[#1c4a68]/30 sm:px-9 sm:py-4 sm:text-base cursor-pointer hover:bg-[#3585B8] hover:border-[#3585B8] active:scale-[0.95] transition-colors duration-300"
+          >
+            <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-white fill-none z-[9] group-hover:left-4 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+            <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
+              Shop Now
+            </span>
+            <ArrowRight className="absolute w-4 h-4 right-4 stroke-white fill-none z-[9] group-hover:right-[-25%] transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+          </Link>
+
+          {/* View Stacks — glass, to match the bars */}
+          <Link
+            href="/shop?category=stacks"
+            className="group relative flex items-center gap-1 overflow-hidden rounded-full border-2 border-white/60 bg-[#F0EDE5]/35 px-5 py-3 text-sm font-bold text-stone-800 shadow-xl shadow-stone-900/15 backdrop-blur-xl sm:px-9 sm:py-4 sm:text-base cursor-pointer hover:bg-[#F0EDE5]/70 active:scale-[0.95] transition-colors duration-300"
+          >
+            <ArrowRight className="absolute w-4 h-4 left-[-25%] stroke-stone-700 fill-none z-[9] group-hover:left-4 transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+            <span className="relative z-[1] -translate-x-3 group-hover:translate-x-3 transition-all duration-[800ms] ease-out">
+              View Stacks
+            </span>
+            <ArrowRight className="absolute w-4 h-4 right-4 stroke-stone-700 fill-none z-[9] group-hover:right-[-25%] transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+          </Link>
+        </motion.div>
       </div>
+
+      {/* ── BOTTOM BAR ── facts only; anchors the hero into the TrustTicker below */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+        className="absolute inset-x-0 bottom-0 z-20"
+        aria-hidden="true"
+      >
+        <div className="border-t border-white/10 bg-stone-900/85 py-3 backdrop-blur-xl sm:py-4">
+          <Ticker duration={40} reverse fadeFrom="from-stone-900">
+            <>
+              {INFO.map((item, i) => (
+                <span
+                  key={`${item.text}-${i}`}
+                  className="flex items-center gap-2.5 whitespace-nowrap pr-10 text-[11px] font-medium uppercase tracking-[0.16em] text-stone-300 sm:gap-3 sm:pr-16 sm:text-[13px]"
+                >
+                  <item.icon className="h-4 w-4 shrink-0 text-[#5BA9D8]" />
+                  {item.text}
+                </span>
+              ))}
+              {/* Six short facts total ~1400px, narrower than a desktop viewport,
+                  so both loop copies were on screen at once and US-Based read as
+                  duplicated. This spacer pushes each copy past 100vw. */}
+              <span aria-hidden="true" className="shrink-0 pr-[42vw]" />
+            </>
+          </Ticker>
+        </div>
+      </motion.div>
     </section>
   );
 }
