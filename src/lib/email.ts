@@ -914,6 +914,43 @@ export async function sendNewsletterWelcome(email: string) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  14b. Welcome discount — claimed from the first-visit popup          */
+/* ------------------------------------------------------------------ */
+
+export async function sendWelcomeDiscount(email: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
+
+  const html = `
+<div style="${wrapper}">
+  <div style="${card}">
+    <h1 style="${heading}">Here's your 10% off</h1>
+    <p style="${subtext}">
+      Thanks for joining the ReVia list. Use this code at checkout to take 10% off your
+      first order.
+    </p>
+
+    <div style="text-align:center;margin:24px 0;">
+      <div style="display:inline-block;border:2px dashed #A38569;border-radius:12px;padding:14px 28px;font-family:monospace;font-size:22px;letter-spacing:4px;color:#ffffff;">
+        WELCOME10
+      </div>
+    </div>
+
+    <p style="${subtext}">
+      One use per customer. Applies to your order subtotal at checkout.
+    </p>
+
+    <div style="text-align:center;margin:24px 0;">
+      <a href="${baseUrl}/shop" style="${btnStyle}">Shop the Catalog</a>
+    </div>
+
+    ${footerBlock()}
+  </div>
+</div>`;
+
+  await send(email, "Your 10% off code — ReVia", html);
+}
+
+/* ------------------------------------------------------------------ */
 /*  15. Affiliate Approved                                             */
 /* ------------------------------------------------------------------ */
 

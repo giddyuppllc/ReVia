@@ -10,6 +10,7 @@ import CookieConsent from "@/components/CookieConsent";
 import AffiliateTracker from "@/components/AffiliateTracker";
 import RuoBanner from "@/components/RuoBanner";
 import AgeGate from "@/components/AgeGate";
+import WelcomePopup from "@/components/WelcomePopup";
 import { Suspense } from "react";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -157,6 +158,7 @@ export default function RootLayout({
         <CookieConsent />
         <Suspense><AffiliateTracker /></Suspense>
         <AgeGate />
+        <Suspense><WelcomePopup /></Suspense>
       </body>
     </html>
   );
