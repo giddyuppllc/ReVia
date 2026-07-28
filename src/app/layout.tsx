@@ -146,7 +146,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/hero-overlook.webp"
+          href="/images/hero-lab-coa.webp"
           fetchPriority="high"
         />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDJGY6R2PS" />
