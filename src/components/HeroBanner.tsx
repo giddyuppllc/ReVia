@@ -41,7 +41,7 @@ function CompoundCounter({ delay }: { delay: number }) {
 
 export default function HeroBanner() {
   return (
-    <section className="relative h-[55vh] sm:h-[65vh] flex items-center">
+    <section className="relative h-[58vh] sm:h-[74vh] flex items-center">
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-10 lg:px-12">
         <div className="max-w-xl">
@@ -64,7 +64,7 @@ export default function HeroBanner() {
 
             <h1
               aria-label="Premium Peptides. Proven Purity. Real Results."
-              className="mt-3 text-3xl font-extrabold tracking-tight text-stone-800 sm:mt-5 sm:text-5xl lg:text-6xl leading-[1.1]"
+              className="mt-3 text-[2.15rem] font-extrabold tracking-[-0.03em] text-stone-800 sm:mt-6 sm:text-6xl lg:text-7xl leading-[1.03]"
             >
               <motion.span
                 className="block"
