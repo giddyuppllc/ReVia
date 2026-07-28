@@ -12,7 +12,7 @@ import { Loader2, Check, X, Copy } from "lucide-react";
 //   • waits for the age gate to be cleared first, otherwise it fires behind it
 //   • opens on a delay OR on exit intent, whichever comes first
 const STORAGE_KEY = "revia-welcome-popup";
-const CODE = "WELCOME10";
+const CODE = "WELCOME";
 const DELAY_MS = 8000;
 const SUPPRESSED_PREFIXES = ["/checkout", "/cart", "/account", "/admin", "/order"];
 
@@ -170,7 +170,7 @@ export default function WelcomePopup() {
               </div>
               <h2 className="font-serif text-2xl text-[#3D3229]">You&apos;re in.</h2>
               <p className="mt-2 text-sm leading-relaxed text-stone-600">
-                Use this code at checkout for 10% off your first order. We&apos;ve emailed it to you as well.
+                Use this code at checkout on your first order. We&apos;ve emailed it to you as well.
               </p>
               <button
                 type="button"
@@ -194,12 +194,25 @@ export default function WelcomePopup() {
                 First order
               </p>
               <h2 className="mt-2 font-serif text-3xl leading-tight text-[#3D3229]">
-                Take 10% off
+                Save up to 20%
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                Join the ReVia list for your discount code, batch COA releases, and restock
+                Join the ReVia list for your first-order code, batch COA releases, and restock
                 notices. No spam — unsubscribe any time.
               </p>
+
+              <dl className="mt-4 divide-y divide-stone-200 border-y border-stone-200 text-left text-[13px]">
+                {[
+                  ["Under $200", "10% off"],
+                  ["$200 – $500", "15% off"],
+                  ["Over $500", "20% off"],
+                ].map(([tier, off]) => (
+                  <div key={tier} className="flex items-center justify-between py-2">
+                    <dt className="text-stone-500">{tier}</dt>
+                    <dd className="font-semibold text-[#3D3229]">{off}</dd>
+                  </div>
+                ))}
+              </dl>
 
               <form onSubmit={handleSubmit} className="mt-5 space-y-3">
                 <input

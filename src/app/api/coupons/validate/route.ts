@@ -1,6 +1,12 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import {
+  couponPercentFor,
+  hasOrderedBefore,
+  isWelcomeTiered,
+  nextWelcomeTier,
+} from "@/lib/welcome-offer";
 
 export async function POST(request: NextRequest) {
   try {
@@ -80,13 +86,24 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // The welcome offer is for first orders only — the per-user limit alone would
+    // still hand it to an existing customer placing a second one.
+    if (isWelcomeTiered(coupon) && (await hasOrderedBefore(userEmail))) {
+      return NextResponse.json({
+        valid: false,
+        message: "This code is for first orders only",
+      });
+    }
+
+    const percent = couponPercentFor(coupon, subtotal);
+
     let discount = 0;
     let freeShipping = false;
     if (coupon.type === "shipping") {
       freeShipping = true;
       discount = typeof shippingCost === "number" ? shippingCost : 0;
     } else if (coupon.type === "percentage") {
-      discount = Math.round(subtotal * (coupon.value / 100));
+      discount = Math.round(subtotal * (percent / 100));
     } else {
       discount = Math.min(coupon.value, subtotal);
     }
@@ -95,9 +112,15 @@ export async function POST(request: NextRequest) {
     if (coupon.type === "shipping") {
       message = "Free shipping applied!";
     } else if (coupon.type === "percentage") {
-      message = `${coupon.value}% off applied!`;
+      message = `${percent}% off applied!`;
     } else {
       message = `$${(coupon.value / 100).toFixed(2)} off applied!`;
+    }
+
+    // Nudge toward the next tier when one is within reach.
+    const next = isWelcomeTiered(coupon) ? nextWelcomeTier(subtotal) : null;
+    if (next) {
+      message += ` Add $${(next.spendMoreCents / 100).toFixed(2)} to save ${next.percent}%.`;
     }
 
     return NextResponse.json({
@@ -105,7 +128,7 @@ export async function POST(request: NextRequest) {
       discount,
       freeShipping,
       type: coupon.type,
-      value: coupon.value,
+      value: percent,
       message,
     });
   } catch (err) {

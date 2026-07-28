@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      fromWelcomePopup ? { success: true, code: "WELCOME10" } : { success: true }
+      fromWelcomePopup ? { success: true, code: "WELCOME" } : { success: true }
     );
   } catch {
     return NextResponse.json(

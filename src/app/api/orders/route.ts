@@ -9,6 +9,7 @@ import { sendOrderConfirmation, sendAdminNewOrderAlert, sendVerificationEmail } 
 import { rateLimit } from "@/lib/rate-limit";
 import { validateShippingAddress, validateOrderItems, sanitizeString, validateEmail, validatePassword } from "@/lib/validation";
 import { calculateTax } from "@/lib/tax";
+import { couponPercentFor, hasOrderedBefore, isWelcomeTiered } from "@/lib/welcome-offer";
 import type { PaymentMethod } from "@/lib/constants";
 import { verifyTurnstile } from "@/lib/turnstile";
 
@@ -294,11 +295,19 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      // First-order-only gate for the tiered welcome offer (see welcome-offer.ts).
+      if (isWelcomeTiered(coupon) && (await hasOrderedBefore(buyerEmail))) {
+        return NextResponse.json(
+          { error: "This code is for first orders only" },
+          { status: 400 }
+        );
+      }
+
       if (coupon.type === "shipping") {
         freeShippingFromCoupon = true;
         // discount amount is recorded after we know the shipping fee, below
       } else if (coupon.type === "percentage") {
-        const discount = Math.round(total * (coupon.value / 100));
+        const discount = Math.round(total * (couponPercentFor(coupon, total) / 100));
         total = Math.max(0, total - discount);
         couponDiscountAmount = discount;
       } else {
