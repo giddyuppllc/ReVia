@@ -13,7 +13,11 @@ import { Loader2, Check, X, Copy } from "lucide-react";
 //   • opens on a delay OR on exit intent, whichever comes first
 const STORAGE_KEY = "revia-welcome-popup";
 const CODE = "WELCOME";
-const DELAY_MS = 8000;
+// Fires ~1s in. The age gate, when a visitor hasn't cleared it yet, still goes
+// first — two modals at once reads as broken — but for everyone who has (which
+// is every returning visitor) this lands as the page settles.
+const DELAY_MS = 1200;
+const AGE_GATE_GRACE_MS = 1000;
 const SUPPRESSED_PREFIXES = ["/checkout", "/cart", "/account", "/admin", "/order"];
 
 export default function WelcomePopup() {
@@ -78,9 +82,11 @@ export default function WelcomePopup() {
       ageWatch = setInterval(() => {
         if (localStorage.getItem("revia-age-verified")) {
           clearInterval(ageWatch);
-          start();
+          // Let the age gate finish closing before the offer slides in.
+          timer = setTimeout(show, AGE_GATE_GRACE_MS);
+          document.addEventListener("mouseout", onExitIntent);
         }
-      }, 1000);
+      }, 400);
     }
 
     return cleanup;
