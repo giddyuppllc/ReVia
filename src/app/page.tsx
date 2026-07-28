@@ -32,18 +32,18 @@ export default async function HomePage() {
   return (
     <div className="relative">
       {/* Hero background */}
-      <div className="absolute top-4 left-4 right-4 h-[55vh] sm:top-6 sm:left-8 sm:right-8 sm:h-[65vh] lg:left-12 lg:right-12 z-0 overflow-hidden rounded-2xl sm:rounded-3xl">
+      <div className="absolute top-4 left-4 right-4 h-[55vh] sm:top-6 sm:left-8 sm:right-8 sm:h-[65vh] lg:left-12 lg:right-12 z-0 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F0EDE5]">
         <img
           src="/images/hero-lab-coa.webp"
           alt=""
           width={1536}
           height={1024}
           fetchPriority="high"
-          className="h-full w-full object-cover object-[50%_55%]"
+          className="h-full w-full object-cover object-[50%_55%] sm:object-contain sm:object-right"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] via-transparent to-transparent" />
         <div className="absolute inset-0 bg-[#F0EDE5]/82 sm:hidden" />
-        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5]/95 from-5% via-[#F0EDE5]/80 via-42% to-transparent to-72%" />
+        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5]/70 from-0% to-transparent to-28%" />
       </div>
 
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
