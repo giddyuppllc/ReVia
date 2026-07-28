@@ -41,10 +41,10 @@ function CompoundCounter({ delay }: { delay: number }) {
 
 export default function HeroBanner() {
   return (
-    <section className="relative h-[58vh] sm:h-[74vh] flex items-center">
+    <section className="relative min-h-[58vh] sm:min-h-[74vh] flex items-center py-10 sm:py-12">
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 py-6 sm:px-8 sm:py-10 lg:max-w-none lg:mx-0 lg:px-14">
-        <div className="max-w-xl rounded-3xl border border-white/45 bg-[#F0EDE5]/40 backdrop-blur-xl backdrop-saturate-125 px-6 py-7 shadow-[0_10px_40px_-12px_rgba(31,42,54,0.18)] sm:px-9 sm:py-10">
+        <div className="max-w-xl rounded-3xl border border-white/30 sm:border-white/55 bg-[#F0EDE5]/15 sm:bg-[#F0EDE5]/45 backdrop-blur-sm sm:backdrop-blur-xl backdrop-saturate-125 px-5 py-6 shadow-[0_10px_40px_-12px_rgba(31,42,54,0.22)] sm:px-9 sm:py-10">
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -64,7 +64,7 @@ export default function HeroBanner() {
 
             <h1
               aria-label="Premium Peptides. Proven Purity. Real Results."
-              className="mt-3 text-[2.15rem] font-extrabold tracking-[-0.03em] text-stone-800 sm:mt-6 sm:text-6xl lg:text-7xl leading-[1.03]"
+              className="mt-3 text-[2.15rem] font-extrabold tracking-[-0.03em] text-stone-800 sm:mt-6 sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05]"
             >
               <motion.span
                 className="block"
