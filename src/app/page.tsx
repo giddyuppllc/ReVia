@@ -32,18 +32,18 @@ export default async function HomePage() {
   return (
     <div className="relative">
       {/* Hero background */}
-      <div className="absolute top-4 left-4 right-4 h-[55vh] sm:top-6 sm:left-8 sm:right-8 sm:h-[65vh] lg:left-12 lg:right-12 z-0 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F0EDE5]">
+      <div className="absolute top-0 left-0 right-0 h-[58vh] sm:h-[74vh] z-0 overflow-hidden bg-[#F0EDE5]">
         <img
           src="/images/hero-lab-coa.webp"
           alt=""
           width={1536}
           height={1024}
           fetchPriority="high"
-          className="h-full w-full object-cover object-[50%_55%] sm:object-contain sm:object-right"
+          className="h-full w-full object-cover object-[50%_55%] sm:object-[68%_42%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F0EDE5] from-2% via-[#F0EDE5]/25 via-22% to-transparent to-55%" />
         <div className="absolute inset-0 bg-[#F0EDE5]/82 sm:hidden" />
-        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5]/70 from-0% to-transparent to-28%" />
+        <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#F0EDE5] from-25% via-[#F0EDE5]/88 via-44% to-transparent to-74%" />
       </div>
 
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
