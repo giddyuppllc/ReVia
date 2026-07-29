@@ -183,14 +183,20 @@ h1, h2, h3, h4 {
 .hero-delay-1 { animation-delay: 0.08s; }
 .hero-delay-2 { animation-delay: 0.16s; }
 
+/* Transform ONLY — no opacity. An entrance that fades from 0 leaves the copy
+   and the primary CTA invisible for as long as the animation hasn't run, and
+   animations don't run on their own schedule: Chrome freezes them in hidden or
+   background tabs (verified on prod — a backgrounded homepage sat at opacity 0
+   indefinitely). Moving instead of fading means the worst case is a button
+   sitting 12px low, not a hero nobody can see. */
 @keyframes hero-enter {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: none; }
+  from { transform: translateY(12px); }
+  to   { transform: none; }
 }
 
 @keyframes hero-enter-down {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: none; }
+  from { transform: translateY(-10px); }
+  to   { transform: none; }
 }
 
 /* Motion sensitivity: show it, don't move it. */
@@ -198,7 +204,6 @@ h1, h2, h3, h4 {
   .hero-enter,
   .hero-enter-down {
     animation: none;
-    opacity: 1;
     transform: none;
   }
 }
