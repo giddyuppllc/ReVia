@@ -65,11 +65,8 @@ export default function HeroBanner() {
 
       {/* ── TOP BAR ── proper glass: low-opacity fill, heavy blur, a bright top
           edge and a soft shadow underneath so it lifts off the photo. */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-        className="absolute inset-x-0 top-0 z-20"
+      <div
+        className="hero-enter hero-enter-down hero-delay-1 absolute inset-x-0 top-0 z-20"
         aria-hidden="true"
       >
         {/* Static — the headline is the one thing that should hold still. */}
@@ -81,15 +78,12 @@ export default function HeroBanner() {
             {FINE_PRINT}
           </p>
         </div>
-      </motion.div>
+      </div>
 
       {/* ── CENTRE ── buttons only */}
       <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-5">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="pointer-events-auto flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-4"
+        <div
+          className="hero-enter hero-delay-2 pointer-events-auto flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-4"
         >
           {/* Shop Now — solid brand blue */}
           <Link
@@ -118,15 +112,12 @@ export default function HeroBanner() {
             </span>
             <ArrowRight className="absolute w-4 h-4 right-4 stroke-stone-700 fill-none z-[9] group-hover:right-[-25%] transition-all duration-[800ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
           </Link>
-        </motion.div>
+        </div>
       </div>
 
       {/* ── BOTTOM BAR ── facts only; anchors the hero into the TrustTicker below */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-        className="absolute inset-x-0 bottom-0 z-20"
+      <div
+        className="hero-enter hero-delay-2 absolute inset-x-0 bottom-0 z-20"
         aria-hidden="true"
       >
         <div className="border-t border-white/10 bg-stone-900/85 py-3 backdrop-blur-xl sm:py-4">
@@ -148,7 +139,7 @@ export default function HeroBanner() {
             </>
           </Ticker>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

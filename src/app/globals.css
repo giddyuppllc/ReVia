@@ -169,6 +169,40 @@ h1, h2, h3, h4 {
   50% { background-position: 0% center; }
 }
 
+/* Hero entrance — CSS, deliberately NOT Framer.
+   The hero copy and the primary CTA are the first thing a visitor needs to see.
+   A Framer `initial={{opacity:0}}` holds them invisible until React hydrates,
+   and this page ships ~611KB of JS across 8 chunks, so on a slow connection the
+   buttons can be blank for seconds. A CSS animation starts at first paint of the
+   server-rendered markup — no JS involved — so the CTA appears on time even if
+   the bundle is still downloading, or never arrives. */
+.hero-enter {
+  animation: hero-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-enter-down { animation-name: hero-enter-down; }
+.hero-delay-1 { animation-delay: 0.08s; }
+.hero-delay-2 { animation-delay: 0.16s; }
+
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes hero-enter-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Motion sensitivity: show it, don't move it. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter,
+  .hero-enter-down {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Shipping banner sparkle — plays once after drop-in */
 .shipping-sparkle::after {
   content: "";
