@@ -4,8 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { verifyTokenCandidates } from "@/lib/verify-token";
 
 export async function GET(request: NextRequest) {
+  // Behind nginx, request.url carries the origin the proxy dialled
+  // (localhost:3000), so redirects built from it send the visitor nowhere.
+  // The public origin is the only safe base here.
+  const base = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
   const page = (status: string) =>
-    NextResponse.redirect(new URL(`/verify-email?status=${status}`, request.url));
+    NextResponse.redirect(new URL(`/verify-email?status=${status}`, base));
 
   try {
     // Some mail clients corrupt the "?token=" separator in transit, so the
@@ -35,7 +39,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Redirect to account page with success message
-    return NextResponse.redirect(new URL("/account?verified=true", request.url));
+    return NextResponse.redirect(new URL("/account?verified=true", base));
   } catch {
     return page("error");
   }
