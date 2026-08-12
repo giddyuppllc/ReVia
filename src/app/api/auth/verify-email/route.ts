@@ -1,25 +1,32 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { verifyTokenCandidates } from "@/lib/verify-token";
 
 export async function GET(request: NextRequest) {
-  try {
-    const token = request.nextUrl.searchParams.get("token");
+  const page = (status: string) =>
+    NextResponse.redirect(new URL(`/verify-email?status=${status}`, request.url));
 
-    if (!token) {
-      return NextResponse.json({ error: "Verification token is required" }, { status: 400 });
+  try {
+    // Some mail clients corrupt the "?token=" separator in transit, so the
+    // token is recovered from the raw query rather than read straight off
+    // searchParams. Candidates are guesses until the database confirms one.
+    const candidates = verifyTokenCandidates(request.nextUrl.search);
+
+    if (candidates.length === 0) {
+      return page("missing");
     }
 
     const user = await prisma.user.findFirst({
-      where: { verifyToken: token },
+      where: { verifyToken: { in: candidates } },
     });
 
     if (!user) {
-      return NextResponse.json({ error: "Invalid verification link" }, { status: 400 });
+      return page("invalid");
     }
 
     if (user.emailVerified) {
-      return NextResponse.json({ message: "Email already verified" });
+      return page("already");
     }
 
     await prisma.user.update({
@@ -30,6 +37,6 @@ export async function GET(request: NextRequest) {
     // Redirect to account page with success message
     return NextResponse.redirect(new URL("/account?verified=true", request.url));
   } catch {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return page("error");
   }
 }
