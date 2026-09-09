@@ -174,8 +174,8 @@ export default async function CityHubPage({ params }: PageProps) {
       )}
 
       <p className="mt-12 border-t border-neutral-200 pt-6 text-xs leading-relaxed text-neutral-400">
-        For research use only. Not for human or veterinary use. ReVia Life targets local search intent in{" "}
-        {city.name}; products ship nationwide for laboratory and research purposes.
+        For research use only. Not for human or veterinary use. Products ship
+        nationwide for laboratory and research purposes.
       </p>
     </main>
   );

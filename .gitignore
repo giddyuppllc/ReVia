@@ -27,6 +27,14 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+# Any local copy of an env file, however it was named. The rule above covered
+# .env and .env*.local only, and a `git add -A` swept up .env.bak.<timestamp>
+# with live Resend, OpenAI and EasyPost keys in it. GitHub push protection
+# stopped that one; the next name would not have been caught by anything here.
+.env.*
+*.env
+.env.bak*
+*.bak
 
 # vercel
 .vercel
