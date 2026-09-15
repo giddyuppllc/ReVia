@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { StatRow } from "@/components/Stat";
+import type { PublicStat } from "@/lib/stats";
 import {
   FlaskConical,
   ShieldCheck,
@@ -8,31 +10,33 @@ import {
   Atom,
   Beaker,
   Fingerprint,
-  Dna,
-  ScanLine,
   BadgeCheck,
   Sparkles,
 } from "lucide-react";
 
+// Every line here is something the batch Certificate of Analysis actually
+// reports. The COAs state a single method — "Qualitative and quantitative
+// chemical analysis by RP-HPLC with UV detection" — and four results:
+// Identity, Quantity, Purity and Metals.
+//
+// Removed because no certificate carries them: LC-MS / mass spectrometry,
+// endotoxin (LAL), sterility (USP <71>), residual solvents (USP <467>),
+// bioburden, amino-acid sequencing, and ICP-MS as the metals method.
 const trustItems = [
-  { icon: FlaskConical, text: ">99% Purity Verified", detail: "Every batch" },
-  { icon: Microscope, text: "HPLC Analysis", detail: "High-performance liquid chromatography" },
-  { icon: Atom, text: "LC-MS Confirmed", detail: "Mass spectrometry verification" },
-  { icon: ShieldCheck, text: "Endotoxin Tested", detail: "LAL testing per batch" },
-  { icon: Beaker, text: "Sterility Screened", detail: "USP <71> compliant" },
-  { icon: Fingerprint, text: "Heavy Metals Panel", detail: "ICP-MS screening" },
-  { icon: Dna, text: "Amino Acid Sequencing", detail: "Identity confirmation" },
-  { icon: ScanLine, text: "Residual Solvent Testing", detail: "USP <467> methods" },
+  { icon: Microscope, text: "RP-HPLC with UV", detail: "The method on every batch COA" },
+  { icon: FlaskConical, text: "Purity Verified", detail: "Reported per batch" },
+  { icon: Fingerprint, text: "Identity Confirmed", detail: "Against specification" },
+  { icon: Beaker, text: "Peptide Quantity", detail: "Net peptide per vial" },
+  { icon: ShieldCheck, text: "Metals < 50 ppb", detail: "Conforms, every batch" },
+  { icon: Sparkles, text: "Certificate of Analysis", detail: "Batch-specific, independent lab" },
   { icon: BadgeCheck, text: "cGMP Manufactured", detail: "FDA-registered facilities" },
-  { icon: Sparkles, text: "Certificate of Analysis", detail: "Independent lab verified" },
-  { icon: ShieldCheck, text: "Bioburden Testing", detail: "Microbial limits verified" },
-  { icon: Microscope, text: "Peptide Content Assay", detail: "Net peptide quantification" },
+  { icon: Atom, text: "US Processed & Tested", detail: "Start to finish" },
 ];
 
 // Double the items for seamless loop
 const items = [...trustItems, ...trustItems];
 
-export default function TrustTicker() {
+export default function TrustTicker({ stats = [] }: { stats?: PublicStat[] }) {
   return (
     <section className="relative overflow-hidden bg-stone-900 py-5">
       {/* Fade edges */}
@@ -73,20 +77,14 @@ export default function TrustTicker() {
         ))}
       </motion.div>
 
-      {/* Stats row */}
-      <div className="mt-4 flex items-center justify-center gap-8 sm:gap-16">
-        {[
-          { value: "99.4%", label: "Avg Purity" },
-          { value: "12", label: "QC Tests Per Batch" },
-          { value: "42", label: "COAs Published" },
-          { value: "0", label: "Failed Batches" },
-        ].map((stat) => (
-          <div key={stat.label} className="text-center">
-            <p className="text-lg sm:text-xl font-bold text-sky-400">{stat.value}</p>
-            <p className="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider">{stat.label}</p>
-          </div>
-        ))}
-      </div>
+      {/* Derived stats. Every figure here is computed in src/lib/stats.ts and
+          carries its own source line. The four that used to sit here —
+          "99.4% Avg Purity", "12 QC Tests Per Batch", "42 COAs Published",
+          "0 Failed Batches" — were typed by hand, and three of them were
+          false: the certificate count was 39, the COA reports four results
+          rather than twelve, and the batch table has never held a row, so
+          neither the average nor the failure rate existed to be quoted. */}
+      <StatRow stats={stats} tone="dark" className="mx-auto mt-8 max-w-4xl px-6" />
     </section>
   );
 }

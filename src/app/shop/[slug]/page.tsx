@@ -74,9 +74,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
     price: resolvePriceForVariant(v, tier),
   }));
 
-  const minPrice = Math.min(...resolvedVariants.map((v) => v.price));
-  const maxPrice = Math.max(...resolvedVariants.map((v) => v.price));
-
   // Reviews → aggregateRating + review schema (graceful no-op if none)
   const reviews = await prisma.review.findMany({
     where: { productId: product.id },
@@ -93,18 +90,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    description: product.description ?? `${product.name} — premium peptide from ReVia, independently verified to >99% purity`,
+    description: product.description ?? `${product.name} — research compound from ReVia, independently verified to >98% purity by RP-HPLC`,
     brand: { "@type": "Brand", name: "ReVia Life" },
     category: product.category.name,
     image: `https://revialife.com${getProductImage(product.slug, product.image)}`,
-    offers: {
-      "@type": "AggregateOffer",
-      lowPrice: (minPrice / 100).toFixed(2),
-      highPrice: (maxPrice / 100).toFixed(2),
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      offerCount: product.variants.length,
-    },
+    // No `offers` block. This page cannot be transacted on any more, and the
+    // prices it shows are this site's, not the partner storefront's — so an
+    // InStock AggregateOffer here would advertise a purchase at a price
+    // nobody is in a position to honour.
   };
   if (avgRating !== null && reviewCount > 0) {
     productLd.aggregateRating = {
@@ -151,9 +144,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const breadcrumbItems = [
     { name: "Home", url: "https://revialife.com/" },
     { name: "Shop", url: "https://revialife.com/shop" },
-    ...(product.category
-      ? [{ name: product.category.name, url: `https://revialife.com/shop?category=${product.category.slug}` }]
-      : []),
     { name: product.name, url: `https://revialife.com/shop/${product.slug}` },
   ];
 
@@ -174,12 +164,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
         <ChevronRight className="h-3.5 w-3.5" />
         {product.category && (
           <>
-            <Link
-              href={`/shop?category=${product.category.slug}`}
-              className="transition hover:text-neutral-700"
-            >
-              {product.category.name}
-            </Link>
+            {/* Plain text, not a link — there is no category listing to go to. */}
+            <span>{product.category.name}</span>
             <ChevronRight className="h-3.5 w-3.5" />
           </>
         )}

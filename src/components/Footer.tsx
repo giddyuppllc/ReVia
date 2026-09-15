@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { B2B, D2C, b2bUrl, d2cUrl } from "@/lib/partner";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
@@ -42,13 +43,26 @@ function TikTok(props: SVGProps<SVGSVGElement>) {
 
 const footerSections = [
   {
-    label: "Shop",
+    // This site no longer sells, so these are reading destinations. The two
+    // routes that end in an order leave for the partner storefront.
+    label: "Research",
     links: [
-      { title: "All Products", href: "/shop" },
-      { title: "Peptides", href: "/shop?category=peptides" },
-      { title: "Stacks", href: "/shop?category=stacks" },
-      { title: "Accessories", href: "/shop?category=accessories" },
-      { title: "Shop by Location", href: "/locations" },
+      { title: "Research Compounds", href: "/shop" },
+      { title: "Compound Library", href: "/research" },
+      { title: "What’s a Stack?", href: "/stacks" },
+      { title: "Browse by Location", href: "/locations" },
+      { title: "Our Thoughts on the News", href: "/news" },
+      { title: "ReVia in Washington", href: "/washington" },
+    ],
+  },
+  {
+    label: "Order",
+    links: [
+      // Consumers to i2b, businesses to ReVia Wholesale — the wholesale site
+      // does no D2C at all, so these must not be collapsed into one link.
+      { title: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
+      { title: `Wholesale — ${B2B.name}`, href: b2bUrl("wholesale"), external: true },
+      { title: "Private Label", href: b2bUrl("privateLabel"), external: true },
     ],
   },
   {
@@ -124,7 +138,7 @@ export default function Footer() {
               <Image src="/images/revia-text.png" alt="ReVia" width={100} height={30} className="h-6 w-auto" />
             </Link>
             <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
-              Premium peptides, independently verified to &gt;99% purity.
+              Research compounds, independently verified to &gt;98% purity by RP-HPLC.
               Your trusted source since 2024.
             </p>
             <div className="flex items-center gap-2 text-sm text-stone-500">

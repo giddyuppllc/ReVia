@@ -25,8 +25,9 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
   const [inView, setInView] = useState(false);
   const speed = 0.5;
 
-  // Triplicate for seamless looping
-  const loopProducts = [...products, ...products, ...products];
+  // Triplicate for seamless looping. With an empty list the scroll maths below
+  // divides by a zero scrollWidth, so an empty carousel renders nothing at all.
+  const loopProducts = products.length ? [...products, ...products, ...products] : [];
 
   // Detect when carousel enters viewport
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
       <div className="flex items-center justify-between mb-4 mx-auto max-w-7xl px-6">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-600 mb-1">Curated Selection</p>
-          <h2 className="text-xl font-bold text-stone-800 sm:text-2xl">Featured Products</h2>
+          <h2 className="text-xl font-bold text-stone-800 sm:text-2xl">Top Sellers</h2>
         </div>
         <Link
           href="/shop"

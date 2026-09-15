@@ -43,9 +43,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+    // Only what the certificate reports. The seven assay flags this route
+    // used to accept described tests that appear on no COA, and each one
+    // defaulted to true, so an empty request published nine passing tests.
     const { productId, batchNumber, manufactureDate, testDate, labName, purityPercent,
-      hplcPass, lcmsPass, endotoxinPass, sterilityPass, heavyMetalsPass,
-      residualSolventPass, aminoAcidPass, bioburdenPass, peptideContentPass, notes } = body;
+      notes } = body;
 
     if (!productId || !batchNumber || !manufactureDate || !testDate || purityPercent === undefined) {
       return NextResponse.json({ error: "Required: productId, batchNumber, dates, purity" }, { status: 400 });
@@ -65,15 +67,6 @@ export async function POST(request: NextRequest) {
         testDate: new Date(testDate),
         labName: labName || "Chromate",
         purityPercent,
-        hplcPass: hplcPass ?? true,
-        lcmsPass: lcmsPass ?? true,
-        endotoxinPass: endotoxinPass ?? true,
-        sterilityPass: sterilityPass ?? true,
-        heavyMetalsPass: heavyMetalsPass ?? true,
-        residualSolventPass: residualSolventPass ?? true,
-        aminoAcidPass: aminoAcidPass ?? true,
-        bioburdenPass: bioburdenPass ?? true,
-        peptideContentPass: peptideContentPass ?? true,
         notes: notes || null,
         active: true,
       },

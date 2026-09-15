@@ -180,9 +180,9 @@ export default function AboutContent() {
         </Section>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { icon: FlaskConical, title: "HPLC Purity", desc: "Every batch confirmed >99% pure via chromatography" },
-            { icon: Microscope, title: "LC-MS Verified", desc: "Molecular identity confirmed after reconstitution" },
-            { icon: ShieldCheck, title: "Full Screening", desc: "Heavy metals, sterility, and endotoxin tested" },
+            { icon: FlaskConical, title: "RP-HPLC Purity", desc: "Every batch verified to the >98% specification" },
+            { icon: Microscope, title: "Identity Confirmed", desc: "Each batch checked against its specification" },
+            { icon: ShieldCheck, title: "Metals Screened", desc: "Reported at less than 50 parts per billion" },
           ].map((item, i) => {
             const Icon = item.icon;
             return (

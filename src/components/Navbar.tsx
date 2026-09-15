@@ -3,30 +3,25 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Menu, X, User } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, User } from "lucide-react";
 import { motion } from "framer-motion";
-import { useCartStore } from "@/store/cart";
+import PartnerShopButton from "@/components/PartnerShopButton";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/shop?category=stacks", label: "Stacks" },
+  { href: "/stacks", label: "What’s a Stack?" },
   { href: "/why-us", label: "Why Us" },
   { href: "/learn", label: "Learn" },
+  { href: "/news", label: "News" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<{ role: string } | null>(null);
   const pathname = usePathname();
-  const toggleCart = useCartStore((s) => s.toggleCart);
-  const totalItems = useCartStore((s) => s.totalItems)();
-
-  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -105,14 +100,9 @@ export default function Navbar() {
             </Link>
           )}
 
-          <button onClick={() => user ? toggleCart() : router.push("/login")} className="relative rounded-xl p-2 text-stone-600 transition hover:bg-sky-50" aria-label="Open cart">
-            <ShoppingCart className="h-5 w-5" />
-            {mounted && totalItems > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 text-[10px] font-bold text-white">
-                {totalItems > 99 ? "99+" : totalItems}
-              </span>
-            )}
-          </button>
+          <PartnerShopButton audience="d2c" size="sm" variant="solid" className="hidden sm:inline-flex">
+            Shop
+          </PartnerShopButton>
 
           <button onClick={() => setMobileOpen(!mobileOpen)} className="rounded-xl p-2 text-stone-600 hover:bg-sky-50 md:hidden" aria-label="Toggle menu">
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -130,6 +120,11 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li className="pt-1">
+              <PartnerShopButton audience="d2c" size="md" variant="solid" className="w-full justify-center">
+                Shop
+              </PartnerShopButton>
+            </li>
             {user ? (
               <li>
                 <Link href="/account" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-stone-600 hover:bg-sky-50">

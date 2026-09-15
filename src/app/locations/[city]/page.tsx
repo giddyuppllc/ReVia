@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { D2C, PARTNER_LINK_PROPS, d2cUrl } from "@/lib/partner";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -114,11 +116,17 @@ export default async function CityHubPage({ params }: PageProps) {
       <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-neutral-700">{intro}</p>
 
       <div className="mt-7 flex flex-wrap gap-3 text-sm">
-        <Link href="/shop" className="rounded-full bg-emerald-700 px-5 py-2.5 font-semibold text-white hover:bg-emerald-800">
-          Shop all peptides
-        </Link>
+        <a
+          href={d2cUrl()}
+          {...(D2C.isLive ? PARTNER_LINK_PROPS : {})}
+          className="inline-flex items-center gap-1.5 rounded-full border border-[#3E97CE] bg-[#3E97CE] px-5 py-2.5 font-semibold text-white hover:bg-[#3585B8] hover:border-[#3585B8]"
+        >
+          Shop at {D2C.name}
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
         <Link href="/stacks" className="rounded-full border border-neutral-300 px-5 py-2.5 hover:bg-neutral-50">
-          ReVia stacks
+          What&rsquo;s a stack?
         </Link>
       </div>
 

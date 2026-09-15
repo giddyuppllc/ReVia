@@ -4,7 +4,7 @@ import WhyReVia from "@/components/WhyReVia";
 export const metadata: Metadata = {
   title: "Why ReVia | ReVia Research Supply",
   description:
-    "Learn what sets ReVia apart — US-manufactured, cGMP & ISO certified, >99% purity, per-batch COAs, and the most rigorous testing in the industry.",
+    "What sets ReVia apart — US-manufactured, cGMP and ISO certified, >98% purity by RP-HPLC, and a batch-specific Certificate of Analysis on every batch.",
   alternates: { canonical: "https://revialife.com/why-us" },
 };
 

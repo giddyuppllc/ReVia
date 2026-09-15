@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, FlaskConical, ShieldCheck, Zap } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getActiveTier, resolvePriceForVariant, getTierSavingsMessage } from "@/lib/pricing";
-import AddToCart from "@/components/AddToCart";
+import VariantPicker from "@/components/VariantPicker";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 export const revalidate = 60;
 
@@ -245,10 +245,10 @@ export default async function StackDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* ── Add to Cart ── */}
+        {/* ── Variant selection ── */}
         <section className="bg-neutral-50 rounded-3xl p-8">
           <div className="max-w-md">
-            <h2 className="text-xl font-bold text-neutral-900 mb-2">Select & Add to Cart</h2>
+            <h2 className="text-xl font-bold text-neutral-900 mb-2">Select a Variant</h2>
             <p className="text-sm text-neutral-500 mb-6">
               {variantsWithTierPricing[0]?.label} · SKU: {variantsWithTierPricing[0]?.sku}
             </p>
@@ -258,7 +258,7 @@ export default async function StackDetailPage({ params }: PageProps) {
                 <span className="text-sm font-medium text-stone-600">{savings}</span>
               </div>
             )}
-            <AddToCart
+            <VariantPicker
               variants={variantsWithTierPricing.map((v) => ({
                 id: v.id,
                 label: v.label,
@@ -267,8 +267,6 @@ export default async function StackDetailPage({ params }: PageProps) {
                 stockStatus: (v as { stockStatus?: string }).stockStatus ?? (v.inStock ? "in_stock" : "out_of_stock"),
               }))}
               productName={product.name}
-              productSlug={product.slug}
-              productImage={product.image}
             />
           </div>
         </section>

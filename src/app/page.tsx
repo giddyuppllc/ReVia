@@ -7,6 +7,8 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import NewsletterBanner from "@/components/NewsletterBanner";
 import HomeFAQ from "@/components/HomeFAQ";
 import TrustTicker from "@/components/TrustTicker";
+import { getPublicStats } from "@/lib/stats";
+import ReviaNetwork from "@/components/ReviaNetwork";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
@@ -15,11 +17,35 @@ export const metadata = {
 
 export default async function HomePage() {
   const tier = await getActiveTier();
-  const rawFeatured = await prisma.product.findMany({
+
+  // Four figures the site can actually stand behind. "Results Reported Per
+  // COA" is deliberately the smallest number on the row — it replaces a
+  // claim of twelve QC tests with the four the certificate prints, and it
+  // is checkable against the document.
+  const trustStats = await getPublicStats([
+    "documentedCompounds",
+    "citations",
+    "compoundCategories",
+    "coaResults",
+  ]);
+  // Three top sellers on the home page. `featured` is the admin-managed flag
+  // that has always driven this carousel, so the picks stay editable from
+  // /admin without a deploy.
+  let rawFeatured = await prisma.product.findMany({
     where: { featured: true, active: true },
     include: { variants: true, category: true },
-    take: 8,
+    take: 3,
   });
+  // Nothing flagged featured would render an empty carousel, so fall back to
+  // active products rather than a blank band across the home page.
+  if (rawFeatured.length === 0) {
+    rawFeatured = await prisma.product.findMany({
+      where: { active: true },
+      include: { variants: true, category: true },
+      orderBy: { name: "asc" },
+      take: 3,
+    });
+  }
   const featuredProducts = rawFeatured.map((p) => ({
     id: p.id, name: p.name, slug: p.slug, image: p.image,
     variants: p.variants.map((v) => ({
@@ -65,7 +91,10 @@ export default async function HomePage() {
         </div>
 
         {/* Quality Assurance */}
-        <TrustTicker />
+        <TrustTicker stats={trustStats} />
+
+        {/* The portal: where ordering happens, and every sibling site */}
+        <ReviaNetwork />
 
         {/* FAQ */}
         <HomeFAQ />

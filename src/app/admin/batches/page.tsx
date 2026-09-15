@@ -2,28 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { Plus, Trash2, Loader2, Save, FlaskConical, ShieldCheck, X } from "lucide-react";
+import { COA_RESULT_COUNT } from "@/lib/coa";
+
 export const dynamic = "force-dynamic";
 
 interface Product { id: string; name: string; slug: string; }
 interface Batch {
   id: string; productId: string; batchNumber: string; manufactureDate: string;
   testDate: string; labName: string; purityPercent: number; active: boolean;
-  hplcPass: boolean; lcmsPass: boolean; endotoxinPass: boolean; sterilityPass: boolean;
-  heavyMetalsPass: boolean; residualSolventPass: boolean; aminoAcidPass: boolean;
-  bioburdenPass: boolean; peptideContentPass: boolean; notes: string | null;
+  notes: string | null;
 }
-
-const TESTS = [
-  { key: "hplcPass", label: "HPLC" },
-  { key: "lcmsPass", label: "LC-MS" },
-  { key: "endotoxinPass", label: "Endotoxin" },
-  { key: "sterilityPass", label: "Sterility" },
-  { key: "heavyMetalsPass", label: "Heavy Metals" },
-  { key: "residualSolventPass", label: "Residual Solvents" },
-  { key: "aminoAcidPass", label: "Amino Acid Seq." },
-  { key: "bioburdenPass", label: "Bioburden" },
-  { key: "peptideContentPass", label: "Peptide Content" },
-];
 
 export default function BatchesPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -36,10 +24,7 @@ export default function BatchesPage() {
 
   const [form, setForm] = useState({
     productId: "", batchNumber: "", manufactureDate: "", testDate: "",
-    labName: "Chromate", purityPercent: "99.5", notes: "",
-    hplcPass: true, lcmsPass: true, endotoxinPass: true, sterilityPass: true,
-    heavyMetalsPass: true, residualSolventPass: true, aminoAcidPass: true,
-    bioburdenPass: true, peptideContentPass: true,
+    labName: "Chromate", purityPercent: "", notes: "",
   });
 
   useEffect(() => {
@@ -92,7 +77,7 @@ export default function BatchesPage() {
       if (!res.ok) throw new Error(data.error);
       setBatches(prev => [{ ...data.batch, manufactureDate: data.batch.manufactureDate, testDate: data.batch.testDate, createdAt: new Date().toISOString() }, ...prev]);
       setShowForm(false);
-      setForm({ productId: "", batchNumber: "", manufactureDate: "", testDate: "", labName: "Chromate", purityPercent: "99.5", notes: "", hplcPass: true, lcmsPass: true, endotoxinPass: true, sterilityPass: true, heavyMetalsPass: true, residualSolventPass: true, aminoAcidPass: true, bioburdenPass: true, peptideContentPass: true });
+      setForm({ productId: "", batchNumber: "", manufactureDate: "", testDate: "", labName: "Chromate", purityPercent: "", notes: "" });
       setMessage({ type: "success", text: "Batch record added! Previous batch deactivated." });
     } catch (err) {
       setMessage({ type: "error", text: err instanceof Error ? err.message : "Failed" });
@@ -166,17 +151,10 @@ export default function BatchesPage() {
             </div>
           </div>
 
-          <div>
-            <label className="text-xs text-neutral-500 mb-2 block">Test Results</label>
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-              {TESTS.map(t => (
-                <label key={t.key} className={`flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs cursor-pointer transition ${(form as Record<string, unknown>)[t.key] ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-red-50 text-red-600 border border-red-200"}`}>
-                  <input type="checkbox" checked={(form as Record<string, unknown>)[t.key] as boolean} onChange={e => setForm(f => ({ ...f, [t.key]: e.target.checked }))} className="accent-emerald-500" />
-                  {t.label}
-                </label>
-              ))}
-            </div>
-          </div>
+          {/* The assay toggles that sat here described seven tests that appear
+              on no certificate, each defaulting to pass. The COA reports
+              Identity, Quantity, Purity and Metals — purity is the only
+              measured figure entered, above. */}
 
           <div>
             <label className="text-xs text-neutral-500 mb-1 block">Notes (optional)</label>
@@ -194,7 +172,6 @@ export default function BatchesPage() {
         {filtered.length === 0 && <p className="text-neutral-400 text-sm py-8 text-center bg-white rounded-2xl border border-neutral-200">No batch records yet.</p>}
 
         {filtered.map(b => {
-          const passed = TESTS.filter(t => (b as unknown as Record<string, unknown>)[t.key]).length;
           return (
             <div key={b.id} className={`rounded-xl border bg-white p-4 ${b.active ? "border-emerald-200" : "border-neutral-200 opacity-60"}`}>
               <div className="flex items-center justify-between">
@@ -203,7 +180,7 @@ export default function BatchesPage() {
                   <span className="font-mono text-sm font-semibold text-neutral-800">{b.batchNumber}</span>
                   <span className="text-xs text-neutral-400">{b.labName}</span>
                   <span className="text-sm font-bold text-emerald-600">{b.purityPercent}%</span>
-                  <span className="text-xs text-emerald-600">{passed}/{TESTS.length} tests</span>
+                  <span className="font-mono text-xs text-stone-500">{COA_RESULT_COUNT} results</span>
                   <span className="text-xs text-neutral-400">{new Date(b.testDate).toLocaleDateString()}</span>
                 </div>
                 <button onClick={() => handleDelete(b.id)} className="text-neutral-300 hover:text-red-500 transition"><Trash2 className="h-4 w-4" /></button>

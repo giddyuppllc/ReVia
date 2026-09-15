@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "prisma generate && next build",
+    "build": "npm run check:claims && prisma generate && next build",
     "postinstall": "prisma generate",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:claims": "tsx scripts/check-claims.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "~0.88.0",

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono, Fraunces, Space_Grotesk, Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
-import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import JsonLd from "@/components/JsonLd";
 import LayoutShell from "@/components/LayoutShell";
@@ -10,7 +9,6 @@ import CookieConsent from "@/components/CookieConsent";
 import AffiliateTracker from "@/components/AffiliateTracker";
 import RuoBanner from "@/components/RuoBanner";
 import AgeGate from "@/components/AgeGate";
-import WelcomePopup from "@/components/WelcomePopup";
 import { Suspense } from "react";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -55,7 +53,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Your #1 trusted source for independently verified peptides with >99% purity. Same-day shipping, 85+ compounds, US-based.",
+    "Independently verified research peptides — >98% purity by RP-HPLC with UV detection, and a batch-specific certificate of analysis. US-based.",
   authors: [{ name: "ReVia" }],
   creator: "ReVia LLC",
   metadataBase: new URL("https://revialife.com"),
@@ -66,7 +64,7 @@ export const metadata: Metadata = {
     url: "https://revialife.com/",
     title: "ReVia | Premium Peptides, Proven Purity",
     description:
-      "Your #1 trusted source for independently verified peptides with >99% purity.",
+      "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
     images: [
       {
         url: "/images/hero-lab-coa.webp",
@@ -80,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ReVia | Premium Peptides, Proven Purity",
     description:
-      "Your #1 trusted source for independently verified peptides with >99% purity.",
+      "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
     images: ["/images/hero-overlook.webp"],
   },
   robots: {
@@ -108,19 +106,14 @@ const organizationLd = {
   },
 };
 
+// The SearchAction that used to sit here pointed at /shop?q={term}. That search
+// went with the storefront, so advertising the endpoint in structured data would
+// hand Google a query URL that silently ignores the query.
 const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "ReVia Life",
   url: "https://revialife.com/",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://revialife.com/shop?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({
@@ -151,14 +144,19 @@ export default function RootLayout({
         <RuoBanner />
         <JsonLd data={organizationLd} />
         <JsonLd data={websiteLd} />
-        <CartDrawer />
         <Toast />
         <LayoutShell>{children}</LayoutShell>
         <ChatWidget />
         <CookieConsent />
         <Suspense><AffiliateTracker /></Suspense>
         <AgeGate />
-        <Suspense><WelcomePopup /></Suspense>
+        {/* WelcomePopup is unmounted, not deleted. It traded an email for the
+            WELCOME first-order discount code and told the visitor to "use this
+            code at checkout" — an offer this site can no longer honour now that
+            it does not take orders. The component and its /api/newsletter path
+            are intact, so it can come back as a plain updates sign-up whenever
+            Edward has written that copy. NewsletterBanner on the home page
+            still captures email in the meantime. */}
       </body>
     </html>
   );

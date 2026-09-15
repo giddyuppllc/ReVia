@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
-import { useCartStore } from "@/store/cart";
-import { getProductImage, getVariantImages } from "@/lib/product-images";
+import PartnerShopButton from "@/components/PartnerShopButton";
+import { getProductImage } from "@/lib/product-images";
 
 interface Variant {
   id: string;
@@ -42,8 +41,6 @@ const catColors: Record<string, string> = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
-  const addItem = useCartStore((s) => s.addItem);
-
   const cheapest = product.variants.length
     ? product.variants.reduce((min, v) => (v.price < min.price ? v : min), product.variants[0])
     : null;
@@ -52,27 +49,17 @@ export default function ProductCard({ product }: { product: Product }) {
   const catName = product.category?.name ?? "Peptide";
   const gradient = catColors[catName] ?? "from-sky-100 to-blue-200";
   const image = getProductImage(product.slug, product.image);
-  const variantImages = getVariantImages(product.slug, product.variants);
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!cheapest) return;
-    addItem({
-      variantId: cheapest.id,
-      productName: product.name,
-      variantLabel: cheapest.label,
-      price: cheapest.price,
-      slug: product.slug,
-      image: variantImages[cheapest.id] ?? image ?? undefined,
-    });
-  };
 
   return (
-    <Link
-      href={`/shop/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-sky-300/50 bg-sky-50/80 shadow-md shadow-stone-300/25 transition-all duration-300 hover:shadow-lg hover:shadow-stone-400/20 hover:-translate-y-1 hover:border-sky-300/70"
-    >
+    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-sky-300/50 bg-sky-50/80 shadow-md shadow-stone-300/25 transition-all duration-300 hover:shadow-lg hover:shadow-stone-400/20 hover:-translate-y-1 hover:border-sky-300/70">
+      {/* Whole-card link. Sits above the content but below the Shop control,
+          so the card stays clickable without nesting one anchor in another. */}
+      <Link
+        href={`/shop/${product.slug}`}
+        className="absolute inset-0 z-[1]"
+        aria-label={`Read about ${product.name}`}
+      />
+
       {/* Image area */}
       <div className="relative aspect-square w-full overflow-hidden bg-white">
         {image ? (
@@ -115,21 +102,11 @@ export default function ProductCard({ product }: { product: Product }) {
               ${(cheapest.price / 100).toFixed(2)}
             </span>
           )}
-          {hasMultiple ? (
-            <span className="rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-sky-700 border border-sky-300/50 transition group-hover:bg-sky-50">
-              Options
-            </span>
-          ) : (
-            <button
-              onClick={handleAdd}
-              className="flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-sky-700 border border-sky-300/50 transition hover:bg-sky-50 active:scale-95"
-            >
-              <ShoppingCart className="h-3.5 w-3.5" />
-              Add
-            </button>
-          )}
+          <PartnerShopButton audience="d2c" size="sm" variant="chip" className="relative z-[2] rounded-lg">
+            Shop
+          </PartnerShopButton>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

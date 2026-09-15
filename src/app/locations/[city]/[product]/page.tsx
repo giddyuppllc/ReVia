@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { D2C, PARTNER_LINK_PROPS, d2cUrl } from "@/lib/partner";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -201,12 +203,15 @@ export default async function CityProductPage({ params }: PageProps) {
           )}
           <p className="text-xs text-neutral-500">Third-party COA tested · Research use only</p>
         </div>
-        <Link
-          href={`/shop/${product.slug}`}
-          className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-800"
+        <a
+          href={d2cUrl()}
+          {...(D2C.isLive ? PARTNER_LINK_PROPS : {})}
+          className="inline-flex items-center gap-1.5 rounded-full border border-[#3E97CE] bg-[#3E97CE] px-6 py-3 text-sm font-semibold text-white hover:bg-[#3585B8] hover:border-[#3585B8]"
         >
-          View {product.name} →
-        </Link>
+          Order at {D2C.name}
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
       </div>
 
       {/* Sizes & pricing — real product substance for the buy-intent query */}

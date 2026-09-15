@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FileCheck } from "lucide-react";
-import AddToCart from "@/components/AddToCart";
+import VariantPicker from "@/components/VariantPicker";
 
 interface Variant {
   id: string;
@@ -25,7 +25,6 @@ interface ProductDetailViewProps {
 
 export default function ProductDetailView({
   productName,
-  productSlug,
   productDescription,
   categoryName,
   defaultImage,
@@ -82,13 +81,11 @@ export default function ProductDetailView({
           </p>
         )}
 
-        {/* Variant selector + Add to Cart */}
+        {/* Variant selector + outbound purchase path */}
         <div className="mt-8">
-          <AddToCart
+          <VariantPicker
             variants={variants}
             productName={productName}
-            productSlug={productSlug}
-            productImage={currentImage}
             onVariantChange={setSelectedVariantId}
           />
         </div>

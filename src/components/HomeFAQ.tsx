@@ -1,34 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { COA_SPEC } from "@/lib/coa";
 import Link from "next/link";
-import { ChevronDown, ArrowRight, HelpCircle } from "lucide-react";
+import { ChevronDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import { B2B, D2C, PARTNER_LINK_PROPS, b2bUrl, d2cUrl } from "@/lib/partner";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-const faqs = [
+const faqs: { q: string; a: string; cta?: { label: string; href: string; external?: boolean } }[] = [
   {
     q: "What does Research Use Only (RUO) mean?",
-    a: "All products sold by ReVia carry a Research Use Only designation as required by current US regulations. This means they are intended for laboratory and scientific research purposes only — not for human or animal consumption.",
+    a: "All ReVia compounds carry a Research Use Only designation as required by current US regulations. This means they are intended for laboratory and scientific research purposes only — not for human or animal consumption.",
   },
   {
     q: "How do I know your products are legitimate?",
-    a: "Every batch is independently tested by a third-party US lab and comes with a Certificate of Analysis (COA). Our facilities are cGMP certified, ISO certified, and FDA-registered. We publish this documentation because transparency builds trust.",
+    a: "Every batch is independently tested by a third-party US lab and comes with a batch-specific Certificate of Analysis reporting identity and purity by RP-HPLC. Our facilities are cGMP certified, ISO certified, and FDA-registered. We publish this documentation because transparency builds trust.",
   },
   {
     q: "What purity level are your peptides?",
-    a: "All products meet a >99% purity standard (research-grade, USP/NF/BP). Each batch is screened for sterility, endotoxins, heavy metals, and synthesis byproducts.",
+    a: `All compounds meet a ${COA_SPEC.puritySpec} purity specification, verified by ${COA_SPEC.method}. The batch Certificate of Analysis shows the measured figure for the vial you have.`,
   },
   {
-    q: "How fast do you ship?",
-    a: "All orders ship next business day. We offer Standard (5–7 days), Expedited (2–3 days), and Overnight (next day) shipping. All shipments include tracking, insurance, and discreet packaging.",
+    q: "Where do I order?",
+    a: `Ordering is handled by our exclusive research partner, ${D2C.name}, which supplies researchers direct. This site is where the compounds are explained — that one carries the catalogue.`,
+    cta: { label: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
   },
   {
-    q: "Do you ship internationally?",
-    a: "At this time, we ship only within the United States, including all 50 states and the District of Columbia. We may expand shipping capabilities in the future.",
+    q: "Are you a business or brand?",
+    a: `Wholesale pricing, private label and bulk supply for clinics, brands and distributors are arranged through ${B2B.name}, which serves trade accounts only.`,
+    cta: { label: "Wholesale and private label", href: b2bUrl("wholesale"), external: true },
   },
   {
     q: "Where are your products manufactured?",
-    a: "All products are processed and tested in the United States. Active ingredients are sourced from Germany and Ukraine. Our facilities are cGMP certified, ISO certified, and FDA-registered.",
+    a: "Active pharmaceutical ingredient is sourced from Germany and Ukraine, then finished and tested in Florida. Our facilities are cGMP certified, ISO certified, and FDA-registered.",
   },
 ];
 
@@ -131,6 +135,26 @@ export default function HomeFAQ() {
                           <p className="text-sm text-stone-500 leading-relaxed">
                             {faq.a}
                           </p>
+                          {faq.cta &&
+                            (faq.cta.external ? (
+                              <a
+                                href={faq.cta.href}
+                                {...PARTNER_LINK_PROPS}
+                                className="mt-4 inline-flex items-center gap-1.5 rounded-xl border border-[#3E97CE] bg-[#3E97CE] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#3585B8] hover:border-[#3585B8]"
+                              >
+                                {faq.cta.label}
+                                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                                <span className="sr-only"> (opens in a new tab)</span>
+                              </a>
+                            ) : (
+                              <Link
+                                href={faq.cta.href}
+                                className="mt-4 inline-flex items-center gap-1.5 rounded-xl border border-sky-300/60 bg-white px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-50"
+                              >
+                                {faq.cta.label}
+                                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                              </Link>
+                            ))}
                         </div>
                       </motion.div>
                     )}
