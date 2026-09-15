@@ -76,3 +76,41 @@ data authority").
   `git fetch origin && git reset --hard origin/prod-snapshot-20260611 &&
   npm run build && pm2 reload revia` — curl **both** sites afterwards.
 - TLS is a Cloudflare Origin Certificate (Full strict); no certbot.
+
+---
+
+## Picked up 2026-09-15 (second machine)
+
+**Verified, not assumed.** `npm ci` then:
+
+- `tsc --noEmit` — **0 errors**
+- `npx next build` — compiles; fails only at prerender of `/shop` with
+  `Database "browne" does not exist`, i.e. no `DATABASE_URL`. There is no
+  `.env.example` in the repo, so that value is still needed before the branch
+  can be built end to end.
+- `npm run check:claims` — passes
+
+So the WIP is structurally sound. The remaining blocker to a full build is the
+database URL, not the code.
+
+**i2b's origin is now set.** `I2B_ORIGIN_FALLBACK` was null "until i2b has a
+domain", which left every consumer buy control on the portal pointing at
+`/contact`. i2b still has no BRAND domain, but it has a live public address
+serving the full storefront — checked before setting it. It is marked
+`preview: true` in `REVIA_NETWORK` exactly as ReVia Supply and ReVia Providers
+are, so it reads as temporary rather than final.
+
+That switch feeds `/shop`, `/stacks`, `/faq` and the network cards at once.
+Change the one constant, or set `NEXT_PUBLIC_I2B_ORIGIN`, when the brand domain
+lands.
+
+**Still open, unchanged:** the AgeREcode-branded COAs, and the `@type: Store`
+markup on `seo/audit-fixes-2026-06-15`.
+
+**Note for whoever holds the i2b side.** i2b now has its own `check-claims`
+(`scripts/check-claims.mjs`, wired into its build) covering the same ground from
+the other direction, and its COAs were read the same way — Chromate, Lucas
+Weber, RP-HPLC with UV detection, four rows, >98%. The two sites agree on the
+testing facts. i2b DOES now publish cGMP, ISO-7 and FDA registration, sourced to
+AgeRECode's own provider-wholesale site (pbd2.net); revialife makes no such
+claim and this branch does not add one.

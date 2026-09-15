@@ -21,16 +21,23 @@
 /* ---------------------------- D2C: i2b ---------------------------- */
 
 /**
- * i2b's public origin, e.g. "https://i2bhealth.com" — no trailing slash.
+ * i2b's public origin — no trailing slash.
  *
- * NOT YET SET. i2b has no live domain at time of writing (no candidate
- * spelling resolves), so this is null and every D2C control falls back to
- * /contact rather than rendering a link that goes nowhere.
+ * Set 2026-09-15. It was null because no candidate spelling of a brand domain
+ * resolved, which was true then and is still true: i2b has no BRAND domain. It
+ * does now have a live public address, and it serves the full storefront —
+ * checked, not assumed, before this was set.
  *
- * To switch the whole site over, set this one constant — or the
- * NEXT_PUBLIC_I2B_ORIGIN environment variable, which wins if present.
+ * A preview address rather than a brand one, so i2b is marked `preview: true`
+ * in REVIA_NETWORK below exactly as ReVia Supply and ReVia Providers are. The
+ * alternative was leaving every consumer buy control pointing at /contact on a
+ * site whose entire job is to be the portal, which is a worse answer than a
+ * working Vercel URL flagged as temporary.
+ *
+ * To switch the whole site over when the brand domain lands, change this one
+ * constant — or set NEXT_PUBLIC_I2B_ORIGIN, which wins if present.
  */
-const I2B_ORIGIN_FALLBACK: string | null = null;
+const I2B_ORIGIN_FALLBACK: string | null = "https://i2bhealth.vercel.app";
 
 const i2bOrigin: string | null =
   process.env.NEXT_PUBLIC_I2B_ORIGIN?.replace(/\/+$/, "") || I2B_ORIGIN_FALLBACK;
@@ -87,9 +94,9 @@ export interface NetworkSite {
  * Every sibling site, in the order they should be presented.
  *
  * Addresses were taken from each project rather than guessed: reviawell.com
- * and reviawholesale.com resolve and serve; ReVia Supply and ReVia Providers
- * are still on their Vercel preview domains, which is why they carry
- * `preview: true`. i2b has no address at all yet.
+ * and reviawholesale.com resolve and serve; i2b, ReVia Supply and ReVia
+ * Providers are on Vercel preview domains, which is why they carry
+ * `preview: true`.
  */
 export const REVIA_NETWORK: NetworkSite[] = [
   {
@@ -98,6 +105,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     audience: "For researchers",
     tagline: "Our exclusive research partner. Order compounds direct.",
     url: D2C.origin,
+    preview: true,
   },
   {
     id: "wholesale",
