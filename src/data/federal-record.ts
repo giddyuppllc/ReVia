@@ -31,6 +31,15 @@ export interface Statement {
   to: string;
   /** The chair's introduction, and who followed. */
   note: string;
+  /**
+   * How the committee voted on that substance, after the public hearing.
+   *
+   * The outcome is not the statement, and is recorded here so a page can say
+   * what happened without implying Mike's remarks caused it. "Recommended"
+   * means recommended to the FDA — a recommendation is advisory, and nothing
+   * becomes compoundable until rulemaking ends.
+   */
+  vote: { tally: string; outcome: "recommended" | "not recommended" };
   /** Verbatim, one string per spoken paragraph. */
   body: string[];
 }
@@ -61,6 +70,7 @@ export const STATEMENTS: Statement[] = [
     n: 1,
     compound: "BPC-157",
     slug: "bpc-157",
+    vote: { tally: "8-6-1", outcome: "recommended" },
     day: 1,
     date: "July 23, 2026",
     speakerSlot: 2,
@@ -82,6 +92,7 @@ export const STATEMENTS: Statement[] = [
     n: 2,
     compound: "KPV",
     slug: "kpv",
+    vote: { tally: "8-6-1", outcome: "recommended" },
     day: 1,
     date: "July 23, 2026",
     speakerSlot: 1,
@@ -102,6 +113,7 @@ export const STATEMENTS: Statement[] = [
     n: 3,
     compound: "TB-500",
     slug: "tb-500",
+    vote: { tally: "8-6-1", outcome: "recommended" },
     day: 1,
     date: "July 23, 2026",
     speakerSlot: 2,
@@ -121,6 +133,7 @@ export const STATEMENTS: Statement[] = [
     n: 4,
     compound: "Emideltide (DSIP)",
     slug: "emideltide-dsip",
+    vote: { tally: "6-7-1", outcome: "not recommended" },
     day: 2,
     date: "July 24, 2026",
     speakerSlot: 2,
@@ -140,6 +153,7 @@ export const STATEMENTS: Statement[] = [
     n: 5,
     compound: "Semax",
     slug: "semax",
+    vote: { tally: "8-5-1", outcome: "recommended" },
     day: 2,
     date: "July 24, 2026",
     speakerSlot: 1,

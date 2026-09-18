@@ -139,7 +139,7 @@ export default function Footer() {
             </Link>
             <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
               Research compounds, independently verified to &gt;98% purity by RP-HPLC.
-              Your trusted source since 2024.
+              The record, the standard and the research.
             </p>
             <div className="flex items-center gap-2 text-sm text-stone-500">
               <Mail className="h-4 w-4 text-sky-500" />
