@@ -18,7 +18,7 @@ export interface ResearchCompound {
 }
 
 export const CATEGORIES = [
-  "metabolic optimization & Metabolic",
+  "Metabolic & Weight Management",
   "Growth Hormone & Performance",
   "Healing, Recovery & Immune",
   "Cognitive & Longevity",
@@ -48,7 +48,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "5-amino-1mq",
     name: "5-Amino-1MQ",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Small Molecule",
     description:
       "A selective inhibitor of nicotinamide N-methyltransferase (NNMT), an enzyme involved in cellular energy metabolism and NAD+ homeostasis. Preclinical studies have investigated its role in modulating adipose tissue metabolism in diet-induced obesity models.",
@@ -83,7 +83,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "adipotide",
     name: "Adipotide (FTPP)",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "A pro-apoptotic peptidomimetic that targets the vascular supply of white adipose tissue. Primate studies have investigated selective ablation of adipose vasculature and its effects on adipose tissue metabolism.",
@@ -113,7 +113,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "aod-9604",
     name: "AOD-9604",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "A modified fragment (amino acids 177-191) of human growth hormone with a tyrosine substitution. Studies have investigated its lipolytic properties without the growth-promoting or diabetogenic effects associated with full-length hGH.",
@@ -149,7 +149,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "cagrilintide",
     name: "Cagrilintide",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "A long-acting acylated amylin analog designed for once-weekly subcutaneous administration. Studies have investigated its effects on amylin receptor-mediated satiety signaling pathways and metabolic parameters.",
@@ -183,7 +183,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "retatrutide",
     name: "Retatrutide",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "A triple-hormone receptor agonist targeting GIP, GLP-1, and glucagon receptors simultaneously. Studies have investigated its multi-receptor pharmacology and effects on metabolic signaling pathways.",
@@ -213,7 +213,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "semaglutide",
     name: "Semaglutide",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "An extensively studied GLP-1 receptor agonist with a long half-life enabling once-weekly dosing. Research has investigated its GLP-1 receptor-mediated effects on metabolic signaling pathways and incretin pharmacology.",
@@ -247,7 +247,7 @@ export const researchCompounds: ResearchCompound[] = [
   {
     slug: "tirzepatide",
     name: "Tirzepatide",
-    category: "metabolic optimization & Metabolic",
+    category: "Metabolic & Weight Management",
     type: "Peptide",
     description:
       "An extensively studied dual GIP/GLP-1 receptor agonist with a novel mechanism engaging two incretin pathways simultaneously. Research has investigated its dual receptor pharmacology and effects on metabolic signaling.",

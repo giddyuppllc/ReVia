@@ -167,24 +167,24 @@ export default async function CityProductPage({ params }: PageProps) {
       <BreadcrumbSchema items={breadcrumb} />
 
       {/* Breadcrumb */}
-      <nav className="mb-6 flex flex-wrap items-center gap-1 text-xs text-neutral-500">
-        <Link href="/" className="hover:text-neutral-800">Home</Link>
+      <nav className="mb-6 flex flex-wrap items-center gap-1 text-xs text-[#3D3229]/50">
+        <Link href="/" className="hover:text-[#3D3229]">Home</Link>
         <ChevronRight className="h-3 w-3" />
-        <Link href="/locations" className="hover:text-neutral-800">Locations</Link>
+        <Link href="/locations" className="hover:text-[#3D3229]">Locations</Link>
         <ChevronRight className="h-3 w-3" />
-        <Link href={`/locations/${city.slug}`} className="hover:text-neutral-800">{city.name}</Link>
+        <Link href={`/locations/${city.slug}`} className="hover:text-[#3D3229]">{city.name}</Link>
         <ChevronRight className="h-3 w-3" />
-        <span className="text-neutral-800">{product.name}</span>
+        <span className="text-[#3D3229]">{product.name}</span>
       </nav>
 
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A38569]">
         {product.category.name} · {city.name}, {city.stateAbbr}
       </p>
-      <h1 className="mt-2 text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl">
+      <h1 className="mt-2 font-display text-[34px] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[44px]">
         {product.name} research in {city.name}, {city.stateAbbr}
       </h1>
 
-      <p className="mt-5 text-[15px] leading-relaxed text-neutral-700">{intro}</p>
+      <p className="mt-5 text-[15px] leading-relaxed text-[#3D3229]/75">{intro}</p>
 
       {/* Availability, from the provider's live catalogue. Replaces a "From
           $X — Order at i2b" panel: revialife publishes no price, and the link
@@ -200,8 +200,8 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Overview */}
       {product.description && (
         <section className="mt-10">
-          <h2 className="text-xl font-bold text-neutral-900">About {product.name}</h2>
-          <p className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-neutral-700">
+          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">About {product.name}</h2>
+          <p className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-[#3D3229]/75">
             {product.description}
           </p>
         </section>
@@ -210,19 +210,19 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Unique per-city research context — kills cross-city duplication */}
       {context && (
         <section className="mt-10">
-          <h2 className="text-xl font-bold text-neutral-900">
+          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
             {product.name} research in {city.name}
           </h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-neutral-700">{context}</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-[#3D3229]/75">{context}</p>
         </section>
       )}
 
       {/* Local framing */}
-      <section className="mt-10 rounded-2xl border border-neutral-200 p-6">
-        <h2 className="text-xl font-bold text-neutral-900">
+      <section className="mt-10 rounded-2xl border border-[#3D3229]/12 p-6">
+        <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
           {product.name} in the {city.name} research community
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed text-neutral-700">
+        <p className="mt-3 text-[15px] leading-relaxed text-[#3D3229]/75">
           {product.name} is worked with by researchers throughout the {city.name} metro — including{" "}
           {city.nearbyAreas.join(", ")} — and across {city.region}. {city.angle}. Every ReVia-branded
           lot carries its own certificate of analysis, and the compound is intended strictly for
@@ -232,14 +232,14 @@ export default async function CityProductPage({ params }: PageProps) {
 
       {/* FAQ */}
       <section className="mt-10">
-        <h2 className="text-xl font-bold text-neutral-900">
+        <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
           {product.name} in {city.name} — FAQ
         </h2>
         <div className="mt-4 space-y-4">
           {faq.map((f) => (
-            <div key={f.q} className="rounded-xl border border-neutral-200 p-4">
-              <p className="font-semibold text-neutral-900">{f.q}</p>
-              <p className="mt-1 text-[15px] leading-relaxed text-neutral-700">{f.a}</p>
+            <div key={f.q} className="rounded-xl border border-[#3D3229]/12 p-4">
+              <p className="font-semibold text-[#3D3229]">{f.q}</p>
+              <p className="mt-1 text-[15px] leading-relaxed text-[#3D3229]/75">{f.a}</p>
             </div>
           ))}
         </div>
@@ -248,7 +248,7 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Other research peptides in this city — internal mesh */}
       {relatedProducts.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-xl font-bold text-neutral-900">
+          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
             Other research peptides available in {city.name}
           </h2>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -256,10 +256,10 @@ export default async function CityProductPage({ params }: PageProps) {
               <Link
                 key={rp.slug}
                 href={`/locations/${city.slug}/${rp.slug}`}
-                className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 hover:bg-neutral-50"
+                className="flex items-center justify-between rounded-xl border border-[#3D3229]/12 p-4 hover:bg-[#EFEAE1]/70"
               >
-                <span className="text-[15px] font-medium text-neutral-800">{rp.name}</span>
-                <span className="ml-3 shrink-0 text-xs text-neutral-500">{rp.categoryName}</span>
+                <span className="text-[15px] font-medium text-[#3D3229]">{rp.name}</span>
+                <span className="ml-3 shrink-0 text-xs text-[#3D3229]/50">{rp.categoryName}</span>
               </Link>
             ))}
           </div>
@@ -269,7 +269,7 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Same product across other cities in the region — geo cluster mesh */}
       {relatedCities.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-xl font-bold text-neutral-900">
+          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
             {product.name} research in other {city.region} cities
           </h2>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">
@@ -277,7 +277,7 @@ export default async function CityProductPage({ params }: PageProps) {
               <Link
                 key={rc.slug}
                 href={`/locations/${rc.slug}/${product.slug}`}
-                className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50"
+                className="rounded-full border border-[#3D3229]/25 px-4 py-2 hover:bg-[#EFEAE1]/70"
               >
                 {product.name} in {rc.name}, {rc.stateAbbr}
               </Link>
@@ -288,18 +288,18 @@ export default async function CityProductPage({ params }: PageProps) {
 
       {/* Links */}
       <section className="mt-10 flex flex-wrap gap-3 text-sm">
-        <Link href={`/research/${product.slug}`} className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
+        <Link href={`/research/${product.slug}`} className="rounded-full border border-[#3D3229]/25 px-4 py-2 hover:bg-[#EFEAE1]/70">
           {product.name} monograph
         </Link>
-        <Link href={`/locations/${city.slug}`} className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
+        <Link href={`/locations/${city.slug}`} className="rounded-full border border-[#3D3229]/25 px-4 py-2 hover:bg-[#EFEAE1]/70">
           All research peptides in {city.name}
         </Link>
-        <Link href="/research" className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
+        <Link href="/research" className="rounded-full border border-[#3D3229]/25 px-4 py-2 hover:bg-[#EFEAE1]/70">
           Every compound we document
         </Link>
       </section>
 
-      <p className="mt-10 border-t border-neutral-200 pt-6 text-xs leading-relaxed text-neutral-400">
+      <p className="mt-10 border-t border-[#3D3229]/12 pt-6 text-xs leading-relaxed text-[#3D3229]/40">
         For research use only. Not for human or veterinary use. The information on this page is provided
         for educational and research purposes and does not constitute medical advice.
       </p>

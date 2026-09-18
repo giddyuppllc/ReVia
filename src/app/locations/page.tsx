@@ -45,16 +45,16 @@ export default async function LocationsIndexPage() {
 
   const Section = ({ title, items }: { title: string; items: typeof CITIES }) => (
     <section className="mt-10">
-      <h2 className="text-lg font-bold text-neutral-900">{title}</h2>
+      <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">{title}</h2>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {items.map((c) => (
           <Link
             key={c.slug}
             href={`/locations/${c.slug}`}
-            className="rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
+            className="rounded-xl border border-[#3D3229]/12 p-4 transition-colors hover:border-[#A38569] hover:bg-[#EFEAE1]/70"
           >
-            <p className="font-semibold text-neutral-900">{c.name}</p>
-            <p className="text-xs text-neutral-500">{c.stateAbbr}</p>
+            <p className="font-semibold text-[#3D3229]">{c.name}</p>
+            <p className="text-xs text-[#3D3229]/50">{c.stateAbbr}</p>
           </Link>
         ))}
       </div>
@@ -66,11 +66,11 @@ export default async function LocationsIndexPage() {
       <JsonLd data={itemListSchema} />
       <BreadcrumbSchema items={breadcrumb} />
 
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Locations</p>
-      <h1 className="mt-2 text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A38569]">Locations</p>
+      <h1 className="mt-2 font-display text-[34px] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[44px]">
         Research Peptides by Location
       </h1>
-      <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-neutral-700">
+      <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[#3D3229]/75">
         Research peptide monographs, written for Florida and the East Coast. Choose your metro to
         see the compounds documented there and what the published literature reports on each. Every
         ReVia-branded lot carries its own certificate of analysis, and every compound is intended
@@ -82,8 +82,8 @@ export default async function LocationsIndexPage() {
 
       {topProducts.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-lg font-bold text-neutral-900">Most-searched research peptides</h2>
-          <p className="mt-2 max-w-3xl text-sm text-neutral-600">
+          <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">Most-searched research peptides</h2>
+          <p className="mt-2 max-w-3xl text-sm text-[#3D3229]/62">
             The compounds asked about most often — documented across all {CITIES.length} metros.
           </p>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -91,11 +91,11 @@ export default async function LocationsIndexPage() {
               <Link
                 key={p.slug}
                 href={`/research/${p.slug}`}
-                className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
+                className="flex items-center justify-between rounded-xl border border-[#3D3229]/12 p-4 transition-colors hover:border-[#A38569] hover:bg-[#EFEAE1]/70"
               >
-                <span className="font-medium text-neutral-900">{p.name}</span>
+                <span className="font-medium text-[#3D3229]">{p.name}</span>
                 {p.category?.name && (
-                  <span className="ml-3 shrink-0 text-xs text-neutral-500">{p.category.name}</span>
+                  <span className="ml-3 shrink-0 text-xs text-[#3D3229]/50">{p.category.name}</span>
                 )}
               </Link>
             ))}
@@ -103,7 +103,7 @@ export default async function LocationsIndexPage() {
         </section>
       )}
 
-      <p className="mt-12 border-t border-neutral-200 pt-6 text-xs leading-relaxed text-neutral-400">
+      <p className="mt-12 border-t border-[#3D3229]/12 pt-6 text-xs leading-relaxed text-[#3D3229]/40">
         For research use only. Not for human or veterinary use.
       </p>
     </main>
