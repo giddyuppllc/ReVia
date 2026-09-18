@@ -79,9 +79,9 @@ export default function Navbar() {
         {/* Right — Actions */}
         <div className="flex flex-1 items-center justify-end gap-3">
           {/* US Manufactured badge */}
-          <div className="hidden items-center gap-1.5 rounded-full border border-sky-200/60 bg-sky-50/80 px-3 py-1.5 sm:flex">
+          <div className="hidden items-center gap-1.5 border-l border-[#3D3229]/12 pl-4 sm:flex">
             <Image src="/images/us-flag.png" alt="US Flag" width={20} height={14} className="h-3.5 w-5 object-contain" />
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-stone-600">US Made</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#3D3229]/55">US Made</span>
           </div>
 
           {/* Accounts, admin and login went with the store. Nothing here needs

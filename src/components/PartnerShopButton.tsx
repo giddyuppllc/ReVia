@@ -20,7 +20,7 @@ const VARIANTS: Record<Variant, string> = {
   solid:
     "border border-[#3E97CE] bg-[#3E97CE] text-white shadow-sm hover:bg-[#3585B8] hover:border-[#3585B8] active:scale-[0.97]",
   outline:
-    "bg-white text-[#2f7ba8] border border-[#3E97CE]/40 hover:bg-[#3E97CE]/10 hover:border-[#3E97CE]/70",
+    "bg-transparent text-[#3D3229] border border-[#3D3229]/25 hover:border-[#A38569] hover:text-[#A38569]",
   chip:
     "bg-white/90 text-[#2f7ba8] border border-[#3E97CE]/35 hover:bg-[#3E97CE]/10 active:scale-95",
 };

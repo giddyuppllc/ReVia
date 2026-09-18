@@ -170,3 +170,49 @@ export const CORRECTIONS: string[] = [
   "A transcript circulating that runs 52:47–1:02:33 and has him describing \"products that come back to us\" does not match the recording: the BPC-157 slot ended at 56:48 and the next speaker began at 56:59; that text splices the TB-500 closing lines onto a BPC-157 speech and adds sentences he did not say.",
   "His written comment to the docket (Regulations.gov FDA-2025-N-6895-0071, received June 10, 2026) is reproduced in full in the Source Dossier, Section 6.6.",
 ];
+
+
+/* ------------------------------------------------------------------ */
+/*  The pull quote                                                     */
+/*                                                                     */
+/*  One passage, carried to the home page. It is the whole argument     */
+/*  this company makes, said by its founder, on the federal record,     */
+/*  with a timecode anyone can check.                                   */
+/*                                                                     */
+/*  It MUST be a contiguous run of the body, never a splice. A spliced  */
+/*  version of this same testimony is what CORRECTIONS above exists to  */
+/*  record — quotes acquire words nobody said the moment you join two   */
+/*  halves with an ellipsis. `assertPullQuote` below fails the build if */
+/*  the text here is not found verbatim inside a single paragraph.      */
+/* ------------------------------------------------------------------ */
+
+export const PULL_QUOTE = {
+  /** Index into STATEMENTS. */
+  n: 1,
+  /*
+   * The thesis sentence, and nothing around it.
+   *
+   * The first version carried the whole passage — 424 characters, five
+   * sentences. Set at display size it filled a viewport on its own, which made
+   * the page a wall rather than an opening, and a reader has to finish a
+   * paragraph before reaching the point. This is the point. The passage it comes
+   * from is on /washington in full, where the length is the right length.
+   */
+  text:
+    "And somebody who decided that if I was going to put something like this in my body, I wanted to know exactly what it is.",
+} as const;
+
+/** Throws at module load if the pull quote is not verbatim and contiguous. */
+function assertPullQuote(): void {
+  const st = STATEMENTS.find((s) => s.n === PULL_QUOTE.n);
+  if (!st) throw new Error(`PULL_QUOTE references statement ${PULL_QUOTE.n}, which does not exist`);
+  const contiguous = st.body.some((para) => para.includes(PULL_QUOTE.text));
+  if (!contiguous) {
+    throw new Error(
+      "PULL_QUOTE is not a contiguous run of any paragraph in statement " +
+        `${PULL_QUOTE.n}. It has been edited, reordered or spliced — which is ` +
+        "exactly what CORRECTIONS records happening to this testimony before.",
+    );
+  }
+}
+assertPullQuote();
