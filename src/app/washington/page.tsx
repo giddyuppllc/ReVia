@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, FileText, Mic, Scale } from "lucide-react";
 import JsonLd from "@/components/JsonLd";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import { RECORD_LINKS } from "@/lib/record-links";
 import { HEARING, STATEMENTS, STATEMENT_COUNT, CORRECTIONS } from "@/data/federal-record";
 
 /* ------------------------------------------------------------------ */
@@ -33,6 +34,11 @@ export const metadata: Metadata = {
 };
 
 const ORIGIN = "https://revialife.com";
+
+/** The monograph a statement belongs to. The mapping lives in one place. */
+function researchSlugFor(s: { slug: string }): string {
+  return RECORD_LINKS.find((l) => l.statement.slug === s.slug)?.researchSlug ?? s.slug;
+}
 
 export default function WashingtonPage() {
   const articleLd = {
@@ -205,6 +211,17 @@ export default function WashingtonPage() {
                   Hear it
                   <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
                 </a>
+
+                {/* Into the library. These five compounds are the only ones on
+                    the site seen from both sides — what was said about them in
+                    public, and what the research says. Each half was previously
+                    unaware of the other. */}
+                <Link
+                  href={`/research/${researchSlugFor(s)}`}
+                  className="mt-3 block font-mono text-[11px] text-stone-500 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-700"
+                >
+                  Read the {s.compound} research &rarr;
+                </Link>
               </div>
 
               {/* Verbatim */}

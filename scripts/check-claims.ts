@@ -145,6 +145,49 @@ const RULES: Rule[] = [
     },
   },
   {
+    id: "no-unsupported-credential",
+    why: "A registration, certification or origin no document in the archive supports. See docs/BRAND-CONTEXT.md §4.",
+    /*
+     * Added 2026-09-18 from the brand brief, which checked each of these
+     * against the files rather than against the copy:
+     *
+     *   "Germany and Ukraine"  no supplier certificate, import record or
+     *                          manufacturer document names a country. The one
+     *                          certificate on file was issued in New Hampshire,
+     *                          so the "tested in Florida" half is contradicted
+     *                          by the document it rests on.
+     *   503(b)                 FDA's own register of outsourcing facilities
+     *                          lists 13 in Florida, and none of them is in this
+     *                          supply chain.
+     *   "cGMP certified"       a facility is registered, not certified, and
+     *                          registration is not approval of a product.
+     *   "ISO certified"        ISO is a body, not a standard. Without a number
+     *                          it certifies nothing.
+     *   "FDA-registered lab"   the laboratory publishes no accreditation.
+     *
+     * i2b's checker already banned the origin line. The brief's ruling is that
+     * revialife bans the same strings from the same list — same supply chain,
+     * one rule — which is why this exists rather than a note in a doc.
+     *
+     * The literal words "503A"/"503B" are fine: the glossary defines them and a
+     * news post describes the lanes. What is banned is CLAIMING to be one.
+     */
+    pattern:
+      /\b(Germany and Ukraine|(our|we are an?|ReVia'?s?)\s+(FDA[- ]registered\s+)?503\s*\(?[AaBb]\)?\b|cGMP[- ](certified|compliant)|ISO[- ]certified|ISO\s*\d{4,5}\b|FDA[- ]registered\s+(lab|laborator|facilit))/i,
+    /*
+     * src/data/glossary.ts is allowed because its job is to explain exactly
+     * these words — including that registration is an administrative filing and
+     * not approval of anything. A definitions file cannot define a term it is
+     * forbidden to write, and the entries there are the opposite of a claim:
+     * they tell a reader what the phrase does NOT mean.
+     */
+    allow: [
+      "src/data/federal-record.ts",
+      "src/data/glossary.ts",
+      "scripts/check-claims.ts",
+    ],
+  },
+  {
     id: "no-superlative",
     why: "A superlative no document supports. Say what is on the certificate, not where it ranks.",
     // "the highest bar in the industry" sat beside a cGMP claim on /why-us,
@@ -323,6 +366,10 @@ process.exit(1);
 /*  11. "unmatched depth" about a city         -> SILENT (a place is    */
 /*      not a product claim)                                            */
 /*  12. "unmatched purity"                     -> no-superlative        */
+/*  13. "sourced from Germany and Ukraine"     -> no-unsupported-cred   */
+/*  14. "our facilities are cGMP certified"    -> no-unsupported-cred   */
+/*  15. "503A covers traditional compounding"  -> SILENT (the glossary  */
+/*      defines the lanes; claiming to BE one is what is banned)        */
 /*      (a year on the line must not mask a real count beside it)        */
 /*                                                                      */
 /*  Known blind spot, accepted: a genuine count that happens to fall in  */

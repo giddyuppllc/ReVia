@@ -55,20 +55,35 @@ export default function WhyReVia() {
             {
               icon: Factory,
               title: "US Manufactured",
-              description: "Active pharmaceutical ingredient is sourced from Germany and Ukraine, then finished and tested in Florida. That is what we mean by US manufactured, and we would rather define it than let you assume it.",
+              // The origin sentence does not run. No supplier certificate,
+              // import record or manufacturer document names a country, and the
+              // only certificate on file was issued in New Hampshire — so
+              // "tested in Florida" is contradicted by the document it claims to
+              // rest on. What is below is true today and stays true when the
+              // origin line is finally supported.
+              description: "Every lot we supply is finished and tested in the United States. The laboratory that tests it, the method it uses and the results it found are printed on the certificate for that lot.",
             },
             {
               icon: BadgeCheck,
-              title: "cGMP Certified",
+              title: "Finished and tested in the United States",
               // "ISO certified" without a number certifies nothing — ISO is a
               // body, not a standard — and "the highest bar in the industry" is
               // a superlative no document supports. i2b's own checker bans both.
-              description: "Finished in an FDA-registered facility under cGMP manufacturing standards. Registration of a facility is not approval of a product.",
+              // My own earlier rewrite still asserted an FDA-registered
+              // facility under cGMP standards. The brief checked that against
+              // the files: FDA's register of outsourcing facilities lists
+              // thirteen in Florida and none of them is in this supply chain.
+              // What survives is what a certificate can show.
+              description: "Every lot is finished and tested in the United States before it ships, and the certificate for that lot says where, when and by whom.",
             },
             {
               icon: Microscope,
-              title: "FDA-Registered Labs",
-              description: "All testing performed in labs registered with the FDA, meeting federal administrative compliance requirements.",
+              // Was "FDA-Registered Labs". The laboratory publishes no
+              // accreditation or registration, so the claim rests on nothing —
+              // and registration would be an administrative filing, not a
+              // quality finding. What is checkable is that it is named at all.
+              title: "The laboratory is named",
+              description: "Every certificate names the laboratory that ran the analysis and the method it used, with a code that returns the same certificate from the laboratory's own portal.",
             },
             {
               icon: FileCheck,
