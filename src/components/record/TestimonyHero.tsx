@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { HEARING, PULL_QUOTE, STATEMENTS, STATEMENT_COUNT } from "@/data/federal-record";
+import { POSITIONING } from "@/lib/positioning";
 import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 
 /**
@@ -50,8 +51,17 @@ export default function TestimonyHero() {
         </Rise>
         <DrawRule className="mt-3" delay={0.15} />
 
+        {/* The house line, under the rule where a masthead motto sits. It is
+            the only place on the page the brand speaks in its own voice rather
+            than quoting a document. */}
+        <Rise delay={0.06}>
+          <p className="pt-5 font-display text-[17px] font-light tracking-[0.01em] text-[#A38569] sm:text-[19px]">
+            {POSITIONING}
+          </p>
+        </Rise>
+
         {/* ── the quote ── */}
-        <div className="grid gap-12 pt-12 pb-12 lg:grid-cols-[1fr_260px] lg:gap-20 sm:pt-16 sm:pb-16">
+        <div className="grid gap-12 pt-8 pb-12 lg:grid-cols-[1fr_260px] lg:gap-20 sm:pt-10 sm:pb-16">
           {/* No ch measure on this wrapper: `ch` resolves against ITS font
               size (16px), not the display size inside it, so a "19ch" column
               came out four words wide under 72px type. The grid column sets the

@@ -1,5 +1,6 @@
 import TestimonyHero from "@/components/record/TestimonyHero";
 import TheStandard from "@/components/record/TheStandard";
+import HowToBuy from "@/components/record/HowToBuy";
 import TheRecord from "@/components/record/TheRecord";
 import TheNetwork from "@/components/record/TheNetwork";
 import NewsletterBanner from "@/components/NewsletterBanner";
@@ -19,8 +20,9 @@ import NewsletterBanner from "@/components/NewsletterBanner";
  *
  *   1. the testimony — the founder, on the federal record, with a timecode
  *   2. the standard  — what the certificate actually reports
- *   3. the record    — what this site publishes
- *   4. the group     — who serves whom, and under which rules
+ *   3. how to buy    — the questions to ask anyone, ours answered
+ *   4. the record    — what this site publishes
+ *   5. the group     — who serves whom, and under which rules
  *
  * Nothing on it is for sale, and there is no photograph of a product anywhere.
  * The authority is meant to come from what can be checked.
@@ -36,6 +38,7 @@ export default function HomePage() {
     <>
       <TestimonyHero />
       <TheStandard />
+      <HowToBuy />
       <TheRecord />
       <TheNetwork />
       <div className="bg-[#F0EDE5] pb-16">

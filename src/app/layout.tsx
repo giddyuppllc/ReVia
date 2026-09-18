@@ -10,6 +10,7 @@ import AffiliateTracker from "@/components/AffiliateTracker";
 import RuoBanner from "@/components/RuoBanner";
 import AgeGate from "@/components/AgeGate";
 import { Suspense } from "react";
+import { POSITIONING_TITLE } from "@/lib/positioning";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
@@ -49,7 +50,7 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   title: {
-    default: "ReVia | Premium Peptides, Proven Purity",
+    default: `ReVia | ${POSITIONING_TITLE}`,
     template: "%s",
   },
   description:
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "ReVia",
     url: "https://revialife.com/",
-    title: "ReVia | Premium Peptides, Proven Purity",
+    title: `ReVia | ${POSITIONING_TITLE}`,
     description:
       "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
     images: [
@@ -76,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReVia | Premium Peptides, Proven Purity",
+    title: `ReVia | ${POSITIONING_TITLE}`,
     description:
       "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
     images: ["/images/hero-overlook.webp"],
