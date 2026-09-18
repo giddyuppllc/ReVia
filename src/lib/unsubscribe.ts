@@ -14,8 +14,30 @@ import crypto from "node:crypto";
  * unsubscribing strangers.
  */
 
+/**
+ * The signing key.
+ *
+ * This read `JWT_SECRET || CRON_SECRET || "revia-newsletter"`. The first was for
+ * the auth system, which is deleted; the second for a cron route, also deleted.
+ * So in practice the key was the third one — a string printed in the public
+ * repository, which anybody could use to mint a valid unsubscribe link for any
+ * address they cared to type. The HMAC was doing nothing.
+ *
+ * `RESEND_API_KEY` is the last fallback on purpose rather than a literal: a
+ * deployment that cannot send mail has no list to unsubscribe anyone from, so
+ * wherever these links can exist, the key does too. If none is set this throws,
+ * because issuing a link that anyone can forge is worse than not issuing one.
+ *
+ * Note this invalidates links in mail already sent under the old constant.
+ * Those links could be forged by anyone, so that is the point.
+ */
 function secret(): string {
-  return process.env.JWT_SECRET || process.env.CRON_SECRET || "revia-newsletter";
+  const s =
+    process.env.UNSUBSCRIBE_SECRET ||
+    process.env.JWT_SECRET ||
+    process.env.RESEND_API_KEY;
+  if (!s) throw new Error("No secret available to sign unsubscribe links");
+  return s;
 }
 
 export function unsubscribeToken(email: string): string {

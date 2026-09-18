@@ -56,3 +56,8 @@ CLAUDE.md
 AGENTS.md
 ReVia-transfer-prompt.md
 .env*
+
+# .env.example is the documented template, not a secret. Every rule above
+# matches it — `.env.*`, `*.env` and `.env*` each catch it — so without this
+# negation it silently never commits, which is the whole reason it was missing.
+!.env.example
