@@ -6,10 +6,10 @@ import JsonLd from "@/components/JsonLd";
 import LayoutShell from "@/components/LayoutShell";
 import ChatWidget from "@/components/ChatWidget";
 import CookieConsent from "@/components/CookieConsent";
-import AffiliateTracker from "@/components/AffiliateTracker";
 import RuoBanner from "@/components/RuoBanner";
 import AgeGate from "@/components/AgeGate";
 import { Suspense } from "react";
+import { REVIA_NETWORK } from "@/lib/partner";
 import { POSITIONING_TITLE } from "@/lib/positioning";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -88,13 +88,32 @@ export const metadata: Metadata = {
   },
 };
 
+// `sameAs` and `subOrganization` assert the group relationship to a search
+// engine, which is what lets authority earned on the record accrue to the
+// properties it points at.
+//
+// ReVia Providers is deliberately absent from both. It is noindex,nofollow
+// site-wide, so naming it here would assert a relationship with pages search
+// engines have been told to ignore — and a property with no public address is
+// not a URL at all.
+const NETWORK_URLS = REVIA_NETWORK.filter((s) => s.id !== "providers" && s.url).map(
+  (s) => s.url as string,
+);
+
 const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "ReVia Research Supply",
+  name: "ReVia",
   url: "https://revialife.com",
   logo: "https://revialife.com/logo.png",
-  description: "Premium research-grade peptides and compounds for scientific research.",
+  description:
+    "ReVia's brand and public record: the statements made to the FDA, what the certificates of analysis report, and the compound monographs. This site sells nothing.",
+  sameAs: NETWORK_URLS,
+  subOrganization: REVIA_NETWORK.filter((s) => s.id !== "providers" && s.url).map((s) => ({
+    "@type": "Organization",
+    name: s.name,
+    url: s.url as string,
+  })),
   contactPoint: {
     "@type": "ContactPoint",
     email: "contact@revialife.com",
@@ -149,7 +168,14 @@ export default function RootLayout({
         <LayoutShell>{children}</LayoutShell>
         <ChatWidget />
         <CookieConsent />
-        <Suspense><AffiliateTracker /></Suspense>
+        {/*
+          AffiliateTracker was mounted here. It set a `revia_ref` tracking
+          cookie for thirty days and POSTed to /api/affiliate/click, a route
+          deleted with the rest of the affiliate programme — so on every visit
+          carrying a ?ref it wrote a cookie nothing read and made a request
+          that 404d. The programme runs at i2b now, and its own tracking with
+          it.
+        */}
         <AgeGate />
         {/* WelcomePopup is unmounted, not deleted. It traded an email for the
             WELCOME first-order discount code and told the visitor to "use this

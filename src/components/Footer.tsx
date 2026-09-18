@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { B2B, D2C, b2bUrl, d2cUrl } from "@/lib/partner";
+import { REVIA_NETWORK } from "@/lib/partner";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
@@ -47,7 +47,6 @@ const footerSections = [
     // routes that end in an order leave for the partner storefront.
     label: "Research",
     links: [
-      { title: "Research Compounds", href: "/shop" },
       { title: "Compound Library", href: "/research" },
       { title: "What’s a Stack?", href: "/stacks" },
       { title: "Browse by Location", href: "/locations" },
@@ -56,13 +55,19 @@ const footerSections = [
     ],
   },
   {
-    label: "Order",
+    // Every ReVia property, on every page. One place to change it, and the
+    // reader is never more than a footer away from the part of the group that
+    // serves them. Sites without a live URL are listed on /network rather than
+    // linked to nowhere.
+    label: "The ReVia group",
     links: [
-      // Consumers to i2b, businesses to ReVia Wholesale — the wholesale site
-      // does no D2C at all, so these must not be collapsed into one link.
-      { title: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
-      { title: `Wholesale — ${B2B.name}`, href: b2bUrl("wholesale"), external: true },
-      { title: "Private Label", href: b2bUrl("privateLabel"), external: true },
+      ...REVIA_NETWORK.filter((s) => s.url).map((s) => ({
+        title: s.name,
+        href: s.url as string,
+        external: true,
+        inNetwork: true,
+      })),
+      { title: "How the group fits together", href: "/network" },
     ],
   },
   {
@@ -170,7 +175,15 @@ export default function Footer() {
                         <li key={link.title}>
                           <Link
                             href={link.href}
-                            {...(isExternal && { target: "_blank", rel: "noreferrer" })}
+                            {...(isExternal && {
+                              target: "_blank",
+                              // `noreferrer` strips the Referer header, which
+                              // throws away our own attribution between sites
+                              // we own — i2b cannot see that a visitor came
+                              // from the record. Kept for social, where the
+                              // destination is not ours.
+                              rel: "inNetwork" in link && link.inNetwork ? "noopener" : "noreferrer",
+                            })}
                             className="inline-flex items-center text-sm text-stone-500 transition-all duration-300 hover:text-sky-600"
                           >
                             {"icon" in link && link.icon && (
@@ -191,7 +204,7 @@ export default function Footer() {
         {/* Copyright */}
         <AnimatedContainer delay={0.6} className="mt-4 border-t border-sky-200/30 pt-3 text-center space-y-1.5">
           <p className="text-[10px] text-stone-400 leading-relaxed max-w-6xl mx-auto">
-            All products sold by ReVia carry a Research Use Only (RUO) designation as required by current US regulations and are intended for laboratory research use only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. This designation is standard practice for compounds awaiting formal FDA classification and does not reflect the quality, purity, or manufacturing standard. Our formulations meet research-grade specifications and are manufactured to physician-use (PUD) standards throughout.
+            Compounds carrying the ReVia name are designated Research Use Only (RUO) and are intended for laboratory research only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. That designation is standard for compounds awaiting formal FDA classification and is not a statement about quality or purity — the certificate of analysis for the lot is. revialife.com publishes the record and sells nothing.
           </p>
           <p className="text-[10px] text-stone-400">
             &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.

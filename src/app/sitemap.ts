@@ -61,6 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url("/glossary", 0.6, "monthly"),
 
     // Brand.
+    url("/network", 0.7, "monthly"),
     url("/about", 0.6, "monthly"),
     url("/why-us", 0.6, "monthly"),
     url("/stacks", 0.5, "monthly"),
