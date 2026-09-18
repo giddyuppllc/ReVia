@@ -145,6 +145,22 @@ const RULES: Rule[] = [
     },
   },
   {
+    id: "no-superlative",
+    why: "A superlative no document supports. Say what is on the certificate, not where it ranks.",
+    // "the highest bar in the industry" sat beside a cGMP claim on /why-us,
+    // which is the pattern worth catching: a checkable fact carrying an
+    // uncheckable boast, so the boast borrows the fact's credibility.
+    // Bounded to claims about the product or the testing. "Unmatched" alone
+    // fired on geo prose describing Boston's lab density and New York's
+    // concentration of academic labs — true of a city, and not a claim about
+    // anything ReVia makes. A rule that cannot tell a place from a product
+    // would have to be exempted per file, and per-file exemptions are where a
+    // real claim eventually hides.
+    pattern:
+      /\b(highest bar|the best (peptides?|quality|purity|testing)|most rigorous|industry[- ]leading|gold standard|purest|(unmatched|second to none)\s+(purity|quality|testing|standards?))\b/i,
+    allow: ["src/data/federal-record.ts", "scripts/check-claims.ts"],
+  },
+  {
     id: "no-negative-framing",
     why: "Describes what someone else is, rather than what ReVia does. House rule: positive framing only.",
     // A verbatim public record is quoted, not written. Mike Stone says
@@ -154,8 +170,13 @@ const RULES: Rule[] = [
     // testimony did, and what CORRECTIONS in that file calls out.
     // Framing only. Every claims rule still applies to that file.
     allow: ["src/data/federal-record.ts"],
+    // 2026-09-18: "Most vendors resell unverified powder from overseas
+    // factories" was live on /why-us and matched none of the patterns below —
+    // the list had been built from the phrasings that were caught before, which
+    // is how a rule ends up policing yesterday's copy. Added the shape of the
+    // claim (most/other vendors DO x) rather than that one sentence.
     pattern:
-      /\b(gr[ae]y market vendors?|fake or reused|counterfeit|never China|no cGMP|unregistered facilit\w*|corners are cut|most suppliers fail)\b/i,
+      /\b(gr[ae]y market vendors?|fake or reused|counterfeit|never China|no cGMP|unregistered facilit\w*|corners are cut|most suppliers fail|(most|other|many|some) (vendors|suppliers|brands|companies)\s+(resell|sell|use|source|skip|cut|fail|do not|don't|never|rarely)|unverified powder|overseas factor\w+)\b/i,
     // "gray market" alone is allowed: Mike Stone uses it about ReVia itself
     // on the federal record, which is self-description, not disparagement.
   },
@@ -295,6 +316,13 @@ process.exit(1);
 /*   5. Put "Add to Cart" in a component       -> no-sales-language      */
 /*   6. Put "2025 Peptide Trends" in a title   -> SILENT (a year)        */
 /*   7. Put "2025 trends, 38 compounds"        -> no-bare-stat-literal   */
+/*   8. "Most vendors resell unverified..."    -> no-negative-framing   */
+/*   9. "Other vendors or competitor products" -> SILENT (a DO NOT      */
+/*      discuss list is an instruction not to disparage)                */
+/*  10. "the highest bar in the industry"      -> no-superlative        */
+/*  11. "unmatched depth" about a city         -> SILENT (a place is    */
+/*      not a product claim)                                            */
+/*  12. "unmatched purity"                     -> no-superlative        */
 /*      (a year on the line must not mask a real count beside it)        */
 /*                                                                      */
 /*  Known blind spot, accepted: a genuine count that happens to fall in  */

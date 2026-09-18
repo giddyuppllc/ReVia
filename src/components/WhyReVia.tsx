@@ -39,8 +39,13 @@ export default function WhyReVia() {
             Not All Peptides Are<br />Created Equal
           </motion.h1>
           <motion.p {...anim(0.2)} className="mt-6 text-lg text-stone-500 max-w-2xl mx-auto leading-relaxed">
-            Most vendors resell unverified powder from overseas factories. We built a fully US-manufactured,
-            third-party tested supply chain with research-grade standards on every batch.
+            {/* The sentence that was here characterised every other vendor as
+                reselling "unverified powder from overseas factories". We have no
+                basis for that about anyone, and it is the same class of claim
+                the competitor table was removed for. What we can say is what we
+                do, and it is stronger for naming nobody. */}
+            Third-party tested, batch by batch, with the certificate published for the lot
+            that ships — the laboratory, the method and the result, on the document.
           </motion.p>
         </div>
 
@@ -54,8 +59,11 @@ export default function WhyReVia() {
             },
             {
               icon: BadgeCheck,
-              title: "cGMP & ISO Certified",
-              description: "Our facilities meet both FDA cGMP manufacturing standards and ISO quality system certification — the highest bar in the industry.",
+              title: "cGMP Certified",
+              // "ISO certified" without a number certifies nothing — ISO is a
+              // body, not a standard — and "the highest bar in the industry" is
+              // a superlative no document supports. i2b's own checker bans both.
+              description: "Finished in an FDA-registered facility under cGMP manufacturing standards. Registration of a facility is not approval of a product.",
             },
             {
               icon: Microscope,
