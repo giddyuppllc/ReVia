@@ -31,25 +31,37 @@ import crypto from "node:crypto";
  * Note this invalidates links in mail already sent under the old constant.
  * Those links could be forged by anyone, so that is the point.
  */
-function secret(): string {
-  const s =
+function secret(): string | null {
+  return (
     process.env.UNSUBSCRIBE_SECRET ||
     process.env.JWT_SECRET ||
-    process.env.RESEND_API_KEY;
-  if (!s) throw new Error("No secret available to sign unsubscribe links");
-  return s;
+    process.env.RESEND_API_KEY ||
+    null
+  );
 }
 
 export function unsubscribeToken(email: string): string {
+  const key = secret();
+  // Issuing throws: a link nobody can verify is worse than no link in the mail.
+  if (!key) throw new Error("No secret available to sign unsubscribe links");
   return crypto
-    .createHmac("sha256", secret())
+    .createHmac("sha256", key)
     .update(email.toLowerCase().trim())
     .digest("hex")
     .slice(0, 32);
 }
 
-/** Constant-time, so a wrong token cannot be found a character at a time. */
+/**
+ * Constant-time, so a wrong token cannot be found a character at a time.
+ *
+ * Returns false rather than throwing when there is no key. Verification is
+ * reached by someone clicking a link in their inbox, and a deployment missing
+ * its key turned that click into a 500 — an error page where "that link is not
+ * recognised" belongs. Rejecting is the safe answer either way: without a key
+ * no token can be trusted.
+ */
 export function verifyUnsubscribeToken(email: string, token: string): boolean {
+  if (!secret()) return false;
   const expected = unsubscribeToken(email);
   const a = Buffer.from(expected);
   const b = Buffer.from(token || "");
