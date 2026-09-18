@@ -23,12 +23,16 @@ const FALLBACK_CONFIG: WidgetConfig = {
   topicKeywords: [],
   clientDeflect: "I'm ReVia's peptide research assistant — I can help with product questions, research applications, pricing, or ordering. What research area are you interested in?",
   welcomeTitle: "How can I help with your research?",
-  welcomeBody: "Ask about peptides, mechanisms of action, available products, or how to order.",
+  welcomeBody: "Ask about compounds, mechanisms, certificates of analysis, or our record with the FDA.",
+  // These are the fallback shown before /api/chat/config answers. They have to
+  // match the server's DEFAULT_QUICK_QUESTIONS — when they did not, the widget
+  // offered "How do I place an order?" on a site that takes no orders, for as
+  // long as the config request took.
   quickQuestions: [
-    "What metabolic research peptides do you carry?",
+    "What does a certificate of analysis actually report?",
     "Tell me about BPC-157 research",
-    "What recovery peptides are available?",
-    "How do I place an order?",
+    "What did ReVia say at the FDA committee?",
+    "Where are these compounds supplied from?",
   ],
 };
 

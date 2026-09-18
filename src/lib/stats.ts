@@ -1,6 +1,6 @@
-import { unstable_cache } from "next/cache";
 import { cache } from "react";
-import { prisma } from "@/lib/prisma";
+import { ARTICLE_COUNT, articleCategories } from "@/content/articles";
+import { getI2bCatalogue } from "@/lib/i2b-catalogue";
 import { researchCompounds, CATEGORIES } from "@/data/research-compounds";
 import { CITIES } from "@/data/cities";
 import { REVIA_NETWORK } from "@/lib/partner";
@@ -52,7 +52,26 @@ export interface StaticStats {
   coaResults: number;
 }
 
-/** Every field is nullable: a failed query must not become a false zero. */
+/**
+ * What the supplying catalogue reports.
+ *
+ * ## Why this is no longer a database read
+ *
+ * These were counts over ReViaLife's own `Product` table — which described a
+ * shop that no longer exists. Counting your own inactive rows and calling the
+ * result "compounds supplied" was already the weaker claim; it is now simply
+ * untrue, because ReViaLife supplies nothing.
+ *
+ * They are read from i2b's live catalogue instead. That is a stronger figure,
+ * not a weaker one: it is what the supplying company is publishing right now,
+ * and it moves when they activate a product rather than when we deploy.
+ *
+ * `articles` moved to the typed article modules, which cannot fail, so it is no
+ * longer nullable business — it is counted in `getStaticStats`.
+ *
+ * Every field is still nullable: an unreachable catalogue must not become a
+ * false zero. See `src/lib/i2b-catalogue.ts` — null is not [].
+ */
 export interface DbStats {
   coasOnFile: number | null;
   compoundsSupplied: number | null;
@@ -76,6 +95,17 @@ export interface BatchStats {
   batchesTested: number | null;
   latestTestDate: Date | null;
 }
+
+/**
+ * Always null, and kept rather than deleted.
+ *
+ * The `BatchRecord` table never had a row in it, so this reported nothing
+ * before and reports nothing now. The type stays because the distinction it
+ * encodes is the one that matters: when batch records do exist, they must
+ * arrive as a count that can be null, not as a zero that reads as "we have
+ * tested no batches".
+ */
+const NO_BATCH_STATS: BatchStats = { batchesTested: null, latestTestDate: null };
 
 export interface SiteStats {
   static: StaticStats;
@@ -127,68 +157,53 @@ export function getStaticStats(): StaticStats {
 
 /* ------------------------------ DB -------------------------------- */
 
-const nul = () => null;
-
 async function queryDbStats(): Promise<DbStats> {
-  // Each count fails independently — one dead query must not blank the row.
-  const [
-    coasOnFile,
-    compoundsSupplied,
-    supplyCategories,
-    presentations,
-    articles,
-    articleCategories,
-  ] = await Promise.all([
-    prisma.product.count({ where: { active: true, coaUrl: { not: null } } }).catch(nul),
-    prisma.product.count({ where: { active: true } }).catch(nul),
-    prisma.category.count().catch(nul),
-    prisma.productVariant.count().catch(nul),
-    prisma.blogPost.count({ where: { published: true } }).catch(nul),
-    prisma.blogPost
-      .findMany({ where: { published: true }, distinct: ["category"], select: { category: true } })
-      .then((r) => r.length)
-      .catch(nul),
-  ]);
+  const items = await getI2bCatalogue();
+
+  // Unreachable is not empty. Every count stays null rather than collapsing to
+  // zero, and <Stat> renders nothing for a null.
+  if (!items) {
+    return {
+      coasOnFile: null,
+      compoundsSupplied: null,
+      supplyCategories: null,
+      presentations: null,
+      articles: null,
+      articleCategories: null,
+    };
+  }
+
+  const categories = new Set(items.map((i) => i.category).filter(Boolean));
 
   return {
-    coasOnFile,
-    compoundsSupplied,
-    supplyCategories,
-    presentations,
-    articles,
-    articleCategories,
+    coasOnFile: items.filter((i) => i.coaUrl).length,
+    compoundsSupplied: items.length,
+    supplyCategories: categories.size,
+    // A "presentation" is one purchasable size of one compound. Summing the
+    // size lists counts the same thing the variant table used to.
+    presentations: items.reduce((n, i) => n + (i.sizes?.length ?? 0), 0),
+    articles: ARTICLE_COUNT,
+    articleCategories: articleCategories().length,
   };
 }
 
-const getCachedDbStats = unstable_cache(queryDbStats, ["site-stats-db"], {
-  revalidate: 3600,
-  tags: ["site-stats"],
-});
-
-async function queryBatchStats(): Promise<BatchStats> {
-  const [batchesTested, latest] = await Promise.all([
-    prisma.batchRecord.count().catch(nul),
-    prisma.batchRecord.aggregate({ _max: { testDate: true } }).catch(() => null),
-  ]);
-
-  return {
-    // 0 rows means we have nothing to report, not "zero batches tested".
-    batchesTested: batchesTested && batchesTested > 0 ? batchesTested : null,
-    latestTestDate: latest?._max.testDate ?? null,
-  };
-}
-
-const getCachedBatchStats = unstable_cache(queryBatchStats, ["site-stats-batch"], {
-  revalidate: 3600,
-  tags: ["site-stats"],
-});
+/*
+ * No `unstable_cache` wrapper any more.
+ *
+ * It wrapped a Prisma query, which has no caching of its own. The source is now
+ * a `fetch` that already declares `revalidate: 900` and a cache tag, and
+ * wrapping a cached fetch in a second cache layer means the outer window (an
+ * hour) silently wins over the inner one — so a product activated on i2b would
+ * appear in the availability control within fifteen minutes and in these counts
+ * forty-five minutes later. One cache, one answer.
+ */
 
 /* --------------------------- Composed ----------------------------- */
 
 /** Per-request dedupe, so three components on a page hit Neon once. */
 export const getSiteStats = cache(async (): Promise<SiteStats> => {
-  const [db, batch] = await Promise.all([getCachedDbStats(), getCachedBatchStats()]);
-  return { static: getStaticStats(), db, batch };
+  const db = await queryDbStats();
+  return { static: getStaticStats(), db, batch: NO_BATCH_STATS };
 });
 
 /* --------------------------- Formatting --------------------------- */

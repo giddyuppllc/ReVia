@@ -108,7 +108,7 @@ export const FAQ_SECTIONS: FaqSection[] = [
     title: "Ordering & Supply",
     items: [
       {
-        q: "Where do I place an order?",
+        q: "Where can I obtain these compounds?",
         a: `Individual orders go through ${D2C.name}, our exclusive research partner.`,
         cta: { label: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
       },

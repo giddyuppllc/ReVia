@@ -7,15 +7,12 @@ export const metadata: Metadata = {
     default: "Policies | ReVia Research Supply",
   },
   description:
-    "Legal policies and terms for ReVia Research Supply LLC, a provider of research-use-only peptides.",
+    "Legal policies and terms for ReVia, which documents research-use-only compounds.",
 };
 
 const policyLinks = [
   { href: "/policies/terms", label: "Terms of Service" },
   { href: "/policies/privacy", label: "Privacy Policy" },
-  { href: "/policies/shipping", label: "Shipping Policy" },
-  { href: "/policies/refunds", label: "Refund & Return Policy" },
-  { href: "/policies/payments", label: "Payment Policy" },
   { href: "/policies/aup", label: "Acceptable Use Policy" },
   { href: "/policies/disclaimer", label: "Disclaimer" },
   { href: "/policies/cookies", label: "Cookie Policy" },

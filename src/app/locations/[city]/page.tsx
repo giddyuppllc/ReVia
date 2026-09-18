@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const city = getCity(citySlug);
   if (!city) return {};
   const title = `Research Peptides in ${city.name}, ${city.stateAbbr} | ReVia Life`;
-  const description = `Buy research peptides in ${city.name}, ${city.state} — GLP-1 compounds, recovery, longevity, and cognitive peptides, third-party COA tested and shipped fast. Research use only.`;
+  const description = `Research peptides documented for ${city.name}, ${city.state} — GLP-1, recovery, longevity and cognitive compounds, each with its mechanism, published studies and certificate of analysis. Research use only.`;
   const url = `${SITE}/locations/${city.slug}`;
   return {
     title,
@@ -55,7 +55,7 @@ export default async function CityHubPage({ params }: PageProps) {
   const copy = getCityCopy(city.slug);
   const intro =
     copy.intro ??
-    `ReVia Life supplies research-grade peptides to researchers and labs in ${city.name}, ${city.state}. ${city.angle} — and ReVia ships the full catalog to ${city.name} and nearby areas including ${city.nearbyAreas.join(", ")}. Every compound is third-party COA tested and intended strictly for research use.`;
+    `Researchers and labs in ${city.name}, ${city.state} work across the compounds documented here. ${city.angle} — and the same monographs cover ${city.nearbyAreas.join(", ")} and the surrounding region. Every ReVia-branded lot carries a batch-specific certificate of analysis, and every compound is intended strictly for research use.`;
 
   // Group by category for a scannable, non-thin layout.
   type ProductRow = (typeof products)[number];

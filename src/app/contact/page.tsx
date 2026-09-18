@@ -210,8 +210,8 @@ export default function ContactPage() {
             <ul className="space-y-3">
               {[
                 { href: "/faq", label: "FAQ", desc: "Common questions answered" },
-                { href: "/policies/shipping", label: "Shipping Info", desc: "Rates, times, and tracking" },
-                { href: "/policies/refunds", label: "Return Policy", desc: "Eligibility and refunds" },
+                { href: "/policies/disclaimer", label: "Research-use-only", desc: "What these compounds are for" },
+                { href: "/faq", label: "Common questions", desc: "Including where compounds are obtained" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link

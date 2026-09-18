@@ -60,8 +60,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = await load(citySlug, productSlug);
   if (!data) return {};
   const { city, product } = data;
-  const title = `Buy ${product.name} Research Peptide in ${city.name}, ${city.stateAbbr} | ReVia Life`;
-  const description = `${product.name} research peptide for researchers in ${city.name}, ${city.state} — third-party COA tested, fast shipping. Research use only. ${product.category.name} compound from ReVia Life.`;
+  const title = `${product.name} research in ${city.name}, ${city.stateAbbr} | ReVia`;
+  const description = `${product.name} for researchers in ${city.name}, ${city.state} — mechanism, published studies and what a certificate of analysis reports. Research use only. ${product.category.name} compound.`;
   const url = `${SITE}/locations/${city.slug}/${product.slug}`;
   return {
     title,
@@ -83,18 +83,18 @@ export default async function CityProductPage({ params }: PageProps) {
 
   const intro =
     copy.intro ??
-    `Researchers in ${city.name} and across ${city.region === "Florida" ? "Florida" : `the ${city.stateAbbr} area`} source ${product.name} through ReVia Life. Every batch ships with a third-party certificate of analysis and is intended strictly for laboratory and research use. ReVia ships ${product.name} to ${city.name}, ${[...city.nearbyAreas].slice(0, 3).join(", ")}, and the surrounding ${city.state} region.`;
+    `Researchers in ${city.name} and across ${city.region === "Florida" ? "Florida" : `the ${city.stateAbbr} area`} work with ${product.name}. Every ReVia-branded lot carries a batch-specific certificate of analysis naming the laboratory, and the compound is intended strictly for laboratory and research use. This page covers what the published literature reports, and where the certificate for a given lot can be read — in ${city.name}, ${[...city.nearbyAreas].slice(0, 3).join(", ")}, and the surrounding ${city.state} region.`;
 
   const faq =
     copy.faq ??
     [
       {
-        q: `Can I get ${product.name} research peptide shipped to ${city.name}?`,
-        a: `Yes. ReVia Life ships ${product.name} to ${city.name}, ${city.state} and nearby areas including ${city.nearbyAreas.slice(0, 3).join(", ")}. Orders are fulfilled for research use only.`,
+        q: `Where do researchers in ${city.name} obtain ${product.name}?`,
+        a: `Through i2b Health, ReVia's research partner, which is a separate company with its own catalogue and terms. Researchers in ${city.name}, ${city.state} and nearby areas including ${city.nearbyAreas.slice(0, 3).join(", ")} use it the same way as anywhere else. Research use only.`,
       },
       {
         q: `Is ${product.name} from ReVia third-party tested?`,
-        a: `Every ReVia ${product.name} lot ships with an independent certificate of analysis (COA) verifying identity and purity. COAs are available on request.`,
+        a: `Every ReVia ${product.name} lot carries an independent certificate of analysis naming the laboratory and the lot, reporting identity, purity, quantity and metals by RP-HPLC with UV detection.`,
       },
       {
         q: `What is ${product.name} classified as?`,
@@ -181,7 +181,7 @@ export default async function CityProductPage({ params }: PageProps) {
         {product.category.name} · {city.name}, {city.stateAbbr}
       </p>
       <h1 className="mt-2 text-3xl font-bold leading-tight text-neutral-900 sm:text-4xl">
-        Buy {product.name} Research Peptide in {city.name}, {city.stateAbbr}
+        {product.name} research in {city.name}, {city.stateAbbr}
       </h1>
 
       <p className="mt-5 text-[15px] leading-relaxed text-neutral-700">{intro}</p>
@@ -220,12 +220,13 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Local framing */}
       <section className="mt-10 rounded-2xl border border-neutral-200 p-6">
         <h2 className="text-xl font-bold text-neutral-900">
-          {product.name} research peptides shipped to {city.name}
+          {product.name} in the {city.name} research community
         </h2>
         <p className="mt-3 text-[15px] leading-relaxed text-neutral-700">
-          ReVia Life supplies {product.name} to research customers throughout the {city.name} metro —
-          including {city.nearbyAreas.join(", ")} — as part of our {city.region} coverage. {city.angle}.
-          Orders ship quickly with tracking, and every order is intended strictly for research use.
+          {product.name} is worked with by researchers throughout the {city.name} metro — including{" "}
+          {city.nearbyAreas.join(", ")} — and across {city.region}. {city.angle}. Every ReVia-branded
+          lot carries its own certificate of analysis, and the compound is intended strictly for
+          research use.
         </p>
       </section>
 
@@ -269,7 +270,7 @@ export default async function CityProductPage({ params }: PageProps) {
       {relatedCities.length > 0 && (
         <section className="mt-10">
           <h2 className="text-xl font-bold text-neutral-900">
-            Buy {product.name} in other {city.region} cities
+            {product.name} research in other {city.region} cities
           </h2>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">
             {relatedCities.map((rc) => (
@@ -287,14 +288,14 @@ export default async function CityProductPage({ params }: PageProps) {
 
       {/* Links */}
       <section className="mt-10 flex flex-wrap gap-3 text-sm">
-        <Link href={`/shop/${product.slug}`} className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
-          {product.name} product page
+        <Link href={`/research/${product.slug}`} className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
+          {product.name} monograph
         </Link>
         <Link href={`/locations/${city.slug}`} className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
           All research peptides in {city.name}
         </Link>
-        <Link href="/shop" className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
-          Full catalog
+        <Link href="/research" className="rounded-full border border-neutral-300 px-4 py-2 hover:bg-neutral-50">
+          Every compound we document
         </Link>
       </section>
 

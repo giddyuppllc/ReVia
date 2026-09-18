@@ -11,9 +11,9 @@ export const dynamic = "force-static";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Research Peptides by Location — Florida & East Coast | ReVia Life",
+  title: "Research Peptides by Location — Florida & East Coast | ReVia",
   description:
-    "Find research peptides in your metro. ReVia Life ships COA-tested research compounds to 25 major Florida and East Coast cities. Research use only.",
+    "Research peptide monographs for 25 major Florida and East Coast metros — mechanism, published studies and certificates of analysis. Research use only.",
   alternates: { canonical: `${SITE}/locations` },
 };
 
@@ -71,9 +71,10 @@ export default async function LocationsIndexPage() {
         Research Peptides by Location
       </h1>
       <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-neutral-700">
-        ReVia Life ships COA-tested research peptides across Florida and the East Coast. Choose your
-        metro to see the catalog and local shipping details. Every compound is third-party tested and
-        intended strictly for research use.
+        Research peptide monographs, written for Florida and the East Coast. Choose your metro to
+        see the compounds documented there and what the published literature reports on each. Every
+        ReVia-branded lot carries its own certificate of analysis, and every compound is intended
+        strictly for research use.
       </p>
 
       <Section title="Florida" items={florida} />
@@ -83,13 +84,13 @@ export default async function LocationsIndexPage() {
         <section className="mt-12">
           <h2 className="text-lg font-bold text-neutral-900">Most-searched research peptides</h2>
           <p className="mt-2 max-w-3xl text-sm text-neutral-600">
-            Popular compounds researchers source through ReVia Life — available across all {CITIES.length} metros.
+            The compounds asked about most often — documented across all {CITIES.length} metros.
           </p>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {topProducts.map((p) => (
               <Link
                 key={p.slug}
-                href={`/shop/${p.slug}`}
+                href={`/research/${p.slug}`}
                 className="flex items-center justify-between rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
               >
                 <span className="font-medium text-neutral-900">{p.name}</span>

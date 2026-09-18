@@ -81,8 +81,8 @@ const footerSections = [
     links: [
       { title: "Terms", href: "/policies/terms" },
       { title: "Privacy", href: "/policies/privacy" },
-      { title: "Shipping", href: "/policies/shipping" },
-      { title: "Refund Policy", href: "/policies/refunds" },
+      { title: "Disclaimer", href: "/policies/disclaimer" },
+      { title: "Acceptable Use", href: "/policies/aup" },
     ],
   },
   {

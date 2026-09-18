@@ -226,9 +226,92 @@ const RULES: Rule[] = [
   {
     id: "no-sales-language",
     why: "This site does not sell. Purchase intent leaves for i2b (D2C) or ReVia Wholesale (B2B).",
-    pattern: /\b(add to cart|proceed to checkout|your cart|apply .{0,12}coupon|discount code at checkout)\b/i,
+    //
+    // ## Why this is much wider than it was
+    //
+    // It used to match five checkout phrases — "add to cart", "your cart" and
+    // the like. Those are the words of a shop that still has a basket, which is
+    // the one thing the remodel deleted first, so the rule passed on everything
+    // while 25 city pages went on saying ReVia ships to your metro, the
+    // locations index linked to /shop, and a product page promised orders ship
+    // quickly with tracking. A check that only catches the thing you already
+    // removed is not a check.
+    //
+    // The claim that matters is not "buy" — it is any first-person statement
+    // that this company will supply, ship, price or sell you something.
+    // `buy` is handled by `no-purchase-cta` below, which has to be
+    // case-sensitive and so cannot live in this pattern.
+    pattern:
+      /\b(?:add to cart|proceed to checkout|your cart|apply .{0,12}coupon|discount code at checkout|checkout|(?:we|ReVia(?: Life)?) ships?\b|ships? (?:free|fast|quickly|same.?day|with tracking)|free shipping|fast shipping|place an order|order (?:now|today|online|at)\b|pre-?order|in stock|out of stock)/i,
     // Policy pages are legal documents; their wording is not ours to tune here.
     skipPrefixes: ["src/app/policies/"],
+    //
+    // The assistant's prompt has to name what it must refuse to do — "you do
+    // not know what anything costs, what is in stock" — and its keyword list
+    // has to contain the sale words, because those are what route "how much is
+    // BPC-157?" to the model that answers it properly instead of to a generic
+    // deflection.
+    //
+    // Exempted from THIS rule only. `no-price-literal` still applies to the
+    // file, which is what catches the actual regression: the prompt used to
+    // carry a shipping price list, and quoting it on request published it.
+    // HowToBuy is the handoff component the owner asked for: it explains that
+    // buying happens at i2b, names i2b's checkout, and links out. Describing
+    // somebody else's checkout is the point of the component.
+    allow: ["src/lib/chatbotConfig.ts", "src/components/record/HowToBuy.tsx"],
+    confirm: (line) => {
+      // A comment explaining why a phrase was removed must be allowed to name
+      // it. Without this the rule punishes the documentation of its own fix.
+      if (/^\s*(\/\/|\*|\/\*)/.test(line)) return false;
+      // Relaying i2b's own catalogue — its inStock flag, or a control that
+      // sends the reader there to order — is the approved handoff, not a claim
+      // this site is making about itself.
+      if (/inStock|i2b|D2C\./.test(line)) return false;
+      return true;
+    },
+  },
+  {
+    id: "no-purchase-cta",
+    why: "An imperative to buy a named thing is an offer. Discussing how to buy well is not.",
+    //
+    // ## Why this is a separate rule
+    //
+    // It has to be case-sensitive, and the rule above is case-insensitive. The
+    // first version of this folded `buy\s+[A-Z]` into that pattern, where the
+    // `i` flag quietly made `[A-Z]` match any letter — so it fired on Mike
+    // Stone's committee testimony ("trying to get you to buy something from
+    // me") and on the headline of the post explaining why there is no buy
+    // button, while the distinction it was written to draw did no work at all.
+    //
+    // The distinction: this site's editorial subject IS how to buy well.
+    // "Where to buy", "Ask for the certificate before you buy", "how to buy in
+    // this category" must all pass. What must not pass is an imperative with a
+    // direct object — "Buy Retatrutide in Miami" — which is an offer wearing a
+    // page title.
+    pattern: /\bBuy\s+(?:\$\{|\{|[A-Z]|research\b|peptides?\b|now\b|online\b)/,
+    allow: ["scripts/check-claims.ts"],
+    confirm: (line) => !/^\s*(\/\/|\*|\/\*)/.test(line),
+  },
+  {
+    id: "no-price-literal",
+    why: "This site publishes no prices. A figure with a currency symbol is a price wherever it appears.",
+    pattern: /\$\s?\d/,
+    // COA_EXAMPLE and the checker's own mutation notes may quote one.
+    allow: ["scripts/check-claims.ts"],
+    confirm: (line) => {
+      // `${...}` is template interpolation, not a dollar sign.
+      const stripped = line.replace(/\$\{[^}]*\}/g, "");
+      if (!/\$\s?\d/.test(stripped)) return false;
+      if (/^\s*(\/\/|\*|\/\*)/.test(stripped)) return false;
+      return true;
+    },
+  },
+  {
+    id: "no-offer-schema",
+    why: "Offer structured data tells a search engine this site sells at a price. It does not sell.",
+    pattern: /\b(AggregateOffer|"@type":\s*"Offer"|lowPrice|highPrice|offerCount|priceCurrency)\b/,
+    allow: ["scripts/check-claims.ts"],
+    confirm: (line) => !/^\s*(\/\/|\*|\/\*)/.test(line),
   },
 ];
 
@@ -363,6 +446,15 @@ process.exit(1);
 /*   9. "Other vendors or competitor products" -> SILENT (a DO NOT      */
 /*      discuss list is an instruction not to disparage)                */
 /*  10. "the highest bar in the industry"      -> no-superlative        */
+/*  16. "ReVia Life ships to Miami"            -> no-sales-language     */
+/*  17. "Standard shipping $7.95"              -> no-price-literal      */
+/*  18. "@type": "Offer" in JSON-LD            -> no-offer-schema       */
+/*  19. `${total}` in a template literal       -> SILENT (interpolation)*/
+/*  20. "// removed 'we ship' from this page"  -> SILENT (a comment     */
+/*      naming what it deleted is not a claim)                         */
+/*  21. "Ask for the certificate before you buy" -> SILENT (no object) */
+/*  22. "Buy Retatrutide in Miami"             -> no-sales-language     */
+/*  23. "ReVia Life ships to 25 metros"        -> no-sales-language     */
 /*  11. "unmatched depth" about a city         -> SILENT (a place is    */
 /*      not a product claim)                                            */
 /*  12. "unmatched purity"                     -> no-superlative        */

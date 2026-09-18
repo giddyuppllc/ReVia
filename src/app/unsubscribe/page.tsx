@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { unsubscribeAddress } from "@/lib/audience";
 import { verifyUnsubscribeToken } from "@/lib/unsubscribe";
 
 export const dynamic = "force-dynamic";
@@ -19,11 +19,9 @@ export default async function UnsubscribePage({
 }) {
   const email = (searchParams.e || "").toLowerCase().trim();
   const token = searchParams.t || "";
-  const valid = Boolean(email) && verifyUnsubscribeToken(email, token);
-
-  if (valid) {
-    await prisma.newsletter.deleteMany({ where: { email } });
-  }
+  const signed = Boolean(email) && verifyUnsubscribeToken(email, token);
+  // A signed link that we then fail to action must not say "you're unsubscribed".
+  const valid = signed && (await unsubscribeAddress(email));
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 py-20 text-center">
@@ -34,12 +32,11 @@ export default async function UnsubscribePage({
         {valid ? (
           <>
             <span className="font-medium text-[#3D3229]">{email}</span> has been removed from the
-            ReVia mailing list. Order and shipping notices for purchases you make will still be
-            sent — those aren&apos;t marketing.
+            ReVia mailing list. Nothing further will be sent.
           </>
         ) : (
           <>
-            That unsubscribe link is incomplete or has been altered. Email{" "}
+            That link is incomplete, has been altered, or we could not action it. Email{" "}
             <a className="underline" href="mailto:contact@revialife.com">
               contact@revialife.com
             </a>{" "}

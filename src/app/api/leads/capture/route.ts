@@ -1,13 +1,32 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { notifyTeam } from "@/lib/notify";
+import { addContactQuiet } from "@/lib/audience";
 import { rateLimit } from "@/lib/rate-limit";
 
 // Public lead-capture ingest for the ReVia funnel network. The 6 funnel sites
 // live on their own domains, so this is a cross-origin endpoint with an
-// explicit origin allowlist. Captures email opt-ins, quiz completions, PDF
-// downloads, and direct-click leads, and links a referral code to the existing
-// Affiliate system when one is present.
+// explicit origin allowlist.
+//
+// ## What the database used to do here, and what replaces it
+//
+// Every call wrote a `FunnelLead` row, including anonymous pageviews, and a
+// referral code incremented a click counter on the `Affiliate` table.
+//
+// revialife has no database and no affiliate programme — that moved to i2b —
+// so the two kinds of traffic arriving here now part company:
+//
+//   * a lead with an email address goes on the mailing list and is sent to the
+//     team with its whole context, which is the durable copy
+//   * an anonymous pageview or click has no address to file it under and no
+//     table to count it in. It is acknowledged and NOT recorded, and the
+//     response says `recorded: false` so the funnel can tell the difference
+//     rather than assume it landed. Funnel-level analytics belong in the
+//     analytics tag on those sites, not in a counter here.
+//
+// A referral code still rides along and is reported in the notification; it is
+// no longer credited automatically, because the programme it credited is not
+// run from this domain.
 
 const ALLOWED_ORIGINS = new Set([
   "https://molecularrecorder.com",
@@ -101,40 +120,35 @@ export async function POST(request: NextRequest) {
       return typeof v === "string" ? v.slice(0, 120) : null;
     };
 
-    await prisma.funnelLead.create({
-      data: {
-        email,
-        sourceDomain,
-        path,
-        productInterest,
-        referralCode,
-        utmSource: pick("utm_source") || pick("utmSource"),
-        utmMedium: pick("utm_medium") || pick("utmMedium"),
-        utmCampaign: pick("utm_campaign") || pick("utmCampaign"),
-        utmContent: pick("utm_content") || pick("utmContent"),
-        meta,
-        ip: ip.slice(0, 60),
-        userAgent: (request.headers.get("user-agent") || "").slice(0, 300) || null,
-      },
-    });
-
-    // If a valid, approved referral code rode along, count it as a click on the
-    // existing Affiliate system so funnel-driven referrals attribute correctly.
-    if (referralCode) {
-      try {
-        const aff = await prisma.affiliate.findUnique({ where: { affiliateCode: referralCode } });
-        if (aff && aff.status === "approved") {
-          await prisma.affiliate.update({
-            where: { id: aff.id },
-            data: { totalClicks: { increment: 1 } },
-          });
-        }
-      } catch {
-        /* referral linking is best-effort */
-      }
+    // Nothing durable to do with an anonymous hit — see the note at the top.
+    if (!email) {
+      return NextResponse.json({ ok: true, recorded: false }, { status: 200, headers });
     }
 
-    return NextResponse.json({ ok: true }, { status: 200, headers });
+    // Best-effort: the list is a convenience, the notification below is the
+    // record. A list failure must not lose the lead.
+    const listed = await addContactQuiet(email);
+
+    try {
+      await notifyTeam(`Funnel lead: ${sourceDomain}`, {
+        Email: email,
+        Source: sourceDomain,
+        Path: path,
+        Interest: productInterest === "[]" ? null : productInterest,
+        Referral: referralCode,
+        "utm_source": pick("utm_source") || pick("utmSource"),
+        "utm_medium": pick("utm_medium") || pick("utmMedium"),
+        "utm_campaign": pick("utm_campaign") || pick("utmCampaign"),
+        "utm_content": pick("utm_content") || pick("utmContent"),
+        Meta: meta === "{}" ? null : meta,
+        "On mailing list": listed ? "yes" : "no — add by hand",
+      }, { replyTo: email });
+    } catch (err) {
+      console.error("lead-capture: could not deliver the lead", err);
+      return NextResponse.json({ ok: false, error: "not recorded" }, { status: 500, headers });
+    }
+
+    return NextResponse.json({ ok: true, recorded: true }, { status: 200, headers });
   } catch {
     return NextResponse.json({ ok: false, error: "server error" }, { status: 500, headers });
   }

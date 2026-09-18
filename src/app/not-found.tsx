@@ -16,7 +16,7 @@ export default function NotFound() {
           Go Home
         </Link>
         <Link
-          href="/shop"
+          href="/research"
           className="rounded-lg bg-sky-400 px-6 py-3 text-sm font-medium text-white transition hover:bg-sky-500"
         >
           Browse Shop

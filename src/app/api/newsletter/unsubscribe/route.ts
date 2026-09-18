@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
-import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { verifyUnsubscribeToken } from "@/lib/unsubscribe";
+import { unsubscribeAddress } from "@/lib/audience";
 
 // One-click unsubscribe. The token is an HMAC of the address, so a link can only
 // remove the address it was issued for — not an arbitrary one someone types in.
@@ -10,7 +10,13 @@ async function unsubscribe(email: string, token: string) {
   if (!address || !verifyUnsubscribeToken(address, token)) {
     return NextResponse.json({ error: "Invalid unsubscribe link" }, { status: 400 });
   }
-  await prisma.newsletter.deleteMany({ where: { email: address } });
+  const done = await unsubscribeAddress(address);
+  if (!done) {
+    return NextResponse.json(
+      { error: "We could not action that. Please email contact@revialife.com." },
+      { status: 500 },
+    );
+  }
   return NextResponse.json({ success: true });
 }
 
