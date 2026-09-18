@@ -4,7 +4,8 @@ import { ArrowUpRight } from "lucide-react";
 import { D2C, PARTNER_LINK_PROPS, d2cUrl } from "@/lib/partner";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { researchCompounds, SHOWCASE_SLUGS } from "@/data/research-compounds";
+import I2bAvailability from "@/components/I2bAvailability";
 import JsonLd from "@/components/JsonLd";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { getProductImage } from "@/lib/product-images";
@@ -30,28 +31,28 @@ interface PageProps {
 // Pre-render featured products × all cities; the long tail renders on demand
 // (ISR) the first time it's crawled, then caches. Keeps build time sane while
 // every URL is still indexable + in the sitemap.
-export async function generateStaticParams() {
-  const products = await prisma.product
-    .findMany({ where: { active: true, featured: true }, select: { slug: true } })
-    .catch(() => [] as { slug: string }[]);
-  return CITIES.flatMap((c) => products.map((p) => ({ city: c.slug, product: p.slug })));
+export function generateStaticParams() {
+  // The showcase compounds across every city at build time; the rest of the
+  // 38 x 25 grid renders on first crawl and caches (dynamicParams above).
+  return CITIES.flatMap((c) =>
+    SHOWCASE_SLUGS.map((slug) => ({ city: c.slug, product: slug })),
+  );
 }
 
-async function load(citySlug: string, productSlug: string) {
+function load(citySlug: string, productSlug: string) {
   const city = getCity(citySlug);
   if (!city) return null;
-  const product = await prisma.product
-    .findUnique({
-      where: { slug: productSlug },
-      include: { category: true, variants: true },
-    })
-    .catch(() => null);
-  if (!product || !product.active) return null;
+  const compound = researchCompounds.find((c) => c.slug === productSlug);
+  if (!compound) return null;
+  // Shaped like the row this used to load, so the page body below is unchanged
+  // except where it printed a price.
+  const product = {
+    slug: compound.slug,
+    name: compound.name,
+    description: compound.description,
+    category: { name: compound.category },
+  };
   return { city, product };
-}
-
-function usd(cents: number): string {
-  return `$${(cents / 100).toFixed(2)}`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -76,9 +77,7 @@ export default async function CityProductPage({ params }: PageProps) {
   if (!data) return notFound();
   const { city, product } = data;
 
-  const prices = product.variants.map((v) => v.price).filter((p) => p > 0);
-  const minPrice = prices.length ? Math.min(...prices) : 0;
-  const image = `${SITE}${getProductImage(product.slug, product.image)}`;
+  const image = `${SITE}${getProductImage(product.slug, null)}`;
   const copy = getCityProductCopy(city.slug, product.slug);
   const context = getCityProductContext(city.slug, product.slug);
 
@@ -107,12 +106,14 @@ export default async function CityProductPage({ params }: PageProps) {
   // first), and this product across other cities in the region. Turns the
   // 1,800+ geo pages into a crawlable network instead of isolated leaves —
   // the single biggest lever for programmatic-SEO health.
-  const siblings = await prisma.product
-    .findMany({
-      where: { active: true, slug: { not: product.slug } },
-      select: { slug: true, name: true, featured: true, category: { select: { name: true } } },
-    })
-    .catch(() => [] as { slug: string; name: string; featured: boolean; category: { name: string } | null }[]);
+  const siblings = researchCompounds
+    .filter((c) => c.slug !== product.slug)
+    .map((c) => ({
+      slug: c.slug,
+      name: c.name,
+      featured: (SHOWCASE_SLUGS as readonly string[]).includes(c.slug),
+      category: { name: c.category },
+    }));
   const sameCategory = siblings.filter((s) => s.category?.name === product.category.name);
   const otherCategory = siblings.filter((s) => s.category?.name !== product.category.name);
   const relatedProducts = [
@@ -144,18 +145,9 @@ export default async function CityProductPage({ params }: PageProps) {
     category: product.category.name,
     image,
     brand: { "@type": "Brand", name: "ReVia Life" },
-    ...(minPrice > 0
-      ? {
-          offers: {
-            "@type": "AggregateOffer",
-            priceCurrency: "USD",
-            lowPrice: (minPrice / 100).toFixed(2),
-            offerCount: product.variants.length,
-            availability: "https://schema.org/InStock",
-            url: `${SITE}/shop/${product.slug}`,
-          },
-        }
-      : {}),
+    // No `offers`. It was an AggregateOffer with a lowPrice pointing at
+    // /shop/:slug — structured data telling Google this site sells at a price,
+    // on a site that sells nothing and no longer has a /shop.
   };
 
   const faqSchema = {
@@ -194,48 +186,16 @@ export default async function CityProductPage({ params }: PageProps) {
 
       <p className="mt-5 text-[15px] leading-relaxed text-neutral-700">{intro}</p>
 
-      {/* Buy CTA → live shop product page */}
-      <div className="mt-7 flex flex-wrap items-center gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
-        <div className="flex-1">
-          <p className="text-sm text-neutral-500">{product.name}</p>
-          {minPrice > 0 && (
-            <p className="text-lg font-semibold text-neutral-900">From {usd(minPrice)}</p>
-          )}
-          <p className="text-xs text-neutral-500">Third-party COA tested · Research use only</p>
-        </div>
-        <a
-          href={d2cUrl()}
-          {...(D2C.isLive ? PARTNER_LINK_PROPS : {})}
-          className="inline-flex items-center gap-1.5 rounded-full border border-[#3E97CE] bg-[#3E97CE] px-6 py-3 text-sm font-semibold text-white hover:bg-[#3585B8] hover:border-[#3585B8]"
-        >
-          Order at {D2C.name}
-          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-          <span className="sr-only"> (opens in a new tab)</span>
-        </a>
+      {/* Availability, from the provider's live catalogue. Replaces a "From
+          $X — Order at i2b" panel: revialife publishes no price, and the link
+          only appears for a compound i2b actually stocks. */}
+      <div className="mt-7">
+        <I2bAvailability
+          researchSlug={product.slug}
+          compoundName={product.name}
+          placement="location"
+        />
       </div>
-
-      {/* Sizes & pricing — real product substance for the buy-intent query */}
-      {product.variants.some((v) => v.price > 0) && (
-        <section className="mt-8">
-          <h2 className="text-xl font-bold text-neutral-900">{product.name} sizes &amp; pricing</h2>
-          <div className="mt-4 overflow-hidden rounded-2xl border border-neutral-200">
-            {product.variants
-              .filter((v) => v.price > 0)
-              .map((v, i) => (
-                <div
-                  key={v.id}
-                  className={`flex items-center justify-between px-5 py-3 text-sm ${i % 2 ? "bg-neutral-50" : "bg-white"}`}
-                >
-                  <span className="font-medium text-neutral-800">{v.label}</span>
-                  <span className="font-semibold text-neutral-900">{usd(v.price)}</span>
-                </div>
-              ))}
-          </div>
-          <p className="mt-2 text-xs text-neutral-500">
-            Prices shown for research use only. Ships to {city.name} and the surrounding {city.region} region.
-          </p>
-        </section>
-      )}
 
       {/* Overview */}
       {product.description && (

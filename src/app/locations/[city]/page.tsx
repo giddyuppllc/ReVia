@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { D2C, PARTNER_LINK_PROPS, d2cUrl } from "@/lib/partner";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { researchCompounds, SHOWCASE_SLUGS } from "@/data/research-compounds";
 import JsonLd from "@/components/JsonLd";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { CITIES, getCity } from "@/data/cities";
@@ -46,14 +46,12 @@ export default async function CityHubPage({ params }: PageProps) {
   const city = getCity(citySlug);
   if (!city) return notFound();
 
-  const products = await prisma.product
-    .findMany({
-      where: { active: true },
-      include: { category: true, variants: { select: { price: true } } },
-      orderBy: [{ featured: "desc" }, { name: "asc" }],
-    })
-    .catch(() => []);
-
+  const products = researchCompounds.map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    category: { name: c.category },
+    featured: (SHOWCASE_SLUGS as readonly string[]).includes(c.slug),
+  }));
   const copy = getCityCopy(city.slug);
   const intro =
     copy.intro ??
@@ -140,22 +138,16 @@ export default async function CityHubPage({ params }: PageProps) {
                 {cat} in {city.name}
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((p) => {
-                  const prices = p.variants.map((v) => v.price).filter((x) => x > 0);
-                  const min = prices.length ? Math.min(...prices) : 0;
-                  return (
-                    <Link
-                      key={p.id}
-                      href={`/locations/${city.slug}/${p.slug}`}
-                      className="rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
-                    >
-                      <p className="font-semibold text-neutral-900">{p.name}</p>
-                      <p className="mt-0.5 text-xs text-neutral-500">
-                        {min > 0 ? `From $${(min / 100).toFixed(2)} · ` : ""}Research use only
-                      </p>
-                    </Link>
-                  );
-                })}
+                {items.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/locations/${city.slug}/${p.slug}`}
+                    className="rounded-xl border border-neutral-200 p-4 transition-colors hover:border-emerald-600 hover:bg-emerald-50/40"
+                  >
+                    <p className="font-semibold text-neutral-900">{p.name}</p>
+                    <p className="mt-0.5 text-xs text-neutral-500">Research use only</p>
+                  </Link>
+                ))}
               </div>
             </section>
           ))}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import { prisma } from "@/lib/prisma";
+import { researchCompounds, SHOWCASE_SLUGS } from "@/data/research-compounds";
 import { CITIES } from "@/data/cities";
 
 const SITE = "https://revialife.com";
@@ -23,15 +23,9 @@ export default async function LocationsIndexPage() {
 
   // Most-searched products — gives the index outbound links to the /shop money
   // pages so crawl equity flows down to them, not only to the city hubs.
-  const topProducts = await prisma.product
-    .findMany({
-      where: { active: true },
-      select: { slug: true, name: true, category: { select: { name: true } } },
-      orderBy: [{ featured: "desc" }, { name: "asc" }],
-      take: 12,
-    })
-    .catch(() => [] as { slug: string; name: string; category: { name: string } | null }[]);
-
+  const topProducts = researchCompounds
+    .filter((c) => (SHOWCASE_SLUGS as readonly string[]).includes(c.slug))
+    .map((c) => ({ slug: c.slug, name: c.name, category: { name: c.category } }));
   const breadcrumb = [
     { name: "Home", url: SITE },
     { name: "Locations", url: `${SITE}/locations` },
