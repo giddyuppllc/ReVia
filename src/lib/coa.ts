@@ -72,3 +72,42 @@ export type CoaResultKey = (typeof COA_RESULTS)[number]["key"];
 
 /** How many results a certificate reports. Derived, so it cannot drift. */
 export const COA_RESULT_COUNT = COA_RESULTS.length;
+
+
+/**
+ * One certificate, transcribed line by line — the worked example on /why-us.
+ *
+ * It lives here rather than in the component for the same reason the purity
+ * specification does: this file is the authority for what the certificates say,
+ * and `check-claims` reads its `puritySpec` rather than hardcoding one.
+ *
+ * It is also the only place on the site a MEASURED purity figure is allowed to
+ * appear, and the distinction is worth stating. The `no-typed-purity` rule
+ * exists to stop a measured value being presented as a general claim — "99.4%
+ * average purity", which was on the home page and was false. A figure printed
+ * beside the lot code it was measured on, on a certificate identified by number
+ * and date, is the opposite of that: it is a reading, attributed, and it is what
+ * teaches somebody how to read their own.
+ *
+ * Source: COA #33593, Sermorelin 10 mg, sample received 27 March 2026,
+ * analysed 28 March, produced 29 March.
+ */
+export const COA_EXAMPLE = {
+  number: "33593",
+  product: "Sermorelin 10 mg",
+  lotCode: "RECODE4X3KZ3",
+  received: "27 March 2026",
+  analysed: "28 March 2026",
+  produced: "29 March 2026",
+  chemist: "Lucas Weber, Principal Chemist",
+  rows: [
+    ["Laboratory", `${COA_SPEC.lab}, verify portal at chromate.org/verify`],
+    ["Product and lot code", "Sermorelin 10 mg, RECODE4X3KZ3"],
+    ["Method", "Qualitative and quantitative analysis by RP-HPLC with UV detection (220 nm)"],
+    ["Identity", "Sermorelin, conforms"],
+    ["Quantity", "11.36 mg found against 10 mg labelled (+13.6%), conforms"],
+    ["Purity", `98.028% against a ${COA_SPEC.puritySpec} specification, conforms`],
+    ["Metals", `Below 50 ppb, against a ${COA_SPEC.metalsSpec} limit, conforms`],
+    ["Signed", "Lucas Weber, Principal Chemist; produced 29 March 2026"],
+  ],
+} as const;

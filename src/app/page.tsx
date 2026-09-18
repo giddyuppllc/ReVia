@@ -1,4 +1,5 @@
 import TestimonyHero from "@/components/record/TestimonyHero";
+import Positioning, { KnowMore } from "@/components/record/Positioning";
 import TheStandard from "@/components/record/TheStandard";
 import HowToBuy from "@/components/record/HowToBuy";
 import TheRecord from "@/components/record/TheRecord";
@@ -19,10 +20,12 @@ import NewsletterBanner from "@/components/NewsletterBanner";
  * What is here instead is an argument in four movements:
  *
  *   1. the testimony — the founder, on the federal record, with a timecode
- *   2. the standard  — what the certificate actually reports
- *   3. how to buy    — the questions to ask anyone, ours answered
- *   4. the record    — what this site publishes
- *   5. the group     — who serves whom, and under which rules
+ *   2. why it exists — the standard he built for his own family, and the four
+ *                      things ReVia can show for it
+ *   3. the standard  — what the certificate actually reports
+ *   4. how to buy    — the questions to ask anyone, ours answered
+ *   5. the record    — what this site publishes
+ *   6. the group     — who serves whom, and under which rules
  *
  * Nothing on it is for sale, and there is no photograph of a product anywhere.
  * The authority is meant to come from what can be checked.
@@ -37,10 +40,12 @@ export default function HomePage() {
   return (
     <>
       <TestimonyHero />
+      <Positioning />
       <TheStandard />
       <HowToBuy />
       <TheRecord />
       <TheNetwork />
+      <KnowMore />
       <div className="bg-[#F0EDE5] pb-16">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
           <NewsletterBanner />

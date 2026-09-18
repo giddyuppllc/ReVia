@@ -1,184 +1,171 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import { COA_SPEC } from "@/lib/coa";
-import {
-  Factory,
-  BadgeCheck,
-  Microscope,
-  FileCheck,
-  FlaskConical,
-  Atom,
-  ArrowRight,
-} from "lucide-react";
 import Link from "next/link";
 
+import { COA_EXAMPLE, COA_SPEC } from "@/lib/coa";
+import { HEARING } from "@/data/federal-record";
+import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
+
+/**
+ * Why Us — written to the certificate, and linked to it.
+ *
+ * Copy from docs/BRAND-CONTEXT.md §5. The page it replaces opened "Not All
+ * Peptides Are Created Equal" over the line "Most vendors resell unverified
+ * powder from overseas factories", and its six pillars asserted cGMP
+ * certification, ISO certification, FDA-registered laboratories and an API
+ * origin — none of which any document in the archive supports.
+ *
+ * The positive case is the certificate itself. Written to that document and
+ * linked to it, the page is stronger than the superlatives it replaces, and
+ * every line of it survives contact with the file.
+ *
+ * ## The comparison, without a competitor
+ *
+ * Charlie asked for a comparison chart. It is built as questions a reader can
+ * put to any supplier's site, with our answer in one column and theirs left
+ * blank for them to fill in. No competitor is named and no row asserts what
+ * anybody else fails to do — which is the constraint that got the previous
+ * table deleted, when it claimed rivals' certificates were "fake or reused"
+ * with nothing behind it.
+ */
+
+
+/** Questions a reader can check on anybody's site. Ours answered; theirs blank. */
+const CHECKS = [
+  "A certificate for this lot, linked from the product page",
+  "A verification code that returns that certificate from the laboratory",
+  "The laboratory named on the certificate",
+  "Identity, quantity, purity and metals reported with limits and results",
+  "A chemist's signature and the test dates",
+  "Finished and tested in the United States",
+  "The supplier's name on the docket of the July 2026 FDA hearing",
+] as const;
+
 export default function WhyReVia() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const anim = (delay: number) =>
-    shouldReduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 24 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true, margin: "-80px" },
-          transition: { duration: 0.55, delay, ease: "easeOut" as const },
-        };
-
   return (
-    <section className="relative py-16 lg:py-24">
-      <div className="relative mx-auto max-w-7xl px-6">
+    <div className="bg-[#F0EDE5]">
+      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+        <Rise>
+          <div className="pt-12 sm:pt-16">
+            <Label>Why us</Label>
+            <Heading as="h1" className="mt-4 max-w-[20ch] text-[32px] sm:text-[46px]">
+              Every lot is tested. Here is the certificate.
+            </Heading>
+          </div>
+        </Rise>
 
-        {/* ── Section 1: Hero Statement ── */}
-        <div className="text-center mb-20">
-          <motion.p {...anim(0)} className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3">
-            The ReVia Difference
-          </motion.p>
-          <motion.h1 {...anim(0.1)} className="text-3xl font-bold text-stone-800 sm:text-4xl lg:text-5xl leading-tight">
-            Not All Peptides Are<br />Created Equal
-          </motion.h1>
-          <motion.p {...anim(0.2)} className="mt-6 text-lg text-stone-500 max-w-2xl mx-auto leading-relaxed">
-            {/* The sentence that was here characterised every other vendor as
-                reselling "unverified powder from overseas factories". We have no
-                basis for that about anyone, and it is the same class of claim
-                the competitor table was removed for. What we can say is what we
-                do, and it is stronger for naming nobody. */}
-            Third-party tested, batch by batch, with the certificate published for the lot
-            that ships — the laboratory, the method and the result, on the document.
-          </motion.p>
-        </div>
+        <DrawRule className="mt-10" />
 
-        {/* ── Section 2: Key Differentiators (6 pillars) ── */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-24">
-          {[
-            {
-              icon: Factory,
-              title: "US Manufactured",
-              // The origin sentence does not run. No supplier certificate,
-              // import record or manufacturer document names a country, and the
-              // only certificate on file was issued in New Hampshire — so
-              // "tested in Florida" is contradicted by the document it claims to
-              // rest on. What is below is true today and stays true when the
-              // origin line is finally supported.
-              description: "Every lot we supply is finished and tested in the United States. The laboratory that tests it, the method it uses and the results it found are printed on the certificate for that lot.",
-            },
-            {
-              icon: BadgeCheck,
-              title: "Finished and tested in the United States",
-              // "ISO certified" without a number certifies nothing — ISO is a
-              // body, not a standard — and "the highest bar in the industry" is
-              // a superlative no document supports. i2b's own checker bans both.
-              // My own earlier rewrite still asserted an FDA-registered
-              // facility under cGMP standards. The brief checked that against
-              // the files: FDA's register of outsourcing facilities lists
-              // thirteen in Florida and none of them is in this supply chain.
-              // What survives is what a certificate can show.
-              description: "Every lot is finished and tested in the United States before it ships, and the certificate for that lot says where, when and by whom.",
-            },
-            {
-              icon: Microscope,
-              // Was "FDA-Registered Labs". The laboratory publishes no
-              // accreditation or registration, so the claim rests on nothing —
-              // and registration would be an administrative filing, not a
-              // quality finding. What is checkable is that it is named at all.
-              title: "The laboratory is named",
-              description: "Every certificate names the laboratory that ran the analysis and the method it used, with a code that returns the same certificate from the laboratory's own portal.",
-            },
-            {
-              icon: FileCheck,
-              title: "Per-Batch COAs",
-              description: "Every batch gets its own Certificate of Analysis from an independent US lab. Never shared, reused, or fabricated.",
-            },
-            {
-              icon: FlaskConical,
-              title: `${COA_SPEC.puritySpec} Purity`,
-              description: "Research-grade, verified against a greater-than-98-percent specification by RP-HPLC with UV detection, with the measured figure printed on each batch certificate.",
-            },
-            {
-              icon: Atom,
-              title: "Metals Screened",
-              description: "Every batch is screened for heavy metals and reported on its Certificate of Analysis at less than 50 parts per billion.",
-            },
-          ].map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.title}
-                {...anim(0.1 + i * 0.08)}
-                className="group rounded-2xl border border-sky-200/40 bg-white/80 p-6 transition-all duration-300 hover:bg-white hover:shadow-lg hover:shadow-sky-200/20 hover:-translate-y-1"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-100/80 border border-sky-200/50 mb-4 transition-colors group-hover:bg-sky-500 group-hover:border-sky-500">
-                  <Icon className="h-5 w-5 text-sky-600 transition-colors group-hover:text-white" strokeWidth={1.75} />
+        {/* ── the claim, in full ── */}
+        <Rise delay={0.08}>
+          <div className="grid gap-8 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
+            <Label className="lg:pt-1">What happens to a lot</Label>
+            <div className="max-w-[62ch] space-y-5 font-sans text-[15px] leading-[1.85] text-[#3D3229]/78">
+              <p>
+                Each lot we supply goes to an independent laboratory in the
+                United States before it ships. The laboratory reports four things
+                on one page: <strong className="font-medium text-[#3D3229]">identity</strong>,
+                whether the material is the named peptide;{" "}
+                <strong className="font-medium text-[#3D3229]">quantity</strong>, the
+                milligrams found against the label;{" "}
+                <strong className="font-medium text-[#3D3229]">purity</strong>, the share
+                of the material that is the named peptide, measured by
+                reversed-phase HPLC with UV detection; and{" "}
+                <strong className="font-medium text-[#3D3229]">heavy metals</strong>,
+                against a limit of 50 parts per billion.
+              </p>
+              <p>
+                The certificate carries the lot code, the date the sample
+                arrived, the date it was run, the chromatogram, the
+                chemist&rsquo;s name and an access code. Type the code into the
+                laboratory&rsquo;s verify page and the same certificate comes
+                back from the laboratory&rsquo;s own database.
+              </p>
+              <p className="text-[#3D3229]">
+                If a lot fails, it does not ship. If a method changes, the next
+                certificate says so. If a certificate and a vial disagree, we
+                investigate and write back. These are research materials for
+                laboratory use; nothing here describes a human use.
+              </p>
+            </div>
+          </div>
+        </Rise>
+
+        {/* ── the certificate, line by line ── */}
+        <Rise delay={0.06}>
+          <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
+            <div>
+              <Label className="lg:pt-1">One certificate, read</Label>
+              <p className="mt-3 max-w-[30ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/55">
+                COA #{COA_EXAMPLE.number} &mdash; {COA_EXAMPLE.product}, sample
+                received {COA_EXAMPLE.received}, analysed {COA_EXAMPLE.analysed}.
+              </p>
+            </div>
+            <dl className="max-w-[62ch]">
+              {COA_EXAMPLE.rows.map(([k, v], i) => (
+                <div
+                  key={k}
+                  className={`grid gap-1 py-3 sm:grid-cols-[13rem_1fr] sm:gap-6 ${
+                    i > 0 ? "border-t border-[#3D3229]/10" : ""
+                  }`}
+                >
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#A38569]">
+                    {k}
+                  </dt>
+                  <dd className="font-sans text-[14px] leading-relaxed text-[#3D3229]/78">{v}</dd>
                 </div>
-                <h3 className="text-base font-semibold text-stone-800 mb-2">{item.title}</h3>
-                <p className="text-sm text-stone-500 leading-relaxed">{item.description}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* ── Section 3: Testing Pipeline ── */}
-        <motion.div {...anim(0.2)} className="mb-24">
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-2">
-              Our Testing Process
-            </p>
-            <h2 className="text-2xl font-bold text-stone-800 sm:text-3xl">
-              5-Stage Quality Verification
-            </h2>
-            <p className="mt-3 text-stone-500 max-w-xl mx-auto">
-              Every batch is analysed before it ships, and the certificate reports exactly
-              what was measured.
-            </p>
+              ))}
+            </dl>
           </div>
+        </Rise>
 
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-            {[
-              { step: "01", title: "RP-HPLC with UV", desc: "The single analytical method behind every result on the certificate" },
-              { step: "02", title: "Identity", desc: "The compound is confirmed against its specification" },
-              { step: "03", title: "Quantity & Purity", desc: "Net peptide per vial, and purity, both reported as measured" },
-              { step: "04", title: "Heavy Metals", desc: "Screened and reported at less than 50 parts per billion" },
-              { step: "05", title: "COA Issued", desc: "Independent lab issues a batch-specific Certificate of Analysis" },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                {...anim(0.3 + i * 0.1)}
-                className="relative rounded-2xl border border-sky-200/40 bg-white/80 p-5 text-center"
+        {/* ── the comparison, nobody named ── */}
+        <Rise delay={0.06}>
+          <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
+            <div>
+              <Label className="lg:pt-1">Check anybody</Label>
+              <p className="mt-3 max-w-[30ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/55">
+                Seven questions with a checkable answer. Ours are on the left.
+                The right-hand column is for whoever else you are considering
+                &mdash; we have not filled it in, because it is not ours to fill.
+              </p>
+            </div>
+            <div className="max-w-[62ch]">
+              <div className="grid grid-cols-[1fr_5rem_5rem] items-end gap-3 pb-2">
+                <span />
+                <Label className="text-right">ReVia</Label>
+                <Label className="text-right !text-[#3D3229]/35">Theirs</Label>
+              </div>
+              {CHECKS.map((c) => (
+                <div
+                  key={c}
+                  className="grid grid-cols-[1fr_5rem_5rem] items-baseline gap-3 border-t border-[#3D3229]/10 py-3"
+                >
+                  <span className="font-sans text-[13.5px] leading-snug text-[#3D3229]/75">{c}</span>
+                  <span className="text-right font-sans text-[13px] text-[#3D3229]">Yes</span>
+                  <span className="text-right font-mono text-[13px] text-[#3D3229]/22">&mdash;</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Rise>
+
+        {/* ── the record ── */}
+        <Rise>
+          <div className="border-t border-[#3D3229]/12 py-10">
+            <p className="max-w-[58ch] font-sans text-[14px] leading-[1.8] text-[#3D3229]/62">
+              The last of those is the one nobody can buy. ReVia&rsquo;s founder
+              is on the docket of the {HEARING.committee}, {HEARING.dates}, and
+              everything he said is{" "}
+              <Link
+                href="/washington"
+                className="border-b border-[#A38569]/50 pb-0.5 text-[#3D3229] transition hover:border-[#A38569]"
               >
-                <span className="text-3xl font-black text-sky-100">{item.step}</span>
-                <h4 className="text-sm font-semibold text-stone-800 mt-2">{item.title}</h4>
-                <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">{item.desc}</p>
-                {i < 4 && (
-                  <ArrowRight className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sky-300 z-10" />
-                )}
-              </motion.div>
-            ))}
+                published here in full
+              </Link>
+              .
+            </p>
           </div>
-        </motion.div>
-
-        {/* The "ReVia vs. Gray Market Vendors" table that sat here compared us
-            against unnamed third parties using figures nobody sourced
-            ("70-85% typical" purity, COAs described as "Fake or reused"),
-            and it credited ReVia with sterility testing and LC-MS
-            verification that appear on no certificate. Describe what we do;
-            the certificate is the argument. */}
-
-        {/* ── CTA ── */}
-        <motion.div {...anim(0.3)} className="text-center">
-          <p className="text-lg font-semibold text-stone-700 italic mb-6">
-            When purity and safety matter, the supply chain isn&apos;t a detail — it&apos;s the product.
-          </p>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 rounded-full bg-sky-400 px-8 py-4 text-base font-bold text-white transition hover:bg-sky-500"
-          >
-            Explore the Catalog
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
-
+        </Rise>
       </div>
-    </section>
+    </div>
   );
 }

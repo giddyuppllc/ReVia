@@ -101,41 +101,54 @@ export interface NetworkSite {
 export const REVIA_NETWORK: NetworkSite[] = [
   {
     id: "i2b",
-    name: "i2b",
-    audience: "For researchers",
-    tagline: "Our exclusive research partner. Order compounds direct.",
+    name: "i2b Health",
+    audience: "Individual researchers",
+    tagline:
+      "The only ReVia property that sells single units. A certificate sits on every product page, and the banner reads Professional Use Only.",
     url: D2C.origin,
     preview: true,
   },
   {
     id: "wholesale",
     name: "ReVia Wholesale",
-    audience: "For business & brands",
-    tagline: "Trade supply, bulk pricing and private label for clinics, brands and distributors.",
+    audience: "Businesses and brands",
+    tagline:
+      "Bulk, private label and a partner API with webhooks. Every order stops for approval before it reaches fulfilment.",
     url: B2B.origin,
-  },
-  {
-    id: "well",
-    name: "ReViaWell",
-    audience: "For everyone",
-    tagline: "Independent education — compound guides, sourcing standards and supplier evaluation.",
-    url: "https://reviawell.com",
-  },
-  {
-    id: "supply",
-    name: "ReVia Supply",
-    audience: "For the bench",
-    tagline: "Reconstitution and application supplies — bacteriostatic water, syringes and kit.",
-    url: "https://revia-supply.vercel.app",
-    preview: true,
   },
   {
     id: "providers",
     name: "ReVia Providers",
-    audience: "For practitioners",
-    tagline: "The practitioner portal, for clinics running a peptide programme.",
+    audience: "Clinics and prescribers",
+    tagline:
+      "Qualified accounts with professional pricing behind a login — a referral code from a professional opens the price list.",
     url: "https://revia-providers.vercel.app",
     preview: true,
+  },
+  {
+    id: "cosmetics",
+    name: "ReVia Cosmetics",
+    audience: "Consumers",
+    tagline:
+      "The ReVia-branded skincare range, sold direct. The one consumer line that carries no research designation.",
+    url: null,
+  },
+  {
+    id: "supply",
+    name: "ReVia Supply",
+    audience: "Anyone reconstituting",
+    tagline:
+      "Syringes, bacteriostatic water and acetic acid, on a separate site on purpose: a peptide sold beside a syringe reads as intended for human use.",
+    url: "https://revia-supply.vercel.app",
+    preview: true,
+  },
+  {
+    id: "well",
+    name: "ReViaWell",
+    audience: "Buyers doing their homework",
+    tagline:
+      "The buyer's guides — how to vet a supplier, how to read a certificate, and the FDA tracker.",
+    url: "https://reviawell.com",
   },
 ];
 
