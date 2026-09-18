@@ -34,6 +34,13 @@ export interface Statement {
   /**
    * How the committee voted on that substance, after the public hearing.
    *
+   * PROVENANCE: secondary. These tallies come from the brand brief's table,
+   * which cites NCPA, Holland & Knight, RAPS and The Epoch Times — not FDA's
+   * own minutes, which had not been posted. `pcac-july-2026` deliberately
+   * withheld them for exactly this reason, and that caution stands: they are
+   * recorded here so a page CAN use them, but anything that renders them should
+   * say where they came from, or wait for the minutes.
+   *
    * The outcome is not the statement, and is recorded here so a page can say
    * what happened without implying Mike's remarks caused it. "Recommended"
    * means recommended to the FDA — a recommendation is advisory, and nothing
