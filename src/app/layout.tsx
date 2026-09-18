@@ -6,8 +6,8 @@ import JsonLd from "@/components/JsonLd";
 import LayoutShell from "@/components/LayoutShell";
 import ChatWidget from "@/components/ChatWidget";
 import CookieConsent from "@/components/CookieConsent";
+import Analytics from "@/components/Analytics";
 import RuoBanner from "@/components/RuoBanner";
-import AgeGate from "@/components/AgeGate";
 import { Suspense } from "react";
 import { REVIA_NETWORK } from "@/lib/partner";
 import { POSITIONING_TITLE } from "@/lib/positioning";
@@ -153,12 +153,6 @@ export default function RootLayout({
           href="/images/hero-overlook.webp"
           fetchPriority="high"
         />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDJGY6R2PS" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WDJGY6R2PS',{linker:{domains:['revialife.com','world-wide-peptide.com']}});`,
-          }}
-        />
       </head>
       <body className="min-h-full flex flex-col text-[#453834]">
         <RuoBanner />
@@ -168,6 +162,7 @@ export default function RootLayout({
         <LayoutShell>{children}</LayoutShell>
         <ChatWidget />
         <CookieConsent />
+        <Analytics />
         {/*
           AffiliateTracker was mounted here. It set a `revia_ref` tracking
           cookie for thirty days and POSTed to /api/affiliate/click, a route
@@ -176,7 +171,21 @@ export default function RootLayout({
           that 404d. The programme runs at i2b now, and its own tracking with
           it.
         */}
-        <AgeGate />
+        {/*
+          AgeGate was mounted here. It put a full-screen "You must be 21 years
+          of age or older to access this website" modal in front of every page,
+          including Mike Stone's testimony to the FDA — a public record — and it
+          said "all products are intended for qualified researchers" on a site
+          that has no products.
+
+          An age gate belongs in front of a purchase. This site has none: it
+          publishes, and the properties that do sell keep their own. Gating the
+          record is the one thing that makes a public record less public, and it
+          was never a control anyway — it stored a localStorage flag.
+
+          The RUO banner above stays. That is the disclosure that carries
+          meaning, and it is on every page without standing in front of it.
+        */}
         {/* WelcomePopup is unmounted, not deleted. It traded an email for the
             WELCOME first-order discount code and told the visitor to "use this
             code at checkout" — an offer this site can no longer honour now that
