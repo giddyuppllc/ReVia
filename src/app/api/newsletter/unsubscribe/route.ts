@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { verifyUnsubscribeToken } from "@/lib/welcome-offer";
+import { verifyUnsubscribeToken } from "@/lib/unsubscribe";
 
 // One-click unsubscribe. The token is an HMAC of the address, so a link can only
 // remove the address it was issued for — not an arbitrary one someone types in.

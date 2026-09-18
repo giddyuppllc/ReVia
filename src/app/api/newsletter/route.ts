@@ -44,19 +44,17 @@ export async function POST(request: Request) {
 
     // Send newsletter welcome email
     try {
-      const { sendNewsletterWelcome, sendWelcomeDiscount } = await import("@/lib/email");
-      if (fromWelcomePopup) {
-        await sendWelcomeDiscount(address);
-      } else {
-        await sendNewsletterWelcome(address);
-      }
+      // One welcome, whatever prompted the sign-up. The popup used to earn a
+      // tiered discount code; there is nothing to discount now, and a sign-up
+      // that quietly returns a coupon is a sales mechanic on a site that sells
+      // nothing.
+      const { sendNewsletterWelcome } = await import("@/lib/email");
+      await sendNewsletterWelcome(address);
     } catch (emailErr) {
       console.error("Failed to send newsletter welcome:", emailErr);
     }
 
-    return NextResponse.json(
-      fromWelcomePopup ? { success: true, code: "WELCOME" } : { success: true }
-    );
+    return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
       { error: "Something went wrong. Please try again." },

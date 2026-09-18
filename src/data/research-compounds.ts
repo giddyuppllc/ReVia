@@ -28,6 +28,19 @@ export const CATEGORIES = [
 
 export type CompoundCategory = (typeof CATEGORIES)[number];
 
+/**
+ * The three compounds the home page leads with.
+ *
+ * Curated here rather than read from an `featured` flag in a database, because
+ * there is no longer a database: the home page is static. Picked as a spread
+ * across research areas — metabolic, regenerative, growth-hormone axis — rather
+ * than by what sells, which is not a question this site answers.
+ *
+ * A slug that does not exist is ignored rather than throwing, so a rename
+ * degrades to two cards instead of a broken home page.
+ */
+export const SHOWCASE_SLUGS = ["retatrutide", "ghk-cu", "ipamorelin"] as const;
+
 export const researchCompounds: ResearchCompound[] = [
   /* ─────────────────────────────────────────────────
      metabolic optimization & Metabolic

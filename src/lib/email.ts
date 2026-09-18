@@ -918,79 +918,9 @@ export async function sendNewsletterWelcome(email: string) {
   await send(email, "Welcome to the ReVia Newsletter", html);
 }
 
-/* ------------------------------------------------------------------ */
-/*  14b. Welcome discount — claimed from the first-visit popup          */
-/* ------------------------------------------------------------------ */
-
-export async function sendWelcomeDiscount(email: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://revialife.com";
-  const { WELCOME_CODE, unsubscribeUrl } = await import("@/lib/welcome-offer");
-  const unsub = unsubscribeUrl(email);
-
-  // Site palette, not the dark transactional theme: cream #F0EDE5, ink #3D3229,
-  // accent #A38569 — this is the first thing a new subscriber sees from ReVia.
-  const tierRow = (label: string, percent: string) => `
-    <tr>
-      <td style="padding:9px 0;border-bottom:1px solid #E2DCD0;color:#5b5048;font-size:14px;">${label}</td>
-      <td style="padding:9px 0;border-bottom:1px solid #E2DCD0;text-align:right;color:#3D3229;font-size:14px;font-weight:700;">${percent}</td>
-    </tr>`;
-
-  const html = `
-<div style="background-color:#F0EDE5;padding:40px 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
-  <div style="max-width:600px;margin:0 auto;background-color:#ffffff;border:1px solid #E2DCD0;border-radius:18px;overflow:hidden;">
-
-    <div style="background-color:#3D3229;padding:22px 32px;">
-      <p style="margin:0;color:#F0EDE5;font-size:12px;letter-spacing:3px;text-transform:uppercase;">ReVia Research Supply</p>
-    </div>
-
-    <div style="padding:32px;">
-      <p style="margin:0 0 6px;color:#A38569;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700;">Your first order</p>
-      <h1 style="margin:0 0 12px;color:#3D3229;font-size:28px;line-height:1.2;">Welcome to ReVia.</h1>
-      <p style="margin:0 0 22px;color:#5b5048;font-size:15px;line-height:1.65;">
-        Here is your first-order code. The discount scales with the size of your order:
-      </p>
-
-      <div style="text-align:center;margin:0 0 24px;">
-        <div style="display:inline-block;border:2px dashed #A38569;border-radius:12px;padding:16px 34px;font-family:'SFMono-Regular',Menlo,Consolas,monospace;font-size:24px;letter-spacing:6px;color:#3D3229;background-color:#F7F4EC;">
-          ${WELCOME_CODE}
-        </div>
-      </div>
-
-      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;margin:0 0 22px;">
-        ${tierRow("Orders under $200", "10% off")}
-        ${tierRow("Orders $200 &ndash; $500", "15% off")}
-        ${tierRow("Orders over $500", "20% off")}
-      </table>
-
-      <div style="text-align:center;margin:0 0 22px;">
-        <a href="${baseUrl}/shop" style="display:inline-block;background-color:#3D3229;color:#ffffff;text-decoration:none;padding:14px 34px;border-radius:12px;font-size:14px;font-weight:600;">Browse the catalog</a>
-      </div>
-
-      <p style="margin:0;color:#8a7f74;font-size:12px;line-height:1.6;">
-        One use per customer, first order only. Applied to your subtotal at checkout &mdash;
-        enter the code in the promo field.
-      </p>
-    </div>
-
-    <div style="background-color:#F7F4EC;padding:20px 32px;border-top:1px solid #E2DCD0;">
-      <p style="margin:0 0 8px;color:#8a7f74;font-size:11px;line-height:1.6;">
-        &copy; ${new Date().getFullYear()} ReVia Research Supply LLC &mdash; all products are for
-        Research Use Only and are not intended for human or animal consumption.
-      </p>
-      <p style="margin:0;color:#8a7f74;font-size:11px;">
-        <a href="${unsub}" style="color:#8a7f74;">Unsubscribe</a> &middot;
-        <a href="${baseUrl}" style="color:#8a7f74;">revialife.com</a>
-      </p>
-    </div>
-  </div>
-</div>`;
-
-  await send(email, `Your ReVia welcome code — up to 20% off`, html, {
-    "List-Unsubscribe": `<${unsub}>, <mailto:contact@revialife.com?subject=unsubscribe>`,
-    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-  });
-}
-
+/* The welcome-discount email was removed with the discount itself: ReVia
+   sells nothing, so there is no order for a code to apply to. Plain
+   newsletter welcome only — see sendNewsletterWelcome above. */
 /* ------------------------------------------------------------------ */
 /*  15. Affiliate Approved                                             */
 /* ------------------------------------------------------------------ */

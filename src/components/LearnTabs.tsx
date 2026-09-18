@@ -4,15 +4,15 @@ import Link from "next/link";
 import { ArrowRight, FlaskConical, Newspaper } from "lucide-react";
 import type { ResearchCompound } from "@/data/research-compounds";
 
+/** An article as the archive publishes it. No author or image: the typed
+ *  modules carry neither, and a byline on a house article was always "ReVia
+ *  Research Team" from a database default. */
 interface BlogPost {
-  id: string;
   slug: string;
   title: string;
-  excerpt: string;
+  summary: string;
   category: string;
-  author: string;
-  image: string | null;
-  publishedAt: string;
+  published: string;
   readTime: number;
 }
 
@@ -139,19 +139,10 @@ export default function LearnTabs({
             <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <Link
-                  key={post.id}
+                  key={post.slug}
                   href={`/blog/${post.slug}`}
                   className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
                 >
-                  {post.image && (
-                    <div className="relative aspect-[16/9] overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                  )}
                   <div className="p-6">
                     <div className="flex items-center gap-3 text-xs text-neutral-400">
                       <span className="rounded-full bg-sky-50 px-2.5 py-0.5 font-medium text-sky-600">
@@ -163,10 +154,10 @@ export default function LearnTabs({
                       {post.title}
                     </h2>
                     <p className="mt-2 text-sm text-neutral-500 line-clamp-3">
-                      {post.excerpt}
+                      {post.summary}
                     </p>
                     <p className="mt-4 text-xs text-neutral-400">
-                      {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                      {new Date(post.published).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",

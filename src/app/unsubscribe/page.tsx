@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { verifyUnsubscribeToken } from "@/lib/welcome-offer";
+import { verifyUnsubscribeToken } from "@/lib/unsubscribe";
 
 export const dynamic = "force-dynamic";
 

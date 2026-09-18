@@ -1,23 +1,23 @@
-import { prisma } from "@/lib/prisma";
-import { getActiveTier, resolvePriceForVariant } from "@/lib/pricing";
 import HeroBanner from "@/components/HeroBanner";
 import HeroCarousel from "@/components/HeroCarousel";
 import FloatingPaths from "@/components/FloatingPaths";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import CompoundShowcase from "@/components/CompoundShowcase";
 import NewsletterBanner from "@/components/NewsletterBanner";
 import HomeFAQ from "@/components/HomeFAQ";
 import TrustTicker from "@/components/TrustTicker";
 import { getPublicStats } from "@/lib/stats";
 import ReviaNetwork from "@/components/ReviaNetwork";
-export const dynamic = "force-dynamic";
+// Static. Nothing on this page reads a database any more — the showcase is a
+// curated list in src/data/research-compounds.ts and the figures come from
+// src/lib/stats.ts, which derives them from data files and the provider's
+// catalogue.
+export const revalidate = 3600;
 
 export const metadata = {
   alternates: { canonical: "https://revialife.com" },
 };
 
 export default async function HomePage() {
-  const tier = await getActiveTier();
-
   // Four figures the site can actually stand behind. "Results Reported Per
   // COA" is deliberately the smallest number on the row — it replaces a
   // claim of twelve QC tests with the four the certificate prints, and it
@@ -28,33 +28,6 @@ export default async function HomePage() {
     "compoundCategories",
     "coaResults",
   ]);
-  // Three top sellers on the home page. `featured` is the admin-managed flag
-  // that has always driven this carousel, so the picks stay editable from
-  // /admin without a deploy.
-  let rawFeatured = await prisma.product.findMany({
-    where: { featured: true, active: true },
-    include: { variants: true, category: true },
-    take: 3,
-  });
-  // Nothing flagged featured would render an empty carousel, so fall back to
-  // active products rather than a blank band across the home page.
-  if (rawFeatured.length === 0) {
-    rawFeatured = await prisma.product.findMany({
-      where: { active: true },
-      include: { variants: true, category: true },
-      orderBy: { name: "asc" },
-      take: 3,
-    });
-  }
-  const featuredProducts = rawFeatured.map((p) => ({
-    id: p.id, name: p.name, slug: p.slug, image: p.image,
-    variants: p.variants.map((v) => ({
-      id: v.id, label: v.label,
-      price: resolvePriceForVariant(v, tier),
-    })),
-    category: { name: p.category.name },
-  }));
-
   return (
     <div className="relative">
       {/* Hero background */}
@@ -86,7 +59,7 @@ export default async function HomePage() {
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-sky-50/40 via-white to-sky-50/30" />
           <div className="relative">
-            <FeaturedProducts products={featuredProducts} />
+            <CompoundShowcase />
           </div>
         </div>
 

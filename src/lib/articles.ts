@@ -63,3 +63,23 @@ export function validateArticles(articles: Article[]): void {
     }
   }
 }
+
+/**
+ * Reading time in minutes, derived from the blocks at 200 words per minute.
+ *
+ * Here rather than in each page: three of them had their own copy, all three
+ * written for stored HTML (`strip tags, count words`), and none of them would
+ * have counted a list item.
+ */
+export function readTime(body: Block[]): number {
+  const words = body.reduce((n, b) => {
+    const text =
+      "text" in b && typeof b.text === "string"
+        ? b.text
+        : "items" in b && Array.isArray(b.items)
+          ? b.items.join(" ")
+          : "";
+    return n + text.split(/\s+/).filter(Boolean).length;
+  }, 0);
+  return Math.max(1, Math.ceil(words / 200));
+}
