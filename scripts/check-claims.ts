@@ -25,7 +25,13 @@ import { readFileSync, readdirSync, statSync } from "fs";
 import { join, relative, sep } from "path";
 
 const ROOT = process.cwd();
-const SCAN_DIRS = ["src/app", "src/components", "src/lib", "src/data"];
+// src/content was missing until 2026-09-18, which meant the typed-module CMS —
+// /news and the recovered articles, the largest body of editorial prose on the
+// site — was outside the one gate written to check it. The whole argument for
+// moving the blog out of the database was that "database HTML is scanned by
+// nothing"; leaving it in an unscanned directory would have reproduced exactly
+// that, in a place that merely looked safer.
+const SCAN_DIRS = ["src/app", "src/components", "src/lib", "src/data", "src/content"];
 
 /**
  * The purity specification, read out of src/lib/coa.ts rather than typed
@@ -103,10 +109,26 @@ const RULES: Rule[] = [
     allow: ["src/lib/stats.ts", "src/lib/coa.ts", "scripts/check-claims.ts"],
     // src/data holds editorial prose and compound records, not UI claims.
     skipPrefixes: ["src/data/"],
-    confirm: (line) =>
-      !/^\s*(import|export type)/.test(line) &&
+    confirm: (line) => {
+      if (/^\s*(import|export type)/.test(line)) return false;
       // "Select up to 3 compounds" is selection UI, not an inventory claim.
-      !/\b(select|choose|up to|compare)\b/i.test(line),
+      if (/\b(select|choose|up to|compare)\b/i.test(line)) return false;
+      // A four-digit year is a date, not a count — "2025 Peptide Research
+      // Trends" is an article title, not a claim to stock 2,025 of them.
+      //
+      // Narrowed rather than allow-listed: the next article with a year in its
+      // title would otherwise need exempting by hand, and an exemption list is
+      // where a real claim eventually hides. Every match on the line has to
+      // look like a year for it to pass, so "2025 trends across 38 compounds"
+      // still fires on the 38.
+      const nums = [
+        ...line.matchAll(
+          /(?<![\w-])(\d{1,4})\s*\+?\s*(?:compounds?|peptides?|COAs?|certificates?|citations?|studies|batches|metros|sites)\b/gi,
+        ),
+      ].map((m) => m[1]);
+      if (nums.length > 0 && nums.every((n) => /^(19|20)\d{2}$/.test(n))) return false;
+      return true;
+    },
   },
   {
     id: "no-typed-purity",
@@ -271,6 +293,16 @@ process.exit(1);
 /*   3. Put "38 compounds" in a component      -> no-bare-stat-literal   */
 /*   4. Put "Fake or reused" in a component    -> no-negative-framing    */
 /*   5. Put "Add to Cart" in a component       -> no-sales-language      */
+/*   6. Put "2025 Peptide Trends" in a title   -> SILENT (a year)        */
+/*   7. Put "2025 trends, 38 compounds"        -> no-bare-stat-literal   */
+/*      (a year on the line must not mask a real count beside it)        */
+/*                                                                      */
+/*  Known blind spot, accepted: a genuine count that happens to fall in  */
+/*  1900-2099 — "1998 studies" — reads as a year and passes. Narrowing   */
+/*  further would need to know which nouns can plausibly number in the   */
+/*  thousands, which is a judgement a regex should not be making. The    */
+/*  alternative was an allow-list of article titles, and an allow-list   */
+/*  is where a real claim eventually hides.                              */
 /*                                                                      */
 /*  Revert each. If any mutation passes, the rule is not reading what    */
 /*  you think it is.                                                     */
