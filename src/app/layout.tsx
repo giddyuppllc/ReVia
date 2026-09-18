@@ -10,6 +10,7 @@ import Analytics from "@/components/Analytics";
 import RuoBanner from "@/components/RuoBanner";
 import { Suspense } from "react";
 import { REVIA_NETWORK } from "@/lib/partner";
+import { isCanonicalDeployment } from "@/lib/canonical-host";
 import { POSITIONING_TITLE } from "@/lib/positioning";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -82,10 +83,12 @@ export const metadata: Metadata = {
       "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
     images: ["/images/hero-overlook.webp"],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  // Indexable only when this deployment IS revialife.com — see
+  // src/lib/canonical-host.ts. The preview on *.vercel.app says noindex, so it
+  // cannot become a second copy of the site competing with the real one.
+  robots: isCanonicalDeployment()
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
 };
 
 // `sameAs` and `subOrganization` assert the group relationship to a search
