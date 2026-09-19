@@ -68,8 +68,8 @@ export default function ContactPage() {
         </p>
         <h1 className="text-4xl font-bold text-stone-900 sm:text-5xl">Contact Us</h1>
         <p className="mt-4 text-stone-500 max-w-xl mx-auto">
-          A question about a compound, a certificate, or the record?
-          Reach out and we&apos;ll get back to you within 24 hours.
+          Have a question about a compound, a certificate, or something we published?
+          Send it over and we&apos;ll get back to you within 24 hours on business days.
         </p>
       </div>
 
@@ -211,10 +211,10 @@ export default function ContactPage() {
             </div>
             <div className="h-px bg-sky-200/30" />
             <p className="text-xs text-stone-400 leading-relaxed">
-              We typically respond within 24 hours on business days. An order is
-              placed with the ReVia property you bought from, under that
-              company&rsquo;s terms &mdash; so anything about payment, delivery
-              or a return has to go to their desk, not this one.
+              We usually reply within 24 hours on business days. If you&rsquo;re
+              asking about an order, contact the ReVia property you bought from.
+              Payment, delivery, and returns are handled there, under that
+              company&rsquo;s terms.
             </p>
           </div>
 
@@ -222,9 +222,9 @@ export default function ContactPage() {
             <h3 className="text-sm font-semibold text-stone-800 mb-4">Before You Reach Out</h3>
             <ul className="space-y-3">
               {[
-                { href: "/faq", label: "FAQ", desc: "Common questions answered" },
-                { href: "/policies/disclaimer", label: "Research-use-only", desc: "What these compounds are for" },
-                { href: "/faq", label: "Common questions", desc: "Including where compounds are obtained" },
+                { href: "/faq", label: "FAQ", desc: "Common questions, answered" },
+                { href: "/policies/disclaimer", label: "Research Use Only", desc: "What these compounds are, and aren't, for" },
+                { href: "/faq", label: "Where to buy", desc: "Which ReVia property sells what" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
