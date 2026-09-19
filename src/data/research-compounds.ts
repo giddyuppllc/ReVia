@@ -335,10 +335,10 @@ export const researchCompounds: ResearchCompound[] = [
           "Review of GHRH(1-29) analogs examining the pharmacology of pulsatile GHRH receptor activation for GH release, establishing the foundational receptor pharmacology shared by Mod GRF 1-29.",
       },
       {
-        citation:
-          "Veldhuis JD, et al. Dose-response relationships of growth hormone (GH)-releasing hormone-(1-29) in healthy men. Endocr Res. 2005;31(1):25-37.",
-        finding:
-          "Demonstrated clear dose-dependent GH release with GRF(1-29) analogs, with peak GH levels occurring within 15-30 minutes of administration.",
+          citation:
+            "Wilton P, et al. Pharmacokinetics of growth hormone-releasing hormone(1-29)-NH2 and stimulation of growth hormone secretion in healthy subjects after intravenous or intranasal administration. Acta Paediatr Suppl. 1993;388:10-15.",
+          finding:
+            "Measured GHRH(1-29)-NH2 pharmacokinetics and the growth hormone response it produced in healthy subjects across two routes of administration.",
       },
     ],
   },
@@ -425,10 +425,10 @@ export const researchCompounds: ResearchCompound[] = [
     ],
     keyStudies: [
       {
-        citation:
-          "Wu Z, et al. The C-terminal fragment 177-191 of human growth hormone acts as a lipolytic agent on fat tissue. Horm Metab Res. 1993;25(6):307-308.",
-        finding:
-          "Demonstrated that the C-terminal fragment of hGH possesses lipolytic activity in adipose tissue cultures, establishing the structural basis for fat-specific metabolic effects.",
+          citation:
+            "Heffernan MA, et al. Effects of oral administration of a synthetic fragment of human growth hormone on lipid metabolism. Am J Physiol Endocrinol Metab. 2000;279(3):E501-E507.",
+          finding:
+            "A synthetic C-terminal fragment of human growth hormone altered lipid metabolism in rodents after oral administration, separating the lipolytic activity of the fragment from the growth-promoting activity of the intact hormone.",
       },
       {
         citation:
@@ -464,10 +464,10 @@ export const researchCompounds: ResearchCompound[] = [
           "Hexarelin stimulated significant GH release and demonstrated distinct cardiac effects mediated through non-GHS-R pathways, suggesting direct cardioprotective mechanisms.",
       },
       {
-        citation:
-          "Muccioli G, et al. Growth hormone-releasing peptides and the cardiovascular system. Ann Endocrinol. 2000;61(1):27-31.",
-        finding:
-          "Reviewed evidence for hexarelin's dual mechanism involving both GH release and direct cardiovascular signaling through CD36 binding on cardiomyocytes.",
+          citation:
+            "Bodart V, et al. CD36 mediates the cardiovascular action of growth hormone-releasing peptides in the heart. Circ Res. 2002;90(8):844-849.",
+          finding:
+            "Identified CD36 as the binding site mediating the cardiovascular actions of growth hormone-releasing peptides in cardiac tissue, distinct from the GH secretagogue receptor.",
       },
     ],
     chemicalProperties: {
@@ -699,10 +699,10 @@ export const researchCompounds: ResearchCompound[] = [
           "GHK-Cu was shown to modulate expression of 31.2% of the human genome, with significant upregulation of genes involved in tissue repair signaling and antioxidant response, and suppression of genes associated with inflammation and tissue destruction.",
       },
       {
-        citation:
-          "Pollard JD, et al. Synthetic GHK-Cu significantly accelerates wound healing in a diabetic wound model. J Exp Pharmacol. 2005;57:A75-A80.",
-        finding:
-          "Research investigated topical GHK-Cu-mediated effects on tissue repair mechanisms in a diabetic preclinical model, observing enhanced angiogenesis and collagen deposition signaling at the application site.",
+          citation:
+            "Fu SC, et al. Tripeptide-copper complex GHK-Cu (II) transiently improved healing outcome in a rat model of ACL reconstruction. J Orthop Res. 2015;33(7):1024-1033.",
+          finding:
+            "In a rat ligament-reconstruction model, GHK-Cu improved an early healing outcome measure. The authors describe the effect as transient, and it is reported that way here because that is what the paper concluded.",
       },
     ],
     chemicalProperties: {
@@ -728,10 +728,10 @@ export const researchCompounds: ResearchCompound[] = [
     ],
     keyStudies: [
       {
-        citation:
-          "Getting SJ, et al. Molecular determinants of the anti-inflammatory function of the C-terminus of alpha-MSH. Biochemistry. 2001;40(8):2205-2213.",
-        finding:
-          "Demonstrated that the C-terminal tripeptide KPV retained the anti-inflammatory properties of full-length alpha-MSH, inhibiting NF-kappaB activation and reducing pro-inflammatory cytokine production.",
+          citation:
+            "Getting SJ, et al. Dissection of the anti-inflammatory effect of the core and C-terminal (KPV) alpha-melanocyte-stimulating hormone peptides. J Pharmacol Exp Ther. 2003;306(2):631-637.",
+          finding:
+            "Compared the core and C-terminal (KPV) fragments of alpha-MSH in a murine inflammation model and found the C-terminal tripeptide retained anti-inflammatory activity.",
       },
       {
         citation:
@@ -874,10 +874,10 @@ export const researchCompounds: ResearchCompound[] = [
           "Research investigated dihexa-mediated HGF/c-Met receptor activation and its effects on cognitive signaling pathways in rat models, observing modulation of synaptic connectivity at concentrations approximately 10 million-fold lower than BDNF.",
       },
       {
-        citation:
-          "Benoist CC, et al. Facilitating neurocognitive function through HGF/Met system activation: evidence from the dihexa compound. Pharmacol Ther. 2014;158(2):172-180.",
-        finding:
-          "Demonstrated that dihexa augments HGF/c-Met signaling to drive spinogenesis and new synapse formation, establishing a novel procognitive mechanism independent of classical neurotransmitter systems.",
+          citation:
+            "Sun X, et al. AngIV-analog dihexa rescues cognitive impairment and recovers memory in the APP/PS1 mouse via the PI3K/AKT signaling pathway. Brain Sci. 2021;11(11).",
+          finding:
+            "Dihexa improved performance on memory tasks in the APP/PS1 mouse, with the authors attributing the effect to PI3K/AKT signalling.",
       },
     ],
   },
@@ -1001,10 +1001,10 @@ export const researchCompounds: ResearchCompound[] = [
     ],
     keyStudies: [
       {
-        citation:
-          "Semenova TP, et al. Selank (TPKRPGP) and the analogue (HLPGP) modulate the content of monoamines and their metabolites in the brain. Eksp Klin Farmakol. 2009;72(3):34-37.",
-        finding:
-          "Selank modulated serotonin metabolism and norepinephrine turnover in the brain, providing a mechanistic basis for its anxiolytic effects without affecting dopamine systems.",
+          citation:
+            "Narkevich VB, et al. Effects of heptapeptide selank on the content of monoamines and their metabolites in the brain of BALB/c and C57Bl/6 mice: a comparative study. Eksp Klin Farmakol. 2008;71(5):8-12.",
+          finding:
+            "Measured monoamines and their metabolites in mouse brain after selank administration, reporting strain-dependent differences in serotonin turnover.",
       },
       {
         citation:
@@ -1067,10 +1067,10 @@ export const researchCompounds: ResearchCompound[] = [
     ],
     keyStudies: [
       {
-        citation:
-          "Kim SH, et al. ERRgamma agonist SLU-PP-332 ameliorates metabolic dysfunction through enhanced exercise capacity. J Clin Invest. 2023;133(10):e162326.",
-        finding:
-          "Research investigated SLU-PP-332-mediated ERRgamma activation and its effects on skeletal muscle metabolism, observing promotion of oxidative muscle fiber formation and modulation of metabolic signaling pathways without exercise training.",
+          citation:
+            "Billon C, et al. Synthetic ERR-alpha/beta/gamma agonist induces an ERR-alpha-dependent acute aerobic exercise response and enhances exercise capacity. ACS Chem Biol. 2023;18(4):756-771.",
+          finding:
+            "SLU-PP-332 produced an ERR-alpha-dependent acute exercise-like transcriptional response in mouse skeletal muscle and increased running capacity.",
       },
       {
         citation:
@@ -1140,10 +1140,10 @@ export const researchCompounds: ResearchCompound[] = [
           "Comprehensive review of DSIP pharmacology establishing its effects on sleep architecture, stress responses, and neuroendocrine function, while noting that its sleep-promoting effects are modulatory rather than hypnotic.",
       },
       {
-        citation:
-          "Prudchenko IA, et al. Structure-function studies of DSIP. Ann N Y Acad Sci. 1990;897:53-60.",
-        finding:
-          "Structure-activity analysis identified the minimal functional sequences within DSIP responsible for its neuromodulatory effects and established key residues for receptor binding.",
+          citation:
+            "Mikhaleva II, et al. Interaction of delta sleep-inducing peptide and its analogues with cellular membranes: a structure-function analysis. Bioorg Khim. 2006;32(2):176-182.",
+          finding:
+            "Compared DSIP with synthetic analogues to identify which residues govern its interaction with cell membranes.",
       },
     ],
     chemicalProperties: {
@@ -1276,10 +1276,10 @@ export const researchCompounds: ResearchCompound[] = [
     ],
     keyStudies: [
       {
-        citation:
-          "Getting SJ, et al. Molecular determinants of the anti-inflammatory function of the C-terminus of alpha-MSH. Biochemistry. 2001;40(8):2205-2213.",
-        finding:
-          "KPV retained full anti-inflammatory activity of alpha-MSH, demonstrating potent NF-kappaB inhibition and cytokine suppression.",
+          citation:
+            "Getting SJ, et al. Dissection of the anti-inflammatory effect of the core and C-terminal (KPV) alpha-melanocyte-stimulating hormone peptides. J Pharmacol Exp Ther. 2003;306(2):631-637.",
+          finding:
+            "Compared the core and C-terminal (KPV) fragments of alpha-MSH in a murine inflammation model and found the C-terminal tripeptide retained anti-inflammatory activity.",
       },
       {
         citation:
