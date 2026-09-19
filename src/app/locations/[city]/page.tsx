@@ -128,7 +128,7 @@ export default async function CityHubPage({ params }: PageProps) {
           ReVia publishes; it does not sell. Compounds are supplied by{" "}
           <strong className="font-medium text-[#3D3229]">{D2C.name}</strong>, our
           exclusive research provider &mdash; a separate company with its own
-          catalogue and its own terms.{" "}
+          catalog and its own terms.{" "}
           <span className="text-[#3D3229]/50">
             The link below leaves ReVia and opens {D2C.name} in a new tab.
           </span>

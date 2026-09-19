@@ -28,7 +28,7 @@ const STACK_EXPLAINER = [
   {
     icon: Timer,
     title: "Formulated around a research goal",
-    body: "Each blend pairs compounds that are commonly researched together, so the vial is organised around one line of research instead of assembled ad hoc.",
+    body: "Each blend pairs compounds that are commonly researched together, so the vial is organized around one line of research instead of assembled ad hoc.",
   },
 ];
 

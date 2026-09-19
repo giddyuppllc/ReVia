@@ -96,7 +96,7 @@ export default async function CityProductPage({ params }: PageProps) {
     [
       {
         q: `Where do researchers in ${city.name} obtain ${product.name}?`,
-        a: `Through i2b Health, ReVia's research partner, which is a separate company with its own catalogue and terms. Researchers in ${city.name}, ${city.state} and nearby areas including ${city.nearbyAreas.slice(0, 3).join(", ")} use it the same way as anywhere else. Research use only.`,
+        a: `Through i2b Health, ReVia's research partner, which is a separate company with its own catalog and terms. Researchers in ${city.name}, ${city.state} and nearby areas including ${city.nearbyAreas.slice(0, 3).join(", ")} use it the same way as anywhere else. Research use only.`,
       },
       {
         q: `Is ${product.name} from ReVia third-party tested?`,

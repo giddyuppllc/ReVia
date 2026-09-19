@@ -22,7 +22,7 @@ import { HEARING, STATEMENTS, STATEMENT_COUNT, CORRECTIONS } from "@/data/federa
 export const metadata: Metadata = {
   title: "ReVia in Washington | The Federal Record",
   description:
-    "Mike Stone spoke five times at the FDA Pharmacy Compounding Advisory Committee on 23-24 July 2026. Every statement in full, with the webcast timecode for each.",
+    "Mike Stone spoke five times at the FDA Pharmacy Compounding Advisory Committee on July 23–24, 2026. Every statement in full, with the webcast timecode for each.",
   alternates: { canonical: "https://revialife.com/washington" },
   openGraph: {
     title: "ReVia in Washington | The Federal Record",

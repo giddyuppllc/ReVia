@@ -26,7 +26,7 @@ export default async function UnsubscribePage({
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-6 py-20 text-center">
       <h1 className="font-serif text-3xl text-[#3D3229]">
-        {valid ? "You're unsubscribed" : "Link not recognised"}
+        {valid ? "You're unsubscribed" : "Link not recognized"}
       </h1>
       <p className="mt-4 text-sm leading-relaxed text-stone-600">
         {valid ? (

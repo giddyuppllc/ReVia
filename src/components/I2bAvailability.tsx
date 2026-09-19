@@ -40,7 +40,7 @@ import { D2C, PARTNER_LINK_PROPS } from "@/lib/partner";
  */
 
 /** i2b's own words for its role. Kept identical to `legal.ts` in that repo. */
-const ROLE = "the exclusive research provider for this catalogue";
+const ROLE = "the exclusive research provider for this catalog";
 
 export default async function I2bAvailability({
   researchSlug,
