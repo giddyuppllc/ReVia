@@ -121,7 +121,7 @@ export const researchCompounds: ResearchCompound[] = [
       },
       {
         citation:
-          "Stier H, et al. Safety and tolerability of the hexadecapeptide AOD9604 in humans. J Endocrinol Invest. 2013;36(9):678-684.",
+          "Stier H, et al. Safety and tolerability of the hexadecapeptide AOD9604 in humans. J Endocrinol Metab. 2013;3(1-2):7-15.",
         finding:
           "Phase II evaluation examined the safety and tolerability profile of AOD-9604, observing a tolerability profile comparable to placebo.",
       },
@@ -249,7 +249,7 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Jastreboff AM, et al. Tirzepatide once weekly for the treatment of obesity. N Engl J Med. 2022;387(4):327-340.",
+          "Jastreboff AM, et al. Tirzepatide once weekly for the treatment of obesity. N Engl J Med. 2022;387(3):205-216.",
         finding:
           "Research investigated the dose-dependent pharmacology of dual GIP/GLP-1 receptor agonism and its effects on metabolic signaling pathways over 72 weeks, comparing dual-receptor engagement to single-agonist approaches.",
       },
@@ -317,7 +317,7 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Prakash A, et al. Sermorelin: a review of its use in the diagnosis and treatment of children with idiopathic growth hormone deficiency. BioDrugs. 2002;16(6):375-389.",
+          "Prakash A, Goa KL. Sermorelin: a review of its use in the diagnosis and treatment of children with idiopathic growth hormone deficiency. BioDrugs. 1999;12(2):139-157.",
         finding:
           "Review of GHRH(1-29) analogs examining the pharmacology of pulsatile GHRH receptor activation for GH release, establishing the foundational receptor pharmacology shared by Mod GRF 1-29.",
       },
@@ -446,7 +446,7 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Broglio F, et al. Activity of GH/IGF-I axis in patients with dilated cardiomyopathy. Clin Endocrinol. 1999;50(4):469-475.",
+          "Broglio F, et al. Activity of GH/IGF-I axis in patients with dilated cardiomyopathy. Clin Endocrinol (Oxf). 1999;50(4):417-430.",
         finding:
           "Hexarelin stimulated significant GH release and demonstrated distinct cardiac effects mediated through non-GHS-R pathways, suggesting direct cardioprotective mechanisms.",
       },
@@ -479,7 +479,7 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Francis GL, et al. Insulin-like growth factors 1 and 2 in bovine colostrum. Sequences and biological activities compared with those of a potent truncated form. Biochem J. 1992;251(1):95-103.",
+          "Francis GL, et al. Insulin-like growth factors 1 and 2 in bovine colostrum. Sequences and biological activities compared with those of a potent truncated form. Biochem J. 1988;251(1):95-103.",
         finding:
           "Characterized the enhanced biological potency of IGF-1 analogs with reduced IGFBP binding, establishing the pharmacological rationale for the LR3 modification.",
       },
@@ -1188,7 +1188,7 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Dorr RT, et al. Effects of a superpotent melanotropic peptide in combination with solar UV radiation on tanning of the skin in human volunteers. Arch Dermatol. 1996;132(3):272-278.",
+          "Dorr RT, et al. Effects of a superpotent melanotropic peptide in combination with solar UV radiation on tanning of the skin in human volunteers. Arch Dermatol. 2004;140(7):827-278.",
         finding:
           "Research investigated melanotan II-mediated MC1R activation and melanogenesis signaling, observing enhanced melanin production with effects synergistic to UV exposure and persisting after treatment cessation.",
       },
