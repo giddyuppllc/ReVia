@@ -97,7 +97,7 @@ export default function TestimonyHero() {
                 </span>
               </div>
               <p className="mt-2 font-mono text-[0.6875rem] leading-relaxed tracking-tight text-[#3D3229]/40">
-                {statement.date} · speaker {statement.speakerSlot} ·{" "}
+                {statement.date} · {statement.compound} · speaker {statement.speakerSlot} ·{" "}
                 {statement.from}–{statement.to} · docket {HEARING.docket}
               </p>
             </Rise>

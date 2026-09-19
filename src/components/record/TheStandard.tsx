@@ -26,13 +26,13 @@ export default function TheStandard() {
           <Rise>
             <Label>The standard we publish</Label>
             <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
-              One method. Four results. Named laboratory.
+              What every certificate tells you.
             </Heading>
             <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
-              Every certificate reports the same four things, by the same method,
-              from the same independent laboratory — and names the batch it was
-              run on. The figure that matters is on the document, not in a
-              headline.
+              Every certificate reports the same four results, run by the same
+              method at the same independent lab, and it names the lot they were
+              run on. The number that counts is the one on the certificate for
+              your lot, and you can check it yourself.
             </p>
           </Rise>
 
@@ -43,9 +43,9 @@ export default function TheStandard() {
             <dl className="grid grid-cols-1 sm:grid-cols-2">
               {[
                 { k: "Laboratory", v: COA_SPEC.lab, n: "Independent, named on every certificate" },
-                { k: "Method", v: COA_SPEC.method, n: "The single analytical method, as printed" },
-                { k: "Purity specification", v: COA_SPEC.puritySpec, n: "Measured figure varies by batch" },
-                { k: "Heavy metals", v: COA_SPEC.metalsSpec, n: "Specification, per batch" },
+                { k: "Method", v: COA_SPEC.method, n: "The one method we use, printed on every certificate" },
+                { k: "Purity specification", v: COA_SPEC.puritySpec, n: "The certificate shows the measured number for your lot" },
+                { k: "Heavy metals", v: COA_SPEC.metalsSpec, n: "Limit, tested on every lot" },
               ].map((row, i) => (
                 <div
                   key={row.k}

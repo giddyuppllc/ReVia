@@ -28,12 +28,11 @@ export default function TheNetwork() {
           <Rise>
             <Label>The group</Label>
             <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
-              One standard, several doors.
+              Who does what in the ReVia group.
             </Heading>
             <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
-              Each property answers to a different audience under different
-              rules. ReVia Life is the record — it publishes, and it sells
-              nothing.
+              Each ReVia property serves a different audience under a different
+              set of rules. This one publishes the record and sells nothing.
             </p>
           </Rise>
 
