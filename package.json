@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "npm run check:claims && next build",
+    "build": "npm run check:claims && node scripts/check-citations.mjs && next build",
     "start": "next start",
     "lint": "eslint",
-    "check:claims": "tsx scripts/check-claims.ts"
+    "check:claims": "tsx scripts/check-claims.ts",
+    "check:citations": "node scripts/check-citations.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "~0.88.0",

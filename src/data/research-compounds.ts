@@ -43,7 +43,7 @@ export const SHOWCASE_SLUGS = ["retatrutide", "ghk-cu", "ipamorelin"] as const;
 
 export const researchCompounds: ResearchCompound[] = [
   /* ─────────────────────────────────────────────────
-     metabolic optimization & Metabolic
+     Metabolic & Endocrine
      ───────────────────────────────────────────────── */
   {
     slug: "5-amino-1mq",
@@ -164,13 +164,13 @@ export const researchCompounds: ResearchCompound[] = [
     keyStudies: [
       {
         citation:
-          "Lau DCW, et al. Once-weekly cagrilintide for metabolic optimization in people with overweight and obesity: a multicentre, randomised, double-blind, placebo-controlled and active-controlled, dose-finding phase 2 trial. Lancet. 2021;398(10317):2160-2172.",
+          "Lau DCW, et al. Once-weekly cagrilintide for weight management in people with overweight and obesity: a multicentre, randomised, double-blind, placebo-controlled and active-controlled, dose-finding phase 2 trial. Lancet. 2021;398(10317):2160-2172.",
         finding:
           "Research investigated cagrilintide-mediated amylin receptor activation and its dose-dependent effects on metabolic signaling pathways, with a dose-response relationship observed across all study groups.",
       },
       {
         citation:
-          "Enebo LB, et al. Safety, tolerability, pharmacokinetics, and pharmacodynamics of concomitant administration of multiple doses of cagrilintide with semaglutide 2.4 mg for metabolic optimization. Lancet. 2021;397(10286):1736-1748.",
+          "Enebo LB, et al. Safety, tolerability, pharmacokinetics, and pharmacodynamics of concomitant administration of multiple doses of cagrilintide with semaglutide 2.4 mg for weight management: a randomised, controlled, phase 1b trial. Lancet. 2021;397(10286):1736-1748.",
         finding:
           "Research examined the pharmacodynamic interaction of combined amylin and GLP-1 receptor activation, suggesting complementary mechanisms of action on metabolic signaling pathways.",
       },
