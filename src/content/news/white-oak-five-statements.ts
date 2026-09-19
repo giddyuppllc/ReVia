@@ -1,5 +1,5 @@
 import type { NewsPost } from "@/lib/news";
-import { HEARING, STATEMENTS, STATEMENT_COUNT, CORRECTIONS } from "@/data/federal-record";
+import { HEARING, STATEMENTS } from "@/data/federal-record";
 
 /* ------------------------------------------------------------------ */
 /*  Grounded entirely in this repository's own primary material: the    */
@@ -17,28 +17,28 @@ export const post: NewsPost = {
   slug: "white-oak-five-statements",
   title: "Five minutes at a time: what our founder told the FDA",
   summary:
-    `ReVia's founder spoke ${STATEMENT_COUNT} times at FDA's Pharmacy Compounding Advisory Committee over two days in July 2026. Every word is published here, with the webcast timecode for each.`,
+    "Our founder spoke five times at the FDA's Pharmacy Compounding Advisory Committee over two days in July 2026. Every word is published here, with the webcast timecode for each statement.",
   published: "2026-09-18",
   category: "Federal",
   status:
-    "The statements are a matter of public record. FDA had posted no official transcript as of 18 September 2026.",
+    "The statements are public record. As of September 18, 2026, the FDA hadn't posted an official transcript.",
   stance:
-    "A supplier who wants the category regulated should say so where it counts, on the record, under his own name — and then publish what he said without trimming it.",
+    "A supplier who wants this category regulated should say so where it counts: on the record, under his own name. Then he should publish what he said without trimming it.",
   body: [
     {
       kind: "p",
       text:
-        `On 23 and 24 July 2026, FDA's Pharmacy Compounding Advisory Committee met at White Oak in Silver Spring, Maryland, to consider a group of peptides proposed for use in compounding. The meeting had an open public hearing, which is the part where anybody who registers gets a few minutes at a podium. Mike Stone, who founded ReVia, took ${STATEMENT_COUNT} of those slots.`,
+        "On July 23 and 24, 2026, the FDA's Pharmacy Compounding Advisory Committee met at White Oak in Silver Spring, Maryland, to consider a group of peptides proposed for compounding. The meeting included an open public hearing, which is the part where anyone who registers gets a few minutes at a podium. Mike Stone, who founded ReVia, took five of those slots.",
     },
     {
       kind: "p",
       text:
-        "He was not there to defend a product. He told the committee that his market is gray, that he is in it, and that he wanted it regulated — which is not the position a supplier is expected to take at a hearing about restricting what he sells.",
+        "He went there to tell the committee that his market is gray, that he's in it, and that he wants it regulated. Suppliers don't usually say that at a hearing about restricting what they sell.",
     },
     { kind: "h2", text: "What he spoke on" },
     {
       kind: "table",
-      caption: `The ${STATEMENT_COUNT} statements, with the webcast timecode for each.`,
+      caption: "The five statements, with the webcast timecode for each.",
       rows: [
         ["Day", "Substance", "Slot", "Webcast"],
         ...STATEMENTS.map((s) => [
@@ -53,25 +53,24 @@ export const post: NewsPost = {
     {
       kind: "p",
       text:
-        "A statement to a federal advisory committee is a primary source. Quoting a sentence of it on a product page turns it into marketing; publishing all of it, with the timecode, lets a reader go and check that the sentence was not doing work the rest of the paragraph would have undone.",
+        "A statement to a federal advisory committee is a primary source. Quote one sentence of it on a product page and you've turned it into marketing. Publish all of it with the timecode, and a reader can go check that the sentence wasn't doing work the rest of the paragraph would have undone.",
     },
     {
       kind: "callout",
       title: "One version in circulation is spliced",
       text:
-        CORRECTIONS[0] ??
-        "A transcript circulating from these sessions joins material from two different statements and adds sentences that were not said. Check any quotation against the webcast timecode.",
+        "Mike didn't speak in the MOTS-c hearing (Day 1, 4:40 p.m. session) or the Epitalon hearing (Day 2, 11:15 a.m. session). The captions show no appearance, and in the TB-500 session he said it would \"probably be the last time you'll see me today.\"",
     },
     {
       kind: "p",
       text:
-        "FDA had not posted an official transcript when this was written. What is published here was transcribed from FDA's own webcast recordings, cleaned of caption errors and stutters, with nothing added and nothing reordered. When FDA's version appears, ours should be checked against it and corrected where they differ.",
+        "The FDA hadn't posted an official transcript when this was written. We transcribed what's published here from the FDA's own webcast recordings and cleaned up caption errors and stutters, with nothing added and nothing reordered. When the FDA's version comes out, we'll check ours against it and correct any differences.",
     },
     { kind: "h2", text: "What a recommendation is" },
     {
       kind: "p",
       text:
-        "The committee advises; it does not decide. Nothing said at that meeting, and nothing voted on at it, changed what may lawfully be compounded on the day it ended. Any page that implies otherwise — ours included — is wrong.",
+        "The committee advises. It doesn't decide. Nothing said at that meeting, and nothing voted on at it, changed what a pharmacy could lawfully compound the day it ended. Any page that implies otherwise, ours included, is wrong.",
     },
   ],
   sources: [
