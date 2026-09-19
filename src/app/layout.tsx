@@ -67,12 +67,30 @@ export const metadata: Metadata = {
     title: `ReVia | ${POSITIONING_TITLE}`,
     description:
       "Independently verified research peptides \u2014 >98% purity by RP-HPLC, with a batch-specific COA.",
+    /* This was /images/hero-lab-coa.webp — a rendered photograph of vials beside
+       a framed "CERTIFICATE OF ANALYSIS" whose fields are legible at card size.
+
+       It is a fabricated document. The product name, batch number and dates are
+       blank; there is a drawn signature over "QA APPROVAL"; it reports ≥99%
+       purity against a real specification of >98% (src/lib/coa.ts); and it
+       reports results for endotoxins and residual solvents — two tests named in
+       scripts/check-claims.ts as things no certificate here carries.
+
+       The claim gate could not see any of it, because the claims are pixels in
+       a WebP. And it was the share card for every page: every link posted to
+       Slack, LinkedIn or iMessage rendered a fake certificate as the preview for
+       a site whose only product is that its documents can be checked.
+
+       Moved to docs/quarantine/. The two cards now agree, which they did not
+       before — Twitter and LinkedIn were rendering different images for the
+       same URL. See the note there: the replacement is stock photography and is
+       a placeholder, not an endorsement of it. */
     images: [
       {
-        url: "/images/hero-lab-coa.webp",
+        url: "/images/hero-overlook.webp",
         width: 1200,
         height: 630,
-        alt: "ReVia — Premium peptides, proven purity",
+        alt: "ReVia Research Peptides",
       },
     ],
   },

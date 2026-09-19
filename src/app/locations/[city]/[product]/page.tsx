@@ -77,7 +77,13 @@ export default async function CityProductPage({ params }: PageProps) {
   if (!data) return notFound();
   const { city, product } = data;
 
-  const image = `${SITE}${getProductImage(product.slug, null)}`;
+  /* getProductImage returns null for seven compounds that have no render, and
+     `${SITE}${null}` interpolates to "https://revialife.comnull" — emitted as
+     the `image` of a Product JSON-LD on 7 compounds x 25 cities = 175 URLs,
+     every one reachable from a city hub. Omitted rather than faked: a missing
+     image property is valid, an invalid URL is a Search Console error. */
+  const productImagePath = getProductImage(product.slug, null);
+  const image = productImagePath ? `${SITE}${productImagePath}` : null;
   const copy = getCityProductCopy(city.slug, product.slug);
   const context = getCityProductContext(city.slug, product.slug);
 
@@ -143,7 +149,8 @@ export default async function CityProductPage({ params }: PageProps) {
     name: `${product.name} — Research Peptide (${city.name}, ${city.stateAbbr})`,
     description: product.description ?? intro,
     category: product.category.name,
-    image,
+    // Spread, so the key is absent rather than null when there is no render.
+    ...(image ? { image } : {}),
     brand: { "@type": "Brand", name: "ReVia Life" },
     // No `offers`. It was an AggregateOffer with a lowPrice pointing at
     // /shop/:slug — structured data telling Google this site sells at a price,

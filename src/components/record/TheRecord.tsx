@@ -81,7 +81,11 @@ export default function TheRecord() {
             gap trick paints the container, and where a column is shorter than
             its neighbour the paint shows through as a grey band above and below
             the row. */}
-        <div className="grid pb-14 pt-10 sm:pb-20 lg:grid-cols-3">
+        {/* min-w-0: a grid item is min-width:auto by default, so the `truncate`
+            on the titles below sized the track to the UNtruncated string
+            rather than clipping it — +82px of sideways scroll on the
+            homepage at 390px, and the only overflowing route on the site. */}
+        <div className="grid min-w-0 pb-14 pt-10 sm:pb-20 lg:grid-cols-3">
           {columns.map((col, i) => (
             <Rise key={col.heading} delay={0.08 * i} className="border-t border-[#3D3229]/12 lg:border-t-0 lg:border-l lg:border-[#3D3229]/12 lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0">
               <Link href={col.href} className="group block py-6 lg:py-0">
