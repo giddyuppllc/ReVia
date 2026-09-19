@@ -13,41 +13,41 @@ export const post: NewsPost = {
   slug: "reading-a-certificate",
   title: "How to read a certificate of analysis, using one of ours",
   summary:
-    "A certificate with a single number on it is decoration. A real one names the lot, the method, the limits and the results — and lets you get the same document back from the laboratory yourself.",
+    "A certificate with one number on it is decoration. A real one names the lot, the method, the limits, and the results, and lets you pull the same document from the lab yourself.",
   published: "2026-09-18",
   category: "Manufacturing & Testing",
   status: "Evergreen. The example is a real certificate on a real lot.",
   stance:
-    "The number on a website is a specification. The number on a certificate is a measurement of one lot. Anybody selling you a peptide should be able to hand you the second, and most of what looks like proof in this category is the first.",
+    "The number on a website is a spec. The number on a certificate is a measurement of one lot. Anyone selling you a peptide should be able to hand you the second, and most of what looks like proof in this category is the first.",
   body: [
     {
       kind: "p",
       text:
-        "Every supplier in this category says its material is tested. Almost none of them shows you the test. The gap between those two things is where the whole problem lives, and it closes the moment you ask for the document instead of the adjective.",
+        "Every supplier in this category says its material is tested. Almost none of them will show you the test. That gap is where the whole problem lives, and it closes the moment you ask for the document instead of the adjective.",
     },
     { kind: "h2", text: "What a certificate has to name" },
     {
       kind: "p",
       text:
-        "A certificate is evidence about one batch of material, and it is only evidence if it identifies which batch. Everything else on it is qualification: who measured, by what method, against what limit, and what they found.",
+        "A certificate is evidence about one lot of material, and it's only evidence if it says which lot. Everything else on it is context: who measured, by what method, against what limit, and what they found.",
     },
     {
       kind: "list",
       items: [
-        "The lot code, which should also appear on the vial.",
-        "The laboratory, by name.",
-        "The method, so you know what the number is a measurement of.",
+        "The lot code, which should also be on the vial.",
+        "The lab, by name.",
+        "The method, so you know what the number measures.",
         "The limit, so you know what counts as a pass.",
-        "The result, so you know what this batch actually did.",
-        "The dates the sample arrived and was analysed.",
-        "A person, signed.",
+        "The result, so you know what this lot actually did.",
+        "The dates the sample arrived and was analyzed.",
+        "A person's signature.",
       ],
     },
     { kind: "h2", text: "One of ours, line by line" },
     {
       kind: "p",
       text:
-        `Certificate #${COA_EXAMPLE.number} covers ${COA_EXAMPLE.product}, lot ${COA_EXAMPLE.lotCode}. The sample reached the laboratory on ${COA_EXAMPLE.received} and was analysed on ${COA_EXAMPLE.analysed}.`,
+        `Certificate #${COA_EXAMPLE.number} covers ${COA_EXAMPLE.product}, lot ${COA_EXAMPLE.lotCode}. The sample reached the lab on ${COA_EXAMPLE.received} and was analyzed on ${COA_EXAMPLE.analysed}.`,
     },
     {
       kind: "table",
@@ -57,30 +57,30 @@ export const post: NewsPost = {
     {
       kind: "p",
       text:
-        `Four results, because that is what this certificate reports: ${COA_RESULTS.map((r) => r.label.toLowerCase()).join(", ")}. A longer list of assays is not automatically a better document — it is only better if the laboratory ran them, and the certificate is where you find out.`,
+        `Four results, because that's what this certificate reports: ${COA_RESULTS.map((r) => r.label.toLowerCase()).join(", ")}. A longer list of assays doesn't automatically make a better document. It's only better if the lab actually ran them, and the certificate is where you find that out.`,
     },
-    { kind: "h2", text: "The number that matters is not the big one" },
+    { kind: "h2", text: "Which number actually matters" },
     {
       kind: "p",
       text:
-        `The purity reading on this lot is a measurement against a ${COA_SPEC.puritySpec} specification. It is a fact about this batch and nothing else — which is why a headline figure on a website, averaged across batches nobody names, is not the same kind of claim at all. If a supplier quotes an average, ask which lots it averages.`,
+        `The purity reading on this lot is a measurement against a ${COA_SPEC.puritySpec} spec. It's a fact about this lot and nothing else. A headline number on a website, averaged across lots nobody names, is a different kind of claim. If a supplier quotes an average, ask which lots it averages.`,
     },
     {
       kind: "callout",
       title: "Quantity is the one people skip",
       text:
-        "Purity tells you what proportion of the material is the named compound. Quantity tells you how much of it is in the vial. A vial can be pure and underfilled, and only one of those two numbers will tell you.",
+        "Purity tells you what fraction of the material is the named compound. Quantity tells you how much of it is in the vial. A vial can be pure and underfilled, and only one of those two numbers will tell you.",
     },
     { kind: "h2", text: "Verify it without asking us" },
     {
       kind: "p",
       text:
-        `The certificate carries an access code. Type it into ${COA_SPEC.lab}'s verification page and the laboratory returns the same document from its own records. A certificate you can only get from the seller is a PDF; a certificate you can pull from the laboratory is a record.`,
+        `The certificate has an access code. Type it into ${COA_SPEC.lab}'s verification page and the lab returns the same document from its own records. A certificate you can only get from the seller is a PDF. A certificate you can pull from the lab is a record.`,
     },
     {
       kind: "p",
       text:
-        "That is the test to apply to anyone, including us. If the document cannot be retrieved independently, it has told you what the seller wanted to say.",
+        "Apply that test to anyone, including us. If the document can't be retrieved independently, all it's told you is what the seller wanted to say.",
     },
   ],
   sources: [

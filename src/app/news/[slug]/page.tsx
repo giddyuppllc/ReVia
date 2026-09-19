@@ -177,10 +177,9 @@ export default async function NewsPostPage({
         )}
 
         <p className="mt-14 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
-          This is reporting and commentary, not legal advice. Regulatory status is
-          described as we understand it on the date shown, not concluded. Compounds
-          referenced are for research use only and are not for human or animal
-          consumption.
+          This is reporting and commentary, and it isn&rsquo;t legal advice. Regulatory
+          status is described as we understand it on the date shown. Compounds mentioned
+          are for research use only and are not for human or animal consumption.
         </p>
       </article>
     </>

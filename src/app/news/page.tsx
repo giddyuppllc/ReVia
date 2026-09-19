@@ -40,8 +40,8 @@ export default async function NewsIndex({
             Our thoughts on the news
           </h1>
           <p className="mt-6 max-w-[62ch] text-lg font-light leading-relaxed text-stone-600">
-            Peptide regulation is moving, and most of what is written about it collapses
-            distinctions that matter. We report what changed, say plainly what did not, and
+            Peptide regulation is moving, and most of what gets written about it blurs
+            distinctions that matter. We report what changed, say plainly what didn&rsquo;t, and
             link the primary document every time.
           </p>
 
@@ -159,11 +159,11 @@ export default async function NewsIndex({
       <section className="border-t border-sky-200/60 px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <p className="max-w-[68ch] font-mono text-[0.6875rem] leading-relaxed text-stone-500">
-            How we write this: primary documents in preference to anyone&rsquo;s summary of
-            them; a committee recommendation is never described as an approval; compounding,
-            outsourcing, approved-drug and research-use are kept as the four separate lanes
-            they are. Where we cannot verify something, we say so rather than rounding it
-            into a claim. This is reporting and commentary, not legal advice.
+            We go to the primary document instead of someone&rsquo;s summary of it. We never
+            call a committee recommendation an approval. We keep compounding, outsourcing,
+            approved drugs, and research use as the four separate lanes they are. When we
+            can&rsquo;t verify something, we say so instead of rounding it up into a claim.
+            This is reporting and commentary, and it isn&rsquo;t legal advice.
           </p>
         </div>
       </section>

@@ -11,39 +11,39 @@ export const post: NewsPost = {
   slug: "no-buy-button",
   title: "Why there is no buy button on this site",
   summary:
-    "ReVia Life publishes and sells nothing. That is a structural decision, not a stage we are passing through — and it is the only reason anything here is worth reading.",
+    "We publish here and sell nothing. That's how the site is built, and it's the only reason anything on it is worth reading.",
   published: "2026-09-18",
   category: "Compounding",
-  status: "Current structure. ReVia Life takes no orders and no commission.",
+  status: "Current structure. ReVia Life takes no orders and no commissions.",
   stance:
-    "The day a buy button appears here, every article on the site becomes an advertisement retrospectively. It is cheaper to keep the button off than to spend years earning back the doubt.",
+    "The day a buy button shows up on this site, every article on it becomes an ad, retroactively. It's a lot cheaper to keep the button off than to spend years earning back the doubt.",
   body: [
     {
       kind: "p",
       text:
-        "This site carries a compound library, a set of regulatory explainers and the full text of five statements its founder made to a federal advisory committee. It does not sell anything, and it does not take a commission on anything sold elsewhere.",
+        "This site has a compound library, a set of regulatory explainers, and the full text of five statements our founder made to a federal advisory committee. It doesn't sell anything, and it doesn't take a commission on anything sold anywhere else.",
     },
     {
       kind: "p",
       text:
-        "That is unusual enough to be worth explaining, because the obvious question is what the site is for.",
+        "That's unusual enough to be worth explaining, because the obvious question is what the site is for.",
     },
     { kind: "h2", text: "What a buy button does to a paragraph" },
     {
       kind: "p",
       text:
-        "A guide to evaluating a supplier, published by a supplier, on a page with an order form, is an advertisement. It may be an accurate advertisement — the advice can be sound and the standard genuinely high — but a reader cannot tell the difference from the outside, and is right not to try.",
+        "A guide to choosing a supplier, written by a supplier, on a page with an order form, is an ad. It might be an accurate ad. The advice might be sound and the standard might be high. But you can't tell from the outside, and you're right not to try.",
     },
     {
       kind: "p",
       text:
-        "The problem is not that the advice becomes false. It is that it becomes unfalsifiable: every recommendation happens to favour the thing being sold on the same page, and there is no version of the page where it would not have.",
+        "The advice doesn't have to be wrong to be a problem. The problem is that every recommendation on the page happens to favor the thing being sold on that page, and there's no version of the page where it wouldn't.",
     },
     { kind: "h2", text: "So who does sell" },
     {
       kind: "p",
       text:
-        "Compounds are supplied by i2b Health, which is a separate company with its own catalogue, terms and checkout. The other properties in the group serve audiences with different rules — trade, practitioners, consumables — and none of them is this one.",
+        "Compounds come from i2b Health, a separate company with its own catalog, terms, and checkout. The other properties in the group each serve a different audience under different rules: trade, practitioners, consumables. None of them is this site.",
     },
     {
       kind: "list",
@@ -52,19 +52,19 @@ export const post: NewsPost = {
     {
       kind: "p",
       text:
-        "Supplies sit on their own site deliberately rather than by accident. A peptide sold beside a syringe reads as a product intended for human use, whatever the label says, and the separation is there because of how that is read rather than because of how the catalogue is organised.",
+        "Supplies get their own site on purpose. A peptide listed next to a syringe reads like a product meant for human use, whatever the label says. We separated them because of how that reads.",
     },
     { kind: "h2", text: "What that costs us" },
     {
       kind: "p",
       text:
-        "A site that sells nothing has no revenue to point at and no conversion rate to optimise. Every link out of here to i2b is a reader we stop measuring. That is the trade, and it is worth making, because the alternative is a library nobody has a reason to believe.",
+        "A site that sells nothing has no revenue to point to and no conversion rate to optimize. Every link from here to i2b Health is a reader we stop measuring. That's the trade, and it's worth making, because the alternative is a library nobody has a reason to believe.",
     },
     {
       kind: "callout",
       title: "How this site is paid for",
       text:
-        "ReVia Life is published by ReVia LLC, which also supplies the compounds sold by i2b Health and through ReVia Wholesale. We say so on the About page, above the fold. A resource that hides its funding is not a resource.",
+        "ReVia LLC publishes ReVia Life. ReVia LLC also supplies the compounds sold by i2b Health and through ReVia Wholesale. We say so on the About page, at the top. A resource that hides its funding isn't a resource.",
     },
   ],
   sources: [
