@@ -57,43 +57,29 @@ const SUBSTITUTIONS = [
 ];
 
 /**
- * Citations that could not be found in Crossref OR PubMed on 2026-09-19.
+ * Citations that could not be found in Crossref OR PubMed.
  *
- * All 79 were checked against both indexes. Sixty-four resolved exactly —
- * journal, year, volume and first page — including Russian-language work that
- * Crossref does not index but PubMed does (Epitalon in Neuro Endocrinol Lett,
- * Semax in Zh Nevrol Psikhiatr). Six were real papers carrying the wrong
- * numbers and have been corrected against their PMIDs.
+ * Empty, and that is the point of keeping it.
  *
- * These nine returned nothing. That is not proof they are invented — an index
- * can miss a conference abstract or a supplement — but several have a tell
- * that is hard to explain otherwise:
+ * On 2026-09-19 all 79 citations were checked against both indexes. Sixty-four
+ * resolved exactly. Six were real papers carrying the wrong numbers and were
+ * corrected against their PMIDs. Nine resolved to nothing, and every one of
+ * those has since been replaced with a real paper making the same point —
+ * several by the same authors the fabricated entries were attributed to, which
+ * is the tell that a research pass had the right literature in view and
+ * invented the line.
  *
- *   J Exp Pharmacol did not publish until 2009; one of these cites it for 2005.
- *   Ann N Y Acad Sci vol. 897 is 1999; one cites it for 1990.
- *   Pharmacol Ther vol. 158 is 2016; one cites it for 2014.
+ * One replacement is worth knowing about. The dihexa entry cited Benoist CC et
+ * al., JPET 2014;351(2):390-402 for an HGF/c-Met mechanism. That paper is real
+ * — and it was RETRACTED in 2025 (PMID 40312093). It is not cited here. The
+ * replacement (Sun X et al., Brain Sci 2021) supports a procognitive effect via
+ * PI3K/AKT, so the finding text was rewritten to say what that paper shows
+ * rather than carrying the old mechanism across.
  *
- * They are listed rather than deleted because the owner has the original
- * research and may be able to re-source them, and silently removing evidence is
- * its own kind of dishonesty. What they may NOT do is ship unexamined: this
- * site's entire argument is that a reader can check the document, and a
- * citation that resolves to nothing is the most expensive possible thing to be
- * caught with.
- *
- * Resolve one by correcting it to its real record, or by removing it. Then
- * delete its line from this list.
+ * Add an entry here the moment a citation cannot be resolved, rather than
+ * leaving it in the file unmarked.
  */
-const UNVERIFIED = [
-  "The C-terminal fragment 177-191 of human growth hormone",
-  "Synthetic GHK-Cu significantly accelerates wound healing",
-  "Molecular determinants of the anti-inflammatory function of the C-terminus",
-  "Facilitating neurocognitive function through HGF/Met",
-  "Selank (TPKRPGP) and the analogue",
-  "ERRgamma agonist SLU-PP-332 ameliorates metabolic dysfunction",
-  "Structure-function studies of DSIP",
-  "Dose-response relationships of growth hormone (GH)-releasing hormone-(1-29)",
-  "Growth hormone-releasing peptides and the cardiovascular system",
-];
+const UNVERIFIED = [];
 
 /** A citation should carry a journal, a year and a page range. */
 const LOOKS_LIKE_CITATION = /\b(19|20)\d{2}\b/;
@@ -143,7 +129,9 @@ if (hits.length) {
 console.log("  none carry our vocabulary — no quotation has been rewritten");
 
 if (unresolved.length) {
-  const fatal = process.env.REQUIRE_VERIFIED_CITATIONS === "1";
+  // Fatal by default now that the list is empty — an unresolvable citation
+  // should stop a deploy rather than print a warning nobody reads.
+  const fatal = process.env.REQUIRE_VERIFIED_CITATIONS !== "0";
   console.log("");
   console.log(
     `  ${fatal ? "FAIL" : "WARN"}  ${unresolved.length} citation(s) resolve to nothing in Crossref or PubMed:`,
