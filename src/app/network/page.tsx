@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { REVIA_NETWORK, PARTNER_LINK_PROPS, D2C } from "@/lib/partner";
+import { REVIA_NETWORK, PARTNER_LINK_PROPS } from "@/lib/partner";
 import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 
 /**
@@ -19,7 +19,7 @@ import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
  */
 
 export const metadata: Metadata = {
-  title: "The ReVia group | ReVia",
+  title: "The ReVia Group | Who Does What",
   description:
     "Six properties, one standard. Who each ReVia site is for, and why they are separate rather than sections of one.",
   alternates: { canonical: "https://revialife.com/network" },
@@ -28,17 +28,17 @@ export const metadata: Metadata = {
 /** Why each property stands apart. Keyed by the id in REVIA_NETWORK. */
 const WHY_SEPARATE: Record<string, string> = {
   i2b:
-    "A separate company, not a storefront of this one. It sets its own prices and its own terms, and it is the only ReVia property that will sell a single unit to an individual researcher.",
+    "i2b Health is its own company with its own prices and its own terms. It's the only ReVia property that will sell a single vial to an individual researcher.",
   wholesale:
-    "Trade pricing shown to an individual is a different transaction under different rules. Every order there stops for approval before it reaches fulfilment, which is not a step a direct-purchase flow can carry.",
+    "Trade pricing is a different transaction under different rules, and it shouldn't be shown to an individual. Every wholesale order is reviewed and approved before it goes to fulfillment, and a direct-purchase checkout can't do that.",
   providers:
-    "A price list for qualified accounts is not public information. It sits behind a login and opens on a referral code from a professional, so the page cannot be found and quoted out of context.",
+    "Professional pricing for qualified accounts isn't public information. It sits behind a login and opens with a referral code from a practitioner, so it can't be found and quoted out of context.",
   cosmetics:
-    "The one consumer line with no research designation. Keeping it away from the research catalogue is what stops a finished cosmetic being read as a research compound, or the reverse.",
+    "It's the one consumer line with no research designation. Keeping it away from the research catalog stops a finished cosmetic from being read as a research compound, or the other way around.",
   supply:
-    "Syringes, bacteriostatic water and acetic acid, on their own site on purpose. A peptide listed beside a syringe reads as intended for human use whatever the label says.",
+    "A peptide listed next to a syringe reads like it's meant for human use, no matter what the label says. So the syringes, bacteriostatic water, and acetic acid live on their own site.",
   well:
-    "The buyer's guides — how to vet a supplier, how to read a certificate. Education that names no product keeps its value precisely because nothing on the page is for sale.",
+    "Buyer's guides only work if nothing on the page is for sale. ReViaWell names no products, which is what keeps the advice worth reading.",
 };
 
 export default function NetworkPage() {
@@ -49,18 +49,18 @@ export default function NetworkPage() {
           <Rise>
             <Label>The group</Label>
             <Heading className="mt-4 max-w-[18ch] text-[2.125rem] sm:text-[2.875rem]">
-              One standard, several doors.
+              Who does what in the ReVia group
             </Heading>
             <p className="mt-6 max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
-              ReVia is not one site with several sections. It is a group of
-              properties that answer to different audiences under different
-              rules, and the separations are deliberate. This page is the map,
-              and the reason for each line on it.
+              ReVia is a group of separate properties, each built for a
+              different audience under a different set of rules. We keep them
+              apart on purpose. This page is the map, and the reason for each
+              line on it.
             </p>
             <p className="mt-4 max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
-              revialife.com is the one you are on. It publishes the record — the
-              statements made in Washington, what the certificates say, and what
-              we think about the news — and it sells nothing at all.
+              revialife.com is the one you&rsquo;re on. This is where we publish
+              the record: what Mike said in Washington, what the certificates
+              say, and what we think about the news. Nothing here is for sale.
             </p>
           </Rise>
         </div>
@@ -103,7 +103,7 @@ export default function NetworkPage() {
                       {WHY_SEPARATE[site.id] && (
                         <p className="mt-3 max-w-[58ch] font-sans text-[0.8438rem] leading-[1.75] text-[#3D3229]/55">
                           <span className="font-medium text-[#3D3229]/75">
-                            Why it stands apart.{" "}
+                            Why it&rsquo;s separate.{" "}
                           </span>
                           {WHY_SEPARATE[site.id]}
                         </p>
@@ -119,15 +119,15 @@ export default function NetworkPage() {
         <Rise>
           <div className="py-14 sm:py-20">
             <p className="max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
-              If you are looking for a compound rather than the structure, the
-              monographs are here and {D2C.name} is where they are obtained.
+              If you came here for a compound rather than an org chart, the
+              research summaries are here and i2b Health is where you get them.
             </p>
             <div className="mt-6 flex flex-wrap gap-6 font-sans text-[0.8125rem] font-medium text-[#3D3229]">
               <Link href="/research" className="border-b border-[#A38569]/50 pb-0.5">
-                Every compound we document &rarr;
+                Browse every compound &rarr;
               </Link>
               <Link href="/washington" className="border-b border-[#A38569]/50 pb-0.5">
-                The federal record &rarr;
+                Read the federal record &rarr;
               </Link>
             </div>
           </div>
