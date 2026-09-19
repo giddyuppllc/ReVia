@@ -31,9 +31,9 @@ import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 /** Questions a reader can check on anybody's site. Ours answered; theirs blank. */
 const CHECKS = [
   "A certificate for this lot, linked from the product page",
-  "A verification code that returns that certificate from the laboratory",
-  "The laboratory named on the certificate",
-  "Identity, quantity, purity and metals reported with limits and results",
+  "A verification code that pulls the certificate from the lab's own site",
+  "The lab named on the certificate",
+  "Identity, quantity, purity, and metals, each with a limit and a result",
   "A chemist's signature and the test dates",
   "Finished and tested in the United States",
   "The supplier's name on the docket of the July 2026 FDA hearing",
@@ -47,7 +47,7 @@ export default function WhyReVia() {
           <div className="pt-12 sm:pt-16">
             <Label>Why us</Label>
             <Heading as="h1" className="mt-4 max-w-[20ch] text-[2rem] sm:text-[2.875rem]">
-              Every lot is tested. Here is the certificate.
+              Every lot gets tested. Here&rsquo;s the certificate.
             </Heading>
           </div>
         </Rise>
@@ -60,30 +60,39 @@ export default function WhyReVia() {
             <Label className="lg:pt-1">What happens to a lot</Label>
             <div className="max-w-[62ch] space-y-5 font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
               <p>
-                Each lot we supply goes to an independent laboratory in the
-                United States before it ships. The laboratory reports four things
-                on one page: <strong className="font-medium text-[#3D3229]">identity</strong>,
-                whether the material is the named peptide;{" "}
-                <strong className="font-medium text-[#3D3229]">quantity</strong>, the
-                milligrams found against the label;{" "}
-                <strong className="font-medium text-[#3D3229]">purity</strong>, the share
-                of the material that is the named peptide, measured by
-                reversed-phase HPLC with UV detection; and{" "}
-                <strong className="font-medium text-[#3D3229]">heavy metals</strong>,
-                against a limit of 50 parts per billion.
+                Before a lot ships, it goes to an independent lab in the United
+                States. The lab reports four things on one page:
               </p>
               <p>
-                The certificate carries the lot code, the date the sample
-                arrived, the date it was run, the chromatogram, the
-                chemist&rsquo;s name and an access code. Type the code into the
-                laboratory&rsquo;s verify page and the same certificate comes
-                back from the laboratory&rsquo;s own database.
+                <strong className="font-medium text-[#3D3229]">Identity</strong>: is the material the
+                peptide on the label?
+              </p>
+              <p>
+                <strong className="font-medium text-[#3D3229]">Quantity</strong>: how many milligrams are
+                actually in the vial, against what the label says.
+              </p>
+              <p>
+                <strong className="font-medium text-[#3D3229]">Purity</strong>: how much of the material
+                is the named peptide, measured by reversed-phase HPLC with UV
+                detection.
+              </p>
+              <p>
+                <strong className="font-medium text-[#3D3229]">Heavy metals</strong>: tested against a
+                limit of 50 parts per billion.
+              </p>
+              <p>
+                The certificate shows the lot code, the date the sample arrived,
+                the date it was run, the chromatogram, the chemist&rsquo;s name,
+                and an access code. Type that code into the lab&rsquo;s
+                verification page and the lab&rsquo;s own database returns the
+                same certificate.
               </p>
               <p className="text-[#3D3229]">
-                If a lot fails, it does not ship. If a method changes, the next
-                certificate says so. If a certificate and a vial disagree, we
-                investigate and write back. These are research materials for
-                laboratory use; nothing here describes a human use.
+                If a lot fails, it doesn&rsquo;t ship. If we change a method, the
+                next certificate says so. If you find a certificate and a vial
+                that don&rsquo;t match, tell us. We&rsquo;ll investigate and write
+                back. These are research materials for laboratory use, and
+                nothing here describes a human use.
               </p>
             </div>
           </div>
@@ -93,10 +102,10 @@ export default function WhyReVia() {
         <Rise delay={0.06}>
           <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <div>
-              <Label className="lg:pt-1">One certificate, read</Label>
+              <Label className="lg:pt-1">One certificate, line by line</Label>
               <p className="mt-3 max-w-[30ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/55">
-                COA #{COA_EXAMPLE.number} &mdash; {COA_EXAMPLE.product}, sample
-                received {COA_EXAMPLE.received}, analysed {COA_EXAMPLE.analysed}.
+                COA #{COA_EXAMPLE.number} &mdash; {COA_EXAMPLE.product}. Sample
+                received {COA_EXAMPLE.received}, analyzed {COA_EXAMPLE.analysed}.
               </p>
             </div>
             <dl className="max-w-[62ch]">
@@ -121,11 +130,11 @@ export default function WhyReVia() {
         <Rise delay={0.06}>
           <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <div>
-              <Label className="lg:pt-1">Check anybody</Label>
+              <Label className="lg:pt-1">Run this on anyone</Label>
               <p className="mt-3 max-w-[30ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/55">
-                Seven questions with a checkable answer. Ours are on the left.
-                The right-hand column is for whoever else you are considering
-                &mdash; we have not filled it in, because it is not ours to fill.
+                Seven questions, each with an answer you can check. Ours are in
+                the left column. The right column is for whoever else you&rsquo;re
+                considering. We left it blank because it&rsquo;s yours to fill in.
               </p>
             </div>
             <div className="max-w-[62ch]">
@@ -152,9 +161,9 @@ export default function WhyReVia() {
         <Rise>
           <div className="border-t border-[#3D3229]/12 py-10">
             <p className="max-w-[58ch] font-sans text-[0.875rem] leading-[1.8] text-[#3D3229]/62">
-              The last of those is the one nobody can buy. ReVia&rsquo;s founder
-              is on the docket of the {HEARING.committee}, {HEARING.dates}, and
-              everything he said is{" "}
+              That last one can&rsquo;t be bought. Our founder is on the docket
+              of the {HEARING.committee}, {HEARING.dates}, and everything he said
+              there is{" "}
               <Link
                 href="/washington"
                 className="border-b border-[#A38569]/50 pb-0.5 text-[#3D3229] transition hover:border-[#A38569]"
