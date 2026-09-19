@@ -143,7 +143,7 @@ export default function Footer() {
               <Image src="/images/revia-text.png" alt="ReVia" width={100} height={30} className="h-6 w-auto" />
             </Link>
             <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
-              Research compounds, independently verified to &gt;98% purity by RP-HPLC.
+              Research compounds, independently tested to a &gt;98% purity spec by RP-HPLC. This site is where we publish the record.
               The record, the standard and the research.
             </p>
             <div className="flex items-center gap-2 text-sm text-stone-500">
@@ -204,7 +204,7 @@ export default function Footer() {
         {/* Copyright */}
         <AnimatedContainer delay={0.6} className="mt-4 border-t border-sky-200/30 pt-3 text-center space-y-1.5">
           <p className="text-[0.6875rem] text-stone-400 leading-relaxed max-w-6xl mx-auto">
-            Compounds carrying the ReVia name are designated Research Use Only (RUO) and are intended for laboratory research only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. That designation is standard for compounds awaiting formal FDA classification and is not a statement about quality or purity — the certificate of analysis for the lot is. revialife.com publishes the record and sells nothing.
+            Compounds carrying the ReVia name are designated Research Use Only (RUO) and are intended for laboratory research only. They are not for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. That designation is standard for compounds that don&rsquo;t yet have a formal FDA classification. It says nothing about quality or purity; the certificate of analysis for the lot does. revialife.com publishes the record and sells nothing.
           </p>
           <p className="text-[0.6875rem] text-stone-400">
             &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.
