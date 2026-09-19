@@ -73,13 +73,14 @@ export default function WashingtonPage() {
             ReVia in Washington
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-stone-300">
-            On 23 and 24 July 2026, our founder stood at the podium of the{" "}
-            {HEARING.committee} and spoke {STATEMENT_COUNT} times on the record.
+            On July 23 and 24, 2026, our founder stood at the podium of the
+            FDA&rsquo;s Pharmacy Compounding Advisory Committee and spoke five
+            times on the record.
           </p>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-400">
-            Every statement is published below in full &mdash; including the parts that are
-            not flattering to this industry, or to us. Each carries the timecode of FDA&rsquo;s
-            own recording, so you can hear it said rather than take our word for it.
+            Every statement is published below in full, including the parts that don&rsquo;t
+            flatter this industry or us. Each one carries the timecode from the FDA&rsquo;s own
+            recording, so you can go hear it for yourself.
           </p>
 
           {/* The record, as data */}
@@ -113,7 +114,7 @@ export default function WashingtonPage() {
               { icon: FileText, label: `Docket ${HEARING.docket}`, href: HEARING.comment.url },
               ...HEARING.webcasts.map((w) => ({
                 icon: Mic,
-                label: `Webcast — day ${w.day}, ${w.date}`,
+                label: `Webcast — Day ${w.day}, ${w.date}`,
                 href: w.url,
               })),
             ].map(({ icon: Icon, label, href }) => (
@@ -135,7 +136,7 @@ export default function WashingtonPage() {
           </div>
           <p className="mt-5 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
             Written comment {HEARING.comment.id}, received {HEARING.comment.received}. He was
-            offered {HEARING.slotsOffered} open-public-hearing slots and used {STATEMENT_COUNT}.
+            offered seven open-public-hearing slots and used five.
           </p>
         </div>
       </section>
@@ -249,11 +250,11 @@ export default function WashingtonPage() {
       <section className="border-t border-sky-200/60 bg-white px-6 py-16">
         <div className="mx-auto max-w-4xl">
           <h2 className="text-2xl font-light tracking-tight text-stone-800">
-            What the recording does and does not show
+            What the recording shows, and what it doesn&rsquo;t
           </h2>
           <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-stone-600">
-            A version of this testimony circulating elsewhere is not accurate. We would rather
-            correct our own record than let a flattering error stand.
+            There&rsquo;s a version of this testimony going around that isn&rsquo;t accurate.
+            We&rsquo;d rather correct our own record than let a flattering mistake stand.
           </p>
           <ul className="mt-6 space-y-4">
             {CORRECTIONS.map((c, i) => (
@@ -267,10 +268,11 @@ export default function WashingtonPage() {
           </ul>
 
           <p className="mt-10 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
-            Transcribed from FDA&rsquo;s webcast recordings (auto-generated captions), then
-            cleaned: caption misspellings corrected, stutters and filler repeats removed,
-            nothing added or reordered. FDA had not posted an official transcript as of 12
-            September 2026. When it does, this page will be checked against it.
+            We transcribed these from the FDA&rsquo;s webcast recordings (auto-generated
+            captions), then cleaned them up: caption misspellings corrected, stutters and
+            repeated filler removed, nothing added, nothing reordered. As of September 12, 2026,
+            the FDA hasn&rsquo;t posted an official transcript. When it does, we&rsquo;ll check
+            this page against it.
           </p>
         </div>
       </section>
@@ -282,9 +284,9 @@ export default function WashingtonPage() {
             href="/about"
             className="group rounded-2xl border border-sky-200/60 bg-white/70 p-7 transition hover:border-sky-300 hover:shadow-lg hover:shadow-stone-300/25"
           >
-            <h3 className="text-lg font-semibold text-stone-800">Why we were there</h3>
+            <h3 className="text-lg font-semibold text-stone-800">Why Mike was there</h3>
             <p className="mt-2 text-sm leading-relaxed text-stone-600">
-              The story behind the testimony, and what this company is for.
+              How he got sick, what he found, and why he built ReVia.
             </p>
           </Link>
           <Link
@@ -293,7 +295,7 @@ export default function WashingtonPage() {
           >
             <h3 className="text-lg font-semibold text-stone-800">Our thoughts on the news</h3>
             <p className="mt-2 text-sm leading-relaxed text-stone-600">
-              What is changing in peptide regulation, what it means, and where we stand.
+              What&rsquo;s changing in peptide regulation, what it means, and where we stand.
             </p>
           </Link>
         </div>
