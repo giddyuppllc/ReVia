@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const scienceOfPeptideStacking: Article = {
   slug: "science-of-peptide-stacking",
   title: "The Science of Stacking: How Researchers Combine Peptides for Synergistic Effects",
-  summary: "Why do researchers combine multiple peptides? The answer lies in biological synergy — and the results can be greater than the sum of their parts.",
+  summary: "Why researchers combine peptides, how the pairings are chosen, and what the studies say about compounds working together.",
   published: "2025-04-08",
   category: "Research",
   compounds: ["glow-stack", "klow-stack"],

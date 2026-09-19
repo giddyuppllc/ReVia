@@ -41,7 +41,7 @@ export default function LearnTabs({
           Learn
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-stone-500">
-          Articles, research summaries, and insights from the ReVia team.
+          Articles and research summaries from the ReVia team.
         </p>
       </div>
 

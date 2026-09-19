@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const article2025PeptideResearchTrends: Article = {
   slug: "2025-peptide-research-trends",
   title: "2025 Peptide Research Trends: What to Watch This Year",
-  summary: "From triple-agonist metabolic peptides to AI-designed sequences, here are the trends shaping peptide research in 2025 and beyond.",
+  summary: "Triple-agonist metabolic peptides, AI-designed sequences, and the other things pushing peptide research forward in 2025.",
   published: "2025-07-22",
   category: "Research",
   body: [

@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const nootropicPeptidesCognitiveResearch: Article = {
   slug: "nootropic-peptides-cognitive-research",
   title: "Nootropic Peptides: What the Research Says About Cognitive Enhancement",
-  summary: "Semax, Selank, Dihexa, and Cerebrolysin represent a fascinating class of peptides studied for their effects on the brain. Here's what the published literature reveals.",
+  summary: "Semax, Selank, Dihexa, and Cerebrolysin: what the published studies on these brain-focused peptides actually looked at.",
   published: "2025-05-20",
   category: "Compounds",
   compounds: ["semax", "selank", "dihexa"],

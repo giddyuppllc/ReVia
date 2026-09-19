@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const gutBrainAxisPeptideResearch: Article = {
   slug: "gut-brain-axis-peptide-research",
   title: "The Gut-Brain Axis: How Peptide Research Is Connecting Digestion and Cognition",
-  summary: "The connection between gut health and brain function is one of the most exciting areas of modern biology. Peptide research is at the forefront of understanding this remarkable link.",
+  summary: "Gut health and brain function are linked, and peptides are one of the main ways researchers are studying how.",
   published: "2025-07-01",
   category: "Research",
   body: [
