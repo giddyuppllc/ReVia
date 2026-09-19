@@ -22,9 +22,9 @@ export default function TheRecord() {
       href: "/news",
       heading: "News",
       count: POSTS.length,
-      unit: POSTS.length === 1 ? "dispatch" : "dispatches",
+      unit: POSTS.length === 1 ? "post" : "posts",
       blurb:
-        "Every assertion carries a numbered source, and every piece states where ReVia stands. No post ships without both.",
+        "Every claim has a numbered source, and every post says where we stand. We don't publish one without both.",
       items: POSTS.slice(0, 3).map((p) => ({ href: `/news/${p.slug}`, title: p.title })),
     },
     {
@@ -34,7 +34,7 @@ export default function TheRecord() {
       count: researchCompounds.length,
       unit: "compounds",
       blurb:
-        "Mechanism, research context and published studies, compound by compound. No dosing, no protocols, no outcome claims.",
+        "The mechanism, the research context, and the published studies for each compound. No dosing, no protocols, no outcome claims.",
       items: researchCompounds.slice(0, 3).map((c) => ({
         href: `/research/${c.slug}`,
         title: c.name,
@@ -47,7 +47,7 @@ export default function TheRecord() {
       count: ARTICLES.length,
       unit: "articles",
       blurb:
-        "Plain-English explanation of what the category is, how to read a certificate, and what the evidence does and does not show.",
+        "Plain-English pieces on what this category is, how to read a certificate, and what the evidence does and doesn't show.",
       items: ARTICLES.slice(0, 3).map((a) => ({ href: `/blog/${a.slug}`, title: a.title })),
     },
   ];
@@ -61,7 +61,7 @@ export default function TheRecord() {
           <div className="flex flex-wrap items-end justify-between gap-6 pt-14 sm:pt-20">
             <div>
               <Label>What we publish</Label>
-              <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">The record</Heading>
+              <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">What&rsquo;s on this site</Heading>
             </div>
             {latest && (
               <Link

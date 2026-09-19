@@ -20,10 +20,10 @@ export default function NewsletterBanner() {
             className="flex-1 text-center sm:text-left"
           >
             <h2 className="text-base font-semibold text-white sm:text-lg">
-              Stay in the Loop
+              Stay in the loop
             </h2>
             <p className="mt-0.5 text-xs text-sky-100">
-              New compounds, research news, and exclusive offers.
+              New compound summaries, regulatory updates, and every new statement or certificate as we publish it.
             </p>
           </motion.div>
 

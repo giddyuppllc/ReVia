@@ -104,7 +104,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "i2b Health",
     audience: "Individual researchers",
     tagline:
-      "The only ReVia property that sells single units. A certificate sits on every product page, and the banner reads Professional Use Only.",
+      "The only ReVia property that sells single vials. Every product page links to its certificate, and the banner reads Professional Use Only.",
     url: D2C.origin,
     preview: true,
   },
@@ -113,7 +113,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "ReVia Wholesale",
     audience: "Businesses and brands",
     tagline:
-      "Bulk, private label and a partner API with webhooks. Every order stops for approval before it reaches fulfilment.",
+      "Bulk, private label, and a partner API with webhooks. Every order is reviewed and approved before it goes to fulfillment.",
     url: B2B.origin,
   },
   {
@@ -121,7 +121,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "ReVia Providers",
     audience: "Clinics and prescribers",
     tagline:
-      "Qualified accounts with professional pricing behind a login — a referral code from a professional opens the price list.",
+      "Professional pricing for qualified accounts, behind a login. A referral code from a practitioner unlocks the price list.",
     url: "https://revia-providers.vercel.app",
     preview: true,
   },
@@ -130,7 +130,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "ReVia Cosmetics",
     audience: "Consumers",
     tagline:
-      "The ReVia-branded skincare range, sold direct. The one consumer line that carries no research designation.",
+      "ReVia-branded skincare, sold direct to consumers. The only line in the group without a research designation.",
     url: null,
   },
   {
@@ -138,7 +138,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "ReVia Supply",
     audience: "Anyone reconstituting",
     tagline:
-      "Syringes, bacteriostatic water and acetic acid, on a separate site on purpose: a peptide sold beside a syringe reads as intended for human use.",
+      "Syringes, bacteriostatic water, and acetic acid, on their own site on purpose. A peptide listed next to a syringe reads like it's meant for human use.",
     url: "https://revia-supply.vercel.app",
     preview: true,
   },
@@ -147,7 +147,7 @@ export const REVIA_NETWORK: NetworkSite[] = [
     name: "ReViaWell",
     audience: "Buyers doing their homework",
     tagline:
-      "The buyer's guides — how to vet a supplier, how to read a certificate, and the FDA tracker.",
+      "Buyer's guides: how to vet a supplier, how to read a certificate, and where the FDA process stands.",
     url: "https://reviawell.com",
   },
 ];

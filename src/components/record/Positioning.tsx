@@ -19,24 +19,24 @@ const BANDS = [
   {
     n: "01",
     title: "Finished and tested in the United States",
-    body: "Every lot goes to an independent laboratory before it ships.",
+    body: "Every lot goes to an independent U.S. lab before it ships.",
   },
   {
     n: "02",
     title: "One certificate per lot",
     body:
-      "Identity, quantity, purity and heavy metals on one page, with a code that returns the same certificate from the laboratory.",
+      "Identity, quantity, purity, and heavy metals on one page, with a code you can type into the lab's site to pull up the same certificate.",
   },
   {
     n: "03",
     title: "On the record at the FDA",
-    body: `${STATEMENT_COUNT} statements at White Oak, ${HEARING.dates}, with the FDA's own webcast and the full transcripts.`,
+    body: `Five statements at White Oak, ${HEARING.dates}. Full transcripts, with the FDA's own webcast timecodes.`,
   },
   {
     n: "04",
-    title: "One standard under every property",
+    title: "One standard across the group",
     body:
-      "The same lots and the same certificates sit under i2b Health, ReVia Wholesale and ReVia Providers.",
+      "i2b Health, ReVia Wholesale, and ReVia Providers all ship the same lots with the same certificates.",
   },
 ];
 
@@ -49,32 +49,40 @@ export default function Positioning() {
           <Rise>
             <Label>Why ReVia exists</Label>
             <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
-              The standard its founder built for himself.
+              It started with a patient who couldn&rsquo;t find a supplier he trusted.
             </Heading>
           </Rise>
 
           <Rise delay={0.1}>
             <div className="max-w-[62ch] space-y-5 font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
               <p>
-                ReVia started because Mike Stone got sick, was told by his
-                doctors to go and explore peptides, and found a market that
-                could not tell him what was in the vial.
+                In 2019, our founder, Mike Stone, was diagnosed with a
+                degenerative neurological disease. Conventional treatment
+                didn&rsquo;t work. He went from 180 pounds to 125 and was
+                bedridden. One of his doctors suggested he look into peptides.
               </p>
               <p>
-                So he set the standard he wanted for his own family: every lot
-                finished and tested in the United States, a certificate for that
-                lot that anyone can verify, and nothing said on a page that the
-                paperwork cannot back up.
+                What he found was an industry that couldn&rsquo;t tell him what
+                was in the vial. Certificates were fake. Vials were underdosed.
+                One order made him sick, and the same compound from another
+                vendor didn&rsquo;t.
               </p>
               <p>
-                In July 2026 he carried that argument to the FDA&rsquo;s
-                compounding advisory committee, five times over two days, and
-                said what suppliers do not usually say out loud: his market is
-                gray, he is in it, and the way out runs through a licensed
-                physician and a US manufacturer.
+                So he built the supplier he&rsquo;d been looking for. Every lot
+                is finished and tested in the United States. Every lot ships
+                with a certificate you can verify with the lab yourself. And
+                nothing goes on a page that the paperwork can&rsquo;t back up.
+              </p>
+              <p>
+                In July 2026, Mike took that case to the FDA&rsquo;s Pharmacy
+                Compounding Advisory Committee. He spoke five times in two days
+                and said what most suppliers won&rsquo;t: this market is gray,
+                he&rsquo;s in it, and the way out runs through a licensed
+                physician and a U.S. manufacturer.
               </p>
               <p className="text-[#3D3229]">
-                This site is that record. It sells nothing.
+                This site is where we keep all of that on the record. Nothing on
+                it is for sale.
               </p>
             </div>
 

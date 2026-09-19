@@ -53,18 +53,18 @@ export interface Statement {
 
 export const HEARING = {
   committee: "FDA Pharmacy Compounding Advisory Committee",
-  dates: "23-24 July 2026",
+  dates: "July 23–24, 2026",
   location: "FDA White Oak Campus, Silver Spring, Maryland",
   docket: "FDA-2025-N-6895",
   /** Mike Stone's written comment to the docket. */
   comment: {
     id: "FDA-2025-N-6895-0071",
-    received: "10 June 2026",
+    received: "June 10, 2026",
     url: "https://www.regulations.gov/docket/FDA-2025-N-6895",
   },
   webcasts: [
-    { day: 1, date: "23 July 2026", url: "https://youtube.com/live/DhDC0DAYdBI" },
-    { day: 2, date: "24 July 2026", url: "https://youtube.com/live/xXM5ecHxlMU" },
+    { day: 1, date: "July 23, 2026", url: "https://youtube.com/live/DhDC0DAYdBI" },
+    { day: 2, date: "July 24, 2026", url: "https://youtube.com/live/xXM5ecHxlMU" },
   ],
   meetingPage:
     "https://www.fda.gov/advisory-committees/advisory-committee-calendar/july-23-24-2026-meeting-pharmacy-compounding-advisory-committee-07232026",
@@ -187,8 +187,8 @@ export const STATEMENT_COUNT = STATEMENTS.length;
  * worth more than one that asks to be believed.
  */
 export const CORRECTIONS: string[] = [
-  "The captions show no Mike Stone appearance in the MOTS-c open public hearing (Day 1, 4:40 p.m. session) or the Epitalon open public hearing (Day 2, 11:15 a.m. session). In the TB-500 session he said it would \"probably be the last time you'll see me today.\"",
-  "A transcript circulating that runs 52:47–1:02:33 and has him describing \"products that come back to us\" does not match the recording: the BPC-157 slot ended at 56:48 and the next speaker began at 56:59; that text splices the TB-500 closing lines onto a BPC-157 speech and adds sentences he did not say.",
+  "Mike did not speak in the MOTS-c open public hearing (Day 1, 4:40 p.m. session) or the Epitalon open public hearing (Day 2, 11:15 a.m. session). The captions show no appearance, and in the TB-500 session he said it would \"probably be the last time you'll see me today.\"",
+  "A transcript in circulation runs 52:47–1:02:33 and has him describing \"products that come back to us.\" That doesn't match the recording. The BPC-157 slot ended at 56:48 and the next speaker started at 56:59. That version splices the closing lines of the TB-500 statement onto the BPC-157 speech and adds sentences he never said.",
   "His written comment to the docket (Regulations.gov FDA-2025-N-6895-0071, received June 10, 2026) is reproduced in full in the Source Dossier, Section 6.6.",
 ];
 
@@ -209,7 +209,7 @@ export const CORRECTIONS: string[] = [
 
 export const PULL_QUOTE = {
   /** Index into STATEMENTS. */
-  n: 1,
+  n: 3,
   /*
    * The thesis sentence, and nothing around it.
    *
@@ -220,7 +220,7 @@ export const PULL_QUOTE = {
    * from is on /washington in full, where the length is the right length.
    */
   text:
-    "And somebody who decided that if I was going to put something like this in my body, I wanted to know exactly what it is.",
+    "I hope to God they are approved so I can shut the doors. Because I didn't pick this business. This business picked me.",
 } as const;
 
 /** Throws at module load if the pull quote is not verbatim and contiguous. */

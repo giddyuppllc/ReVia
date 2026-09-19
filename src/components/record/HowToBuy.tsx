@@ -32,25 +32,25 @@ const STEPS = [
     n: "01",
     title: "Ask for the certificate before you buy",
     body:
-      "Not a purity number in a product description — the document. A supplier who cannot produce one for the batch on the shelf is asking you to take the number on faith.",
+      "You want the actual document, with the lot number on it, for the lot that's on the shelf right now. If a supplier can't produce that, they're asking you to take their word for it.",
   },
   {
     n: "02",
-    title: "Check the batch on the paper is the batch in the box",
+    title: "Make sure the lot on the paper is the lot in the box",
     body:
-      "A certificate for a different lot tells you nothing about the one you receive. The batch number should appear on the vial and on the document, and they should match.",
+      "A certificate for some other lot tells you nothing about the one you're holding. The lot number is on the vial and on the certificate. They should match.",
   },
   {
     n: "03",
-    title: "Find out who ran the analysis",
+    title: "Find out who ran the test",
     body:
-      `An independent laboratory should be named, with the method stated. Ours is ${COA_SPEC.lab}, by ${COA_SPEC.method}. "Third-party tested" without a name is not a claim you can check.`,
+      `The lab should be named and the method should be stated. Ours is ${COA_SPEC.lab}, running ${COA_SPEC.method}. "Third-party tested" with no lab name is a claim you can't check.`,
   },
   {
     n: "04",
-    title: "Read what is reported, and what is not",
+    title: "Read what was tested, and notice what wasn't",
     body:
-      "A certificate reports the tests that were run. Assume nothing about the ones it does not mention — an absent result is not a passed result, and a long list of assays nobody performed is a common way to look thorough.",
+      "A certificate only covers the tests that were actually run. If a test isn't listed, it wasn't done, and a missing result is not a pass. A long list of tests nobody ran is a common way to look thorough.",
   },
 ];
 
@@ -63,18 +63,18 @@ export default function HowToBuy() {
           <Rise>
             <Label>How to buy in this category</Label>
             <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
-              Four questions, for anyone selling you a peptide.
+              Four questions to ask anyone selling you a peptide.
             </Heading>
             <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
-              Including us. None of these depend on trusting a brand — each one
-              has an answer on a document, or it does not have an answer.
+              Including us. None of them require you to trust a brand. Each one
+              is either answered on a document or it isn&rsquo;t answered at all.
             </p>
             <Link
               href="/blog/how-to-evaluate-peptide-supplier"
               className="group mt-6 inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
             >
               <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
-                The long version
+                Read the full guide
               </span>
               <span className="text-[#A38569] transition group-hover:translate-x-0.5">&rarr;</span>
             </Link>
@@ -104,12 +104,12 @@ export default function HowToBuy() {
             <div className="mt-10 border-t border-[#3D3229]/12 pt-8">
               <Label>Where ReVia sends researchers</Label>
               <p className="mt-3 max-w-[58ch] font-sans text-[0.875rem] leading-[1.75] text-[#3D3229]/70">
-                ReVia Life publishes; it does not sell. Compounds are supplied by{" "}
+                We don&rsquo;t sell anything on this site. Compounds come from{" "}
                 <strong className="font-medium text-[#3D3229]">i2b Health</strong>, our
-                exclusive research provider — a separate company, with its own
-                catalogue, its own terms and its own checkout.{" "}
+                exclusive research supplier. It&rsquo;s a separate company with its
+                own catalog, its own terms, and its own checkout.{" "}
                 <span className="text-[#3D3229]/50">
-                  The link below leaves ReVia Life and opens i2b in a new tab.
+                  The link below leaves this site and opens i2b Health in a new tab.
                 </span>
               </p>
               {D2C.origin && (
