@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { HEARING, STATEMENT_COUNT } from "@/data/federal-record";
+import { STATEMENT_COUNT } from "@/data/federal-record";
 import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 
 /**
@@ -37,7 +37,7 @@ export default function AboutContent() {
           <div className="pt-12 sm:pt-16">
             <Label>About</Label>
             <Heading as="h1" className="mt-4 max-w-[18ch] text-[2rem] sm:text-[2.875rem]">
-              The standard its founder built for himself.
+              I built the supplier I couldn&rsquo;t find.
             </Heading>
           </div>
         </Rise>
@@ -49,11 +49,12 @@ export default function AboutContent() {
           <div className="grid gap-8 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <Label className="lg:pt-1">How this site is paid for</Label>
             <p className="max-w-[62ch] font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
-              ReViaLife is published by ReVia LLC, which also supplies the
-              compounds sold by i2b Health and through ReVia Wholesale. We tell
-              you that because a resource that hides its funding is not a
-              resource. This site sells nothing, takes no commission, and holds
-              every ReVia property to the standard printed below.
+              ReVia LLC publishes this site. ReVia LLC also supplies the
+              compounds sold by i2b Health and ReVia Wholesale. I&rsquo;m telling
+              you that up front because a resource that hides who&rsquo;s paying
+              for it isn&rsquo;t worth much. This site takes no orders and no
+              commissions, and every company in the group is held to the
+              standard below.
             </p>
           </div>
         </Rise>
@@ -65,20 +66,30 @@ export default function AboutContent() {
             body: (
               <>
                 <p>
-                  ReVia exists because Mike Stone needed a supplier he could
-                  trust and could not find one. After a 2019 diagnosis and a
-                  wasting that took him from 180 pounds to 125, his doctors
-                  suggested he explore peptides. The market he found sold fakes,
-                  underdosed vials and certificates that were decoration. One
-                  vial made him sick; the same compound from another vendor did
-                  not.
+                  I started ReVia because I needed a supplier I could trust and
+                  couldn&rsquo;t find one.
                 </p>
                 <p>
-                  So he set a standard for what he would put in his own body and
-                  his family&rsquo;s, found a US manufacturer he could walk into,
-                  and began supplying it to others. In July 2026 he said all of
-                  this to the {HEARING.committee}, on the record,{" "}
-                  {STATEMENT_COUNT} times.
+                  In 2019 I was diagnosed with a degenerative neurological
+                  disease. Before that I was an entrepreneur and an Ironman
+                  triathlete. Conventional medicine didn&rsquo;t work. I wasted
+                  from 180 pounds to 125 and ended up bedridden. One of my doctors
+                  suggested I look into peptides.
+                </p>
+                <p>
+                  The market I found sold fakes, underdosed vials, and
+                  certificates that were just decoration. I got scammed buying
+                  overseas. One vial made me sick, and the same compound from
+                  another vendor didn&rsquo;t. I had no way to know what I was
+                  putting in my body, and I decided that wasn&rsquo;t acceptable
+                  for me or for my family.
+                </p>
+                <p>
+                  So I set a standard for anything I&rsquo;d put in my own body,
+                  found a U.S. manufacturer I could walk into and shake hands
+                  with, and started supplying it to other people. In July 2026 I
+                  said all of this to the FDA&rsquo;s Pharmacy Compounding
+                  Advisory Committee, on the record, five times.
                 </p>
               </>
             ),
@@ -87,11 +98,10 @@ export default function AboutContent() {
             label: "Who runs it",
             body: (
               <p>
-                ReVia is a family business in Fort Myers, Florida. Mike Stone
-                founded it and runs the professional and wholesale side. His son
-                runs i2b Health, the research brand that supplies individual
-                researchers. It is a family business, and the founder&rsquo;s
-                name is on the FDA docket.
+                ReVia is a family business in Fort Myers, Florida. I run the
+                professional and wholesale side. My son runs i2b Health, the
+                research brand that supplies individual researchers. My name is
+                on the FDA docket.
               </p>
             ),
           },
@@ -100,12 +110,12 @@ export default function AboutContent() {
             body: (
               <p>
                 Every lot we supply is finished and tested in the United States.
-                An independent laboratory tests each lot and issues a certificate
-                that names the lot, the tests, the limits and the results, with a
-                code that verifies it at the laboratory. If a lot fails, it does
-                not ship. Nothing on this site describes a human use, a dose or a
-                result, because these are research materials and we only publish
-                what the paperwork supports.
+                An independent lab tests each lot and issues a certificate that
+                names the lot, the tests, the limits, and the results, with a
+                code you can use to verify it at the lab. If a lot fails, it
+                doesn&rsquo;t ship. Nothing on this site describes a human use, a
+                dose, or a result. These are research materials, and we only
+                publish what the paperwork supports.
               </p>
             ),
           },
@@ -133,7 +143,7 @@ export default function AboutContent() {
                 className="group inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
               >
                 <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
-                  The {STATEMENT_COUNT} statements, in full
+                  Read the {STATEMENT_COUNT} statements
                 </span>
                 <span className="text-[#A38569] transition group-hover:translate-x-0.5">&rarr;</span>
               </Link>
