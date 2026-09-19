@@ -76,7 +76,7 @@ export default function FAQContent() {
           Frequently Asked <span className="text-sky-600">Questions</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-neutral-500">
-          What the compounds are, how they are tested and stored, and where to order them.
+          What the compounds are, how they&rsquo;re tested and stored, and where to order them.
         </p>
       </div>
 
@@ -150,7 +150,7 @@ export default function FAQContent() {
         <div className="flex flex-col rounded-2xl border border-sky-200/60 bg-sky-50/60 p-8 text-center">
           <h3 className="text-xl font-semibold text-neutral-900">Ready to order?</h3>
           <p className="mt-2 flex-1 text-neutral-500">
-            The catalogue is carried by our exclusive research partner.
+            Our exclusive research partner, i2b Health, carries the catalog.
           </p>
           <PartnerShopButton
             audience="d2c"
@@ -165,13 +165,13 @@ export default function FAQContent() {
         <div className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
           <h3 className="text-xl font-semibold text-neutral-900">Still have questions?</h3>
           <p className="mt-2 flex-1 text-neutral-500">
-            Our team is here to help. Reach out and we&apos;ll get back to you within 24 hours.
+            Send them over. We reply within 24 hours on business days.
           </p>
           <Link
             href="/contact"
             className="mt-6 inline-flex items-center justify-center rounded-xl border border-sky-300/60 bg-white px-8 py-3 text-sm font-semibold text-sky-700 transition hover:bg-sky-50"
           >
-            Contact Support
+            Contact us
           </Link>
         </div>
       </div>

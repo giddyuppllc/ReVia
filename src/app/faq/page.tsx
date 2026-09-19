@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import { FAQ_FLAT } from "./faq-data";
 
 export const metadata: Metadata = {
-  title: "FAQ",
+  title: "FAQ | ReVia",
   description:
     "Frequently asked questions about ReVia research compounds — testing, purity, storage, stacks, and where to order.",
 };

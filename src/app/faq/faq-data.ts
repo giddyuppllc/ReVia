@@ -35,25 +35,25 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "What are research peptides?",
-        a: "Research peptides are synthetic amino acid chains used in laboratory research to study biological processes. All ReVia compounds are labeled “For Research Use Only” (RUO) and are not intended for human or animal consumption, diagnosis, treatment, or prevention of any disease.",
+        a: "Research peptides are synthetic chains of amino acids used in laboratory research to study biological processes. Every ReVia compound is labeled For Research Use Only (RUO). They're not for human or animal consumption, and not for diagnosing, treating, or preventing any disease.",
       },
       {
         q: "How do I order ReVia compounds?",
-        a: `Ordering is handled by our exclusive research partner, ${D2C.name}, which supplies researchers direct. Read about a compound here, then head over to place the order.`,
+        a: `Ordering goes through i2b Health, our exclusive research partner, which sells directly to researchers. Read up on a compound here, then head to ${D2C.name} to order.`,
         cta: { label: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
       },
       {
         q: "Why can’t I order on this site?",
-        a: `This site is where ReVia explains its compounds — mechanisms, research context, sourcing standards and stack composition. ${D2C.name} carries the catalogue and handles ordering, so each does one job properly.`,
+        a: "This site is where we explain the compounds: how they work, what the research says, how we source and test them, and what's in each blend. i2b Health carries the catalog and handles orders. Each site does one job.",
         cta: { label: "See the compound library", href: "/research" },
       },
       {
         q: "Who can order?",
-        a: `${D2C.name} supplies qualified researchers, independent labs and individuals aged 18+ who agree to use compounds solely for legitimate research purposes. Clinics, brands and distributors are supplied separately by ${B2B.name}.`,
+        a: `i2b Health sells to qualified researchers, independent labs, and individuals 18 or older who agree to use the compounds only for legitimate research. Clinics, brands, and distributors are handled separately by ${B2B.name}.`,
       },
       {
         q: "Do I need an account here?",
-        a: "No. Everything on this site is open to read without one. An account exists so returning customers can reach their earlier order history and reviews.",
+        a: "No. Everything on this site is free to read, no account needed. If you order through i2b Health, you'll create an account there to track orders and leave reviews.",
       },
     ],
   },
@@ -62,27 +62,27 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "Are your peptides third-party tested?",
-        a: "Yes. Every batch is tested by an independent laboratory, and the batch-specific Certificate of Analysis reports identity and purity by RP-HPLC.",
+        a: "Yes. An independent lab tests every lot, and the lot-specific Certificate of Analysis reports identity, quantity, purity, and heavy metals.",
       },
       {
         q: "What purity level are your peptides?",
-        a: "Compounds meet a >98% purity specification, verified by RP-HPLC with UV detection and reported on the batch Certificate of Analysis. The certificate shows the measured figure for the batch you have.",
+        a: "Every compound is made to a purity spec of greater than 98%, verified by RP-HPLC with UV detection. The Certificate of Analysis shows the actual measured number for the lot you have.",
       },
       {
         q: "Do you offer Certificates of Analysis?",
-        a: "Yes. Batch-specific COAs are available for every compound. Where one has been uploaded, the COA link appears directly on that compound’s page. You can also email orders@revialife.com with your order number and we’ll send the batch documentation.",
+        a: "Yes. There's a lot-specific COA for every compound. Where one has been uploaded, the link is right on the compound's page. You can also email orders@revialife.com with your order number and we'll send the documentation for your lot.",
       },
       {
         q: "How should I store my peptides?",
-        a: "Store lyophilized peptides at 2–8°C, protected from light and moisture. Once reconstituted, use within 30 days and keep refrigerated. For long-term storage, −20°C is recommended.",
+        a: "Keep lyophilized peptides at 2–8°C, away from light and moisture. Once reconstituted, keep them refrigerated and use within 30 days. For long-term storage, −20°C.",
       },
       {
         q: "What is the shelf life?",
-        a: "Lyophilized peptides remain stable 18–24 months when stored properly. Reconstituted peptides should be used within 30 days.",
+        a: "Stored properly, lyophilized peptides stay stable for 18 to 24 months. Reconstituted peptides should be used within 30 days.",
       },
       {
         q: "What’s the difference between lyophilized and reconstituted?",
-        a: "Lyophilized means freeze-dried powder — the stable form compounds ship and store in. Reconstituted means dissolved in a solvent such as bacteriostatic water, after which it should be used within 30 days. Reconstitute only when you are ready to begin.",
+        a: "Lyophilized is freeze-dried powder, the stable form the compound ships and stores in. Reconstituted means it's been dissolved in a solvent like bacteriostatic water, after which it should be used within 30 days. Don't reconstitute until you're ready to start.",
       },
     ],
   },
@@ -91,7 +91,7 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "What is a peptide stack?",
-        a: "A stack is a blend: two or more complementary compounds combined in a single vial at fixed ratios, rather than handled as separate vials. It is reconstituted once and drawn as one solution.",
+        a: "A stack is a blend: two or more complementary compounds combined in one vial at fixed ratios instead of shipped as separate vials. You reconstitute it once and draw it as one solution.",
         cta: { label: "Read the full explainer", href: "/stacks" },
       },
       {
@@ -100,7 +100,7 @@ export const FAQ_SECTIONS: FaqSection[] = [
       },
       {
         q: "Why use a blend instead of separate vials?",
-        a: "The ratio between compounds is set at the point the vial is blended rather than at the bench, and there is one reconstitution instead of several — so the vial is organised around a single line of research.",
+        a: "The ratio between compounds is fixed when the vial is blended, so it isn't something you have to get right at the bench. And there's one reconstitution instead of several. The vial is built around one line of research.",
       },
     ],
   },
@@ -109,17 +109,17 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "Where can I obtain these compounds?",
-        a: `Individual orders go through ${D2C.name}, our exclusive research partner.`,
+        a: "Individual orders go through i2b Health, our exclusive research partner.",
         cta: { label: `Shop at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
       },
       {
         q: "Do you offer wholesale pricing?",
-        a: `Yes. Wholesale, bulk supply and tiered pricing for clinics, brands, distributors and research institutions are handled by ${B2B.name}, which supplies trade accounts only.`,
-        cta: { label: "Wholesale enquiries", href: b2bUrl("wholesale"), external: true },
+        a: `Yes. ${B2B.name} handles bulk supply and tiered pricing for clinics, brands, distributors, and research institutions. It's trade accounts only.`,
+        cta: { label: "Wholesale inquiries", href: b2bUrl("wholesale"), external: true },
       },
       {
         q: "Can I private label ReVia compounds?",
-        a: `Yes. Private label supply is arranged through ${B2B.name}.`,
+        a: `Yes. Private label is set up through ${B2B.name}.`,
         cta: { label: "Private label", href: b2bUrl("privateLabel"), external: true },
       },
       {
@@ -127,7 +127,7 @@ export const FAQ_SECTIONS: FaqSection[] = [
         // /shipping, /terms, /policies and /faq all 404 there today. Sending
         // someone to look for one would be a dead end.
         q: "Who ships my order?",
-        a: `Whichever side you ordered from — ${D2C.name} for individual orders, ${B2B.name} for trade accounts. Payment, delivery and returns are handled there, and their desk confirms the current terms as the order is placed.`,
+        a: `Whoever you ordered from: i2b Health for individual orders, ${B2B.name} for trade accounts. Payment, delivery, and returns are handled there, and they'll confirm the current terms when you place the order.`,
         cta: { label: `Order at ${D2C.name}`, href: d2cUrl(), external: D2C.isLive },
       },
     ],
@@ -137,15 +137,15 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "Are your products FDA approved?",
-        a: "No. These are research chemicals for laboratory use only. They are not FDA approved, not for human or animal consumption, and not for the diagnosis, treatment, cure or prevention of any disease.",
+        a: "No. These are research chemicals for laboratory use only. They're not FDA approved, not for human or animal consumption, and not for diagnosing, treating, curing, or preventing any disease.",
       },
       {
         q: "Can I get research guidance?",
-        a: "We can answer questions about compound composition, storage and handling — email info@revialife.com. We cannot provide research protocols or dosing guidance.",
+        a: "We can answer questions about what's in a compound and how to store and handle it. Email info@revialife.com. We can't provide research protocols or dosing guidance.",
       },
       {
         q: "What is used to reconstitute a peptide?",
-        a: "Bacteriostatic water is the usual solvent; acetic acid is used for a few compounds that need it. Which one applies is noted on the compound’s own page.",
+        a: "Bacteriostatic water, usually. A few compounds need acetic acid instead. Each compound's page says which one applies.",
         cta: { label: "Browse the compound library", href: "/research" },
       },
     ],
@@ -155,7 +155,7 @@ export const FAQ_SECTIONS: FaqSection[] = [
     items: [
       {
         q: "Where can I read your full policies?",
-        a: "Terms of Service, Privacy Policy, Shipping Policy, Refund Policy, Acceptable Use Policy, CCPA Notice, Cookie Policy and Payment Policy are all linked in the footer.",
+        a: "Terms of Service, Privacy Policy, Shipping Policy, Refund Policy, Acceptable Use Policy, CCPA Notice, Cookie Policy, and Payment Policy are all linked in the footer.",
         cta: { label: "All policies", href: "/policies" },
       },
     ],
