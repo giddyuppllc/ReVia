@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const glp1AgonistsBeyondHeadlines: Article = {
   slug: "glp1-agonists-beyond-headlines",
   title: "GLP-1 Agonists Beyond the Headlines: What Semaglutide Research Really Shows",
-  summary: "The media frenzy around GLP-1 agonists has overshadowed the nuanced science. Let's look at what researchers are actually finding — and what questions remain.",
+  summary: "The headlines around GLP-1s have gotten ahead of the science. Here's what researchers are actually finding, and what's still an open question.",
   published: "2025-02-26",
   category: "Compounds",
   compounds: ["semaglutide", "tirzepatide", "retatrutide"],

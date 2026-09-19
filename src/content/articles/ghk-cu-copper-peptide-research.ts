@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const ghkCuCopperPeptideResearch: Article = {
   slug: "ghk-cu-copper-peptide-research",
   title: "GHK-Cu: The Copper Peptide That Does (Almost) Everything",
-  summary: "From skin biology to gene expression, GHK-Cu research spans an astonishing range. We explore why this humble tripeptide has captivated researchers across disciplines.",
+  summary: "From skin biology to gene expression, GHK-Cu shows up in a surprising number of studies. Here's why researchers in so many fields keep coming back to this tripeptide.",
   published: "2025-04-29",
   category: "Compounds",
   compounds: ["ghk-cu"],

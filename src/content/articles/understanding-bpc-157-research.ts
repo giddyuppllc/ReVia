@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const understandingBpc157Research: Article = {
   slug: "understanding-bpc-157-research",
   title: "Understanding BPC-157: Why Researchers Can't Stop Studying This Peptide",
-  summary: "BPC-157 is one of the most studied peptides in regenerative research. Here's what the published literature actually shows — and why scientists find it so compelling.",
+  summary: "BPC-157 is one of the most-studied peptides in regenerative research. Here's what the published literature shows, and where it stops.",
   published: "2025-02-04",
   category: "Compounds",
   compounds: ["bpc-157"],

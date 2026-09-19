@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const mitochondrialPeptidesLongevityFrontier: Article = {
   slug: "mitochondrial-peptides-longevity-frontier",
   title: "Mitochondrial Peptides: The Next Frontier in Longevity Research",
-  summary: "SS-31, MOTS-c, and NAD+ precursors are reshaping how we think about aging. Here's why researchers are so excited about mitochondrial-targeted compounds.",
+  summary: "SS-31, MOTS-c, and NAD+ precursors: why compounds that target the mitochondria are getting so much attention in aging research.",
   published: "2025-03-18",
   category: "Research",
   compounds: ["ss-31", "humanin", "nad-plus"],

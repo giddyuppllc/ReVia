@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const renaissanceOfPeptideResearch: Article = {
   slug: "renaissance-of-peptide-research",
   title: "The Renaissance of Peptide Research: What's Driving the Boom",
-  summary: "Peptide research is experiencing an unprecedented surge. From longevity science to metabolic health, we explore the forces reshaping this fascinating field.",
+  summary: "Peptide research is booming. From longevity to metabolic health, here's what's driving it.",
   published: "2025-01-15",
   category: "Research",
   body: [

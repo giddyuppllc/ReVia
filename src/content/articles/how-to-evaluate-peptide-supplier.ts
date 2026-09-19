@@ -4,7 +4,7 @@ import type { Article } from "@/lib/articles";
 export const howToEvaluatePeptideSupplier: Article = {
   slug: "how-to-evaluate-peptide-supplier",
   title: "Quality Matters: How to Evaluate a Peptide Supplier",
-  summary: "Not all peptide suppliers are created equal. Here's what savvy researchers look for when choosing where to source their research compounds.",
+  summary: "What to ask, what to check, and what to walk away from when choosing where to source research compounds.",
   published: "2025-06-10",
   category: "Sourcing",
   body: [
