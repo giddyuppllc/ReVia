@@ -57,21 +57,21 @@ const STEPS = [
 export default function HowToBuy() {
   return (
     <section className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <DrawRule />
         <div className="grid gap-12 py-14 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20 sm:py-20">
           <Rise>
             <Label>How to buy in this category</Label>
-            <Heading className="mt-4 text-[26px] sm:text-[31px]">
+            <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
               Four questions, for anyone selling you a peptide.
             </Heading>
-            <p className="mt-5 max-w-[42ch] font-sans text-[14.5px] leading-[1.75] text-[#3D3229]/62">
+            <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
               Including us. None of these depend on trusting a brand — each one
               has an answer on a document, or it does not have an answer.
             </p>
             <Link
               href="/blog/how-to-evaluate-peptide-supplier"
-              className="group mt-6 inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+              className="group mt-6 inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
             >
               <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
                 The long version
@@ -89,11 +89,11 @@ export default function HowToBuy() {
                     i % 2 === 0 ? "sm:pr-8" : "sm:border-l sm:border-l-[#3D3229]/12 sm:pl-8"
                   }`}
                 >
-                  <span className="font-mono text-[11px] text-[#A38569]">{s.n}</span>
-                  <h3 className="mt-2 font-display text-[19px] font-light leading-snug text-[#3D3229]">
+                  <span className="font-mono text-[0.6875rem] text-[#A38569]">{s.n}</span>
+                  <h3 className="mt-2 font-display text-[1.1875rem] font-light leading-snug text-[#3D3229]">
                     {s.title}
                   </h3>
-                  <p className="mt-2 max-w-[44ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/58">
+                  <p className="mt-2 max-w-[44ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/58">
                     {s.body}
                   </p>
                 </li>
@@ -103,7 +103,7 @@ export default function HowToBuy() {
             {/* ── the worked example: where we send people, and that it is not us ── */}
             <div className="mt-10 border-t border-[#3D3229]/12 pt-8">
               <Label>Where ReVia sends researchers</Label>
-              <p className="mt-3 max-w-[58ch] font-sans text-[14px] leading-[1.75] text-[#3D3229]/70">
+              <p className="mt-3 max-w-[58ch] font-sans text-[0.875rem] leading-[1.75] text-[#3D3229]/70">
                 ReVia Life publishes; it does not sell. Compounds are supplied by{" "}
                 <strong className="font-medium text-[#3D3229]">i2b Health</strong>, our
                 exclusive research provider — a separate company, with its own
@@ -116,7 +116,7 @@ export default function HowToBuy() {
                 <a
                   href={`${D2C.origin}?src=revialife.howtobuy`}
                   {...PARTNER_LINK_PROPS}
-                  className="mt-5 inline-flex items-baseline gap-2 border border-[#3D3229]/25 px-5 py-2.5 font-sans text-[13px] font-medium text-[#3D3229] transition hover:border-[#A38569] hover:text-[#A38569]"
+                  className="mt-5 inline-flex items-baseline gap-2 border border-[#3D3229]/25 px-5 py-2.5 font-sans text-[0.8125rem] font-medium text-[#3D3229] transition hover:border-[#A38569] hover:text-[#A38569]"
                 >
                   Continue to i2b Health
                   <span aria-hidden>&#8599;</span>

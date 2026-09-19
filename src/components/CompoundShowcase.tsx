@@ -29,7 +29,7 @@ export default function CompoundShowcase() {
           href={`/research/${c.slug}`}
           className="group rounded-2xl border border-[#E2DCD0] bg-white/70 p-6 transition hover:border-[#A38569]/60 hover:bg-white"
         >
-          <p className="text-[11px] uppercase tracking-[0.14em] text-[#A38569]">
+          <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-[#A38569]">
             {c.type}
           </p>
           <h3 className="mt-2 font-serif text-xl text-[#3D3229]">{c.name}</h3>

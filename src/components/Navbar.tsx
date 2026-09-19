@@ -49,7 +49,7 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center justify-center gap-6">
           {navLinks.map((link) => (
             <motion.li key={link.href} className="relative" whileHover="hover" initial="rest" animate="rest">
-              <Link href={link.href} className="relative block pb-1">
+              <Link href={link.href} className="relative block pt-2 pb-1.5">
                 <motion.span
                   className="text-sm font-semibold uppercase tracking-wide inline-block"
                   variants={{
@@ -81,12 +81,12 @@ export default function Navbar() {
           {/* US Manufactured badge */}
           <div className="hidden items-center gap-1.5 border-l border-[#3D3229]/12 pl-4 sm:flex">
             <Image src="/images/us-flag.png" alt="US Flag" width={20} height={14} className="h-3.5 w-5 object-contain" />
-            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#3D3229]/55">US Made</span>
+            <span className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-[#3D3229]/55">US Made</span>
           </div>
 
           {/* Accounts, admin and login went with the store. Nothing here needs
               a session any more. */}
-          <PartnerShopButton audience="d2c" size="sm" variant="outline" className="hidden sm:inline-flex">
+          <PartnerShopButton audience="d2c" size="sm" variant="outline" className="min-h-9 whitespace-nowrap max-sm:hidden">
             Where to buy
           </PartnerShopButton>
 

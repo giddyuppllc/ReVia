@@ -22,15 +22,15 @@ import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 export default function TheNetwork() {
   return (
     <section className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <DrawRule />
         <div className="grid gap-10 py-14 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20 sm:py-20">
           <Rise>
             <Label>The group</Label>
-            <Heading className="mt-4 text-[26px] sm:text-[31px]">
+            <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
               One standard, several doors.
             </Heading>
-            <p className="mt-5 max-w-[42ch] font-sans text-[14.5px] leading-[1.75] text-[#3D3229]/62">
+            <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
               Each property answers to a different audience under different
               rules. ReVia Life is the record — it publishes, and it sells
               nothing.
@@ -45,21 +45,21 @@ export default function TheNetwork() {
                     <Label className="sm:pt-1">{site.audience}</Label>
                     <div>
                       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                        <span className="font-display text-[20px] font-light text-[#3D3229] transition group-hover:text-[#A38569]">
+                        <span className="font-display text-[1.25rem] font-light text-[#3D3229] transition group-hover:text-[#A38569]">
                           {site.name}
                         </span>
                         {site.preview && (
-                          <span className="font-mono text-[10px] uppercase tracking-wider text-[#3D3229]/32">
+                          <span className="font-mono text-[0.6875rem] uppercase tracking-wider text-[#3D3229]/32">
                             preview
                           </span>
                         )}
                         {!site.url && (
-                          <span className="font-mono text-[10px] uppercase tracking-wider text-[#3D3229]/32">
+                          <span className="font-mono text-[0.6875rem] uppercase tracking-wider text-[#3D3229]/32">
                             coming soon
                           </span>
                         )}
                       </div>
-                      <p className="mt-1.5 max-w-[52ch] font-sans text-[13.5px] leading-[1.7] text-[#3D3229]/58">
+                      <p className="mt-1.5 max-w-[52ch] font-sans text-[0.8438rem] leading-[1.7] text-[#3D3229]/58">
                         {site.tagline}
                       </p>
                     </div>

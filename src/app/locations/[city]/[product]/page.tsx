@@ -187,11 +187,11 @@ export default async function CityProductPage({ params }: PageProps) {
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A38569]">
         {product.category.name} · {city.name}, {city.stateAbbr}
       </p>
-      <h1 className="mt-2 font-display text-[34px] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[44px]">
+      <h1 className="mt-2 font-display text-[2.125rem] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[2.75rem]">
         {product.name} research in {city.name}, {city.stateAbbr}
       </h1>
 
-      <p className="mt-5 text-[15px] leading-relaxed text-[#3D3229]/75">{intro}</p>
+      <p className="mt-5 text-[0.9375rem] leading-relaxed text-[#3D3229]/75">{intro}</p>
 
       {/* Availability, from the provider's live catalogue. Replaces a "From
           $X — Order at i2b" panel: revialife publishes no price, and the link
@@ -207,8 +207,8 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Overview */}
       {product.description && (
         <section className="mt-10">
-          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">About {product.name}</h2>
-          <p className="mt-3 whitespace-pre-wrap text-[15px] leading-relaxed text-[#3D3229]/75">
+          <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">About {product.name}</h2>
+          <p className="mt-3 whitespace-pre-wrap text-[0.9375rem] leading-relaxed text-[#3D3229]/75">
             {product.description}
           </p>
         </section>
@@ -217,19 +217,19 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Unique per-city research context — kills cross-city duplication */}
       {context && (
         <section className="mt-10">
-          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
+          <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">
             {product.name} research in {city.name}
           </h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-[#3D3229]/75">{context}</p>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-[#3D3229]/75">{context}</p>
         </section>
       )}
 
       {/* Local framing */}
       <section className="mt-10 rounded-2xl border border-[#3D3229]/12 p-6">
-        <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
+        <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">
           {product.name} in the {city.name} research community
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed text-[#3D3229]/75">
+        <p className="mt-3 text-[0.9375rem] leading-relaxed text-[#3D3229]/75">
           {product.name} is worked with by researchers throughout the {city.name} metro — including{" "}
           {city.nearbyAreas.join(", ")} — and across {city.region}. {city.angle}. Every ReVia-branded
           lot carries its own certificate of analysis, and the compound is intended strictly for
@@ -239,14 +239,14 @@ export default async function CityProductPage({ params }: PageProps) {
 
       {/* FAQ */}
       <section className="mt-10">
-        <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
+        <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">
           {product.name} in {city.name} — FAQ
         </h2>
         <div className="mt-4 space-y-4">
           {faq.map((f) => (
             <div key={f.q} className="rounded-xl border border-[#3D3229]/12 p-4">
               <p className="font-semibold text-[#3D3229]">{f.q}</p>
-              <p className="mt-1 text-[15px] leading-relaxed text-[#3D3229]/75">{f.a}</p>
+              <p className="mt-1 text-[0.9375rem] leading-relaxed text-[#3D3229]/75">{f.a}</p>
             </div>
           ))}
         </div>
@@ -255,7 +255,7 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Other research peptides in this city — internal mesh */}
       {relatedProducts.length > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
+          <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">
             Other research peptides available in {city.name}
           </h2>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -265,7 +265,7 @@ export default async function CityProductPage({ params }: PageProps) {
                 href={`/locations/${city.slug}/${rp.slug}`}
                 className="flex items-center justify-between rounded-xl border border-[#3D3229]/12 p-4 hover:bg-[#EFEAE1]/70"
               >
-                <span className="text-[15px] font-medium text-[#3D3229]">{rp.name}</span>
+                <span className="text-[0.9375rem] font-medium text-[#3D3229]">{rp.name}</span>
                 <span className="ml-3 shrink-0 text-xs text-[#3D3229]/50">{rp.categoryName}</span>
               </Link>
             ))}
@@ -276,7 +276,7 @@ export default async function CityProductPage({ params }: PageProps) {
       {/* Same product across other cities in the region — geo cluster mesh */}
       {relatedCities.length > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-[24px] font-light leading-snug text-[#3D3229]">
+          <h2 className="font-display text-[1.5rem] font-light leading-snug text-[#3D3229]">
             {product.name} research in other {city.region} cities
           </h2>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">

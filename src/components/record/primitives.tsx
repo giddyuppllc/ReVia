@@ -73,7 +73,7 @@ export function DrawRule({ className = "", delay = 0 }: { className?: string; de
 export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={`block font-sans text-[10px] font-medium uppercase tracking-[0.24em] text-[#A38569] ${className}`}
+      className={`block font-sans text-[0.6875rem] font-medium uppercase tracking-[0.24em] text-[#A38569] ${className}`}
     >
       {children}
     </span>
@@ -121,7 +121,7 @@ export function Figure({
         {value}
       </span>
       <Label>{label}</Label>
-      {note && <span className="font-sans text-[11px] leading-snug text-[#3D3229]/45">{note}</span>}
+      {note && <span className="font-sans text-[0.6875rem] leading-snug text-[#3D3229]/45">{note}</span>}
     </div>
   );
 }

@@ -30,12 +30,12 @@ export function Stat({ stat, tone = "light" }: { stat: PublicStat; tone?: "light
         {stat.value}
       </p>
       <p
-        className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] ${label}`}
+        className={`mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] ${label}`}
       >
         {stat.label}
       </p>
       {/* Provenance is not optional — it is the whole argument. */}
-      <p className={`mx-auto mt-2 max-w-[22ch] border-t pt-2 text-[10px] leading-snug ${rule} ${source}`}>
+      <p className={`mx-auto mt-2 max-w-[22ch] border-t pt-2 text-[0.6875rem] leading-snug ${rule} ${source}`}>
         {stat.sourceNote}
       </p>
     </div>

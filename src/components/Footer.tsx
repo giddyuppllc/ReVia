@@ -203,10 +203,10 @@ export default function Footer() {
 
         {/* Copyright */}
         <AnimatedContainer delay={0.6} className="mt-4 border-t border-sky-200/30 pt-3 text-center space-y-1.5">
-          <p className="text-[10px] text-stone-400 leading-relaxed max-w-6xl mx-auto">
+          <p className="text-[0.6875rem] text-stone-400 leading-relaxed max-w-6xl mx-auto">
             Compounds carrying the ReVia name are designated Research Use Only (RUO) and are intended for laboratory research only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. That designation is standard for compounds awaiting formal FDA classification and is not a statement about quality or purity — the certificate of analysis for the lot is. revialife.com publishes the record and sells nothing.
           </p>
-          <p className="text-[10px] text-stone-400">
+          <p className="text-[0.6875rem] text-stone-400">
             &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.
           </p>
         </AnimatedContainer>

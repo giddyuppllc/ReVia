@@ -82,9 +82,15 @@
   --color-violet-950: #2B241B;
 }
 
+/*
+ * Fluid root size: 16px up to a ~1440 laptop, 20px on a 2560x1440 display, 22px
+ * on 4K. Every rem (type, spacing, max-widths) scales with it, so a big monitor
+ * gets a bigger page instead of small type in a wide, empty band.
+ */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-size: clamp(16px, 0.36vw + 10.8px, 22px);
 }
 
 body {

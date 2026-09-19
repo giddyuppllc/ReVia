@@ -44,20 +44,20 @@ const WHY_SEPARATE: Record<string, string> = {
 export default function NetworkPage() {
   return (
     <main className="bg-[#F6F3EC]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <div className="pt-16 sm:pt-24">
           <Rise>
             <Label>The group</Label>
-            <Heading className="mt-4 max-w-[18ch] text-[34px] sm:text-[46px]">
+            <Heading className="mt-4 max-w-[18ch] text-[2.125rem] sm:text-[2.875rem]">
               One standard, several doors.
             </Heading>
-            <p className="mt-6 max-w-[62ch] font-sans text-[15px] leading-[1.8] text-[#3D3229]/70">
+            <p className="mt-6 max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
               ReVia is not one site with several sections. It is a group of
               properties that answer to different audiences under different
               rules, and the separations are deliberate. This page is the map,
               and the reason for each line on it.
             </p>
-            <p className="mt-4 max-w-[62ch] font-sans text-[15px] leading-[1.8] text-[#3D3229]/70">
+            <p className="mt-4 max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
               revialife.com is the one you are on. It publishes the record — the
               statements made in Washington, what the certificates say, and what
               we think about the news — and it sells nothing at all.
@@ -74,14 +74,14 @@ export default function NetworkPage() {
                   <div className="grid gap-4 border-b border-[#3D3229]/12 py-9 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-12">
                     <div>
                       <Label>{site.audience}</Label>
-                      <p className="mt-3 font-serif text-[21px] leading-tight text-[#3D3229]">
+                      <p className="mt-3 font-serif text-[1.3125rem] leading-tight text-[#3D3229]">
                         {site.name}
                       </p>
                       {site.url ? (
                         <a
                           {...PARTNER_LINK_PROPS}
                           href={site.url}
-                          className="mt-3 inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+                          className="mt-3 inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
                         >
                           <span className="border-b border-[#A38569]/50 pb-0.5 transition hover:border-[#A38569]">
                             {site.url.replace(/^https?:\/\//, "")}
@@ -91,17 +91,17 @@ export default function NetworkPage() {
                       ) : (
                         // Listed without a link rather than hidden. A gap in
                         // the group is information about the group.
-                        <p className="mt-3 font-sans text-[13px] text-[#3D3229]/45">
+                        <p className="mt-3 font-sans text-[0.8125rem] text-[#3D3229]/45">
                           No public address yet.
                         </p>
                       )}
                     </div>
                     <div>
-                      <p className="max-w-[58ch] font-sans text-[14.5px] leading-[1.75] text-[#3D3229]/75">
+                      <p className="max-w-[58ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/75">
                         {site.tagline}
                       </p>
                       {WHY_SEPARATE[site.id] && (
-                        <p className="mt-3 max-w-[58ch] font-sans text-[13.5px] leading-[1.75] text-[#3D3229]/55">
+                        <p className="mt-3 max-w-[58ch] font-sans text-[0.8438rem] leading-[1.75] text-[#3D3229]/55">
                           <span className="font-medium text-[#3D3229]/75">
                             Why it stands apart.{" "}
                           </span>
@@ -118,11 +118,11 @@ export default function NetworkPage() {
 
         <Rise>
           <div className="py-14 sm:py-20">
-            <p className="max-w-[62ch] font-sans text-[15px] leading-[1.8] text-[#3D3229]/70">
+            <p className="max-w-[62ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/70">
               If you are looking for a compound rather than the structure, the
               monographs are here and {D2C.name} is where they are obtained.
             </p>
-            <div className="mt-6 flex flex-wrap gap-6 font-sans text-[13px] font-medium text-[#3D3229]">
+            <div className="mt-6 flex flex-wrap gap-6 font-sans text-[0.8125rem] font-medium text-[#3D3229]">
               <Link href="/research" className="border-b border-[#A38569]/50 pb-0.5">
                 Every compound we document &rarr;
               </Link>

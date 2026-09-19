@@ -66,7 +66,7 @@ export default function WashingtonPage() {
       {/* ── Statement ── */}
       <section className="bg-stone-900 px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-sky-500">
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-sky-500">
             The Federal Record
           </p>
           <h1 className="mt-4 text-4xl font-light leading-[1.05] tracking-tight text-stone-50 sm:text-5xl lg:text-6xl">
@@ -91,7 +91,7 @@ export default function WashingtonPage() {
               { t: "Statements", d: String(STATEMENT_COUNT) },
             ].map((row) => (
               <div key={row.t}>
-                <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-stone-500">
+                <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-stone-500">
                   {row.t}
                 </dt>
                 <dd className="mt-1 font-mono text-sm text-stone-200">{row.d}</dd>
@@ -104,7 +104,7 @@ export default function WashingtonPage() {
       {/* ── Primary sources ── */}
       <section className="border-b border-sky-200/60 bg-sky-50/50 px-6 py-12">
         <div className="mx-auto max-w-4xl">
-          <h2 className="font-mono text-[10px] uppercase tracking-[0.22em] text-sky-700">
+          <h2 className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-sky-700">
             Go to the source
           </h2>
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -133,7 +133,7 @@ export default function WashingtonPage() {
               </a>
             ))}
           </div>
-          <p className="mt-5 font-mono text-[11px] leading-relaxed text-stone-500">
+          <p className="mt-5 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
             Written comment {HEARING.comment.id}, received {HEARING.comment.received}. He was
             offered {HEARING.slotsOffered} open-public-hearing slots and used {STATEMENT_COUNT}.
           </p>
@@ -157,7 +157,7 @@ export default function WashingtonPage() {
                   <span className="font-medium text-stone-800 group-hover:text-sky-700">
                     {s.compound}
                   </span>
-                  <span className="ml-auto font-mono text-[11px] text-stone-400">
+                  <span className="ml-auto font-mono text-[0.6875rem] text-stone-400">
                     day {s.day} &middot; {s.slotMinutes} min
                   </span>
                 </a>
@@ -179,7 +179,7 @@ export default function WashingtonPage() {
             <div className="lg:grid lg:grid-cols-[13rem_1fr] lg:gap-12">
               {/* Metadata rail — everything checkable about this statement */}
               <div className="lg:sticky lg:top-24 lg:self-start">
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-sky-600">
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-sky-600">
                   Statement {String(s.n).padStart(2, "0")}
                 </p>
                 <h3
@@ -188,7 +188,7 @@ export default function WashingtonPage() {
                 >
                   {s.compound}
                 </h3>
-                <dl className="mt-5 space-y-2.5 border-t border-sky-200/60 pt-4 font-mono text-[11px]">
+                <dl className="mt-5 space-y-2.5 border-t border-sky-200/60 pt-4 font-mono text-[0.6875rem]">
                   {[
                     ["Date", s.date],
                     ["Session", `Day ${s.day}`],
@@ -206,7 +206,7 @@ export default function WashingtonPage() {
                   href={HEARING.webcasts.find((w) => w.day === s.day)?.url ?? HEARING.meetingPage}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] text-sky-700 hover:text-sky-600"
+                  className="mt-4 inline-flex items-center gap-1.5 font-mono text-[0.6875rem] text-sky-700 hover:text-sky-600"
                 >
                   Hear it
                   <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
@@ -218,7 +218,7 @@ export default function WashingtonPage() {
                     unaware of the other. */}
                 <Link
                   href={`/research/${researchSlugFor(s)}`}
-                  className="mt-3 block font-mono text-[11px] text-stone-500 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-700"
+                  className="mt-3 block font-mono text-[0.6875rem] text-stone-500 underline decoration-stone-300 underline-offset-4 transition hover:text-stone-700"
                 >
                   Read the {s.compound} research &rarr;
                 </Link>
@@ -226,14 +226,14 @@ export default function WashingtonPage() {
 
               {/* Verbatim */}
               <div className="mt-8 lg:mt-0">
-                <p className="mb-6 border-l-2 border-sky-300 pl-4 font-mono text-[11px] leading-relaxed text-stone-500">
+                <p className="mb-6 border-l-2 border-sky-300 pl-4 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
                   {s.note}
                 </p>
                 <div className="space-y-5">
                   {s.body.map((para, j) => (
                     <p
                       key={j}
-                      className="max-w-[68ch] text-[17px] leading-[1.75] text-stone-700"
+                      className="max-w-[68ch] text-[1.0625rem] leading-[1.75] text-stone-700"
                     >
                       {para}
                     </p>
@@ -266,7 +266,7 @@ export default function WashingtonPage() {
             ))}
           </ul>
 
-          <p className="mt-10 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[11px] leading-relaxed text-stone-500">
+          <p className="mt-10 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
             Transcribed from FDA&rsquo;s webcast recordings (auto-generated captions), then
             cleaned: caption misspellings corrected, stutters and filler repeats removed,
             nothing added or reordered. FDA had not posted an official transcript as of 12

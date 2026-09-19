@@ -108,10 +108,10 @@ export default async function CityHubPage({ params }: PageProps) {
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A38569]">
         {city.region} · {city.stateAbbr}
       </p>
-      <h1 className="mt-2 font-display text-[34px] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[44px]">
+      <h1 className="mt-2 font-display text-[2.125rem] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[2.75rem]">
         Research Peptides in {city.name}, {city.stateAbbr}
       </h1>
-      <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[#3D3229]/75">{intro}</p>
+      <p className="mt-5 max-w-3xl text-[0.9375rem] leading-relaxed text-[#3D3229]/75">{intro}</p>
 
       {/*
         This was a solid blue "Shop at i2b" pill — the only blue control on a
@@ -121,10 +121,10 @@ export default async function CityHubPage({ params }: PageProps) {
         they are going before the link, not after clicking it.
       */}
       <div className="mt-8 border-t border-[#3D3229]/12 pt-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#A38569]">
+        <p className="text-[0.6875rem] font-medium uppercase tracking-[0.24em] text-[#A38569]">
           Where researchers obtain these
         </p>
-        <p className="mt-3 max-w-[58ch] text-[14px] leading-[1.75] text-[#3D3229]/70">
+        <p className="mt-3 max-w-[58ch] text-[0.875rem] leading-[1.75] text-[#3D3229]/70">
           ReVia publishes; it does not sell. Compounds are supplied by{" "}
           <strong className="font-medium text-[#3D3229]">{D2C.name}</strong>, our
           exclusive research provider &mdash; a separate company with its own
@@ -158,7 +158,7 @@ export default async function CityHubPage({ params }: PageProps) {
         <div className="mt-10 space-y-10">
           {Array.from(byCategory.entries()).map(([cat, items]) => (
             <section key={cat}>
-              <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">
+              <h2 className="font-display text-[1.3125rem] font-light leading-snug text-[#3D3229]">
                 {cat} in {city.name}
               </h2>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -180,7 +180,7 @@ export default async function CityHubPage({ params }: PageProps) {
 
       {relatedCities.length > 0 && (
         <section className="mt-12">
-          <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">
+          <h2 className="font-display text-[1.3125rem] font-light leading-snug text-[#3D3229]">
             Research peptides in other {city.region} cities
           </h2>
           <div className="mt-4 flex flex-wrap gap-3 text-sm">

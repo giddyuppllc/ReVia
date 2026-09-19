@@ -51,7 +51,7 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
 
           case "p":
             return (
-              <p key={i} className="max-w-[68ch] text-[17px] leading-[1.75] text-stone-700">
+              <p key={i} className="max-w-[68ch] text-[1.0625rem] leading-[1.75] text-stone-700">
                 {withCitations(block.text, slug)}
               </p>
             );
@@ -61,7 +61,7 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
             return (
               <Tag key={i} className="max-w-[68ch] space-y-2.5">
                 {block.items.map((item, j) => (
-                  <li key={j} className="flex gap-3 text-[17px] leading-[1.75] text-stone-700">
+                  <li key={j} className="flex gap-3 text-[1.0625rem] leading-[1.75] text-stone-700">
                     <span
                       className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-500"
                       aria-hidden="true"
@@ -80,7 +80,7 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
                   &ldquo;{block.text}&rdquo;
                 </blockquote>
                 {block.attribution && (
-                  <figcaption className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-stone-500">
+                  <figcaption className="mt-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-stone-500">
                     {block.attribution}
                   </figcaption>
                 )}
@@ -93,10 +93,10 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
                 key={i}
                 className="my-8 max-w-[68ch] rounded-2xl border-l-2 border-[#3E97CE] bg-white p-6 shadow-sm"
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#2f7ba8]">
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-[#2f7ba8]">
                   {block.title}
                 </p>
-                <p className="mt-2 text-[16px] leading-[1.7] text-stone-700">
+                <p className="mt-2 text-[1rem] leading-[1.7] text-stone-700">
                   {withCitations(block.text, slug)}
                 </p>
               </aside>
@@ -110,14 +110,14 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
                     <span className="font-mono text-xs tabular-nums text-sky-700">
                       {e.date}
                       {e.pending && (
-                        <span className="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-sky-700">
+                        <span className="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-[0.6875rem] uppercase tracking-wider text-sky-700">
                           pending
                         </span>
                       )}
                     </span>
                     <div className="border-l border-sky-200/70 pl-5 sm:border-l-0 sm:pl-0">
                       <p className="font-semibold text-stone-800">{e.title}</p>
-                      <p className="mt-1 max-w-[60ch] text-[15px] leading-relaxed text-stone-600">
+                      <p className="mt-1 max-w-[60ch] text-[0.9375rem] leading-relaxed text-stone-600">
                         {withCitations(e.text, slug)}
                       </p>
                     </div>
@@ -135,7 +135,7 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
                       {block.rows[0]?.map((h, j) => (
                         <th
                           key={j}
-                          className="px-4 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-stone-600"
+                          className="px-4 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-stone-600"
                         >
                           {h}
                         </th>
@@ -155,7 +155,7 @@ export function PostBody({ body, slug }: { body: Block[]; slug: string }) {
                   </tbody>
                 </table>
                 {block.caption && (
-                  <figcaption className="mt-2 font-mono text-[11px] text-stone-500">
+                  <figcaption className="mt-2 font-mono text-[0.6875rem] text-stone-500">
                     {block.caption}
                   </figcaption>
                 )}
@@ -193,16 +193,16 @@ export function SourceLedger({ sources, slug }: { sources: Source[]; slug: strin
                   aria-hidden="true"
                 />
               </a>
-              <span className="rounded bg-sky-100 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-sky-700">
+              <span className="rounded bg-sky-100 px-2 py-0.5 font-mono text-[0.6875rem] uppercase tracking-wider text-sky-700">
                 {s.type}
               </span>
             </div>
-            <p className="mt-1 font-mono text-[11px] text-stone-500">
+            <p className="mt-1 font-mono text-[0.6875rem] text-stone-500">
               {s.publisher}
               {s.date ? ` · ${s.date}` : ""}
             </p>
             {s.note && (
-              <p className="mt-1.5 max-w-[62ch] text-[14px] leading-relaxed text-stone-600">
+              <p className="mt-1.5 max-w-[62ch] text-[0.875rem] leading-relaxed text-stone-600">
                 {s.note}
               </p>
             )}

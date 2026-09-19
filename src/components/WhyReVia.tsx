@@ -42,11 +42,11 @@ const CHECKS = [
 export default function WhyReVia() {
   return (
     <div className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <Rise>
           <div className="pt-12 sm:pt-16">
             <Label>Why us</Label>
-            <Heading as="h1" className="mt-4 max-w-[20ch] text-[32px] sm:text-[46px]">
+            <Heading as="h1" className="mt-4 max-w-[20ch] text-[2rem] sm:text-[2.875rem]">
               Every lot is tested. Here is the certificate.
             </Heading>
           </div>
@@ -58,7 +58,7 @@ export default function WhyReVia() {
         <Rise delay={0.08}>
           <div className="grid gap-8 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <Label className="lg:pt-1">What happens to a lot</Label>
-            <div className="max-w-[62ch] space-y-5 font-sans text-[15px] leading-[1.85] text-[#3D3229]/78">
+            <div className="max-w-[62ch] space-y-5 font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
               <p>
                 Each lot we supply goes to an independent laboratory in the
                 United States before it ships. The laboratory reports four things
@@ -94,7 +94,7 @@ export default function WhyReVia() {
           <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <div>
               <Label className="lg:pt-1">One certificate, read</Label>
-              <p className="mt-3 max-w-[30ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/55">
+              <p className="mt-3 max-w-[30ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/55">
                 COA #{COA_EXAMPLE.number} &mdash; {COA_EXAMPLE.product}, sample
                 received {COA_EXAMPLE.received}, analysed {COA_EXAMPLE.analysed}.
               </p>
@@ -107,10 +107,10 @@ export default function WhyReVia() {
                     i > 0 ? "border-t border-[#3D3229]/10" : ""
                   }`}
                 >
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#A38569]">
+                  <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-[#A38569]">
                     {k}
                   </dt>
-                  <dd className="font-sans text-[14px] leading-relaxed text-[#3D3229]/78">{v}</dd>
+                  <dd className="font-sans text-[0.875rem] leading-relaxed text-[#3D3229]/78">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -122,7 +122,7 @@ export default function WhyReVia() {
           <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <div>
               <Label className="lg:pt-1">Check anybody</Label>
-              <p className="mt-3 max-w-[30ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/55">
+              <p className="mt-3 max-w-[30ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/55">
                 Seven questions with a checkable answer. Ours are on the left.
                 The right-hand column is for whoever else you are considering
                 &mdash; we have not filled it in, because it is not ours to fill.
@@ -139,9 +139,9 @@ export default function WhyReVia() {
                   key={c}
                   className="grid grid-cols-[1fr_5rem_5rem] items-baseline gap-3 border-t border-[#3D3229]/10 py-3"
                 >
-                  <span className="font-sans text-[13.5px] leading-snug text-[#3D3229]/75">{c}</span>
-                  <span className="text-right font-sans text-[13px] text-[#3D3229]">Yes</span>
-                  <span className="text-right font-mono text-[13px] text-[#3D3229]/22">&mdash;</span>
+                  <span className="font-sans text-[0.8438rem] leading-snug text-[#3D3229]/75">{c}</span>
+                  <span className="text-right font-sans text-[0.8125rem] text-[#3D3229]">Yes</span>
+                  <span className="text-right font-mono text-[0.8125rem] text-[#3D3229]/22">&mdash;</span>
                 </div>
               ))}
             </div>
@@ -151,7 +151,7 @@ export default function WhyReVia() {
         {/* ── the record ── */}
         <Rise>
           <div className="border-t border-[#3D3229]/12 py-10">
-            <p className="max-w-[58ch] font-sans text-[14px] leading-[1.8] text-[#3D3229]/62">
+            <p className="max-w-[58ch] font-sans text-[0.875rem] leading-[1.8] text-[#3D3229]/62">
               The last of those is the one nobody can buy. ReVia&rsquo;s founder
               is on the docket of the {HEARING.committee}, {HEARING.dates}, and
               everything he said is{" "}

@@ -31,12 +31,12 @@ import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 export default function AboutContent() {
   return (
     <div className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         {/* ── masthead ── */}
         <Rise>
           <div className="pt-12 sm:pt-16">
             <Label>About</Label>
-            <Heading as="h1" className="mt-4 max-w-[18ch] text-[32px] sm:text-[46px]">
+            <Heading as="h1" className="mt-4 max-w-[18ch] text-[2rem] sm:text-[2.875rem]">
               The standard its founder built for himself.
             </Heading>
           </div>
@@ -48,7 +48,7 @@ export default function AboutContent() {
         <Rise delay={0.08}>
           <div className="grid gap-8 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
             <Label className="lg:pt-1">How this site is paid for</Label>
-            <p className="max-w-[62ch] font-sans text-[15px] leading-[1.85] text-[#3D3229]/78">
+            <p className="max-w-[62ch] font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
               ReViaLife is published by ReVia LLC, which also supplies the
               compounds sold by i2b Health and through ReVia Wholesale. We tell
               you that because a resource that hides its funding is not a
@@ -113,7 +113,7 @@ export default function AboutContent() {
           <Rise key={block.label} delay={0.06 * i}>
             <div className="grid gap-8 border-t border-[#3D3229]/12 py-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-20">
               <Label className="lg:pt-1">{block.label}</Label>
-              <div className="max-w-[62ch] space-y-5 font-sans text-[15px] leading-[1.85] text-[#3D3229]/78">
+              <div className="max-w-[62ch] space-y-5 font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
                 {block.body}
               </div>
             </div>
@@ -123,14 +123,14 @@ export default function AboutContent() {
         {/* ── byline ── */}
         <Rise>
           <div className="border-t border-[#3D3229]/12 py-10">
-            <p className="font-sans text-[13px] text-[#3D3229]/55">
+            <p className="font-sans text-[0.8125rem] text-[#3D3229]/55">
               <span className="font-medium text-[#3D3229]">Mike Stone</span> ·
               Founder, ReVia
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-6">
               <Link
                 href="/washington"
-                className="group inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+                className="group inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
               >
                 <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
                   The {STATEMENT_COUNT} statements, in full
@@ -139,7 +139,7 @@ export default function AboutContent() {
               </Link>
               <Link
                 href="/why-us"
-                className="font-sans text-[13px] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
+                className="font-sans text-[0.8125rem] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
               >
                 How a lot is tested
               </Link>

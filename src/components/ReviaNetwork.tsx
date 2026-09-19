@@ -29,7 +29,7 @@ function SecondaryCard({ site }: { site: NetworkSite }) {
     "group flex h-full flex-col rounded-2xl border border-sky-200/60 bg-white/60 p-6 transition";
   const body = (
     <>
-      <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-600">
+      <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-sky-600">
         {site.audience}
       </p>
       <h3 className="mt-2 flex items-center gap-1.5 text-base font-semibold text-stone-800">
@@ -67,7 +67,7 @@ export default function ReviaNetwork() {
     <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-600">
+          <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-sky-600">
             The ReVia Network
           </p>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-stone-800 sm:text-3xl">
@@ -83,7 +83,7 @@ export default function ReviaNetwork() {
         <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-2">
           {/* Researchers → i2b */}
           <div className="flex flex-col rounded-3xl border border-[#3E97CE]/25 bg-gradient-to-br from-white to-sky-50/70 p-8 shadow-sm">
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#2f7ba8]">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-[#2f7ba8]">
               For researchers
             </p>
             <h3 className="mt-3 text-2xl font-bold tracking-tight text-stone-800">
@@ -105,7 +105,7 @@ export default function ReviaNetwork() {
 
           {/* Trade → ReVia Wholesale */}
           <div className="flex flex-col rounded-3xl border border-sky-200/70 bg-white/70 p-8 shadow-sm">
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-sky-600">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-sky-600">
               For business &amp; brands
             </p>
             <h3 className="mt-3 text-2xl font-bold tracking-tight text-stone-800">

@@ -47,7 +47,7 @@ export default function HomePage() {
       <TheNetwork />
       <KnowMore />
       <div className="bg-[#F0EDE5] pb-16">
-        <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
           <NewsletterBanner />
         </div>
       </div>

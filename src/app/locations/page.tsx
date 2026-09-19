@@ -45,7 +45,7 @@ export default async function LocationsIndexPage() {
 
   const Section = ({ title, items }: { title: string; items: typeof CITIES }) => (
     <section className="mt-10">
-      <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">{title}</h2>
+      <h2 className="font-display text-[1.3125rem] font-light leading-snug text-[#3D3229]">{title}</h2>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {items.map((c) => (
           <Link
@@ -67,10 +67,10 @@ export default async function LocationsIndexPage() {
       <BreadcrumbSchema items={breadcrumb} />
 
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A38569]">Locations</p>
-      <h1 className="mt-2 font-display text-[34px] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[44px]">
+      <h1 className="mt-2 font-display text-[2.125rem] font-light leading-[1.06] tracking-[-0.015em] text-[#3D3229] sm:text-[2.75rem]">
         Research Peptides by Location
       </h1>
-      <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-[#3D3229]/75">
+      <p className="mt-5 max-w-3xl text-[0.9375rem] leading-relaxed text-[#3D3229]/75">
         Research peptide monographs, written for Florida and the East Coast. Choose your metro to
         see the compounds documented there and what the published literature reports on each. Every
         ReVia-branded lot carries its own certificate of analysis, and every compound is intended
@@ -82,7 +82,7 @@ export default async function LocationsIndexPage() {
 
       {topProducts.length > 0 && (
         <section className="mt-12">
-          <h2 className="font-display text-[21px] font-light leading-snug text-[#3D3229]">Most-searched research peptides</h2>
+          <h2 className="font-display text-[1.3125rem] font-light leading-snug text-[#3D3229]">Most-searched research peptides</h2>
           <p className="mt-2 max-w-3xl text-sm text-[#3D3229]/62">
             The compounds asked about most often — documented across all {CITIES.length} metros.
           </p>

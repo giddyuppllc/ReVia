@@ -20,15 +20,15 @@ import { DrawRule, Heading, Label, Rise } from "@/components/record/primitives";
 export default function TheStandard() {
   return (
     <section className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <DrawRule />
         <div className="grid gap-10 py-14 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20 sm:py-20">
           <Rise>
             <Label>The standard we publish</Label>
-            <Heading className="mt-4 text-[26px] sm:text-[31px]">
+            <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
               One method. Four results. Named laboratory.
             </Heading>
-            <p className="mt-5 max-w-[42ch] font-sans text-[14.5px] leading-[1.75] text-[#3D3229]/62">
+            <p className="mt-5 max-w-[42ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/62">
               Every certificate reports the same four things, by the same method,
               from the same independent laboratory — and names the batch it was
               run on. The figure that matters is on the document, not in a
@@ -56,10 +56,10 @@ export default function TheStandard() {
                   <dt>
                     <Label>{row.k}</Label>
                   </dt>
-                  <dd className="mt-2 font-display text-[21px] font-light leading-tight text-[#3D3229] sm:text-[23px]">
+                  <dd className="mt-2 font-display text-[1.3125rem] font-light leading-tight text-[#3D3229] sm:text-[1.4375rem]">
                     {row.v}
                   </dd>
-                  <dd className="mt-1.5 font-sans text-[11.5px] leading-snug text-[#3D3229]/42">
+                  <dd className="mt-1.5 font-sans text-[0.7188rem] leading-snug text-[#3D3229]/42">
                     {row.n}
                   </dd>
                 </div>
@@ -71,11 +71,11 @@ export default function TheStandard() {
               <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
                 {COA_RESULTS.map((r) => (
                   <li key={r.key} className="flex items-baseline gap-2.5">
-                    <span className="font-mono text-[10px] text-[#A38569]">
+                    <span className="font-mono text-[0.6875rem] text-[#A38569]">
                       {String(COA_RESULTS.indexOf(r) + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-sans text-[13.5px] text-[#3D3229]/75">{r.label}</span>
-                    <span className="font-sans text-[11.5px] text-[#3D3229]/38">{r.detail}</span>
+                    <span className="font-sans text-[0.8438rem] text-[#3D3229]/75">{r.label}</span>
+                    <span className="font-sans text-[0.7188rem] text-[#3D3229]/38">{r.detail}</span>
                   </li>
                 ))}
               </ul>

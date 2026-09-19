@@ -39,7 +39,7 @@ export default function TestimonyHero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="relative mx-auto max-w-[73.75rem] px-5 sm:px-8">
         {/* ── masthead ── */}
         <Rise>
           <div className="flex flex-wrap items-baseline justify-between gap-y-2 pt-10 sm:pt-14">
@@ -55,7 +55,7 @@ export default function TestimonyHero() {
             the only place on the page the brand speaks in its own voice rather
             than quoting a document. */}
         <Rise delay={0.06}>
-          <p className="pt-5 font-display text-[17px] font-light tracking-[0.01em] text-[#A38569] sm:text-[19px]">
+          <p className="pt-5 font-display text-[1.0625rem] font-light tracking-[0.01em] text-[#A38569] sm:text-[1.1875rem]">
             {POSITIONING}
           </p>
         </Rise>
@@ -79,7 +79,7 @@ export default function TestimonyHero() {
                 </span>
                 <Heading
                   as="h1"
-                  className="text-[30px] sm:text-[44px] lg:text-[56px] [text-wrap:balance]"
+                  className="text-[1.875rem] sm:text-[2.75rem] lg:text-[3.5rem] [text-wrap:balance]"
                 >
                   {PULL_QUOTE.text}
                 </Heading>
@@ -88,15 +88,15 @@ export default function TestimonyHero() {
 
             <Rise delay={0.22}>
               <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span className="font-sans text-[13px] font-medium text-[#3D3229]">
+                <span className="font-sans text-[0.8125rem] font-medium text-[#3D3229]">
                   Mike Stone
                 </span>
                 <span className="text-[#3D3229]/25">·</span>
-                <span className="font-sans text-[13px] text-[#3D3229]/55">
+                <span className="font-sans text-[0.8125rem] text-[#3D3229]/55">
                   Founder, ReVia
                 </span>
               </div>
-              <p className="mt-2 font-mono text-[11px] leading-relaxed tracking-tight text-[#3D3229]/40">
+              <p className="mt-2 font-mono text-[0.6875rem] leading-relaxed tracking-tight text-[#3D3229]/40">
                 {statement.date} · speaker {statement.speakerSlot} ·{" "}
                 {statement.from}–{statement.to} · docket {HEARING.docket}
               </p>
@@ -106,7 +106,7 @@ export default function TestimonyHero() {
               <div className="mt-8 flex flex-wrap items-center gap-6">
                 <Link
                   href="/washington"
-                  className="group inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+                  className="group inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
                 >
                   <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
                     Read all {STATEMENT_COUNT} statements
@@ -124,7 +124,7 @@ export default function TestimonyHero() {
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-[13px] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
+                  className="font-sans text-[0.8125rem] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
                 >
                   Watch the webcast
                 </a>
@@ -144,10 +144,10 @@ export default function TestimonyHero() {
                       href={`/washington#${s.slug}`}
                       className="group flex items-baseline justify-between gap-4 py-2.5"
                     >
-                      <span className="font-sans text-[13px] text-[#3D3229]/70 transition group-hover:text-[#3D3229]">
+                      <span className="font-sans text-[0.8125rem] text-[#3D3229]/70 transition group-hover:text-[#3D3229]">
                         {s.compound}
                       </span>
-                      <span className="font-mono text-[10px] tabular-nums text-[#3D3229]/30">
+                      <span className="font-mono text-[0.6875rem] tabular-nums text-[#3D3229]/30">
                         {s.from}
                       </span>
                     </Link>

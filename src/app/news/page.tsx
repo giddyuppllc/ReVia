@@ -33,7 +33,7 @@ export default async function NewsIndex({
       {/* ── Masthead ── */}
       <section className="border-b border-sky-200/60 bg-sky-50/50 px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-5xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-sky-700">
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-sky-700">
             Reporting &amp; Commentary
           </p>
           <h1 className="mt-4 max-w-[16ch] text-4xl font-light leading-[1.05] tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
@@ -55,10 +55,10 @@ export default async function NewsIndex({
                 <dd className="font-mono text-3xl font-semibold tabular-nums text-stone-800">
                   {s.n}
                 </dd>
-                <dt className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-stone-500">
+                <dt className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-stone-500">
                   {s.label}
                 </dt>
-                <p className="mt-1 font-mono text-[10px] text-stone-400">{s.note}</p>
+                <p className="mt-1 font-mono text-[0.6875rem] text-stone-400">{s.note}</p>
               </div>
             ))}
           </dl>
@@ -71,7 +71,7 @@ export default async function NewsIndex({
           <div className="mx-auto flex max-w-5xl flex-wrap gap-2">
             <Link
               href="/news"
-              className={`rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition ${
+              className={`rounded-full px-4 py-2 font-mono text-[0.6875rem] uppercase tracking-wider transition ${
                 !category
                   ? "bg-stone-800 text-stone-50"
                   : "bg-white text-stone-600 hover:bg-sky-50"
@@ -83,7 +83,7 @@ export default async function NewsIndex({
               <Link
                 key={c.name}
                 href={`/news?category=${encodeURIComponent(c.name)}`}
-                className={`rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition ${
+                className={`rounded-full px-4 py-2 font-mono text-[0.6875rem] uppercase tracking-wider transition ${
                   category?.toLowerCase() === c.name.toLowerCase()
                     ? "bg-stone-800 text-stone-50"
                     : "bg-white text-stone-600 hover:bg-sky-50"
@@ -110,7 +110,7 @@ export default async function NewsIndex({
                     className="group block border-t border-sky-200/60 py-8 transition hover:bg-sky-50/50"
                   >
                     <div className="lg:grid lg:grid-cols-[11rem_1fr] lg:gap-10">
-                      <div className="font-mono text-[11px] text-stone-500">
+                      <div className="font-mono text-[0.6875rem] text-stone-500">
                         <time dateTime={p.published}>
                           {new Date(p.published).toLocaleDateString("en-US", {
                             year: "numeric",
@@ -134,11 +134,11 @@ export default async function NewsIndex({
                           {p.summary}
                         </p>
                         {p.status && (
-                          <p className="mt-4 inline-block rounded-lg bg-white px-3 py-1.5 font-mono text-[11px] text-stone-600 ring-1 ring-sky-200/70">
+                          <p className="mt-4 inline-block rounded-lg bg-white px-3 py-1.5 font-mono text-[0.6875rem] text-stone-600 ring-1 ring-sky-200/70">
                             {p.status}
                           </p>
                         )}
-                        <span className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-sky-700">
+                        <span className="mt-4 inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-wider text-sky-700">
                           Read
                           <ArrowRight
                             className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
@@ -158,7 +158,7 @@ export default async function NewsIndex({
       {/* ── Standing note ── */}
       <section className="border-t border-sky-200/60 px-6 py-12">
         <div className="mx-auto max-w-5xl">
-          <p className="max-w-[68ch] font-mono text-[11px] leading-relaxed text-stone-500">
+          <p className="max-w-[68ch] font-mono text-[0.6875rem] leading-relaxed text-stone-500">
             How we write this: primary documents in preference to anyone&rsquo;s summary of
             them; a committee recommendation is never described as an approval; compounding,
             outsourcing, approved-drug and research-use are kept as the four separate lanes

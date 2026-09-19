@@ -191,7 +191,7 @@ export default function ChatWidget() {
         <MessageCircle className="h-4 w-4 text-sky-400" />
         <span className="text-xs font-medium">Resume Chat</span>
         {messages.length > 0 && (
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-[10px] font-bold">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-[0.6875rem] font-bold">
             {messages.filter((m) => m.role === "assistant").length}
           </span>
         )}
@@ -210,7 +210,7 @@ export default function ChatWidget() {
           </div>
           <div>
             <p className="text-sm font-semibold text-white">Research Assistant</p>
-            <p className="text-[10px] text-stone-400">ReVia Research Supply</p>
+            <p className="text-[0.6875rem] text-stone-400">ReVia Research Supply</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -239,7 +239,7 @@ export default function ChatWidget() {
               <FlaskConical className="h-6 w-6 text-sky-500" />
             </div>
             <p className="text-sm font-semibold text-stone-700">{config.welcomeTitle}</p>
-            <p className="text-xs text-stone-400 mt-1 max-w-[260px] mx-auto leading-relaxed">
+            <p className="text-xs text-stone-400 mt-1 max-w-[16.25rem] mx-auto leading-relaxed">
               {config.welcomeBody}
             </p>
             <div className="mt-4 flex flex-col gap-1.5">
@@ -268,7 +268,7 @@ export default function ChatWidget() {
               </div>
             )}
             <div
-              className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
+              className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[0.8125rem] leading-relaxed ${
                 msg.role === "user"
                   ? "bg-stone-800 text-white rounded-br-sm"
                   : "bg-white border border-stone-200/80 text-stone-700 rounded-bl-sm"
@@ -328,7 +328,7 @@ export default function ChatWidget() {
           </button>
         </div>
         <Turnstile onVerify={handleTurnstile} />
-        <p className="mt-1.5 text-center text-[8px] text-stone-300 tracking-wide">
+        <p className="mt-1.5 text-center text-[0.6875rem] text-stone-300 tracking-wide">
           FOR RESEARCH USE ONLY — NOT INTENDED FOR HUMAN CONSUMPTION
         </p>
       </div>

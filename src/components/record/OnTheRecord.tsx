@@ -27,20 +27,20 @@ export default function OnTheRecord({ researchSlug }: { researchSlug: string }) 
 
   return (
     <aside className="mt-10 border-t border-[#3D3229]/15 pt-6">
-      <span className="block font-sans text-[10px] font-medium uppercase tracking-[0.24em] text-[#A38569]">
+      <span className="block font-sans text-[0.6875rem] font-medium uppercase tracking-[0.24em] text-[#A38569]">
         In the public record
       </span>
-      <p className="mt-3 max-w-[58ch] font-sans text-[14.5px] leading-[1.75] text-[#3D3229]/75">
+      <p className="mt-3 max-w-[58ch] font-sans text-[0.9062rem] leading-[1.75] text-[#3D3229]/75">
         ReVia&rsquo;s founder, Mike Stone, spoke on {s.compound} before the{" "}
         {HEARING.committee} on {s.date} &mdash; the session that reviewed it as a
         bulk substance for compounding.
       </p>
-      <p className="mt-2 font-mono text-[11px] tracking-tight text-[#3D3229]/40">
+      <p className="mt-2 font-mono text-[0.6875rem] tracking-tight text-[#3D3229]/40">
         speaker {s.speakerSlot} · {s.from}&ndash;{s.to} · docket {HEARING.docket}
       </p>
       <Link
         href={`/washington#${s.slug}`}
-        className="group mt-4 inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+        className="group mt-4 inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
       >
         <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
           Read the statement in full

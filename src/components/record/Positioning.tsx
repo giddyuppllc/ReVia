@@ -43,18 +43,18 @@ const BANDS = [
 export default function Positioning() {
   return (
     <section className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <DrawRule />
         <div className="grid gap-12 py-14 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-20 sm:py-20">
           <Rise>
             <Label>Why ReVia exists</Label>
-            <Heading className="mt-4 text-[26px] sm:text-[31px]">
+            <Heading className="mt-4 text-[1.625rem] sm:text-[1.9375rem]">
               The standard its founder built for himself.
             </Heading>
           </Rise>
 
           <Rise delay={0.1}>
-            <div className="max-w-[62ch] space-y-5 font-sans text-[15px] leading-[1.85] text-[#3D3229]/78">
+            <div className="max-w-[62ch] space-y-5 font-sans text-[0.9375rem] leading-[1.85] text-[#3D3229]/78">
               <p>
                 ReVia started because Mike Stone got sick, was told by his
                 doctors to go and explore peptides, and found a market that
@@ -86,11 +86,11 @@ export default function Positioning() {
                     i % 2 === 0 ? "sm:pr-8" : "sm:border-l sm:border-l-[#3D3229]/12 sm:pl-8"
                   }`}
                 >
-                  <span className="font-mono text-[11px] text-[#A38569]">{b.n}</span>
-                  <h3 className="mt-1.5 font-display text-[18px] font-light leading-snug text-[#3D3229]">
+                  <span className="font-mono text-[0.6875rem] text-[#A38569]">{b.n}</span>
+                  <h3 className="mt-1.5 font-display text-[1.125rem] font-light leading-snug text-[#3D3229]">
                     {b.title}
                   </h3>
-                  <p className="mt-1.5 max-w-[44ch] font-sans text-[13px] leading-[1.7] text-[#3D3229]/58">
+                  <p className="mt-1.5 max-w-[44ch] font-sans text-[0.8125rem] leading-[1.7] text-[#3D3229]/58">
                     {b.body}
                   </p>
                 </li>
@@ -100,7 +100,7 @@ export default function Positioning() {
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Link
                 href="/washington"
-                className="group inline-flex items-baseline gap-2 font-sans text-[13px] font-medium text-[#3D3229]"
+                className="group inline-flex items-baseline gap-2 font-sans text-[0.8125rem] font-medium text-[#3D3229]"
               >
                 <span className="border-b border-[#A38569]/50 pb-0.5 transition group-hover:border-[#A38569]">
                   Read the {STATEMENT_COUNT} statements
@@ -109,7 +109,7 @@ export default function Positioning() {
               </Link>
               <Link
                 href="/why-us"
-                className="font-sans text-[13px] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
+                className="font-sans text-[0.8125rem] text-[#3D3229]/50 underline decoration-[#3D3229]/20 underline-offset-4 transition hover:text-[#3D3229]"
               >
                 See how a lot is tested
               </Link>
@@ -132,10 +132,10 @@ export default function Positioning() {
 export function KnowMore() {
   return (
     <section className="bg-[#F0EDE5]">
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+      <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
         <DrawRule />
         <Rise>
-          <p className="py-16 text-center font-display text-[30px] font-light tracking-[-0.01em] text-[#3D3229] sm:py-24 sm:text-[42px]">
+          <p className="py-16 text-center font-display text-[1.875rem] font-light tracking-[-0.01em] text-[#3D3229] sm:py-24 sm:text-[2.625rem]">
             Know More.
           </p>
         </Rise>

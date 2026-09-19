@@ -98,33 +98,33 @@ export default function BrandPartnerCard() {
               <div className="space-y-3">
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Business Name *</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Business Name *</label>
                     <input value={form.businessName} onChange={e => setForm(f => ({ ...f, businessName: e.target.value }))} className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Contact Name *</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Contact Name *</label>
                     <input value={form.contactName} onChange={e => setForm(f => ({ ...f, contactName: e.target.value }))} className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Email *</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Email *</label>
                     <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Phone *</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Phone *</label>
                     <input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className={inputClass} />
                   </div>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Business Type *</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Business Type *</label>
                     <select value={form.businessType} onChange={e => setForm(f => ({ ...f, businessType: e.target.value }))} className={inputClass}>
                       <option value="">Select...</option>
                       {BUSINESS_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Number of Clients/Patients</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Number of Clients/Patients</label>
                     <select value={form.clientCount} onChange={e => setForm(f => ({ ...f, clientCount: e.target.value }))} className={inputClass}>
                       <option value="">Select...</option>
                       {CLIENT_COUNTS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
@@ -133,31 +133,31 @@ export default function BrandPartnerCard() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] text-stone-500 mb-0.5 block">Website</label>
+                  <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Website</label>
                   <input value={form.website} onChange={e => setForm(f => ({ ...f, website: e.target.value }))} placeholder="https://" className={inputClass} />
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Instagram</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Instagram</label>
                     <input value={form.instagram} onChange={e => setForm(f => ({ ...f, instagram: e.target.value }))} placeholder="@handle" className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">Facebook</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Facebook</label>
                     <input value={form.facebook} onChange={e => setForm(f => ({ ...f, facebook: e.target.value }))} placeholder="Page URL" className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">TikTok</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">TikTok</label>
                     <input value={form.tiktok} onChange={e => setForm(f => ({ ...f, tiktok: e.target.value }))} placeholder="@handle" className={inputClass} />
                   </div>
                   <div>
-                    <label className="text-[10px] text-stone-500 mb-0.5 block">LinkedIn</label>
+                    <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">LinkedIn</label>
                     <input value={form.linkedin} onChange={e => setForm(f => ({ ...f, linkedin: e.target.value }))} placeholder="Profile URL" className={inputClass} />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[10px] text-stone-500 mb-0.5 block">Message</label>
+                  <label className="text-[0.6875rem] text-stone-500 mb-0.5 block">Message</label>
                   <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Tell us about your business and partnership goals..." className={`${inputClass} min-h-[60px]`} />
                 </div>
 

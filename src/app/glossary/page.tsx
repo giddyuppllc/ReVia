@@ -51,14 +51,14 @@ export default function GlossaryPage() {
       />
 
       <div className="bg-[#F0EDE5]">
-        <div className="mx-auto max-w-[1180px] px-5 sm:px-8">
+        <div className="mx-auto max-w-[73.75rem] px-5 sm:px-8">
           <Rise>
             <div className="pt-12 sm:pt-16">
               <Label>Reference</Label>
-              <Heading as="h1" className="mt-4 text-[32px] sm:text-[44px]">
+              <Heading as="h1" className="mt-4 text-[2rem] sm:text-[2.75rem]">
                 The vocabulary.
               </Heading>
-              <p className="mt-5 max-w-[56ch] font-sans text-[15px] leading-[1.8] text-[#3D3229]/65">
+              <p className="mt-5 max-w-[56ch] font-sans text-[0.9375rem] leading-[1.8] text-[#3D3229]/65">
                 {GLOSSARY_COUNT} terms that appear on a certificate, a label or a
                 product page in this category — including the three that are used
                 constantly and mean nothing on their own.
@@ -75,7 +75,7 @@ export default function GlossaryPage() {
                 <a
                   key={t.slug}
                   href={`#${t.slug}`}
-                  className="font-sans text-[12.5px] text-[#3D3229]/55 underline decoration-[#3D3229]/15 underline-offset-4 transition hover:text-[#A38569] hover:decoration-[#A38569]/50"
+                  className="font-sans text-[0.7812rem] text-[#3D3229]/55 underline decoration-[#3D3229]/15 underline-offset-4 transition hover:text-[#A38569] hover:decoration-[#A38569]/50"
                 >
                   {t.term}
                 </a>
@@ -91,21 +91,21 @@ export default function GlossaryPage() {
                 className="scroll-mt-28 border-t border-[#3D3229]/12 py-8 sm:grid sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-12"
               >
                 <dt>
-                  <Heading as="h2" className="text-[21px]">
+                  <Heading as="h2" className="text-[1.3125rem]">
                     {t.term}
                   </Heading>
                   {t.expansion && (
-                    <span className="mt-1 block font-mono text-[11px] text-[#3D3229]/42">
+                    <span className="mt-1 block font-mono text-[0.6875rem] text-[#3D3229]/42">
                       {t.expansion}
                     </span>
                   )}
                 </dt>
                 <dd className="mt-3 sm:mt-0">
-                  <p className="max-w-[62ch] font-sans text-[14.5px] leading-[1.8] text-[#3D3229]/78">
+                  <p className="max-w-[62ch] font-sans text-[0.9062rem] leading-[1.8] text-[#3D3229]/78">
                     {t.definition}
                   </p>
                   {t.inPractice && (
-                    <p className="mt-3 max-w-[62ch] border-l border-[#A38569]/35 pl-4 font-sans text-[13.5px] leading-[1.75] text-[#3D3229]/58">
+                    <p className="mt-3 max-w-[62ch] border-l border-[#A38569]/35 pl-4 font-sans text-[0.8438rem] leading-[1.75] text-[#3D3229]/58">
                       {t.inPractice}
                     </p>
                   )}
@@ -118,7 +118,7 @@ export default function GlossaryPage() {
                           <a
                             key={ref}
                             href={`#${ref}`}
-                            className="font-sans text-[12.5px] text-[#3D3229]/55 underline decoration-[#3D3229]/15 underline-offset-4 transition hover:text-[#A38569]"
+                            className="font-sans text-[0.7812rem] text-[#3D3229]/55 underline decoration-[#3D3229]/15 underline-offset-4 transition hover:text-[#A38569]"
                           >
                             {target.term}
                           </a>
@@ -134,7 +134,7 @@ export default function GlossaryPage() {
 
           <Rise>
             <div className="border-t border-[#3D3229]/12 py-10">
-              <p className="max-w-[58ch] font-sans text-[14px] leading-[1.8] text-[#3D3229]/62">
+              <p className="max-w-[58ch] font-sans text-[0.875rem] leading-[1.8] text-[#3D3229]/62">
                 Most of these matter when you are reading a certificate.{" "}
                 <Link
                   href="/blog/how-to-evaluate-peptide-supplier"

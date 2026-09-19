@@ -70,10 +70,10 @@ export default async function I2bAvailability({
     // into an article — which is the one thing a page like this cannot look
     // like.
     <aside className="mt-10 border-t border-[#3D3229]/12 pt-6">
-      <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#A38569]">
+      <p className="text-[0.6875rem] font-medium uppercase tracking-[0.24em] text-[#A38569]">
         Where researchers obtain this
       </p>
-      <p className="mt-3 max-w-[58ch] text-[14px] leading-[1.75] text-[#3D3229]/70">
+      <p className="mt-3 max-w-[58ch] text-[0.875rem] leading-[1.75] text-[#3D3229]/70">
         ReVia publishes; it does not sell. i2b Health is {ROLE}.{" "}
         <span className="text-[#3D3229]/50">
           Links below leave ReVia and open i2b Health in a new tab.
@@ -92,7 +92,7 @@ export default async function I2bAvailability({
             <span className="sr-only"> (opens i2b Health in a new tab)</span>
           </a>
           {match.sizes.length > 0 && (
-            <p className="mt-3 font-mono text-[11px] text-[#3D3229]/45">
+            <p className="mt-3 font-mono text-[0.6875rem] text-[#3D3229]/45">
               Available in {match.sizes.join(", ")}.
             </p>
           )}
@@ -101,7 +101,7 @@ export default async function I2bAvailability({
         // Reachable and genuinely absent. A statement of fact with no link is
         // the honest answer; a link to the catalogue front would be a guess
         // dressed as an answer.
-        <p className="mt-4 text-[14px] text-[#3D3229]/62">
+        <p className="mt-4 text-[0.875rem] text-[#3D3229]/62">
           {compoundName} is not currently among the compounds i2b carries.
         </p>
       )}

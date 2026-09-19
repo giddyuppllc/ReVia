@@ -83,7 +83,7 @@ export default async function NewsPostPage({
       <article className="mx-auto max-w-4xl px-6 py-16">
         <Link
           href="/news"
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-stone-500 transition hover:text-sky-700"
+          className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-stone-500 transition hover:text-sky-700"
         >
           <ArrowLeft className="h-3 w-3" aria-hidden="true" />
           Our thoughts on the news
@@ -91,12 +91,12 @@ export default async function NewsPostPage({
 
         <header className="mt-8">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-sky-100 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-sky-700">
+            <span className="rounded-full bg-sky-100 px-3 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-sky-700">
               {post.category}
             </span>
             <time
               dateTime={post.published}
-              className="font-mono text-[11px] text-stone-500"
+              className="font-mono text-[0.6875rem] text-stone-500"
             >
               {new Date(post.published).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -114,7 +114,7 @@ export default async function NewsPostPage({
           </p>
 
           {post.status && (
-            <p className="mt-8 rounded-xl border border-sky-200/70 bg-sky-50/60 px-5 py-4 font-mono text-[12px] leading-relaxed text-stone-700">
+            <p className="mt-8 rounded-xl border border-sky-200/70 bg-sky-50/60 px-5 py-4 font-mono text-[0.75rem] leading-relaxed text-stone-700">
               <span className="uppercase tracking-[0.16em] text-sky-700">Where it stands</span>
               <span className="mt-1.5 block text-stone-700">{post.status}</span>
             </p>
@@ -132,11 +132,11 @@ export default async function NewsPostPage({
         >
           <h2
             id="stance-heading"
-            className="font-mono text-[10px] uppercase tracking-[0.22em] text-sky-500"
+            className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-sky-500"
           >
             Where ReVia stands
           </h2>
-          <p className="mt-4 max-w-[62ch] text-[17px] leading-[1.75] text-stone-200">
+          <p className="mt-4 max-w-[62ch] text-[1.0625rem] leading-[1.75] text-stone-200">
             {post.stance}
           </p>
         </section>
@@ -158,7 +158,7 @@ export default async function NewsPostPage({
 
         {related.length > 0 && (
           <section className="mt-14 border-t border-sky-200/60 pt-8">
-            <h2 className="font-mono text-[10px] uppercase tracking-[0.18em] text-sky-700">
+            <h2 className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-sky-700">
               Related
             </h2>
             <ul className="mt-4 space-y-3">
@@ -176,7 +176,7 @@ export default async function NewsPostPage({
           </section>
         )}
 
-        <p className="mt-14 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[11px] leading-relaxed text-stone-500">
+        <p className="mt-14 max-w-[68ch] border-t border-sky-200/60 pt-6 font-mono text-[0.6875rem] leading-relaxed text-stone-500">
           This is reporting and commentary, not legal advice. Regulatory status is
           described as we understand it on the date shown, not concluded. Compounds
           referenced are for research use only and are not for human or animal
