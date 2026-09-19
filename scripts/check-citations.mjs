@@ -56,6 +56,45 @@ const SUBSTITUTIONS = [
   { re: /research context/gi, why: "our framing language, not a journal title" },
 ];
 
+/**
+ * Citations that could not be found in Crossref OR PubMed on 2026-09-19.
+ *
+ * All 79 were checked against both indexes. Sixty-four resolved exactly —
+ * journal, year, volume and first page — including Russian-language work that
+ * Crossref does not index but PubMed does (Epitalon in Neuro Endocrinol Lett,
+ * Semax in Zh Nevrol Psikhiatr). Six were real papers carrying the wrong
+ * numbers and have been corrected against their PMIDs.
+ *
+ * These nine returned nothing. That is not proof they are invented — an index
+ * can miss a conference abstract or a supplement — but several have a tell
+ * that is hard to explain otherwise:
+ *
+ *   J Exp Pharmacol did not publish until 2009; one of these cites it for 2005.
+ *   Ann N Y Acad Sci vol. 897 is 1999; one cites it for 1990.
+ *   Pharmacol Ther vol. 158 is 2016; one cites it for 2014.
+ *
+ * They are listed rather than deleted because the owner has the original
+ * research and may be able to re-source them, and silently removing evidence is
+ * its own kind of dishonesty. What they may NOT do is ship unexamined: this
+ * site's entire argument is that a reader can check the document, and a
+ * citation that resolves to nothing is the most expensive possible thing to be
+ * caught with.
+ *
+ * Resolve one by correcting it to its real record, or by removing it. Then
+ * delete its line from this list.
+ */
+const UNVERIFIED = [
+  "The C-terminal fragment 177-191 of human growth hormone",
+  "Synthetic GHK-Cu significantly accelerates wound healing",
+  "Molecular determinants of the anti-inflammatory function of the C-terminus",
+  "Facilitating neurocognitive function through HGF/Met",
+  "Selank (TPKRPGP) and the analogue",
+  "ERRgamma agonist SLU-PP-332 ameliorates metabolic dysfunction",
+  "Structure-function studies of DSIP",
+  "Dose-response relationships of growth hormone (GH)-releasing hormone-(1-29)",
+  "Growth hormone-releasing peptides and the cardiovascular system",
+];
+
 /** A citation should carry a journal, a year and a page range. */
 const LOOKS_LIKE_CITATION = /\b(19|20)\d{2}\b/;
 
@@ -77,6 +116,8 @@ for (const c of citations) {
     hits.push({ c, found: "(no year)", why: "does not look like a citation" });
   }
 }
+
+const unresolved = UNVERIFIED.filter((frag) => citations.some((c) => c.includes(frag)));
 
 console.log("");
 console.log("check:citations");
@@ -100,4 +141,21 @@ if (hits.length) {
 }
 
 console.log("  none carry our vocabulary — no quotation has been rewritten");
+
+if (unresolved.length) {
+  const fatal = process.env.REQUIRE_VERIFIED_CITATIONS === "1";
+  console.log("");
+  console.log(
+    `  ${fatal ? "FAIL" : "WARN"}  ${unresolved.length} citation(s) resolve to nothing in Crossref or PubMed:`,
+  );
+  for (const frag of unresolved) console.log(`        · ${frag}`);
+  console.log("");
+  console.log("        Re-source or remove each, then delete it from UNVERIFIED in");
+  console.log("        this file. Set REQUIRE_VERIFIED_CITATIONS=1 to make this fatal");
+  console.log("        once they are dealt with.");
+  if (fatal) {
+    console.log("");
+    process.exit(1);
+  }
+}
 console.log("");
