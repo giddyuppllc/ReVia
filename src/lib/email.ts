@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { escapeHtml } from "@/lib/notify";
 
 /**
  * The two emails revialife.com still sends.
@@ -92,7 +93,7 @@ export async function sendContactAutoReply(
   <div style="${card}">
     <h1 style="${heading}">We Got Your Message</h1>
     <p style="${subtext}">
-      Hi ${name}, thanks for reaching out. We've received your message regarding "<em>${subject}</em>"
+      Hi ${escapeHtml(name)}, thanks for reaching out. We've received your message regarding "<em>${escapeHtml(subject)}</em>"
       and will respond within 24 hours.
     </p>
 

@@ -77,7 +77,7 @@ export async function notifyTeam(
   if (res.error) throw new Error(`Resend refused the message: ${res.error.message}`);
 }
 
-function escapeHtml(s: string): string {
+export function escapeHtml(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
