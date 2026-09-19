@@ -68,7 +68,7 @@ export default function BrandPartnerCard() {
           <Image src="/images/logo.png" alt="ReVia" width={80} height={80} className="mx-auto mb-4 h-20 w-20" />
           <h3 className="text-xl font-bold text-stone-800 mb-2">Brand Partner Inquiries</h3>
           <p className="text-sm text-stone-500 mb-6 max-w-sm mx-auto">
-            Interested in partnering with ReVia? We work with clinics, medspas, gyms, and wellness centers.
+            Want to carry ReVia? We work with clinics, med spas, gyms, and wellness centers.
           </p>
           <button className="inline-flex items-center gap-2 rounded-xl bg-stone-800 px-6 py-3 text-sm font-semibold text-white hover:bg-stone-700 transition">
             Apply Now <ArrowRight className="h-4 w-4" />
