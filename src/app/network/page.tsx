@@ -30,7 +30,7 @@ const WHY_SEPARATE: Record<string, string> = {
   i2b:
     "i2b Health is its own company with its own prices and its own terms. It's the only ReVia property that will sell a single vial to an individual researcher.",
   wholesale:
-    "Trade pricing is a different transaction under different rules, and it shouldn't be shown to an individual. Every wholesale order is reviewed and approved before it goes to fulfillment, and a direct-purchase checkout can't do that.",
+    "Trade pricing is a different transaction under different rules, and it shouldn't be shown to an individual. Every wholesale order is reviewed and approved before it goes to fulfillment, and a direct-purchase flow can't do that.",
   providers:
     "Professional pricing for qualified accounts isn't public information. It sits behind a login and opens with a referral code from a practitioner, so it can't be found and quoted out of context.",
   cosmetics:
