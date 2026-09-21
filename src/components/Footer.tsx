@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { REVIA_NETWORK } from "@/lib/partner";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
@@ -42,12 +43,31 @@ function TikTok(props: SVGProps<SVGSVGElement>) {
 
 const footerSections = [
   {
-    label: "Shop",
+    // This site no longer sells, so these are reading destinations. The two
+    // routes that end in an order leave for the partner storefront.
+    label: "Research",
     links: [
-      { title: "All Products", href: "/shop" },
-      { title: "Peptides", href: "/shop?category=peptides" },
-      { title: "Stacks", href: "/shop?category=stacks" },
-      { title: "Accessories", href: "/shop?category=accessories" },
+      { title: "Compound Library", href: "/research" },
+      { title: "What’s a Stack?", href: "/stacks" },
+      { title: "Browse by Location", href: "/locations" },
+      { title: "Our Thoughts on the News", href: "/news" },
+      { title: "ReVia in Washington", href: "/washington" },
+    ],
+  },
+  {
+    // Every ReVia property, on every page. One place to change it, and the
+    // reader is never more than a footer away from the part of the group that
+    // serves them. Sites without a live URL are listed on /network rather than
+    // linked to nowhere.
+    label: "The ReVia group",
+    links: [
+      ...REVIA_NETWORK.filter((s) => s.url).map((s) => ({
+        title: s.name,
+        href: s.url as string,
+        external: true,
+        inNetwork: true,
+      })),
+      { title: "How the group fits together", href: "/network" },
     ],
   },
   {
@@ -66,8 +86,8 @@ const footerSections = [
     links: [
       { title: "Terms", href: "/policies/terms" },
       { title: "Privacy", href: "/policies/privacy" },
-      { title: "Shipping", href: "/policies/shipping" },
-      { title: "Refund Policy", href: "/policies/refunds" },
+      { title: "Disclaimer", href: "/policies/disclaimer" },
+      { title: "Acceptable Use", href: "/policies/aup" },
     ],
   },
   {
@@ -123,8 +143,8 @@ export default function Footer() {
               <Image src="/images/revia-text.png" alt="ReVia" width={100} height={30} className="h-6 w-auto" />
             </Link>
             <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
-              Premium peptides, independently verified to &gt;99% purity.
-              Your trusted source since 2024.
+              Research compounds, independently tested to a &gt;98% purity spec by RP-HPLC. This site is where we publish the record.
+              The record, the standard and the research.
             </p>
             <div className="flex items-center gap-2 text-sm text-stone-500">
               <Mail className="h-4 w-4 text-sky-500" />
@@ -155,7 +175,15 @@ export default function Footer() {
                         <li key={link.title}>
                           <Link
                             href={link.href}
-                            {...(isExternal && { target: "_blank", rel: "noreferrer" })}
+                            {...(isExternal && {
+                              target: "_blank",
+                              // `noreferrer` strips the Referer header, which
+                              // throws away our own attribution between sites
+                              // we own — i2b cannot see that a visitor came
+                              // from the record. Kept for social, where the
+                              // destination is not ours.
+                              rel: "inNetwork" in link && link.inNetwork ? "noopener" : "noreferrer",
+                            })}
                             className="inline-flex items-center text-sm text-stone-500 transition-all duration-300 hover:text-sky-600"
                           >
                             {"icon" in link && link.icon && (
@@ -175,10 +203,10 @@ export default function Footer() {
 
         {/* Copyright */}
         <AnimatedContainer delay={0.6} className="mt-4 border-t border-sky-200/30 pt-3 text-center space-y-1.5">
-          <p className="text-[10px] text-stone-400 leading-relaxed max-w-6xl mx-auto">
-            All products sold by ReVia carry a Research Use Only (RUO) designation as required by current US regulations and are intended for laboratory research use only. They are not intended for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. This designation is standard practice for compounds awaiting formal FDA classification and does not reflect the quality, purity, or manufacturing standard. Our formulations meet research-grade specifications and are manufactured to physician-use (PUD) standards throughout.
+          <p className="text-[0.6875rem] text-stone-400 leading-relaxed max-w-6xl mx-auto">
+            Compounds carrying the ReVia name are designated Research Use Only (RUO) and are intended for laboratory research only. They are not for human or animal consumption, or for use in the diagnosis, treatment, cure, or prevention of any disease. That designation is standard for compounds that don&rsquo;t yet have a formal FDA classification. It says nothing about quality or purity; the certificate of analysis for the lot does. revialife.com publishes the record and sells nothing.
           </p>
-          <p className="text-[10px] text-stone-400">
+          <p className="text-[0.6875rem] text-stone-400">
             &copy; 2024&ndash;{new Date().getFullYear()} ReVia LLC. All rights reserved.
           </p>
         </AnimatedContainer>

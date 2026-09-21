@@ -5,6 +5,9 @@ import {
 } from "@/data/research-compounds";
 import ResearchDetailClient from "./ResearchDetailClient";
 import { notFound } from "next/navigation";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import I2bAvailability from "@/components/I2bAvailability";
+import OnTheRecord from "@/components/record/OnTheRecord";
 
 /* ── Static generation ── */
 export function generateStaticParams() {
@@ -51,5 +54,31 @@ export default async function ResearchDetailPage({
     notFound();
   }
 
-  return <ResearchDetailClient compound={compound} />;
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://revialife.com/" },
+          { name: "Research", url: "https://revialife.com/research" },
+          { name: compound.name, url: `https://revialife.com/research/${compound.slug}` },
+        ]}
+      />
+      <ResearchDetailClient compound={compound} />
+      {/* Below the monograph, not above it. The page exists to explain the
+          compound; where to obtain it is the answer to a question the reader
+          only has once they have read it. Renders nothing at all when i2b's
+          catalogue cannot be reached — see the component. */}
+      <div className="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
+        {/* The record before the supply: what was said about this compound in
+            public matters more than where to obtain it, and reads better before
+            a link that leaves the site. */}
+        <OnTheRecord researchSlug={compound.slug} />
+        <I2bAvailability
+          researchSlug={compound.slug}
+          compoundName={compound.name}
+          placement="monograph"
+        />
+      </div>
+    </>
+  );
 }

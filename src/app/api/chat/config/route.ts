@@ -6,7 +6,7 @@ import { getChatbotConfig, parseKeywords } from "@/lib/chatbotConfig";
 // Never exposes systemPrompt.
 export async function GET() {
   try {
-    const config = await getChatbotConfig();
+    const config = getChatbotConfig();
     let quickQuestions: string[] = [];
     try {
       const parsed = JSON.parse(config.quickQuestions || "[]");

@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { prisma } from "@/lib/prisma";
+import { researchCompounds } from "@/data/research-compounds";
+import { notifyTeam } from "@/lib/notify";
 import { rateLimit } from "@/lib/rate-limit";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { getChatbotConfig } from "@/lib/chatbotConfig";
@@ -30,50 +31,37 @@ function isOffTopic(message: string): boolean {
   return OFF_TOPIC_PATTERNS.some((p) => p.test(message));
 }
 
-async function getProductCatalog(): Promise<string> {
-  try {
-    const products = await prisma.product.findMany({
-      where: { active: true },
-      include: {
-        variants: { select: { label: true, price: true, stockStatus: true } },
-        category: { select: { name: true } },
-      },
-      orderBy: { name: "asc" },
-    });
-
-    return products
-      .map((p) => {
-        const variants = p.variants
-          .map((v) => `${v.label}: $${(v.price / 100).toFixed(2)} (${v.stockStatus === "in_stock" ? "in stock" : v.stockStatus === "pre_order" ? "pre-order" : "out of stock"})`)
-          .join(", ");
-        return `- ${p.name} [${p.category?.name}]: ${p.description || "N/A"}. Variants: ${variants}`;
-      })
-      .join("\n");
-  } catch {
-    return "Product catalog temporarily unavailable.";
-  }
+/**
+ * Sessions whose address has already been handed over. See the note below.
+ *
+ * Bounded, because a long-lived instance would otherwise hold every session id
+ * it has ever seen. Dropping the oldest can cost a duplicate notification on a
+ * very old session, which is the harmless direction.
+ */
+const seenSessions = new Set<string>();
+function rememberSession(id: string) {
+  if (seenSessions.size >= 5000) seenSessions.delete(seenSessions.values().next().value as string);
+  seenSessions.add(id);
 }
 
-// Extract product names mentioned in conversation
-function extractProducts(text: string, catalog: string): string[] {
-  const productNames = catalog.match(/- ([^[]+) \[/g)?.map(m => m.slice(2, -2).trim()) ?? [];
-  const mentioned: string[] = [];
-  const lower = text.toLowerCase();
-  for (const name of productNames) {
-    if (lower.includes(name.toLowerCase())) mentioned.push(name);
-  }
-  const shortcuts: Record<string, string> = {
-    "bpc": "BPC-157", "tb500": "TB-500", "tb-500": "TB-500",
-    "tirz": "Tirzepatide", "sema": "Semaglutide", "reta": "Retatrutide",
-    "ipa": "Ipamorelin", "cjc": "CJC-1295", "ghk": "GHK-Cu",
-    "mots": "MOTS-c", "nad": "NAD+", "pt141": "PT-141", "pt-141": "PT-141",
-    "melanotan": "Melanotan", "selank": "Selank", "semax": "Semax",
-  };
-  for (const [short, full] of Object.entries(shortcuts)) {
-    if (lower.includes(short) && !mentioned.includes(full)) mentioned.push(full);
-  }
-  return mentioned;
+/**
+ * What the assistant is allowed to know about the compounds.
+ *
+ * This read the product table and handed the model every variant with its
+ * price. On a site that publishes no prices, an assistant that will quote one
+ * on request is the same claim by a different route — and it was quoting a
+ * price list for a shop that no longer exists.
+ *
+ * The monographs replace it: names, categories and the same descriptions the
+ * public pages carry. Availability and price are i2b's to state, and the system
+ * prompt sends the question there.
+ */
+function getProductCatalog(): string {
+  return researchCompounds
+    .map((c) => `- ${c.name} [${c.category}]: ${c.description}`)
+    .join("\n");
 }
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -99,7 +87,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const config = await getChatbotConfig();
+    const config = getChatbotConfig();
     if (!config.enabled) {
       return NextResponse.json(
         { error: "Our research assistant is temporarily offline. Please email contact@revialife.com for help." },
@@ -132,24 +120,11 @@ export async function POST(request: NextRequest) {
 
     // ── Server-side off-topic check (no API call) ──
     if (isOffTopic(lastUserMessage)) {
-      // Still track the lead, just don't call the API
-      if (sessionId) {
-        try {
-          const existing = await prisma.chatLead.findFirst({ where: { sessionId } });
-          if (existing) {
-            await prisma.chatLead.update({
-              where: { id: existing.id },
-              data: { messageCount: { increment: 2 } },
-            });
-          }
-        } catch { /* ignore */ }
-      }
-
       return NextResponse.json({ message: config.offTopicResponse });
     }
 
     const recentMessages = messages.slice(-12);
-    const catalog = await getProductCatalog();
+    const catalog = getProductCatalog();
 
     const client = new OpenAI({ apiKey });
 
@@ -167,49 +142,39 @@ export async function POST(request: NextRequest) {
 
     const text = response.choices[0]?.message?.content ?? "I'm sorry, I couldn't process that. Please try again.";
 
-    // ── Track lead data ──
-    if (sessionId) {
-      try {
-        const allText = recentMessages.map(m => m.content).join(" ") + " " + text;
-        const productsAsked = extractProducts(allText, catalog);
-        const emailMatch = allText.match(/[\w.-]+@[\w.-]+\.\w{2,}/);
-
-        const existing = await prisma.chatLead.findFirst({ where: { sessionId } });
-
-        if (existing) {
-          const existingProducts: string[] = JSON.parse(existing.productsAsked || "[]");
-          const mergedProducts = [...new Set([...existingProducts, ...productsAsked])];
-
-          await prisma.chatLead.update({
-            where: { id: existing.id },
-            data: {
-              productsAsked: JSON.stringify(mergedProducts),
-              messageCount: { increment: 2 },
-              email: emailMatch ? emailMatch[0] : existing.email,
-              messages: JSON.stringify([
-                ...JSON.parse(existing.messages || "[]"),
-                { role: "user", content: lastUserMessage, ts: Date.now() },
-                { role: "assistant", content: text, ts: Date.now() },
-              ].slice(-40)),
+    // ── Hand over an address the visitor volunteered ──
+    //
+    // Every exchange used to append to a `ChatLead` row: transcript, message
+    // count, products asked about, and any email that appeared. Most of that
+    // was analytics nobody read. The part that mattered is the one thing a
+    // transcript can contain that nothing else captures — somebody typing their
+    // email address into the chat and expecting a reply.
+    //
+    // So only that is kept, and only once per session. `seenSessions` is in
+    // memory, like the rate limiter beside it: a restart or a second instance
+    // can cost a duplicate notification, which is the right way round for a
+    // message a person is waiting on an answer to.
+    if (sessionId && !seenSessions.has(sessionId)) {
+      const emailMatch = (recentMessages.map((m) => m.content).join(" ") + " " + text).match(
+        /[\w.-]+@[\w.-]+\.\w{2,}/,
+      );
+      if (emailMatch) {
+        rememberSession(sessionId);
+        try {
+          await notifyTeam(
+            "Someone left an address in the chat",
+            {
+              Email: emailMatch[0],
+              "They asked": lastUserMessage,
+              "Assistant replied": text,
             },
-          });
-        } else {
-          await prisma.chatLead.create({
-            data: {
-              sessionId,
-              ip,
-              productsAsked: JSON.stringify(productsAsked),
-              messageCount: 2,
-              email: emailMatch ? emailMatch[0] : null,
-              messages: JSON.stringify([
-                { role: "user", content: lastUserMessage, ts: Date.now() },
-                { role: "assistant", content: text, ts: Date.now() },
-              ]),
-            },
-          });
+            { replyTo: emailMatch[0] },
+          );
+        } catch (err) {
+          // The visitor has their answer; a failed handover must not break the
+          // conversation. Logged so it is recoverable from the request log.
+          console.error("chat: could not hand over the address", err);
         }
-      } catch (leadErr) {
-        console.error("Failed to track chat lead:", leadErr);
       }
     }
 

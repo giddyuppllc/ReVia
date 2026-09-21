@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
+import { ARTICLES, articleCategories } from "@/content/articles";
+import { readTime } from "@/lib/articles";
 import { researchCompounds, CATEGORIES, getCompoundsByCategory } from "@/data/research-compounds";
 import LearnTabs from "@/components/LearnTabs";
 export const revalidate = 60;
@@ -11,11 +12,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://revialife.com/learn" },
 };
 
-function readTime(html: string): number {
-  const text = html.replace(/<[^>]*>/g, "");
-  return Math.max(1, Math.ceil(text.split(/\s+/).length / 200));
-}
-
 export default async function LearnPage({
   searchParams,
 }: {
@@ -24,36 +20,23 @@ export default async function LearnPage({
   const { tab, category } = await searchParams;
   const activeTab = tab === "research" ? "research" : "articles";
 
-  // Fetch blog posts
-  const blogWhere: Record<string, unknown> = { published: true };
-  if (activeTab === "articles" && category) blogWhere.category = category;
-
-  const posts = await prisma.blogPost.findMany({
-    where: blogWhere,
-    orderBy: { publishedAt: "desc" },
-  });
-
-  const blogCategories = await prisma.blogPost.findMany({
-    where: { published: true },
-    select: { category: true },
-    distinct: ["category"],
-  });
+  const posts =
+    activeTab === "articles" && category
+      ? ARTICLES.filter((a) => a.category === category)
+      : ARTICLES;
+  const blogCategories = articleCategories().map((c) => ({ category: c }));
 
   // Prepare research compounds
   const compounds = getCompoundsByCategory(activeTab === "research" ? (category ?? "") : "");
 
   // Serialize for client component
   const serializedPosts = posts.map((p) => ({
-    id: p.id,
     slug: p.slug,
     title: p.title,
-    excerpt: p.excerpt,
-    content: p.content,
+    summary: p.summary,
     category: p.category,
-    author: p.author,
-    image: p.image,
-    publishedAt: p.publishedAt.toISOString(),
-    readTime: readTime(p.content),
+    published: p.published,
+    readTime: readTime(p.body),
   }));
 
   return (

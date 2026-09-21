@@ -5,13 +5,25 @@ import Link from "next/link";
 import { Mail, Clock, ArrowRight, Check, Phone } from "lucide-react";
 import BrandPartnerCard from "@/components/BrandPartnerCard";
 
+/**
+ * What this desk can actually answer.
+ *
+ * It used to offer Order Question, Shipping & Delivery, Returns & Refunds and
+ * Account Help. Not one of those has an answer here: the order was placed with
+ * i2b, under i2b's terms, and this site has no orders, no shipments and no
+ * accounts. Someone picking one of them was writing to the wrong company and
+ * being told so a day later, if at all.
+ *
+ * The reasons below are the questions this site exists to answer, and the note
+ * beside the form sends an order question where it can be resolved.
+ */
 const subjectLabels: Record<string, string> = {
-  order: "Order Question",
-  product: "Product Question",
-  shipping: "Shipping & Delivery",
-  return: "Returns & Refunds",
-  account: "Account Help",
-  feedback: "Feedback",
+  compound: "A compound or the published research",
+  coa: "A certificate of analysis",
+  record: "The FDA record or our position",
+  press: "Press or speaking",
+  partnership: "Partnership or wholesale",
+  feedback: "Feedback on something we published",
   other: "Other",
 };
 
@@ -56,8 +68,8 @@ export default function ContactPage() {
         </p>
         <h1 className="text-4xl font-bold text-stone-900 sm:text-5xl">Contact Us</h1>
         <p className="mt-4 text-stone-500 max-w-xl mx-auto">
-          Have a question about an order, a product, or need help with something?
-          Reach out and we&apos;ll get back to you within 24 hours.
+          Have a question about a compound, a certificate, or something we published?
+          Send it over and we&apos;ll get back to you within 24 hours on business days.
         </p>
       </div>
 
@@ -122,13 +134,11 @@ export default function ContactPage() {
                   className="w-full rounded-xl border border-sky-200/50 bg-white/80 px-4 py-3 text-sm text-stone-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 appearance-none"
                 >
                   <option value="" disabled>Select a reason</option>
-                  <option value="order">Order Question</option>
-                  <option value="product">Product Question</option>
-                  <option value="shipping">Shipping &amp; Delivery</option>
-                  <option value="return">Returns &amp; Refunds</option>
-                  <option value="account">Account Help</option>
-                  <option value="feedback">Feedback</option>
-                  <option value="other">Other</option>
+                  {Object.entries(subjectLabels).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -201,7 +211,10 @@ export default function ContactPage() {
             </div>
             <div className="h-px bg-sky-200/30" />
             <p className="text-xs text-stone-400 leading-relaxed">
-              We typically respond within 24 hours during business days. For urgent order issues, include your order number in the message.
+              We usually reply within 24 hours on business days. If you&rsquo;re
+              asking about an order, contact the ReVia property you bought from.
+              Payment, delivery, and returns are handled there, under that
+              company&rsquo;s terms.
             </p>
           </div>
 
@@ -209,9 +222,9 @@ export default function ContactPage() {
             <h3 className="text-sm font-semibold text-stone-800 mb-4">Before You Reach Out</h3>
             <ul className="space-y-3">
               {[
-                { href: "/faq", label: "FAQ", desc: "Common questions answered" },
-                { href: "/policies/shipping", label: "Shipping Info", desc: "Rates, times, and tracking" },
-                { href: "/policies/refunds", label: "Return Policy", desc: "Eligibility and refunds" },
+                { href: "/faq", label: "FAQ", desc: "Common questions, answered" },
+                { href: "/policies/disclaimer", label: "Research Use Only", desc: "What these compounds are, and aren't, for" },
+                { href: "/faq", label: "Where to buy", desc: "Which ReVia property sells what" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link

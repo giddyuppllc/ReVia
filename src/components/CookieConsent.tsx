@@ -15,15 +15,17 @@ export default function CookieConsent() {
     }
   }, []);
 
-  const accept = () => {
-    localStorage.setItem("revia-cookie-consent", "accepted");
+  // The event is what makes the choice mean something: src/components/
+  // Analytics.tsx listens for it and loads or withholds gtag accordingly.
+  // Before it existed, both buttons did the same thing — dismiss the banner.
+  const choose = (value: "accepted" | "declined") => {
+    localStorage.setItem("revia-cookie-consent", value);
+    window.dispatchEvent(new Event("revia-consent"));
     setVisible(false);
   };
 
-  const decline = () => {
-    localStorage.setItem("revia-cookie-consent", "declined");
-    setVisible(false);
-  };
+  const accept = () => choose("accepted");
+  const decline = () => choose("declined");
 
   if (!visible) return null;
 
@@ -34,7 +36,8 @@ export default function CookieConsent() {
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-stone-800">We use cookies</p>
             <p className="text-xs text-stone-500 mt-1 leading-relaxed">
-              We use essential cookies for site functionality and optional cookies to improve your experience.
+              Essential cookies keep the site working. Analytics only runs if you
+              accept &mdash; decline and nothing is loaded or measured.
               See our{" "}
               <Link href="/policies/cookies" className="text-sky-600 hover:underline">
                 Cookie Policy

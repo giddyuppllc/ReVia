@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { ARTICLES, getArticle } from "@/content/articles";
+import { readTime } from "@/lib/articles";
+import { PostBody } from "@/components/news/PostBody";
 import JsonLd from "@/components/JsonLd";
-export const revalidate = 60;
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+export const dynamic = "force-static";
 
-function readTime(html: string): number {
-  const text = html.replace(/<[^>]*>/g, "");
-  return Math.max(1, Math.ceil(text.split(/\s+/).length / 200));
+/** Every article is known at build time now, so the set is explicit. */
+export function generateStaticParams() {
+  return ARTICLES.map((a) => ({ slug: a.slug }));
 }
+
 
 export async function generateMetadata({
   params,
@@ -16,19 +20,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  const post = getArticle(slug);
   if (!post) return { title: "Post Not Found" };
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.summary,
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: post.summary,
       type: "article",
-      publishedTime: post.publishedAt.toISOString(),
-      authors: [post.author],
-      images: post.image ? [{ url: post.image }] : undefined,
-    },
+      publishedTime: post.published,
+                },
   };
 }
 
@@ -39,33 +41,42 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
 
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
-  if (!post || !post.published) notFound();
+  const post = getArticle(slug);
+  if (!post) notFound();
 
-  const related = await prisma.blogPost.findMany({
-    where: { category: post.category, published: true, id: { not: post.id } },
-    take: 3,
-    orderBy: { publishedAt: "desc" },
-  });
+  const related = ARTICLES.filter(
+    (a) => a.category === post.category && a.slug !== post.slug,
+  ).slice(0, 3);
 
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
-    description: post.excerpt,
-    author: { "@type": "Person", name: post.author },
+    description: post.summary,
+    author: { "@type": "Organization", name: "ReVia Life" },
     publisher: {
       "@type": "Organization",
       name: "ReVia Research Supply",
       url: "https://revialife.com",
     },
-    datePublished: post.publishedAt.toISOString(),
-    image: post.image ?? undefined,
+    datePublished: post.published,
+    dateModified: post.published,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://revialife.com/blog/${post.slug}`,
+    },
   };
 
   return (
     <>
       <JsonLd data={articleLd} />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://revialife.com/" },
+          { name: "Learn", url: "https://revialife.com/learn" },
+          { name: post.title, url: `https://revialife.com/blog/${post.slug}` },
+        ]}
+      />
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         {/* Breadcrumb */}
@@ -80,33 +91,21 @@ export default async function BlogPostPage({
           / <span className="text-neutral-700">{post.title}</span>
         </nav>
 
-        {/* Hero image */}
-        {post.image && (
-          <div className="mb-8 overflow-hidden rounded-2xl">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="h-64 w-full object-cover sm:h-80"
-            />
-          </div>
-        )}
 
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
           <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-600">
             {post.category}
           </span>
-          <span>By {post.author}</span>
-          <span>·</span>
-          <span>
-            {new Date(post.publishedAt).toLocaleDateString("en-US", {
+          <time dateTime={post.published}>
+            {new Date(post.published).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
-          </span>
+          </time>
           <span>·</span>
-          <span>{readTime(post.content)} min read</span>
+          <span>{readTime(post.body)} min read</span>
         </div>
 
         <h1 className="mt-6 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
@@ -114,10 +113,12 @@ export default async function BlogPostPage({
         </h1>
 
         {/* Content */}
-        <div
-          className="prose-revia mt-10"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        {/* Typed blocks, rendered by the same component /news uses. The page
+            used to inject stored HTML with dangerouslySetInnerHTML — which is
+            how the article text stayed outside every check this repo runs. */}
+        <div className="prose-revia mt-10">
+          <PostBody body={post.body} slug={post.slug} />
+        </div>
       </article>
 
       {/* Related */}
@@ -127,7 +128,7 @@ export default async function BlogPostPage({
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {related.map((r) => (
               <Link
-                key={r.id}
+                key={r.slug}
                 href={`/blog/${r.slug}`}
                 className="group rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm transition hover:shadow-md hover:-translate-y-1"
               >
@@ -136,7 +137,7 @@ export default async function BlogPostPage({
                   {r.title}
                 </h3>
                 <p className="mt-2 text-sm text-neutral-500 line-clamp-2">
-                  {r.excerpt}
+                  {r.summary}
                 </p>
               </Link>
             ))}

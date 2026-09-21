@@ -27,6 +27,14 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+# Any local copy of an env file, however it was named. The rule above covered
+# .env and .env*.local only, and a `git add -A` swept up .env.bak.<timestamp>
+# with live Resend, OpenAI and EasyPost keys in it. GitHub push protection
+# stopped that one; the next name would not have been caught by anything here.
+.env.*
+*.env
+.env.bak*
+*.bak
 
 # vercel
 .vercel
@@ -47,3 +55,9 @@ prisma/seed-original-backup.ts
 CLAUDE.md
 AGENTS.md
 ReVia-transfer-prompt.md
+.env*
+
+# .env.example is the documented template, not a secret. Every rule above
+# matches it — `.env.*`, `*.env` and `.env*` each catch it — so without this
+# negation it silently never commits, which is the whole reason it was missing.
+!.env.example

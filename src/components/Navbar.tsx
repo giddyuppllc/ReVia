@@ -3,39 +3,36 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Menu, X, User } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, User } from "lucide-react";
 import { motion } from "framer-motion";
-import { useCartStore } from "@/store/cart";
+import PartnerShopButton from "@/components/PartnerShopButton";
 
+/*
+ * The nav a brand-and-record site should have.
+ *
+ * It led with "Shop" on a site that sells nothing, and it did not carry
+ * /washington or /research at all — so Mike Stone's five statements to the FDA
+ * advisory committee, 3,300 words of verbatim public record with webcast
+ * timecodes, and the 38-compound library were reachable only from a footer link
+ * and a guess. Those are the two strongest things here and they were the two
+ * hardest to find.
+ *
+ * Ordered as an argument rather than as a menu: what we stand on (Washington),
+ * what we publish (Research, News), what we are (About).
+ */
 const navLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/shop?category=stacks", label: "Stacks" },
-  { href: "/why-us", label: "Why Us" },
+  { href: "/washington", label: "Washington" },
+  { href: "/research", label: "Research" },
+  { href: "/news", label: "News" },
   { href: "/learn", label: "Learn" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [user, setUser] = useState<{ role: string } | null>(null);
   const pathname = usePathname();
-  const toggleCart = useCartStore((s) => s.toggleCart);
-  const totalItems = useCartStore((s) => s.totalItems)();
-
-  useEffect(() => { setMounted(true); }, []);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        setUser(data?.user ?? null);
-      })
-      .catch(() => {});
-  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-sky-200/60 bg-stone-50/80 backdrop-blur-xl">
@@ -52,7 +49,7 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center justify-center gap-6">
           {navLinks.map((link) => (
             <motion.li key={link.href} className="relative" whileHover="hover" initial="rest" animate="rest">
-              <Link href={link.href} className="relative block pb-1">
+              <Link href={link.href} className="relative block pt-2 pb-1.5">
                 <motion.span
                   className="text-sm font-semibold uppercase tracking-wide inline-block"
                   variants={{
@@ -82,37 +79,16 @@ export default function Navbar() {
         {/* Right — Actions */}
         <div className="flex flex-1 items-center justify-end gap-3">
           {/* US Manufactured badge */}
-          <div className="hidden items-center gap-1.5 rounded-full border border-sky-200/60 bg-sky-50/80 px-3 py-1.5 sm:flex">
+          <div className="hidden items-center gap-1.5 border-l border-[#3D3229]/12 pl-4 sm:flex">
             <Image src="/images/us-flag.png" alt="US Flag" width={20} height={14} className="h-3.5 w-5 object-contain" />
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-stone-600">US Made</span>
+            <span className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-[#3D3229]/55">US Made</span>
           </div>
 
-          {user ? (
-            <>
-              {user.role === "admin" && (
-                <Link href="/admin" className="hidden text-sm font-medium text-stone-600 hover:text-stone-600 sm:block">
-                  Admin
-                </Link>
-              )}
-              <Link href="/account" className="flex items-center gap-1.5 rounded-xl p-2 text-stone-600 transition hover:bg-sky-50" aria-label="Account">
-                <User className="h-5 w-5" />
-                <span className="hidden text-sm font-medium sm:inline">Account</span>
-              </Link>
-            </>
-          ) : (
-            <Link href="/login" className="hidden text-sm font-medium text-stone-600 hover:text-stone-600 sm:block">
-              Login
-            </Link>
-          )}
-
-          <button onClick={() => user ? toggleCart() : router.push("/login")} className="relative rounded-xl p-2 text-stone-600 transition hover:bg-sky-50" aria-label="Open cart">
-            <ShoppingCart className="h-5 w-5" />
-            {mounted && totalItems > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 text-[10px] font-bold text-white">
-                {totalItems > 99 ? "99+" : totalItems}
-              </span>
-            )}
-          </button>
+          {/* Accounts, admin and login went with the store. Nothing here needs
+              a session any more. */}
+          <PartnerShopButton audience="d2c" size="sm" variant="outline" className="min-h-9 whitespace-nowrap max-sm:hidden">
+            Where to buy
+          </PartnerShopButton>
 
           <button onClick={() => setMobileOpen(!mobileOpen)} className="rounded-xl p-2 text-stone-600 hover:bg-sky-50 md:hidden" aria-label="Toggle menu">
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -130,19 +106,11 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            {user ? (
-              <li>
-                <Link href="/account" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-stone-600 hover:bg-sky-50">
-                  Account
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link href="/login" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-stone-600 hover:bg-sky-50">
-                  Login
-                </Link>
-              </li>
-            )}
+            <li className="pt-1">
+              <PartnerShopButton audience="d2c" size="md" variant="outline" className="w-full justify-center">
+                Where to buy
+              </PartnerShopButton>
+            </li>
           </ul>
         </div>
       )}

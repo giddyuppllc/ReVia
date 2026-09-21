@@ -34,9 +34,9 @@ export default async function ResearchPage({
           Compound Research Library
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-stone-500">
-          Published research summaries for peptides, small molecules, and amino
-          acid blends. All compounds carry a Research Use Only (RUO) designation
-          and are intended for laboratory research purposes.
+          Research summaries for peptides, small molecules, and amino acid blends,
+          built from the published literature. Every compound is Research Use Only
+          (RUO) and intended for laboratory research.
         </p>
       </div>
 

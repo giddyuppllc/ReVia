@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import WhyReVia from "@/components/WhyReVia";
 
 export const metadata: Metadata = {
-  title: "Why ReVia | ReVia Research Supply",
+  title: "Why ReVia | Every Lot Tested, Every Certificate Verifiable",
   description:
-    "Learn what sets ReVia apart — US-manufactured, cGMP & ISO certified, >99% purity, per-batch COAs, and the most rigorous testing in the industry.",
+    "What sets ReVia apart — every lot finished and tested in the United States, and a certificate for that lot naming the laboratory, the method, the limits and the results on every batch.",
   alternates: { canonical: "https://revialife.com/why-us" },
 };
 

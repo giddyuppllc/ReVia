@@ -40,9 +40,10 @@ export default function DisclaimerPage() {
 
       <h2>1A. Manufacturing Standards</h2>
       <p>
-        Our products are manufactured in cGMP-compliant, ISO-certified,
-        FDA-registered facilities in the United States. Certificates of
-        compliance and Safety Data Sheets (SDS) are available upon request at{" "}
+        Every lot we supply is finished and tested in the United States. An
+        independent laboratory tests each lot and issues a certificate naming
+        the lot, the method, the limits and the results. Certificates and Safety
+        Data Sheets (SDS) are available on request at{" "}
         <a
           href="mailto:orders@revialife.com"
           className="text-blue-600 hover:underline"
