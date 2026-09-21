@@ -37,7 +37,8 @@
  * To switch the whole site over when the brand domain lands, change this one
  * constant — or set NEXT_PUBLIC_I2B_ORIGIN, which wins if present.
  */
-const I2B_ORIGIN_FALLBACK: string | null = "https://i2bhealth.vercel.app";
+// i2b moved to its own domain on Hetzner, 21 Sep (it sells; revialife does not).
+const I2B_ORIGIN_FALLBACK: string | null = "https://i2bhealth.com";
 
 const i2bOrigin: string | null =
   process.env.NEXT_PUBLIC_I2B_ORIGIN?.replace(/\/+$/, "") || I2B_ORIGIN_FALLBACK;
