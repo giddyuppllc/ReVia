@@ -87,9 +87,14 @@ export default function TheRecord() {
             homepage at 390px, and the only overflowing route on the site. */}
         <div className="grid min-w-0 pb-14 pt-10 sm:pb-20 lg:grid-cols-3">
           {columns.map((col, i) => (
-            <Rise key={col.heading} delay={0.08 * i} className="border-t border-[#3D3229]/12 lg:border-t-0 lg:border-l lg:border-[#3D3229]/12 lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0">
+            <Rise key={col.heading} delay={0.08 * i} className="min-w-0 border-t border-[#3D3229]/12 lg:border-t-0 lg:border-l lg:border-[#3D3229]/12 lg:px-8 lg:first:border-l-0 lg:first:pl-0 lg:last:pr-0">
               <Link href={col.href} className="group block py-6 lg:py-0">
-                <div className="flex items-baseline gap-3">
+                {/* min-w-0 AND wrap. A grid item defaults to min-width:auto,
+                    so min-w-0 on the grid alone — which is what was here — does
+                    nothing: the ITEM still refuses to shrink below its content.
+                    The heading and its count sat on one unbreakable line and
+                    pushed the page 81px wider than a 390px phone. */}
+                <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
                   <Heading as="h3" className="text-[1.3125rem]">
                     {col.heading}
                   </Heading>
