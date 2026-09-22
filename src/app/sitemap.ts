@@ -66,6 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url("/why-us", 0.6, "monthly"),
     url("/stacks", 0.5, "monthly"),
     url("/faq", 0.5, "monthly"),
+    url("/work-with-us", 0.6, "monthly"),
     url("/contact", 0.5, "monthly"),
 
     // Geo. The city hubs are listed in full; of the product pages only the
