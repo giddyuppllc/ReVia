@@ -25,7 +25,35 @@ import type { ReactNode } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** Rises into place once, on entry. The only motion primitive on the site. */
+/**
+ * Rises into place once, on entry. The only motion primitive on the site.
+ *
+ * ## Why the reduced-motion branch is still a motion.div
+ *
+ * It used to be `if (still) return <div className={className}>…</div>`, which
+ * reads as the correct thing to do and rendered nothing at all.
+ *
+ * `useReducedMotion()` cannot know the preference on the server, so it comes
+ * back falsy there and the animated branch is what gets prerendered — a div
+ * carrying framer's own inline `style="opacity:0;transform:translateY(14px)"`.
+ * On the client the hook resolves to true and the component returns a plain
+ * div. React sees the same `div` tag in the same slot, keeps the existing DOM
+ * node, and has nothing to say about `style` because the plain branch never
+ * set it — that attribute was written imperatively by framer, not by React. So
+ * the node keeps `opacity: 0`, `whileInView` is no longer there to clear it,
+ * and every section wrapped in a Rise stays invisible for exactly the readers
+ * who asked for less movement.
+ *
+ * Staying on motion.div in both branches keeps framer the owner of that inline
+ * style, so it writes `opacity: 1` on the reduced path instead of abandoning a
+ * zero. Nothing animates: `initial` already is the resting state, and there is
+ * no `whileInView` to animate towards.
+ *
+ * Measured at 390px with Playwright's `reducedMotion: "reduce"`, before and
+ * after. `ScrollReveal` and the footer's `AnimatedContainer` carry the same
+ * shape of bug and are not touched here — they belong to the pages outside the
+ * record design system.
+ */
 export function Rise({
   children,
   delay = 0,
@@ -36,14 +64,13 @@ export function Rise({
   className?: string;
 }) {
   const still = useReducedMotion();
-  if (still) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
+      initial={still ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+      whileInView={still ? undefined : { opacity: 1, y: 0 }}
+      viewport={still ? undefined : { once: true, margin: "-80px" }}
+      transition={still ? undefined : { duration: 0.7, delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -61,7 +88,11 @@ export function DrawRule({ className = "", delay = 0 }: { className?: string; de
   return (
     <motion.div
       className={`h-px w-full origin-left bg-[#3D3229]/18 ${className}`}
-      initial={still ? undefined : { scaleX: 0 }}
+      // `undefined` here left the prerendered scaleX(0) in place on the client
+      // for the same reason described on Rise above, so every hairline on the
+      // page was drawn at zero width. Stating the resting state explicitly is
+      // what clears it.
+      initial={still ? { scaleX: 1 } : { scaleX: 0 }}
       whileInView={still ? undefined : { scaleX: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.9, delay, ease: EASE }}
