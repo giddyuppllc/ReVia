@@ -19,7 +19,12 @@ import PartnerShopButton from "@/components/PartnerShopButton";
  * hardest to find.
  *
  * Ordered as an argument rather than as a menu: what we stand on (Washington),
- * what we publish (Research, News), what we are (About).
+ * what we publish (Research, News), what we are (About), and who we work with.
+ *
+ * "Work with us" sits immediately before Contact because it is the same act —
+ * every route on that page ends at the contact form — and a reader who wants to
+ * approach us should meet the page that tells them what to put in the message
+ * before they meet the empty box.
  */
 const navLinks = [
   { href: "/washington", label: "Washington" },
@@ -27,6 +32,7 @@ const navLinks = [
   { href: "/news", label: "News" },
   { href: "/learn", label: "Learn" },
   { href: "/about", label: "About" },
+  { href: "/work-with-us", label: "Work with us" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -46,7 +52,10 @@ export default function Navbar() {
         </div>
 
         {/* Center — Nav links */}
-        <ul className="hidden md:flex items-center justify-center gap-6">
+        {/* gap-4 up to lg: the row gained a seventh item, and at the md
+            breakpoint the links, the logo and the right-hand controls are
+            already close to the full 768px. Unchanged from lg up. */}
+        <ul className="hidden md:flex items-center justify-center gap-4 lg:gap-6">
           {navLinks.map((link) => (
             <motion.li key={link.href} className="relative" whileHover="hover" initial="rest" animate="rest">
               <Link href={link.href} className="relative block pt-2 pb-1.5">

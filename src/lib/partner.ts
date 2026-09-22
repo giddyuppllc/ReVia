@@ -76,6 +76,34 @@ export function b2bUrl(path: B2BPath = "home"): string {
   return `${B2B.origin}${B2B_PATHS[path]}`;
 }
 
+/* ------------------------ Guides: ReViaWell ----------------------- */
+
+/**
+ * ReViaWell, the guides property — and the third destination the home page
+ * router offers.
+ *
+ * It was already in REVIA_NETWORK below as a bare string. Lifting it into a
+ * constant is not tidying: the practitioner route is now linked from the top of
+ * the home page as well as from the directory, and this module's whole premise
+ * is that a URL typed twice is the one that drifts when a domain moves.
+ */
+export const WELL = {
+  name: "ReViaWell",
+  origin: "https://reviawell.com",
+} as const;
+
+/** Paths checked live rather than assumed — both answered 200 on 2026-09-22. */
+export const WELL_PATHS = {
+  home: "/",
+  practitioner: "/practitioner",
+} as const;
+
+export type WellPath = keyof typeof WELL_PATHS;
+
+export function wellUrl(path: WellPath = "home"): string {
+  return `${WELL.origin}${WELL_PATHS[path]}`;
+}
+
 /* --------------------------- The network --------------------------- */
 
 export interface NetworkSite {
@@ -145,11 +173,11 @@ export const REVIA_NETWORK: NetworkSite[] = [
   },
   {
     id: "well",
-    name: "ReViaWell",
+    name: WELL.name,
     audience: "Buyers doing their homework",
     tagline:
       "Buyer's guides: how to vet a supplier, how to read a certificate, and where the FDA process stands.",
-    url: "https://reviawell.com",
+    url: WELL.origin,
   },
 ];
 

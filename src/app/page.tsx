@@ -1,3 +1,4 @@
+import ConciergeRouter from "@/components/record/ConciergeRouter";
 import TestimonyHero from "@/components/record/TestimonyHero";
 import Positioning, { KnowMore } from "@/components/record/Positioning";
 import TheStandard from "@/components/record/TheStandard";
@@ -17,8 +18,11 @@ import NewsletterBanner from "@/components/NewsletterBanner";
  * Solvents — Complies" — three claims this site's own build gate forbids, sitting
  * in a JPEG where no checker can reach them.
  *
- * What is here instead is an argument in four movements:
+ * What is here instead is an argument in four movements, with a router in
+ * front of it:
  *
+ *   0. the router    — three doors, for a reader who already knows what they
+ *                      are and does not need the argument
  *   1. the testimony — the founder, on the federal record, with a timecode
  *   2. why it exists — the standard he built for his own family, and the four
  *                      things ReVia can show for it
@@ -26,6 +30,9 @@ import NewsletterBanner from "@/components/NewsletterBanner";
  *   4. how to buy    — the questions to ask anyone, ours answered
  *   5. the record    — what this site publishes
  *   6. the group     — who serves whom, and under which rules
+ *
+ * The router is numbered zero on purpose. It is a directory of other companies,
+ * not an offer, and it must not become the thing the page opens with.
  *
  * Nothing on it is for sale, and there is no photograph of a product anywhere.
  * The authority is meant to come from what can be checked.
@@ -39,6 +46,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      <ConciergeRouter />
       <TestimonyHero />
       <Positioning />
       <TheStandard />
