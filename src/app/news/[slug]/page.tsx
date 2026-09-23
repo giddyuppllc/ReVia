@@ -102,6 +102,7 @@ export default async function NewsPostPage({
                 year: "numeric",
                 month: "long",
                 day: "numeric",
+              timeZone: "UTC",
               })}
             </time>
           </div>

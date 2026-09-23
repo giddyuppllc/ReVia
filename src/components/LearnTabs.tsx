@@ -157,10 +157,21 @@ export default function LearnTabs({
                       {post.summary}
                     </p>
                     <p className="mt-4 text-xs text-neutral-400">
+                      {/* timeZone: "UTC", or the server and the browser disagree.
+                          Without it the server formats the date in UTC and the
+                          reader's browser formats it in their own zone, so a post
+                          published late in the day renders as two different dates
+                          in the same markup — React then throws hydration error
+                          #418 and discards the server HTML for that subtree. It
+                          was the only console error anywhere on the site.
+
+                          A publication date has no time of day worth honouring,
+                          so pinning it to UTC is also the more correct reading. */}
                       {new Date(post.published).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
+                        timeZone: "UTC",
                       })}
                     </p>
                   </div>

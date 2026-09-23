@@ -116,6 +116,7 @@ export default async function NewsIndex({
                             year: "numeric",
                             month: "short",
                             day: "numeric",
+              timeZone: "UTC",
                           })}
                         </time>
                         <p className="mt-1 uppercase tracking-[0.14em] text-sky-700">

@@ -90,6 +90,7 @@ export default async function BlogPage({
                   year: "numeric",
                   month: "long",
                   day: "numeric",
+              timeZone: "UTC",
                 })}
               </p>
             </div>
